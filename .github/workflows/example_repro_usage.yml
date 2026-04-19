@@ -1,0 +1,49 @@
+# This workflow demonstrates how to use AION Repro in CI.
+# It is not required for using the tool.
+
+name: Example – AION Repro Usage
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+
+jobs:
+  repro-example:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
+
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build AION
+        run: cargo build --release -p aion -p repro
+
+      - name: First capture
+        run: ./target/release/aion repro run -- echo "hello from CI"
+
+      - name: Second capture with changed env
+        run: |
+          DEMO_VAR=foo ./target/release/aion repro run -- echo foo
+          DEMO_VAR=bar ./target/release/aion repro run -- echo bar
+
+      - name: Show diff and why
+        run: |
+          ./target/release/aion repro diff last prev
+          ./target/release/aion repro why last prev
+
+      # Optional but nice for transparency
+      - name: List repro_runs directory
+        run: ls -R repro_runs || true
