@@ -1,0 +1,18 @@
+[package]
+name = "aion"
+version = "0.1.0"
+edition = "2021"
+description = "AION platform CLI — user-facing entry for deterministic execution tools"
+license = "MIT"
+
+[lib]
+name = "aion"
+path = "src/lib.rs"
+
+[[bin]]
+name = "aion"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+repro = { path = "../repro" }

@@ -1,0 +1,11 @@
+[workspace]
+resolver = "2"
+members = ["aion", "repro"]
+default-members = ["aion", "repro"]
+# Path dependency `repro` → `cos/core` is not a workspace member; keep it out of `cargo metadata` workspace_members.
+exclude = ["cos/core"]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1

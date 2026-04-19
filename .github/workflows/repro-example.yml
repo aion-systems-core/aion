@@ -1,0 +1,35 @@
+# Example: run tests through the repro CI ledger (no marketplace actions beyond checkout/upload).
+name: repro CI example
+on:
+  push:
+    paths:
+      - "repro/**"
+      - "aion/**"
+      - ".github/workflows/repro-example.yml"
+  pull_request:
+    paths:
+      - "repro/**"
+      - "aion/**"
+      - ".github/workflows/repro-example.yml"
+
+defaults:
+  run:
+    working-directory: repro
+
+jobs:
+  repro-ci:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install repro
+        run: cargo install --path .
+      - name: Run tests with repro CI capture
+        run: repro ci run -- cargo test
+      - name: List CI ledger runs
+        run: repro ci list
+      - name: Upload repro_ci_store
+        uses: actions/upload-artifact@v4
+        with:
+          name: repro-ci-store
+          path: repro/repro_ci_store/

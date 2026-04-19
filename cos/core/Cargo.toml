@@ -1,0 +1,13 @@
+[package]
+name = "cos_core"
+version = "0.1.0"
+edition = "2021"
+publish = false
+description = "COS deterministic core: audit, replay, and evidence types (Wave 1 extraction)."
+license = "MIT OR Apache-2.0"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }

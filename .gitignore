@@ -1,0 +1,30 @@
+/target
+**/target
+*.log
+*.tmp
+repro_runs/
+repro_ci_store/
+**/repro_ci_store/
+
+# Legacy / internal trees not part of the public 1.0.0 workspace (see root Cargo.toml).
+/cognitive_os_v14/
+/cos-v1/
+/cos/governance/
+/cos/runtime/
+/cos/adapters/
+/cos/kernel_behavior_tests/
+/cos/tools/
+/scripts/
+
+# Reports, landing, and other non-product assets (not required to build aion/repro).
+/PHASE*.md
+/convergence_strategy_v1.md
+/cos_v1_CONVERGENCE_MAP.md
+/drift_hotspot_report.md
+/semantic_unification_map.md
+/system_role_boundary_matrix.md
+/landing-preview.html
+/landing-v3/
+/cos/CONVERGENCE_LOCK.md
+/cos/PHASE5_CYCLE_REPORT.md
+/cos/core/*.md

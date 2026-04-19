@@ -1,0 +1,44 @@
+[package]
+name = "repro"
+version = "0.1.0"
+edition = "2021"
+description = "AION Repro — deterministic debugging for execution (diff, why, replay)"
+license = "MIT"
+
+[lib]
+name = "repro"
+path = "src/lib.rs"
+
+[[bin]]
+name = "repro"
+path = "src/main.rs"
+
+[dependencies]
+clap = { version = "4", features = ["derive"] }
+cos_core = { path = "../cos/core" }
+serde = { version = "1", features = ["derive"] }
+serde_json = { version = "1", features = ["preserve_order"] }
+sha2 = "0.10"
+
+[dev-dependencies]
+serde_json = { version = "1", features = ["preserve_order"] }
+
+[[test]]
+name = "e2e"
+path = "tests/e2e.rs"
+
+[[test]]
+name = "determinism"
+path = "tests/determinism.rs"
+
+[[test]]
+name = "ci_ledger"
+path = "tests/ci_ledger.rs"
+
+[[test]]
+name = "repro_real_scenario_1"
+path = "tests/repro_real_scenario_1.rs"
+
+[[test]]
+name = "execution_semantics"
+path = "tests/execution_semantics/mod.rs"
