@@ -1,135 +1,92 @@
-# AION
-
+AION
 AION is a deterministic execution truth layer for debugging, comparison, and reproducible automation.
 
-It captures what actually happens during a command, compares executions deterministically, and explains why they differ.
+It captures what actually happened during a command, compares executions deterministically, and explains why they differ.
 
 If the same command behaves differently across machines, environments, or time — AION makes the difference visible.
 
----
+Why AION exists
+Commands do not behave consistently.
 
-## Why AION exists
+The same command can produce different results across machines, environments, or time.
 
-Modern execution is not stable.
+Logs are incomplete.
+Debuggers do not capture environment drift.
+CI systems hide nondeterminism instead of explaining it.
 
-The same command can behave differently across environments, time, or systems.
-
-- Logs are incomplete  
-- Debuggers miss environment drift  
-- CI systems hide nondeterminism  
-- Failures are often non-reproducible  
+Reproducibility is broken in practice.
 
 AION exists to make execution behavior:
 
-- visible  
-- comparable  
-- explainable  
-- reproducible  
+visible
 
----
+comparable
 
-## What AION is
+explainable
 
+reproducible
+
+What AION is
 AION is a system for deterministic execution analysis.
 
-It is composed of surfaces:
+It is composed of multiple surfaces:
 
-- **Repro** — capture, diff, explain, replay execution  
-- **Graph** — causal execution relationships (future)  
-- **Envelope** — deterministic execution contracts (future)  
-- **Inspect** — execution introspection (future)  
+Repro — deterministic capture, diff, why, replay
 
-Repro is the first public surface.
+Graph — execution relationships and causality (future)
 
----
+Envelope — deterministic execution contracts (future)
 
-## 5-second proof
+Trace — event-based execution recording (future)
 
-aion repro run -- echo hello  
-aion repro diff last prev  
-aion repro why last prev  
+Inspect — execution introspection (future)
 
-This captures a run, compares it, and explains differences deterministically.
+Repro is the first available surface.
 
----
+5-second proof
+bash
+aion repro run -- echo hello
+aion repro diff last prev
+aion repro why last prev
+AION captures executions, compares them, and explains the difference.
 
-## What you get
+What you get
+Capture — see exactly what happened during a run
 
-- Capture execution output, exit code, environment fingerprint  
-- Compare runs deterministically  
-- Explain differences via environment alignment  
-- Replay stored output without re-execution  
+Compare — see what changed between runs
 
-All runs are stored locally under:
+Explain — understand why it changed
 
-./repro_runs/
+Replay — reproduce output without re-running
 
----
+Artifacts are stored locally under ./repro_runs/.
 
-## Installation
+Installation
+From the repository root:
 
-cargo build --release -p aion -p repro  
+bash
+cargo build --release -p aion -p repro
 export PATH="$PWD/target/release:$PATH"
+Quickstart
+bash
+aion repro run -- echo hello
+aion repro replay last
+aion repro diff last prev
+aion repro why last prev
+Examples
+Runnable examples are available in:
 
-This installs the `aion` CLI with the `repro` surface enabled.
+examples/basic_run.sh
 
----
+examples/diff_example.sh
 
-## Quickstart
+examples/why_analysis.sh
 
-aion repro run -- echo hello  
-aion repro replay last  
-aion repro diff last prev  
-aion repro why last prev  
+Release
+See RELEASE.md for version information and changes.
 
----
+Contributing
+See CONTRIBUTING.md.
 
-## Examples
-
-- examples/basic_run.sh  
-- examples/diff_example.sh  
-- examples/why_analysis.sh  
-
----
-
-## Scope
-
-This release includes:
-
-- Repro CLI  
-- Deterministic execution capture  
-- Execution comparison (diff)  
-- Root-cause explanation (why)  
-- Replay from stored execution traces  
-
-Future surfaces:
-
-- Graph (causal execution graphs)  
-- Envelope (execution contracts)  
-- Inspect (execution introspection)  
-
----
-
-## Stability
-
-- Deterministic execution is enforced  
-- Output comparisons are stable across runs  
-- Replay produces identical output to original capture  
-- Tests verify execution consistency  
-
-AION is designed to behave the same way today, tomorrow, and across machines.
-
----
-
-## Notes
-
-- All data is local — no external services required  
-- Designed for CI, debugging, and reproducible workflows  
-- No internal system architecture is exposed  
-- Works with any command that can be executed from a shell  
-
----
-
-## License
-
+License
 MIT
