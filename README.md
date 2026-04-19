@@ -84,7 +84,8 @@ Runnable examples are available in:
 * examples/diff_example.sh  
 * examples/why_analysis.sh
 
-  ## Release
+
+## Release
 
 See RELEASE.md for version information and changes.
 
