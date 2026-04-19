@@ -51,45 +51,68 @@ Repro is the first available surface.
 aion repro run -- echo hello
 aion repro diff last prev
 aion repro why last prev
+```
+
 AION captures executions, compares them, and explains the difference.
 
-What you get
-Capture — see exactly what happened during a run
+---
 
-Compare — see what changed between runs
+## What you get
 
-Explain — understand why it changed
+* Capture — see exactly what happened during a run  
+* Compare — see what changed between runs  
+* Explain — understand why it changed  
+* Replay — reproduce output without re-running  
 
-Replay — reproduce output without re-running
+Artifacts are stored locally under `./repro_runs/`.
 
-Artifacts are stored locally under ./repro_runs/.
+---
 
-Installation
+## Installation
+
 From the repository root:
 
-bash
+```bash
 cargo build --release -p aion -p repro
 export PATH="$PWD/target/release:$PATH"
-Quickstart
-bash
+```
+
+---
+
+## Quickstart
+
+```bash
 aion repro run -- echo hello
 aion repro replay last
 aion repro diff last prev
 aion repro why last prev
-Examples
+```
+
+---
+
+## Examples
+
 Runnable examples are available in:
 
-examples/basic_run.sh
+* examples/basic_run.sh  
+* examples/diff_example.sh  
+* examples/why_analysis.sh  
 
-examples/diff_example.sh
+---
 
-examples/why_analysis.sh
+## Release
 
-Release
 See RELEASE.md for version information and changes.
 
-Contributing
+---
+
+## Contributing
+
 See CONTRIBUTING.md.
 
-License
+---
+
+## License
+
 MIT
+```
