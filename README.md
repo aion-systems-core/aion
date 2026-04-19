@@ -1,58 +1,95 @@
 # AION
 
-**AION** is a small command-line surface for **deterministic execution debugging**: capture what a command actually did, compare captures, reason about differences, and replay recorded output without running the command again.
+AION is a deterministic execution truth layer for debugging, comparison, and reproducible automation.
 
-The **repro** tool is the first capability on that surface. Day to day you invoke it as **`aion repro …`** so scripts, docs, and muscle memory stay on one entrypoint.
+It captures what actually happened during a command, compares executions deterministically, and explains why they differ.
 
----
-
-## What you get
-
-| Area | What it gives you |
-|------|-------------------|
-| **Capture** | Records stdout, stderr, exit code, working directory, a compact environment fingerprint, and a persistent event stream next to each run under `./repro_runs/`. |
-| **Compare** | A stable, ordered diff between two stored runs. |
-| **Explain** | In two-run mode, a short deterministic narrative when environment changes line up with output changes. |
-| **Replay** | Prints the stored stdout stream as it was recorded. |
-
-Same command on different machines or days often diverges because of **environment and output**, not a single obvious log line. AION is built to make those differences **visible**, **comparable**, and **repeatable** in the terminal.
+If you have ever seen the same command succeed once and fail the next time — AION makes the difference visible.
 
 ---
 
-## Build and install (from source)
+## Why AION exists
 
-At the repository root:
+Commands do not behave consistently.
 
-```bash
-cargo build --release -p aion -p repro
-export PATH="$PWD/target/release:$PATH"
-```
+The same command can produce different results across machines, environments, or time.
 
-A typical session:
+Logs are incomplete.
+Debuggers do not capture environment drift.
+CI systems hide nondeterminism instead of explaining it.
+
+Reproducibility is broken in practice.
+
+AION exists to make execution behavior:
+
+* visible
+* comparable
+* explainable
+* reproducible
+
+---
+
+## What AION is
+
+AION is a system for deterministic execution analysis.
+
+It is composed of multiple surfaces:
+
+* Repro — deterministic capture, diff, why, replay
+* Graph — execution relationships and causality (future)
+* Envelope — deterministic execution contracts (future)
+* Trace — event-based execution recording (future)
+* Inspect — execution introspection (future)
+
+Repro is the first available surface.
+
+---
+
+## 5-second proof
 
 ```bash
 aion repro run -- echo hello
+aion repro diff last prev
+aion repro why last prev
+AION captures executions, compares them, and explains the difference.
+
+What you get
+Capture — see exactly what happened during a run
+
+Compare — see what changed between runs
+
+Explain — understand why it changed
+
+Replay — reproduce output without re-running
+
+Artifacts are stored locally under ./repro_runs/.
+
+Installation
+From the repository root:
+
+bash
+cargo build --release -p aion -p repro
+export PATH="$PWD/target/release:$PATH"
+Quickstart
+bash
+aion repro run -- echo hello
 aion repro replay last
 aion repro diff last prev
-aion repro why <run_a> <run_b>
-```
+aion repro why last prev
+Examples
+Runnable examples are available in:
 
-Use the run ids printed after each capture, or aliases like `last` / `prev` where supported. Pair **why** always takes two ids (or aliases).
+examples/basic_run.sh
 
----
+examples/diff_example.sh
 
-## Quick flow
+examples/why_analysis.sh
 
-1. Capture two runs that should differ in a controlled way (for example, change one variable between runs with the same command).
-2. **`aion repro diff`** the two ids and confirm what moved.
-3. **`aion repro why`** the same pair when you want the short causal readout.
+Release
+See RELEASE.md for version information and changes.
 
-Runnable illustrations: `examples/basic_run.sh`, `examples/diff_example.sh`, `examples/why_analysis.sh`.
+Contributing
+See CONTRIBUTING.md.
 
----
-
-## More
-
-- **Release notes:** `RELEASE.md` (v1.0.0)
-- **Contributing:** `CONTRIBUTING.md`
-- **License:** `LICENSE` (MIT)
+License
+MIT

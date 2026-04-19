@@ -1,43 +1,71 @@
-# Contributing to AION Repro
+Contributing to AION
+AION is a deterministic system.
 
-Thanks for helping improve **AION Repro**. Keep changes focused on the **CLI experience**, documentation, and tests unless you are explicitly working on a scoped maintenance task.
+All contributions must preserve determinism.
 
-## How to try it
+Principles
+Execution must be reproducible
 
-From the repository root:
+Behavior must be explainable
 
-```bash
-cargo build -p aion -p repro
-export PATH="$PWD/target/debug:$PATH"
-aion repro run -- echo hello
-```
+Outputs must be stable
 
-Run the **Repro** test suite:
+Tests must be deterministic
 
-```bash
+Commit rules
+Every commit must:
+
+produce the same results when executed multiple times
+
+avoid nondeterministic behavior
+
+avoid time-based or random outputs unless explicitly controlled
+
+Testing rules
+All tests must:
+
+pass deterministically
+
+not depend on external state
+
+not depend on system time or randomness
+
+Run:
+
+bash
 cargo test -p repro
-```
+before submitting changes.
 
-For a full workspace check (optional, slower):
+Repro validation
+Changes must not introduce execution drift.
 
-```bash
-cargo test --workspace
-```
+Recommended validation:
 
-## Guidelines
+bash
+aion repro run -- cargo test -p repro
+aion repro run -- cargo test -p repro
+aion repro diff last prev
+The diff must not show unintended differences.
 
-- Prefer **user-facing** language in `README.md` (repo root), `RELEASE.md`, and `examples/` — no internal platform vocabulary.
-- Scripts and docs should use **`aion repro …`** as the primary command form.
-- If you change the one-line product description, update it in **one source of truth** inside the Repro crate (`CATEGORY_DEFINITION`) and keep the **root `README.md`** in sync — the integration tests enforce alignment with `--help` and `repro eval`.
+Review expectations
+Reviewers will check:
 
----
+deterministic behavior
 
-## Maintainer checklist (internal — not user-facing)
+absence of drift
 
-Use this before merging doc or packaging PRs:
+clarity of execution changes
 
-- [ ] Root **`README.md`** contains none of: `cos`, `cos_core`, `kernel`, `ExecutionArtifact`, `ExecutionTrace`, internal module paths as “architecture.”
-- [ ] **`examples/*.sh`** only use `aion repro …` and contain no internal terminology.
-- [ ] **`RELEASE.md`** is self-contained enough to paste into GitHub Releases as-is.
-- [ ] A new reader can understand **what to install and which three commands to run** in under **two minutes** using only the root README + one example script.
-- [ ] `cargo test -p repro` passes after your change.
+Scope
+Public-facing changes should:
+
+use aion repro ... in examples
+
+avoid internal terminology
+
+remain consistent with README.md
+
+Releases
+Releases represent stable, reproducible states.
+
+Do not introduce nondeterminism before tagging a release.
