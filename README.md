@@ -21,7 +21,7 @@ Deterministic run capture and replay.
 - Diff and why-analysis
 - Reproducible artifacts
 
-See: `crates/aion-repro/README.md`
+See: [crates/aion-repro/README.md](crates/aion-repro/README.md)
 
 ---
 
@@ -33,7 +33,7 @@ Deterministic CI drift detection.
 - Optional duration tolerance
 - Stable CI exit codes
 
-See: `crates/aion-guard/README.md`
+See: [crates/aion-guard/README.md](crates/aion-guard/README.md)
 
 ---
 
