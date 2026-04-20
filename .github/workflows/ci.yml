@@ -1,0 +1,43 @@
+# Continuous integration: format, build, test, and lint the Rust workspace.
+# Fails the job if any command exits non-zero.
+
+name: CI
+
+on:
+  # All pushes on any branch.
+  push:
+  # Pull requests whose base branch is main.
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  rust:
+    name: Rust (stable)
+    runs-on: ubuntu-latest
+    steps:
+      # Clone the repository at the triggering ref.
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # Pin the stable toolchain; include rustfmt and clippy for later steps.
+      - name: Install stable Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+
+      # Enforce rustfmt without writing files.
+      - name: Check formatting
+        run: cargo fmt --all -- --check
+
+      # Compile every crate and target in the workspace (libs, bins, tests, benches).
+      - name: Build workspace
+        run: cargo build --workspace --all-targets
+
+      # Run all unit and integration tests.
+      - name: Run tests
+        run: cargo test --workspace
+
+      # Deny all Clippy warnings across the workspace.
+      - name: Run Clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
