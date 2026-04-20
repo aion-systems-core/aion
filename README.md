@@ -1,61 +1,73 @@
-# AION — Deterministic Execution OS
+# AION — Deterministic Execution Tools
 
-AION is a deterministic Execution-OS for CI/CD, developer workflows, and enterprise automation.  
-This public repository contains tooling only. The kernel is private (`aion-kernel`).
+AION provides deterministic execution tools for CI/CD, debugging, and automation.  
+This repository contains the public AION tooling:
 
-## Repository split
+- **aion-repro** — deterministic run capture, replay, diff, and why-analysis  
+- **aion-guard** — deterministic CI drift detection  
+- **aion-cli** — unified command-line interface for all AION tools  
 
-- Private repository: `aion-kernel`
-- Public repository: `aion` (this repo)
+AION tools run on top of the AION Execution Kernel, which is distributed separately.
 
-## Public architecture
+---
 
-AION OS
-|
-|-- aion-kernel (private)
-|     |-- run_execute(spec)
-|     |-- run_diff(a, b)
-|     |-- run_store(path, artifact)
-|     `-- run_load(path)
-|
-|-- aion-repro (public tool)
-|     |-- capture
-|     |-- replay/diff/why
-|     `-- C-ABI kernel client
-|
-|-- aion-guard (public tool)
-|     |-- baseline record/check
-|     |-- deterministic CI exit codes
-|     `-- C-ABI kernel client
-|
-`-- aion-cli (public router)
-      `-- routes to aion-repro / aion-guard
+## Tools
 
-## FFI boundary
+### aion-repro
+Deterministic run capture and replay.
 
-Public tools load the private kernel dynamically and call only:
+- Freeze command execution
+- Replay without re-running
+- Diff and why-analysis
+- Reproducible artifacts
 
-- `run_execute(spec)`
-- `run_diff(a, b)`
-- `run_store(path, artifact)`
-- `run_load(path)`
+See: `crates/aion-repro/README.md`
 
-Kernel loading uses:
+---
 
-- `dlopen` / `dlsym` on Unix-like systems
-- `LoadLibrary` / `GetProcAddress` on Windows
+### aion-guard
+Deterministic CI drift detection.
 
-If the kernel library is unavailable, tools fail with:
+- Baseline recording
+- Drift detection (stdout, stderr, exit code)
+- Optional duration tolerance
+- Stable CI exit codes
 
-`AION Kernel not found. Install aion-kernel or set AION_KERNEL_PATH.`
+See: `crates/aion-guard/README.md`
+
+---
+
+### aion-cli
+Unified entry point for all AION tools.
+
+```
+aion repro ...
+aion guard ...
+```
+
+---
+
+## Kernel Boundary
+
+AION tools dynamically load the AION Execution Kernel at runtime.  
+The kernel is distributed separately and is not part of this repository.
+
+If the kernel is not installed, tools will report:
+
+```
+AION Kernel not found. Install aion-kernel or set AION_KERNEL_PATH.
+```
+
+---
 
 ## Build
 
-```bash
+```
 cargo build --workspace --release
 ```
 
-## Tool READMEs
+---
 
-- [`crates/aion-repro/README.md`](crates/aion-repro/README.md)
-- [`crates/aion-guard/README.md`](crates/aion-guard/README.md)
+## License
+
+MIT (tools only)
