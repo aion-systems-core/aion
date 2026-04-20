@@ -1,46 +1,81 @@
-# AION v1.0.0 — Release notes
+# AION v1.1.0 — Deterministic Execution Tools
 
-**Release:** v1.0.0  
-**Tag:** `v1.0.0`
+**Release:** v1.1.0  
+**Tag:** `v1.1.0`  
+**Scope:** Workspace release (`aion`, `aion-repro`, `aion-guard`)
 
 ---
 
 ## Summary
 
-This is the first **product-shaped** public release of **AION**: a command-line entrypoint plus the **repro** tool for **deterministic execution debugging** — capture real runs, compare them, explain environment-linked differences when the data supports it, and replay captured **stdout** without re-executing the original command. Prefer **`aion repro …`** everywhere in docs and automation; the same tool is also available as **`repro`** when invoked directly.
+AION v1.1.0 delivers a unified deterministic execution toolchain for CI/CD, debugging, and automation.
+This release includes the full public workspace:
+
+- **aion-repro** — deterministic run capture, replay, diff, and why-analysis
+- **aion-guard** — deterministic CI drift detection
+- **aion-cli** — unified entry point for all AION tools
+
+All tools run on top of the AION Execution Kernel (distributed separately).
+The release focuses on determinism, reproducibility, and audit-ready execution artifacts.
 
 ---
 
 ## Highlights
 
-- **Run** — Local capture under `./repro_runs/` (stdout, stderr, exit, cwd, environment fingerprint, command line).
-- **Diff** — Ordered, repeatable comparison of two runs.
-- **Why** — Pair mode with a concise narrative when environment changes align with output change.
-- **Replay** — Raw stdout from the stored stream.
-- **Streams** — Sidecar event data next to each stored run for auditing and replay.
+### aion-repro — Deterministic Run Capture and Replay
+
+- Freeze command execution into reproducible artifacts
+- Replay without re-running the original command
+- Deterministic diff (`stdout`, `stderr`, `exit_code`)
+- Why-analysis for environment-linked differences
+- Stable, auditable run directories
+
+### aion-guard — Deterministic CI Drift Detection
+
+- Baseline recording for CI pipelines
+- Drift detection across `stdout`, `stderr`, `exit_code`
+- Optional duration tolerance
+- Stable deterministic CI exit codes
+- Reproducible comparisons for automation and audits
+
+### aion-cli — Unified Command Interface
+
+- Single entry point: `aion repro ...`, `aion guard ...`
+- Consistent UX across tools
+- Workspace-wide versioning
 
 ---
 
-## Deterministic debugging
+## Kernel Boundary
 
-Given the same stored inputs, comparison and formatting follow fixed rules so output stays stable for scripting and review. Live captures can still differ on time- or machine-specific fields; the **comparison story** stays structured and repeatable.
+All AION tools dynamically load the AION Execution Kernel at runtime.
+If the kernel is missing:
+
+```text
+AION Kernel not found. Install aion-kernel or set AION_KERNEL_PATH.
+```
+
+The kernel is distributed separately and is not part of this repository.
 
 ---
 
 ## Commands (overview)
 
-| Command | Role |
-|---------|------|
-| `aion repro run -- <command>` | Capture a new run |
-| `aion repro replay <id \| last>` | Print captured stdout |
-| `aion repro diff <a> <b>` | Compare two runs |
-| `aion repro why <a> <b>` | Pair explanation (environment vs output) |
+| Area | Command | Role |
+|------|---------|------|
+| repro | `aion repro run -- <command>` | Capture a run |
+| repro | `aion repro replay <id \| last>` | Replay captured stdout |
+| repro | `aion repro diff <id-a> <id-b>` | Deterministic run diff |
+| repro | `aion repro why <id-a> <id-b>` | Environment-vs-output explanation |
+| guard | `aion guard record --cmd "<command>"` | Record baseline |
+| guard | `aion guard check --cmd "<command>"` | Detect drift |
 
-Build from source at the repository root:
+---
+
+## Build
 
 ```bash
-cargo build --release -p aion -p repro
-export PATH="$PWD/target/release:$PATH"
+cargo build --workspace --release
 ```
 
 ---
@@ -50,13 +85,12 @@ export PATH="$PWD/target/release:$PATH"
 ```bash
 aion repro run -- echo hello
 aion repro replay last
-aion repro diff last prev
+aion guard record --cmd "echo hello"
+aion guard check --cmd "echo hello"
 ```
-
-Illustrative scripts: `examples/basic_run.sh`, `examples/diff_example.sh`, `examples/why_analysis.sh`.
 
 ---
 
 ## Copy-paste: GitHub release body
 
-_Use the sections from **Summary** through **Example** above as the release description. This tree is source-first; attach separate binaries if you distribute them._
+Use the sections from **Summary** through **Example** as the release description.
