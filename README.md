@@ -8,7 +8,7 @@ AION is a deterministic execution truth layer for debugging, comparison, and rep
 
 It captures what actually happened during a command, compares executions deterministically, and explains why they differ.
 
-If the same command behaves differently across machines, environments, or time — AION makes the difference visible.
+If the same command behaves differently across machines, environments, or time - AION makes the difference visible.
 
 ## About
 
