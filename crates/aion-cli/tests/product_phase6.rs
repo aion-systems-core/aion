@@ -9,11 +9,8 @@ fn test_phase6_product_files_exist() {
     let root = repo_root();
     let required = [
         ".github/workflows/ci.yml",
-        ".github/workflows/release.yml",
-        ".github/workflows/docker.yml",
+        ".github/workflows/release-check.yml",
         ".github/workflows/benchmark.yml",
-        ".github/workflows/coverage.yml",
-        ".github/workflows/signed-release.yml",
         ".github/ISSUE_TEMPLATE/bug_report.yml",
         ".github/ISSUE_TEMPLATE/feature_request.yml",
         "LICENSE",

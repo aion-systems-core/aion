@@ -14,7 +14,7 @@ fn unique_run_id(prefix: &str) -> String {
 #[test]
 fn cli_execute_ai_emits_json_summary() {
     let id = unique_run_id("cli_flow_json");
-    let out = Command::new(env!("CARGO_BIN_EXE_aion"))
+    let out = Command::new(env!("CARGO_BIN_EXE_sealrun"))
         .args([
             "--id",
             id.as_str(),
@@ -29,7 +29,7 @@ fn cli_execute_ai_emits_json_summary() {
             "--json",
         ])
         .output()
-        .expect("spawn aion");
+        .expect("spawn sealrun");
     assert!(
         out.status.success(),
         "stderr: {}",
@@ -45,7 +45,7 @@ fn cli_execute_ai_emits_json_summary() {
 #[test]
 fn cli_execute_ai_emits_human_heading() {
     let id = unique_run_id("cli_flow_human");
-    let out = Command::new(env!("CARGO_BIN_EXE_aion"))
+    let out = Command::new(env!("CARGO_BIN_EXE_sealrun"))
         .args([
             "--id",
             id.as_str(),
@@ -59,7 +59,7 @@ fn cli_execute_ai_emits_human_heading() {
             "2",
         ])
         .output()
-        .expect("spawn aion");
+        .expect("spawn sealrun");
     assert!(
         out.status.success(),
         "stderr: {}",
@@ -67,7 +67,7 @@ fn cli_execute_ai_emits_human_heading() {
     );
     let stdout = String::from_utf8_lossy(&out.stdout);
     assert!(
-        stdout.contains("AION | AI Execution OS"),
+        stdout.contains("SealRun | seal your run"),
         "expected banner, got:\n{stdout}"
     );
 }

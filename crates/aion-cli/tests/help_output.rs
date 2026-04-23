@@ -1,10 +1,10 @@
 use std::process::Command;
 
 fn help(args: &[&str]) -> String {
-    let out = Command::new(env!("CARGO_BIN_EXE_aion"))
+    let out = Command::new(env!("CARGO_BIN_EXE_sealrun"))
         .args(args)
         .output()
-        .expect("spawn aion");
+        .expect("spawn sealrun");
     assert!(
         out.status.success(),
         "stderr: {}",

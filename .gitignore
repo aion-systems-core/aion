@@ -1,5 +1,7 @@
 /target/
 aion_output/
+sealrun_output/
+**/sealrun_output/
 target/
 /.idea
 /.vscode
@@ -14,3 +16,7 @@ target/
 __pycache__/
 **/*.rs.bk
 .DS_Store
+
+# Local / transient test output (keep fixtures in-repo; ignore scratch dirs)
+**/test_scratch/
+**/*.tmp
