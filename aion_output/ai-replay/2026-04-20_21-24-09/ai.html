@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AI replay report</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;margin:2rem;line-height:1.45;color:#111}
+h1{font-size:1.35rem;margin:0 0 1rem}
+table{border-collapse:collapse;width:100%;max-width:56rem}
+th,td{border:1px solid #ccc;padding:.4rem .55rem;text-align:left;vertical-align:top}
+th{background:#f0f0f0}
+code,pre{font-family:ui-monospace,monospace;font-size:.88rem;background:#f6f6f6;padding:.15rem .35rem}
+pre{white-space:pre-wrap;word-break:break-word;padding:.75rem}
+.muted{color:#555;font-size:.9rem}
+</style>
+</head>
+<body>
+<h1>AI replay report</h1>
+<pre>{
+  &quot;tokens&quot;: [
+    &quot;emit&quot;,
+    &quot;seed&quot;,
+    &quot;kernel&quot;
+  ],
+  &quot;token_events_match&quot;: true,
+  &quot;event_stream_match&quot;: true,
+  &quot;graph_match&quot;: true,
+  &quot;why_match&quot;: true,
+  &quot;drift_against_original&quot;: {
+    &quot;changed&quot;: false,
+    &quot;fields&quot;: [],
+    &quot;details&quot;: []
+  },
+  &quot;graph&quot;: {
+    &quot;edges&quot;: [
+      {
+        &quot;from&quot;: &quot;prompt&quot;,
+        &quot;to&quot;: &quot;t0&quot;,
+        &quot;relation&quot;: &quot;conditions&quot;
+      },
+      {
+        &quot;from&quot;: &quot;model&quot;,
+        &quot;to&quot;: &quot;t0&quot;,
+        &quot;relation&quot;: &quot;routes&quot;
+      },
+      {
+        &quot;from&quot;: &quot;seed&quot;,
+        &quot;to&quot;: &quot;t0&quot;,
+        &quot;relation&quot;: &quot;seeds&quot;
+      },
+      {
+        &quot;from&quot;: &quot;t0&quot;,
+        &quot;to&quot;: &quot;t1&quot;,
+        &quot;relation&quot;: &quot;next_token&quot;
+      },
+      {
+        &quot;from&quot;: &quot;t1&quot;,
+        &quot;to&quot;: &quot;t2&quot;,
+        &quot;relation&quot;: &quot;next_token&quot;
+      }
+    ],
+    &quot;nodes&quot;: [
+      {
+        &quot;id&quot;: &quot;prompt&quot;,
+        &quot;kind&quot;: &quot;input&quot;,
+        &quot;label&quot;: &quot;hello world&quot;
+      },
+      {
+        &quot;id&quot;: &quot;model&quot;,
+        &quot;kind&quot;: &quot;config&quot;,
+        &quot;label&quot;: &quot;demo&quot;
+      },
+      {
+        &quot;id&quot;: &quot;seed&quot;,
+        &quot;kind&quot;: &quot;config&quot;,
+        &quot;label&quot;: &quot;99&quot;
+      },
+      {
+        &quot;id&quot;: &quot;t0&quot;,
+        &quot;kind&quot;: &quot;token&quot;,
+        &quot;label&quot;: &quot;emit&quot;,
+        &quot;index&quot;: 0
+      },
+      {
+        &quot;id&quot;: &quot;t1&quot;,
+        &quot;kind&quot;: &quot;token&quot;,
+        &quot;label&quot;: &quot;seed&quot;,
+        &quot;index&quot;: 1
+      },
+      {
+        &quot;id&quot;: &quot;t2&quot;,
+        &quot;kind&quot;: &quot;token&quot;,
+        &quot;label&quot;: &quot;kernel&quot;,
+        &quot;index&quot;: 2
+      }
+    ],
+    &quot;schema&quot;: &quot;aion/ai_graph/v1&quot;
+  },
+  &quot;why&quot;: {
+    &quot;summary&quot;: &quot;Emitted 3 tokens in strict index order; each token is a deterministic function of prompt (11 chars), model \&quot;demo\&quot;, seed 0x63, and determinism.random_seed. Causal chain: prompt+model+seed condition t0; each t{i} feeds t{i+1} via next_token edges in the graph.&quot;,
+    &quot;first_divergent_field&quot;: &quot;tokens&quot;,
+    &quot;suggestion&quot;: &quot;Replay uses the same seed (99) and model (demo) to reproduce the token trace; change prompt or seed to alter the trajectory.&quot;
+  }
+}</pre>
+</body>
+</html>

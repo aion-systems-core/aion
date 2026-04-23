@@ -1,0 +1,27 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "golden_paths": {
+        "paths": [
+          {
+            "scenario": "Pilot",
+            "status": "ok",
+            "steps": [
+              {
+                "action": "execute_pilot_flow",
+                "expected_outcome": "pilot_success",
+                "id": "01",
+                "precondition": "env_ready"
+              }
+            ]
+          }
+        ],
+        "status": "ok"
+      },
+      "kind": "ux_golden_paths"
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

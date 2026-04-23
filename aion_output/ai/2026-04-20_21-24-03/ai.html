@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="utf-8"><title>AI Capsule v1</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:2rem;line-height:1.45}
+table{border-collapse:collapse} td,th{border:1px solid #ccc;padding:.35rem .5rem}
+code,pre{background:#f6f6f6;padding:.2rem .4rem}
+pre{white-space:pre-wrap}
+</style>
+</head>
+<body>
+<h1>AI Capsule v1</h1>
+<p>model <code>demo</code> · seed <code>99</code> · tokens 3</p>
+<p>Prompt: hello world</p>
+<h2>Why</h2><p>Emitted 3 tokens in strict index order; each token is a deterministic function of prompt (11 chars), model &quot;demo&quot;, seed 0x63, and determinism.random_seed. Causal chain: prompt+model+seed condition t0; each t{i} feeds t{i+1} via next_token edges in the graph.</p>
+<h2>Tokens</h2><table><thead><tr><th>#</th><th>token</th><th>tick</th></tr></thead><tbody><tr><td>0</td><td><code>emit</code></td><td>0</td></tr><tr><td>1</td><td><code>seed</code></td><td>1</td></tr><tr><td>2</td><td><code>kernel</code></td><td>2</td></tr></tbody></table>
+<h2>Graph (JSON)</h2><pre>{
+  &quot;edges&quot;: [
+    {
+      &quot;from&quot;: &quot;prompt&quot;,
+      &quot;to&quot;: &quot;t0&quot;,
+      &quot;relation&quot;: &quot;conditions&quot;
+    },
+    {
+      &quot;from&quot;: &quot;model&quot;,
+      &quot;to&quot;: &quot;t0&quot;,
+      &quot;relation&quot;: &quot;routes&quot;
+    },
+    {
+      &quot;from&quot;: &quot;seed&quot;,
+      &quot;to&quot;: &quot;t0&quot;,
+      &quot;relation&quot;: &quot;seeds&quot;
+    },
+    {
+      &quot;from&quot;: &quot;t0&quot;,
+      &quot;to&quot;: &quot;t1&quot;,
+      &quot;relation&quot;: &quot;next_token&quot;
+    },
+    {
+      &quot;from&quot;: &quot;t1&quot;,
+      &quot;to&quot;: &quot;t2&quot;,
+      &quot;relation&quot;: &quot;next_token&quot;
+    }
+  ],
+  &quot;nodes&quot;: [
+    {
+      &quot;id&quot;: &quot;prompt&quot;,
+      &quot;kind&quot;: &quot;input&quot;,
+      &quot;label&quot;: &quot;hello world&quot;
+    },
+    {
+      &quot;id&quot;: &quot;model&quot;,
+      &quot;kind&quot;: &quot;config&quot;,
+      &quot;label&quot;: &quot;demo&quot;
+    },
+    {
+      &quot;id&quot;: &quot;seed&quot;,
+      &quot;kind&quot;: &quot;config&quot;,
+      &quot;label&quot;: &quot;99&quot;
+    },
+    {
+      &quot;id&quot;: &quot;t0&quot;,
+      &quot;kind&quot;: &quot;token&quot;,
+      &quot;label&quot;: &quot;emit&quot;,
+      &quot;index&quot;: 0
+    },
+    {
+      &quot;id&quot;: &quot;t1&quot;,
+      &quot;kind&quot;: &quot;token&quot;,
+      &quot;label&quot;: &quot;seed&quot;,
+      &quot;index&quot;: 1
+    },
+    {
+      &quot;id&quot;: &quot;t2&quot;,
+      &quot;kind&quot;: &quot;token&quot;,
+      &quot;label&quot;: &quot;kernel&quot;,
+      &quot;index&quot;: 2
+    }
+  ],
+  &quot;schema&quot;: &quot;aion/ai_graph/v1&quot;
+}</pre>
+</body></html>

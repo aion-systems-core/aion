@@ -1,0 +1,86 @@
+{
+  "tokens": [
+    "emit",
+    "seed",
+    "kernel"
+  ],
+  "token_events_match": true,
+  "event_stream_match": true,
+  "graph_match": true,
+  "why_match": true,
+  "drift_against_original": {
+    "changed": false,
+    "fields": [],
+    "details": []
+  },
+  "graph": {
+    "edges": [
+      {
+        "from": "prompt",
+        "to": "t0",
+        "relation": "conditions"
+      },
+      {
+        "from": "model",
+        "to": "t0",
+        "relation": "routes"
+      },
+      {
+        "from": "seed",
+        "to": "t0",
+        "relation": "seeds"
+      },
+      {
+        "from": "t0",
+        "to": "t1",
+        "relation": "next_token"
+      },
+      {
+        "from": "t1",
+        "to": "t2",
+        "relation": "next_token"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "prompt",
+        "kind": "input",
+        "label": "hello world"
+      },
+      {
+        "id": "model",
+        "kind": "config",
+        "label": "demo"
+      },
+      {
+        "id": "seed",
+        "kind": "config",
+        "label": "99"
+      },
+      {
+        "id": "t0",
+        "kind": "token",
+        "label": "emit",
+        "index": 0
+      },
+      {
+        "id": "t1",
+        "kind": "token",
+        "label": "seed",
+        "index": 1
+      },
+      {
+        "id": "t2",
+        "kind": "token",
+        "label": "kernel",
+        "index": 2
+      }
+    ],
+    "schema": "aion/ai_graph/v1"
+  },
+  "why": {
+    "summary": "Emitted 3 tokens in strict index order; each token is a deterministic function of prompt (11 chars), model \"demo\", seed 0x63, and determinism.random_seed. Causal chain: prompt+model+seed condition t0; each t{i} feeds t{i+1} via next_token edges in the graph.",
+    "first_divergent_field": "tokens",
+    "suggestion": "Replay uses the same seed (99) and model (demo) to reproduce the token trace; change prompt or seed to alter the trajectory."
+  }
+}

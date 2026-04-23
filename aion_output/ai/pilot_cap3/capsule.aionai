@@ -1,0 +1,218 @@
+{
+  "version": "1",
+  "aion_version": "1.0.0",
+  "created_at": 1776808667,
+  "policy_profile": "dev",
+  "backend_name": "dummy",
+  "prompt": "pilot-three",
+  "model": "demo",
+  "model_hash": "2a97516c354b68848cdbd8f54a226a0a55b21ed138e207ad6c5cbb9c00aa5aea",
+  "seed": 1003,
+  "determinism": {
+    "time_frozen": true,
+    "time_epoch_secs": 1776808667,
+    "random_seed": 1003,
+    "syscall_intercept": false,
+    "freeze_time": true,
+    "freeze_env": true,
+    "freeze_random": true,
+    "freeze_cwd": true,
+    "strict_replay": false,
+    "io_policy": "audit"
+  },
+  "execution_envelope": {
+    "frozen_time_ms": 1776808667207,
+    "frozen_env": {
+      "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL",
+      "USERPROFILE": "C:\\Users\\noahp"
+    },
+    "frozen_cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2",
+    "frozen_random_seed": 0,
+    "determinism_profile": {
+      "time_frozen": true,
+      "time_epoch_secs": 0,
+      "random_seed": 1003,
+      "syscall_intercept": false,
+      "freeze_time": true,
+      "freeze_env": true,
+      "freeze_random": true,
+      "freeze_cwd": true,
+      "strict_replay": false,
+      "io_policy": "audit"
+    }
+  },
+  "execution_environment": {
+    "machine_fingerprint": {
+      "cpu_features": "x86_64 windows",
+      "os_version": "windows",
+      "kernel_version": "Windows_NT",
+      "hostname_hash": "c782a998b909bc434bf4a62d28b0a9c6",
+      "binary_hash": "89a03f806a5063c9395d9a61764dd148"
+    },
+    "runtime_fingerprint": {
+      "rustc_version": "rustc 1.94.1 (e408947bf 2026-03-25)",
+      "aion_version": "1.0.0",
+      "build_hash": "4d0e42804c3c8e25",
+      "enabled_features": []
+    }
+  },
+  "tokens": [
+    "null"
+  ],
+  "token_trace": [
+    {
+      "index": 0,
+      "token": "null",
+      "token_id": 10118207069925668328,
+      "timestamp": 0
+    }
+  ],
+  "event_stream": [
+    {
+      "kind": "run_start",
+      "model": "demo"
+    },
+    {
+      "kind": "prompt_ingested",
+      "chars": 11
+    },
+    {
+      "kind": "token_generated",
+      "index": 0,
+      "token": "null"
+    },
+    {
+      "kind": "run_complete",
+      "token_count": 1
+    }
+  ],
+  "why": {
+    "why_schema_version": "2",
+    "model_version": "demo",
+    "seed": 1003,
+    "determinism_profile": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1776808667, random_seed=0x3eb, syscall_intercept=false",
+    "nodes": [
+      {
+        "id": "determinism",
+        "kind": "determinism",
+        "text": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1776808667, random_seed=0x3eb, syscall_intercept=false",
+        "position": null
+      },
+      {
+        "id": "prompt_0",
+        "kind": "prompt",
+        "text": "pilot-three",
+        "position": 0
+      },
+      {
+        "id": "seed",
+        "kind": "seed",
+        "text": "Global RNG / sampling seed: 0x3eb",
+        "position": null
+      },
+      {
+        "id": "token_0",
+        "kind": "token",
+        "text": "null",
+        "position": 0
+      }
+    ],
+    "edges": [
+      {
+        "from": "determinism",
+        "to": "token_0",
+        "weight": 0.9,
+        "reason": "Determinism profile pins time and RNG policy for the run"
+      },
+      {
+        "from": "prompt_0",
+        "to": "token_0",
+        "weight": 1.0,
+        "reason": "Prompt segment conditions the first emitted token"
+      },
+      {
+        "from": "seed",
+        "to": "token_0",
+        "weight": 0.95,
+        "reason": "Seed selects vocabulary draws for each index"
+      }
+    ],
+    "summary": "4 influence nodes, 3 causal edges, 1 emitted tokens; deterministic under the given model, prompt, seed, and determinism profile."
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "determinism",
+        "label": "model=demo; time_frozen=true; epoch=1776808667; random_seed=0x3eb; syscall_intercept=false",
+        "kind": "determinism"
+      },
+      {
+        "id": "prompt_0",
+        "label": "pilot-three",
+        "kind": "prompt"
+      },
+      {
+        "id": "seed",
+        "label": "0x3eb",
+        "kind": "seed"
+      },
+      {
+        "id": "token_0",
+        "label": "null",
+        "kind": "token"
+      }
+    ],
+    "edges": [
+      {
+        "from": "determinism",
+        "to": "token_0"
+      },
+      {
+        "from": "prompt_0",
+        "to": "token_0"
+      },
+      {
+        "from": "seed",
+        "to": "token_0"
+      }
+    ]
+  },
+  "drift": {
+    "changed": false,
+    "fields": [],
+    "details": []
+  },
+  "evidence": {
+    "run_id": "944f137f2088c47f",
+    "records": [
+      {
+        "seq": 0,
+        "kind": "run",
+        "leaf_digest": "c6d415fb8a2695454fb8f781ad84f3e9f94cc0c55b0efc63698ca12c98e29fb1",
+        "payload_digest": "1a1a098ddd4ed6dd05094f6080cad1aad211befe00889eaba4f1cefee68155cf",
+        "parent_digest": null
+      },
+      {
+        "seq": 1,
+        "kind": "policy",
+        "leaf_digest": "50b6d8588685550bba803e350353f2de1884db090fc419bbed97e48f5b9911fb",
+        "payload_digest": "4396f819cbb8f397cc66d146d083de6aa76047157594a4d165890b8a601259a7",
+        "parent_digest": "1a1a098ddd4ed6dd05094f6080cad1aad211befe00889eaba4f1cefee68155cf"
+      },
+      {
+        "seq": 2,
+        "kind": "determinism",
+        "leaf_digest": "80e5d78c5d2bca300179601036be57e5a511fce97462e9714757fa1cdd2b1e6d",
+        "payload_digest": "8dcdb57bd48abb09cd14cb45a376f7efb664ff01bd6bacbb72761713969fb5ad",
+        "parent_digest": "4396f819cbb8f397cc66d146d083de6aa76047157594a4d165890b8a601259a7"
+      },
+      {
+        "seq": 3,
+        "kind": "artifact_schema",
+        "leaf_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "payload_digest": "3c2248bafc16389147e8eefb192b6f174e0662e5e05c923963ab6a0f9fc74e09",
+        "parent_digest": "8dcdb57bd48abb09cd14cb45a376f7efb664ff01bd6bacbb72761713969fb5ad"
+      }
+    ]
+  }
+}

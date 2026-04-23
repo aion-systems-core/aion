@@ -1,0 +1,26 @@
+[
+  [
+    "audit.jsonl",
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  ],
+  [
+    "events.jsonl",
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  ],
+  [
+    "manifest.json",
+    "a6eec9057a1693da014f41a05f1dc92b277ff0ac8d1c69a46037a1f42346ad65"
+  ],
+  [
+    "replay.json",
+    "ca3d163bab055381827226140568f3bef7eaac187cebd76878e0b63e9e442356"
+  ],
+  [
+    "stderr.txt",
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  ],
+  [
+    "stdout.txt",
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+  ]
+]

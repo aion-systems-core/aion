@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="220" viewBox="0 0 1200 220">
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="rgb(60,60,60)"/></marker></defs>
+<rect width="100%" height="100%" fill="rgb(252,252,252)"/>
+<g>
+<title>determinism — model=demo; time_frozen=true; epoch=1776874214; random_seed=0x9; syscall_intercept=false</title>
+<rect x="40" y="120" width="88" height="22" rx="3" fill="rgb(245,245,245)" stroke="rgb(80,80,80)"/>
+<text x="44" y="135" font-size="9" font-family="sans-serif">determinism</text>
+</g>
+<g>
+<title>prompt_0 — cli_flow_test</title>
+<rect x="200" y="40" width="88" height="22" rx="3" fill="rgb(230,240,255)" stroke="rgb(80,80,80)"/>
+<text x="204" y="55" font-size="9" font-family="sans-serif">prompt_0</text>
+</g>
+<g>
+<title>seed — 0x9</title>
+<rect x="40" y="40" width="88" height="22" rx="3" fill="rgb(255,245,230)" stroke="rgb(80,80,80)"/>
+<text x="44" y="55" font-size="9" font-family="sans-serif">seed</text>
+</g>
+<g>
+<title>token_0 — emit</title>
+<rect x="360" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="364" y="115" font-size="9" font-family="sans-serif">token_0</text>
+</g>
+<g>
+<title>determinism → token_0</title>
+<path d="M 128 131 L 360 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>prompt_0 → token_0</title>
+<path d="M 288 51 L 360 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>seed → token_0</title>
+<path d="M 128 51 L 360 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+</svg>

@@ -1,0 +1,8 @@
+[workspace]
+members = [
+    "secure-runtime",
+    "governance-pack",
+    "cicd-pack",
+    "evidence-export",
+]
+resolver = "2"

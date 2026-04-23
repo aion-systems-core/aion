@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WhyReportV2",
+  "type": "object",
+  "required": [
+    "why_schema_version",
+    "model_version",
+    "seed",
+    "determinism_profile",
+    "nodes",
+    "edges",
+    "summary"
+  ],
+  "properties": {
+    "why_schema_version": { "type": "string" },
+    "model_version": { "type": "string" },
+    "seed": { "type": "integer", "minimum": 0 },
+    "determinism_profile": { "type": "string" },
+    "nodes": { "type": "array", "items": { "type": "object" } },
+    "edges": { "type": "array", "items": { "type": "object" } },
+    "summary": { "type": "string" }
+  }
+}

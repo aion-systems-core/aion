@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "AICapsuleV1",
+  "type": "object",
+  "required": [
+    "version",
+    "aion_version",
+    "created_at",
+    "policy_profile",
+    "prompt",
+    "model",
+    "model_hash",
+    "seed",
+    "determinism",
+    "tokens",
+    "token_trace",
+    "event_stream",
+    "why",
+    "graph",
+    "drift",
+    "evidence"
+  ],
+  "properties": {
+    "version": { "type": "string" },
+    "aion_version": { "type": "string" },
+    "created_at": { "type": "integer", "minimum": 0 },
+    "policy_profile": { "type": "string" },
+    "prompt": { "type": "string" },
+    "model": { "type": "string" },
+    "model_hash": { "type": "string" },
+    "seed": { "type": "integer", "minimum": 0 },
+    "determinism": { "type": "object" },
+    "tokens": { "type": "array", "items": { "type": "string" } },
+    "token_trace": { "type": "array", "items": { "type": "object" } },
+    "event_stream": { "type": "array", "items": { "type": "object" } },
+    "why": { "type": "object" },
+    "graph": { "type": "object" },
+    "drift": { "type": "object" },
+    "evidence": { "type": "object" }
+  }
+}

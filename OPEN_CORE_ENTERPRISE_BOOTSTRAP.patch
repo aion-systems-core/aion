@@ -1,0 +1,1098 @@
+diff --git a/aion/.gitignore b/aion/.gitignore
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/.gitignore
+@@ -0,0 +1,7 @@
++/target/
++**/*.rs.bk
++*.pdb
++.DS_Store
++/.idea/
++/.vscode/
++*.log
+
+diff --git a/aion/CODE_OF_CONDUCT.md b/aion/CODE_OF_CONDUCT.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/CODE_OF_CONDUCT.md
+@@ -0,0 +1,64 @@
++# Contributor Covenant Code of Conduct
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++## Our pledge
++
++We as members, contributors, and leaders pledge to make participation in our
++community a harassment-free experience for everyone, regardless of age, body
++size, visible or invisible disability, ethnicity, sex characteristics, gender
++identity and expression, level of experience, education, socio-economic status,
++nationality, personal appearance, race, caste, color, religion, or sexual
++identity and orientation.
++
++We pledge to act and interact in ways that contribute to an open, welcoming,
++diverse, inclusive, and healthy community.
++
++## Our standards
++
++Examples of behavior that contributes to a positive environment for our
++community include:
++
++- Demonstrating empathy and kindness toward other people
++- Being respectful of differing opinions, viewpoints, and experiences
++- Giving and gracefully accepting constructive feedback
++- Accepting responsibility and apologizing to those affected by our mistakes,
++  and learning from the experience
++- Focusing on what is best not just for us as individuals, but for the overall
++  community
++
++Examples of unacceptable behavior include:
++
++- The use of sexualized language or imagery, and sexual attention or advances of
++  any kind
++- Trolling, insulting or derogatory comments, and personal or political attacks
++- Public or private harassment
++- Publishing others’ private information, such as a physical or email address,
++  without their explicit permission
++- Other conduct which could reasonably be considered inappropriate in a
++  professional setting
++
++## Enforcement
++
++Project maintainers may remove, edit, or reject contributions or interactions
++that are not aligned to this Code of Conduct.
++
++Instances of abusive, harassing, or otherwise unacceptable behavior may be
++reported to the maintainers responsible for enforcement at the contact address
++listed in the repository or project documentation.
++
++## Attribution
++
++This Code of Conduct is adapted from the Contributor Covenant, version 2.1,
++available at https://www.contributor-covenant.org/version/2/1/code_of_conduct.html
+
+diff --git a/aion/CONTRIBUTING.md b/aion/CONTRIBUTING.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/CONTRIBUTING.md
+@@ -0,0 +1,66 @@
++# Contributing
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++This project uses the **Developer Certificate of Origin (DCO)**. By contributing, you agree to the DCO 1.1:
++
++```
++Developer Certificate of Origin
++Version 1.1
++
++Copyright (C) 2004, 2006 The Linux Foundation and its contributors.
++1 Letterman Drive
++San Francisco, CA, 94129
++
++Everyone is permitted to copy and distribute verbatim copies of this
++license document, but changing it is not allowed.
++
++Developer's Certificate of Origin 1.1
++
++By making a contribution to this project, I certify that:
++
++(a) The contribution was created in whole or in part by me and I
++    have the right to submit it under the open source license
++    indicated in the file; or
++
++(b) The contribution is based upon previous work that, to the best
++    of my knowledge, is covered under an appropriate open source
++    license and I have the right under that license to submit that
++    work with modifications, whether created in whole or in part
++    by me, under the same open source license (unless I am
++    permitted to submit under a different license), as indicated
++    in the file; or
++
++(c) The contribution was provided directly to me by some other
++    person who certified (a), (b) or (c) and I have not modified
++    it.
++
++(d) I understand and agree that this project and the contribution
++    are public and that a record of the contribution (including all
++    personal information I submit with it, including my sign-off) is
++    maintained indefinitely and may be redistributed consistent with
++    this project or the open source license(s) involved.
++```
++
++## Sign-off
++
++Use `Signed-off-by: Real Name <email@example.com>` in every commit message.
++
++Example:
++
++```
++feat: add example
++
++Signed-off-by: Real Name <email@example.com>
++```
+
+diff --git a/aion/Cargo.lock b/aion/Cargo.lock
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/Cargo.lock
+@@ -0,0 +1,29 @@
++# This file is automatically @generated by Cargo.
++# It is not intended for manual editing.
++version = 4
++
++[[package]]
++name = "aion-cli"
++version = "0.1.0"
++dependencies = [
++ "aion-engine",
++]
++
++[[package]]
++name = "aion-core"
++version = "0.1.0"
++
++[[package]]
++name = "aion-engine"
++version = "0.1.0"
++dependencies = [
++ "aion-core",
++ "aion-kernel",
++]
++
++[[package]]
++name = "aion-kernel"
++version = "0.1.0"
++dependencies = [
++ "aion-core",
++]
+
+diff --git a/aion/Cargo.toml b/aion/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/Cargo.toml
+@@ -0,0 +1,3 @@
++[workspace]
++members = ["core", "kernel", "engine", "crates/aion-cli"]
++resolver = "2"
+
+diff --git a/aion/GIT_INSTRUCTIONS.md b/aion/GIT_INSTRUCTIONS.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/GIT_INSTRUCTIONS.md
+@@ -0,0 +1,24 @@
++# Git instructions
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++```bash
++git init
++git add .
++git commit -m "feat: initialize AION Open Core & Enterprise structure"
++git remote add origin git@github.com:<user>/aion.git
++git push -u origin main
++```
++
++Replace `<user>` with your GitHub username or organization.
+
+diff --git a/aion/LICENSE b/aion/LICENSE
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/LICENSE
+@@ -0,0 +1,21 @@
++MIT License
++
++Copyright (c) AION contributors
++
++Permission is hereby granted, free of charge, to any person obtaining a copy
++of this software and associated documentation files (the "Software"), to deal
++in the Software without restriction, including without limitation the rights
++to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
++copies of the Software, and to permit persons to whom the Software is
++furnished to do so, subject to the following conditions:
++
++The above copyright notice and this permission notice shall be included in all
++copies or substantial portions of the Software.
++
++THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
++IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
++FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
++AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
++LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
++OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
++SOFTWARE.
+
+diff --git a/aion/README.md b/aion/README.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/README.md
+@@ -0,0 +1,18 @@
++# AION (Open Core)
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++The README text for this repository is defined in **Open‑Core‑Enterprise Plan §11.1**.
++
++The plan body was not included in the bootstrap request (the `[BEGIN PLAN]` … `[END PLAN]` section was empty). Paste **§11.1** here verbatim when available.
+
+diff --git a/aion/core/Cargo.toml b/aion/core/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/core/Cargo.toml
+@@ -0,0 +1,8 @@
++[package]
++name = "aion-core"
++version = "0.1.0"
++edition = "2021"
++license = "MIT"
++description = "AION core contracts and shared types (stub)"
++
++[dependencies]
+
+diff --git a/aion/core/src/lib.rs b/aion/core/src/lib.rs
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/core/src/lib.rs
+@@ -0,0 +1,12 @@
++//! AION Core — contracts and shared types.
++//!
++//! Module tree: align with **Open‑Core‑Enterprise Plan §2.2** when the plan
++//! document is available. This file is a compile‑ready stub only.
++
++#![forbid(unsafe_code)]
++
++/// Contract surface stubs.
++pub mod contracts {}
++
++/// Evidence surface stubs.
++pub mod evidence {}
+
+diff --git a/aion/crates/aion-cli/Cargo.toml b/aion/crates/aion-cli/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/crates/aion-cli/Cargo.toml
+@@ -0,0 +1,13 @@
++[package]
++name = "aion-cli"
++version = "0.1.0"
++edition = "2021"
++license = "MIT"
++description = "AION command-line interface (stub)"
++
++[[bin]]
++name = "aion"
++path = "src/main.rs"
++
++[dependencies]
++aion-engine = { path = "../../engine" }
+
+diff --git a/aion/crates/aion-cli/src/main.rs b/aion/crates/aion-cli/src/main.rs
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/crates/aion-cli/src/main.rs
+@@ -0,0 +1,7 @@
++//! Minimal CLI stub: prints a deterministic JSON envelope.
++
++fn main() {
++    println!(
++        r#"{{"status":"ok","data":{{"crate":"aion-cli","note":"stub"}},"error":null}}"#
++    );
++}
+
+diff --git a/aion/docs/architecture.md b/aion/docs/architecture.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/architecture.md
+@@ -0,0 +1,16 @@
++# Architecture
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/capsules.md b/aion/docs/capsules.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/capsules.md
+@@ -0,0 +1,16 @@
++# Capsules
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/compatibility-matrix.md b/aion/docs/compatibility-matrix.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/compatibility-matrix.md
+@@ -0,0 +1,16 @@
++# Compatibility matrix
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/developer-guide.md b/aion/docs/developer-guide.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/developer-guide.md
+@@ -0,0 +1,16 @@
++# Developer guide
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/drift.md b/aion/docs/drift.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/drift.md
+@@ -0,0 +1,16 @@
++# Drift
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/migration.md b/aion/docs/migration.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/migration.md
+@@ -0,0 +1,16 @@
++# Migration
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/operations-guide.md b/aion/docs/operations-guide.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/operations-guide.md
+@@ -0,0 +1,16 @@
++# Operations guide
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/os_contract_spec.md b/aion/docs/os_contract_spec.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/os_contract_spec.md
+@@ -0,0 +1,16 @@
++# OS Contract Spec
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/overview.md b/aion/docs/overview.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/overview.md
+@@ -0,0 +1,16 @@
++# AION‑OS overview
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/pricing.md b/aion/docs/pricing.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/pricing.md
+@@ -0,0 +1,42 @@
++# Pricing
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++## Early Access (first 30 days)
++
++- Secure Runtime: 3.900 €/year
++- Governance Pack: 1.900 €/year
++- CI/CD Pack: 2.900 €/year
++- Enterprise Suite: 7.900 €/year
++- SLA: +1.900 €/year
++
++## Standard pricing (after 30 days)
++
++- Secure Runtime: 4.900 €/year
++- Governance Pack: 2.900 €/year
++- CI/CD Pack: 3.900 €/year
++- Enterprise Suite: 9.900 €/year
++- SLA: +2.500 €/year
++
++## Startup discounts
++
++Terms: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
++
++## Non‑profit rules
++
++Terms: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
++
++## Volume discounts
++
++Terms: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/replay.md b/aion/docs/replay.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/replay.md
+@@ -0,0 +1,16 @@
++# Replay
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/security-guide.md b/aion/docs/security-guide.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/security-guide.md
+@@ -0,0 +1,16 @@
++# Security guide
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/why-graph.md b/aion/docs/why-graph.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/why-graph.md
+@@ -0,0 +1,16 @@
++# Why & causal graph
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/enterprise/AION_Enterprise_Sales_Package.md b/aion/docs/enterprise/AION_Enterprise_Sales_Package.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/enterprise/AION_Enterprise_Sales_Package.md
+@@ -0,0 +1,16 @@
++# AION Enterprise Sales Package
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/executive/aion_in_5_minutes.md b/aion/docs/executive/aion_in_5_minutes.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/executive/aion_in_5_minutes.md
+@@ -0,0 +1,16 @@
++# AION in 5 Minuten (Executive Summary)
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Body: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).
+
+diff --git a/aion/docs/formal/replay_invariant.tla b/aion/docs/formal/replay_invariant.tla
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/formal/replay_invariant.tla
+@@ -0,0 +1,5 @@
++---- MODULE replay_invariant ----
++\* Placeholder: replace with the canonical replay invariant specification from
++\* the **Open‑Core‑Enterprise Plan** / formal appendix when that document is
++\* attached to the repository.
++====
+
+diff --git a/aion/docs/launch/hacker_news_show_hn.md b/aion/docs/launch/hacker_news_show_hn.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/launch/hacker_news_show_hn.md
+@@ -0,0 +1,18 @@
++# Show HN
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++The Hacker News **Show HN** post text is defined in **Open‑Core‑Enterprise Plan §11.3**.
++
++The plan body was not included in the bootstrap request. Paste **§11.3** here verbatim when available.
+
+diff --git a/aion/docs/launch/marketing_plan.md b/aion/docs/launch/marketing_plan.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/docs/launch/marketing_plan.md
+@@ -0,0 +1,18 @@
++# Marketing plan
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++This file must summarize **Open‑Core‑Enterprise Plan §7**.
++
++The plan body was not included in the bootstrap request. Add the §7 summary here verbatim or by faithful extraction when the plan is available.
+
+diff --git a/aion/engine/Cargo.toml b/aion/engine/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/engine/Cargo.toml
+@@ -0,0 +1,10 @@
++[package]
++name = "aion-engine"
++version = "0.1.0"
++edition = "2021"
++license = "MIT"
++description = "AION engine orchestration (stub)"
++
++[dependencies]
++aion-core = { path = "../core" }
++aion-kernel = { path = "../kernel" }
+
+diff --git a/aion/engine/src/lib.rs b/aion/engine/src/lib.rs
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/engine/src/lib.rs
+@@ -0,0 +1,9 @@
++//! AION Engine — orchestration and pipelines.
++//!
++//! Module tree: align with **Open‑Core‑Enterprise Plan §2.4** when the plan
++//! document is available. This file is a compile‑ready stub only.
++
++#![forbid(unsafe_code)]
++
++pub mod capture {}
++pub mod output {}
+
+diff --git a/aion/examples/README.md b/aion/examples/README.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/examples/README.md
+@@ -0,0 +1,16 @@
++# Examples
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Examples will be added per **Open‑Core‑Enterprise Plan** when attached.
+
+diff --git a/aion/kernel/Cargo.toml b/aion/kernel/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/kernel/Cargo.toml
+@@ -0,0 +1,9 @@
++[package]
++name = "aion-kernel"
++version = "0.1.0"
++edition = "2021"
++license = "MIT"
++description = "AION kernel execution primitives (stub)"
++
++[dependencies]
++aion-core = { path = "../core" }
+
+diff --git a/aion/kernel/src/lib.rs b/aion/kernel/src/lib.rs
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/kernel/src/lib.rs
+@@ -0,0 +1,9 @@
++//! AION Kernel — deterministic execution primitives.
++//!
++//! Module tree: align with **Open‑Core‑Enterprise Plan §2.3** when the plan
++//! document is available. This file is a compile‑ready stub only.
++
++#![forbid(unsafe_code)]
++
++pub mod execute {}
++pub mod integrity {}
+
+diff --git a/aion/scripts/README.md b/aion/scripts/README.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/scripts/README.md
+@@ -0,0 +1,16 @@
++# Scripts
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Scripts will be added per **Open‑Core‑Enterprise Plan** when attached.
+
+diff --git a/aion/tests/README.md b/aion/tests/README.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/aion/tests/README.md
+@@ -0,0 +1,16 @@
++# Tests
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Integration and policy tests will be added per **Open‑Core‑Enterprise Plan** when attached.
+
+diff --git a/enterprise/Cargo.toml b/enterprise/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/Cargo.toml
+@@ -0,0 +1,8 @@
++[workspace]
++members = [
++    "secure-runtime",
++    "governance-pack",
++    "cicd-pack",
++    "evidence-export",
++]
++resolver = "2"
+
+diff --git a/enterprise/LICENSE b/enterprise/LICENSE
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/LICENSE
+@@ -0,0 +1,5 @@
++AION Enterprise License v1 (AION‑ELv1)
++
++The full license text is specified in **Open‑Core‑Enterprise Plan §11.2**.
++
++The plan body was not included in the bootstrap request. Replace this file with the verbatim **§11.2** text when available.
+
+diff --git a/enterprise/cicd-pack/Cargo.toml b/enterprise/cicd-pack/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/cicd-pack/Cargo.toml
+@@ -0,0 +1,8 @@
++[package]
++name = "aion-cicd-pack"
++version = "0.1.0"
++edition = "2021"
++license = "LicenseRef-AION-ELv1"
++description = "Enterprise CI/CD pack (TODO)"
++
++[dependencies]
+
+diff --git a/enterprise/cicd-pack/src/lib.rs b/enterprise/cicd-pack/src/lib.rs
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/cicd-pack/src/lib.rs
+@@ -0,0 +1,3 @@
++//! TODO: GitHub/GitLab integrations, drift/replay gates.
++
++#![forbid(unsafe_code)]
+
+diff --git a/enterprise/dashboard/README.md b/enterprise/dashboard/README.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/dashboard/README.md
+@@ -0,0 +1,16 @@
++# Dashboard
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++Placeholder for optional enterprise UI.
+
+diff --git a/enterprise/evidence-export/Cargo.toml b/enterprise/evidence-export/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/evidence-export/Cargo.toml
+@@ -0,0 +1,8 @@
++[package]
++name = "aion-evidence-export"
++version = "0.1.0"
++edition = "2021"
++license = "LicenseRef-AION-ELv1"
++description = "Enterprise long-term evidence export (TODO)"
++
++[dependencies]
+
+diff --git a/enterprise/evidence-export/src/lib.rs b/enterprise/evidence-export/src/lib.rs
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/evidence-export/src/lib.rs
+@@ -0,0 +1,3 @@
++//! TODO: long-term evidence storage.
++
++#![forbid(unsafe_code)]
+
+diff --git a/enterprise/governance-pack/Cargo.toml b/enterprise/governance-pack/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/governance-pack/Cargo.toml
+@@ -0,0 +1,8 @@
++[package]
++name = "aion-governance-pack"
++version = "0.1.0"
++edition = "2021"
++license = "LicenseRef-AION-ELv1"
++description = "Enterprise governance pack (TODO)"
++
++[dependencies]
+
+diff --git a/enterprise/governance-pack/src/lib.rs b/enterprise/governance-pack/src/lib.rs
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/governance-pack/src/lib.rs
+@@ -0,0 +1,3 @@
++//! TODO: compliance exports, policy editor.
++
++#![forbid(unsafe_code)]
+
+diff --git a/enterprise/secure-runtime/Cargo.toml b/enterprise/secure-runtime/Cargo.toml
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/secure-runtime/Cargo.toml
+@@ -0,0 +1,8 @@
++[package]
++name = "aion-secure-runtime"
++version = "0.1.0"
++edition = "2021"
++license = "LicenseRef-AION-ELv1"
++description = "Enterprise secure runtime (TODO)"
++
++[dependencies]
+
+diff --git a/enterprise/secure-runtime/src/lib.rs b/enterprise/secure-runtime/src/lib.rs
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/secure-runtime/src/lib.rs
+@@ -0,0 +1,3 @@
++//! TODO: FS/NET isolation (seccomp, landlock, micro‑VM).
++
++#![forbid(unsafe_code)]
+
+diff --git a/enterprise/sla/SUPPORT.md b/enterprise/sla/SUPPORT.md
+new file mode 100644
+index 0000000..0000000
+--- /dev/null
++++ b/enterprise/sla/SUPPORT.md
+@@ -0,0 +1,19 @@
++# SLA
++
++---
++
++AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
++AION intentionally does not enforce filesystem or network isolation.  
++The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
++
++This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
++Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
++
++If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
++
++---
++
++- **24h response** time for ticket acknowledgement.
++- **Bugfix priority** for confirmed defects affecting subscribed enterprise components.
++
++Further SLA terms: **Open‑Core‑Enterprise Plan** (document not attached to this bootstrap).

@@ -1,0 +1,36 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "fuzz_property_tests": {
+        "fuzz": {
+          "findings": [],
+          "targets": [
+            {
+              "name": "doctor_json_parser",
+              "status": "implemented"
+            }
+          ]
+        },
+        "property": {
+          "invariants": [
+            {
+              "id": "inv_policy_001",
+              "statement": "same_input_same_decision"
+            }
+          ],
+          "targets": [
+            {
+              "name": "policy_determinism",
+              "status": "implemented"
+            }
+          ]
+        },
+        "status": "implemented"
+      },
+      "kind": "tests_fuzz_property"
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

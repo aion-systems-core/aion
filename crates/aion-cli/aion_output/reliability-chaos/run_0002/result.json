@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "chaos_status": {
+        "experiments": [
+          {
+            "expected_behavior": "policy_gate_failure",
+            "fault": "Drop",
+            "id": "chaos_policy_drop",
+            "status": "planned",
+            "target": "Policy"
+          }
+        ],
+        "status": "partial"
+      },
+      "kind": "reliability_chaos"
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

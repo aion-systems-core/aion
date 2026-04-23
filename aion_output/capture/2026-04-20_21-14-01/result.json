@@ -1,0 +1,12 @@
+{
+  "schema_version": 1,
+  "run_id": "5cce65d418f52e68",
+  "command": "cmd /c echo hi",
+  "cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2",
+  "timestamp": 1776719641,
+  "stdout": "hi\r\n",
+  "stderr": "",
+  "exit_code": 0,
+  "duration_ms": 28,
+  "env_fingerprint": "4d1e54979c0cbf70274bfdfe8b6571d4c385bacbe2b5c11d0aacba0eefaa5484"
+}

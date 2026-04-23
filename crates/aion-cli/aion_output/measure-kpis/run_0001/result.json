@@ -1,0 +1,23 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "kind": "measure_kpis",
+      "kpi_contract": {
+        "kpis": [
+          {
+            "domain": "Adoption",
+            "id": "kpi_upgrade_success",
+            "status": "OnTrack",
+            "target": {
+              "threshold": ">=98%"
+            }
+          }
+        ],
+        "status": "ok"
+      }
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

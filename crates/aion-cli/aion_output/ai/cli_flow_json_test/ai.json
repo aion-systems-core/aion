@@ -1,0 +1,201 @@
+{
+  "version": "1",
+  "aion_version": "1.0.0",
+  "created_at": 1776804066,
+  "policy_profile": "dev",
+  "backend_name": "dummy",
+  "prompt": "cli_flow_test",
+  "model": "demo",
+  "model_hash": "2a97516c354b68848cdbd8f54a226a0a55b21ed138e207ad6c5cbb9c00aa5aea",
+  "seed": 9,
+  "determinism": {
+    "time_frozen": true,
+    "time_epoch_secs": 1776804066,
+    "random_seed": 9,
+    "syscall_intercept": false,
+    "freeze_time": true,
+    "freeze_env": true,
+    "freeze_random": true,
+    "freeze_cwd": true,
+    "strict_replay": false
+  },
+  "execution_envelope": {
+    "frozen_time_ms": 1776804066448,
+    "frozen_env": {
+      "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL",
+      "USERPROFILE": "C:\\Users\\noahp"
+    },
+    "frozen_cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2\\crates\\aion-cli",
+    "frozen_random_seed": 0,
+    "determinism_profile": {
+      "time_frozen": true,
+      "time_epoch_secs": 0,
+      "random_seed": 9,
+      "syscall_intercept": false,
+      "freeze_time": true,
+      "freeze_env": true,
+      "freeze_random": true,
+      "freeze_cwd": true,
+      "strict_replay": false
+    }
+  },
+  "tokens": [
+    "emit"
+  ],
+  "token_trace": [
+    {
+      "index": 0,
+      "token": "emit",
+      "token_id": 14299453518961919833,
+      "timestamp": 0
+    }
+  ],
+  "event_stream": [
+    {
+      "kind": "run_start",
+      "model": "demo"
+    },
+    {
+      "kind": "prompt_ingested",
+      "chars": 13
+    },
+    {
+      "kind": "token_generated",
+      "index": 0,
+      "token": "emit"
+    },
+    {
+      "kind": "run_complete",
+      "token_count": 1
+    }
+  ],
+  "why": {
+    "why_schema_version": "2",
+    "model_version": "demo",
+    "seed": 9,
+    "determinism_profile": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1776804066, random_seed=0x9, syscall_intercept=false",
+    "nodes": [
+      {
+        "id": "determinism",
+        "kind": "determinism",
+        "text": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1776804066, random_seed=0x9, syscall_intercept=false",
+        "position": null
+      },
+      {
+        "id": "prompt_0",
+        "kind": "prompt",
+        "text": "cli_flow_test",
+        "position": 0
+      },
+      {
+        "id": "seed",
+        "kind": "seed",
+        "text": "Global RNG / sampling seed: 0x9",
+        "position": null
+      },
+      {
+        "id": "token_0",
+        "kind": "token",
+        "text": "emit",
+        "position": 0
+      }
+    ],
+    "edges": [
+      {
+        "from": "determinism",
+        "to": "token_0",
+        "weight": 0.9,
+        "reason": "Determinism profile pins time and RNG policy for the run"
+      },
+      {
+        "from": "prompt_0",
+        "to": "token_0",
+        "weight": 1.0,
+        "reason": "Prompt segment conditions the first emitted token"
+      },
+      {
+        "from": "seed",
+        "to": "token_0",
+        "weight": 0.95,
+        "reason": "Seed selects vocabulary draws for each index"
+      }
+    ],
+    "summary": "4 influence nodes, 3 causal edges, 1 emitted tokens; deterministic under the given model, prompt, seed, and determinism profile."
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "determinism",
+        "label": "model=demo; time_frozen=true; epoch=1776804066; random_seed=0x9; syscall_intercept=false",
+        "kind": "determinism"
+      },
+      {
+        "id": "prompt_0",
+        "label": "cli_flow_test",
+        "kind": "prompt"
+      },
+      {
+        "id": "seed",
+        "label": "0x9",
+        "kind": "seed"
+      },
+      {
+        "id": "token_0",
+        "label": "emit",
+        "kind": "token"
+      }
+    ],
+    "edges": [
+      {
+        "from": "determinism",
+        "to": "token_0"
+      },
+      {
+        "from": "prompt_0",
+        "to": "token_0"
+      },
+      {
+        "from": "seed",
+        "to": "token_0"
+      }
+    ]
+  },
+  "drift": {
+    "changed": false,
+    "fields": [],
+    "details": []
+  },
+  "evidence": {
+    "run_id": "d8f29a33544def36",
+    "records": [
+      {
+        "seq": 0,
+        "kind": "run",
+        "leaf_digest": "7ae4b464a1d32e332bc2a9caa2d03bbf32e408cf79ac51c3f1bbc7f217f42072",
+        "payload_digest": "7fc337b66b28e1cff886a12108ae84c13e0d23bd02c00bfb71307221f7b5bd8c",
+        "parent_digest": null
+      },
+      {
+        "seq": 1,
+        "kind": "policy",
+        "leaf_digest": "50b6d8588685550bba803e350353f2de1884db090fc419bbed97e48f5b9911fb",
+        "payload_digest": "c42824cc807babac2a6000c1e20a48445e9543e97338d9a2000a5fb15b4da9bc",
+        "parent_digest": "7fc337b66b28e1cff886a12108ae84c13e0d23bd02c00bfb71307221f7b5bd8c"
+      },
+      {
+        "seq": 2,
+        "kind": "determinism",
+        "leaf_digest": "10c0e100f2a3d3d2b66822c360a91761849929e25688f792fe060c6b1d0b6122",
+        "payload_digest": "72abba2d5703c2292afd02bc654d74bde7723ecc89fb4fcad53a2438d4decd5b",
+        "parent_digest": "c42824cc807babac2a6000c1e20a48445e9543e97338d9a2000a5fb15b4da9bc"
+      },
+      {
+        "seq": 3,
+        "kind": "artifact_schema",
+        "leaf_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "payload_digest": "3eea3d15a944fa593c920342f9fcf0a9c0681e7089377bd543fb6e49aef800b0",
+        "parent_digest": "72abba2d5703c2292afd02bc654d74bde7723ecc89fb4fcad53a2438d4decd5b"
+      }
+    ]
+  }
+}

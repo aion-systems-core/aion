@@ -1,0 +1,13 @@
+{
+  "name": "aion-cabi-pilot",
+  "version": "0.0.1",
+  "private": true,
+  "description": "Pilot: ffi-napi against aion_engine cdylib (build with cargo build -p aion-engine --features ffi)",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "ffi-napi": "^4.0.3",
+    "ref-napi": "^3.0.3"
+  }
+}

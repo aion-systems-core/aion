@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AION doctor</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;margin:2rem;line-height:1.45;color:#111}
+h1{font-size:1.35rem;margin:0 0 1rem}
+table{border-collapse:collapse;width:100%;max-width:56rem}
+th,td{border:1px solid #ccc;padding:.4rem .55rem;text-align:left;vertical-align:top}
+th{background:#f0f0f0}
+code,pre{font-family:ui-monospace,monospace;font-size:.88rem;background:#f6f6f6;padding:.15rem .35rem}
+pre{white-space:pre-wrap;word-break:break-word;padding:.75rem}
+.muted{color:#555;font-size:.9rem}
+</style>
+</head>
+<body>
+<h1>AION doctor</h1>
+<pre>{
+  &quot;ok&quot;: false,
+  &quot;cwd&quot;: &quot;C:\\Users\\noahp\\Documents\\aion-os-v2\\crates\\aion-cli&quot;,
+  &quot;aion_version&quot;: &quot;1.0.0&quot;,
+  &quot;os_contract_spec_version&quot;: &quot;4c2a6a68a5ca4a7fed4c31dcebe6a0439dbf46525b838505e750c986b65879c5&quot;,
+  &quot;os_identity&quot;: {
+    &quot;kernel_version&quot;: {
+      &quot;semver&quot;: &quot;0.2.0&quot;,
+      &quot;build_metadata&quot;: &quot;unknown&quot;,
+      &quot;value&quot;: &quot;0.2.0+unknown&quot;
+    },
+    &quot;os_contract_spec_version&quot;: &quot;4c2a6a68a5ca4a7fed4c31dcebe6a0439dbf46525b838505e750c986b65879c5&quot;,
+    &quot;global_consistency_contract_version&quot;: &quot;d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44&quot;,
+    &quot;compatibility_profile&quot;: {
+      &quot;os_contract_spec_versions&quot;: [
+        &quot;4c2a6a68a5ca4a7fed4c31dcebe6a0439dbf46525b838505e750c986b65879c5&quot;
+      ],
+      &quot;global_consistency_contract_versions&quot;: [
+        &quot;d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44&quot;
+      ]
+    },
+    &quot;instance_id&quot;: {
+      &quot;value&quot;: &quot;d21c4a1fc77c0d9e91e49498bd8a4f753dd802f2fc569b6d3f30536dab9e2e3e&quot;,
+      &quot;source&quot;: &quot;derived_explicit_inputs&quot;
+    }
+  },
+  &quot;upgrade_replay&quot;: {
+    &quot;current_kernel_version&quot;: &quot;0.2.0&quot;,
+    &quot;support_window&quot;: &quot;N_to_Nplus2&quot;,
+    &quot;tested_upgrade_targets&quot;: [
+      &quot;0.3.0&quot;,
+      &quot;0.4.0&quot;
+    ],
+    &quot;results&quot;: [
+      {
+        &quot;target_version&quot;: &quot;0.3.0&quot;,
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;violations&quot;: []
+      },
+      {
+        &quot;target_version&quot;: &quot;0.4.0&quot;,
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;violations&quot;: []
+      }
+    ]
+  },
+  &quot;checks&quot;: [
+    {
+      &quot;check&quot;: &quot;ffi_check&quot;,
+      &quot;result&quot;: {
+        &quot;status&quot;: &quot;error&quot;,
+        &quot;code&quot;: &quot;AION_FFI_IO&quot;,
+        &quot;context&quot;: &quot;doctor.ffi.library_load&quot;,
+        &quot;origin&quot;: &quot;ffi&quot;,
+        &quot;cause&quot;: &quot;library_not_found&quot;
+      }
+    },
+    {
+      &quot;check&quot;: &quot;python_bindings_check&quot;,
+      &quot;result&quot;: {
+        &quot;status&quot;: &quot;error&quot;,
+        &quot;code&quot;: &quot;AION_BINDINGS_IO&quot;,
+        &quot;context&quot;: &quot;doctor.bindings.aion_lib_path&quot;,
+        &quot;origin&quot;: &quot;bindings&quot;,
+        &quot;cause&quot;: &quot;env_invalid&quot;
+      }
+    },
+    {
+      &quot;check&quot;: &quot;policy_schema_check&quot;,
+      &quot;result&quot;: {
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;code&quot;: &quot;AION_OK&quot;,
+        &quot;context&quot;: &quot;doctor.policy_schema.ok&quot;,
+        &quot;origin&quot;: &quot;policy&quot;
+      }
+    }
+  ],
+  &quot;global_consistency&quot;: {
+    &quot;run_finality&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;code&quot;: &quot;AION_OK&quot;,
+      &quot;context&quot;: &quot;global_consistency.run_finality&quot;,
+      &quot;origin&quot;: &quot;doctor&quot;
+    },
+    &quot;capsule_finality&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;code&quot;: &quot;AION_OK&quot;,
+      &quot;context&quot;: &quot;global_consistency.capsule_finality&quot;,
+      &quot;origin&quot;: &quot;capsule&quot;
+    },
+    &quot;evidence_finality&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;code&quot;: &quot;AION_OK&quot;,
+      &quot;context&quot;: &quot;global_consistency.evidence_finality&quot;,
+      &quot;origin&quot;: &quot;evidence&quot;
+    },
+    &quot;replay_finality&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;code&quot;: &quot;AION_OK&quot;,
+      &quot;context&quot;: &quot;global_consistency.replay_finality&quot;,
+      &quot;origin&quot;: &quot;replay&quot;
+    }
+  }
+}</pre>
+</body>
+</html>

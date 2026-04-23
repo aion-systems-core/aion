@@ -1,0 +1,228 @@
+{
+  "version": "1",
+  "aion_version": "1.0.0",
+  "created_at": 1776857407,
+  "policy_profile": "dev",
+  "backend_name": "dummy",
+  "prompt": "cli_flow_test",
+  "model": "demo",
+  "model_hash": "2a97516c354b68848cdbd8f54a226a0a55b21ed138e207ad6c5cbb9c00aa5aea",
+  "seed": 9,
+  "determinism": {
+    "time_frozen": true,
+    "time_epoch_secs": 1776857407,
+    "random_seed": 9,
+    "syscall_intercept": false,
+    "freeze_time": true,
+    "freeze_env": true,
+    "freeze_random": true,
+    "freeze_cwd": true,
+    "strict_replay": false,
+    "io_policy": "audit"
+  },
+  "execution_envelope": {
+    "frozen_time_ms": 1776857407170,
+    "frozen_env": {
+      "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL",
+      "USERPROFILE": "C:\\Users\\noahp"
+    },
+    "frozen_cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2\\crates\\aion-cli",
+    "frozen_random_seed": 0,
+    "determinism_profile": {
+      "time_frozen": true,
+      "time_epoch_secs": 0,
+      "random_seed": 9,
+      "syscall_intercept": false,
+      "freeze_time": true,
+      "freeze_env": true,
+      "freeze_random": true,
+      "freeze_cwd": true,
+      "strict_replay": false,
+      "io_policy": "audit"
+    }
+  },
+  "execution_environment": {
+    "machine_fingerprint": {
+      "cpu_features": "x86_64 windows",
+      "os_version": "windows",
+      "kernel_version": "Windows_NT",
+      "hostname_hash": "c782a998b909bc434bf4a62d28b0a9c6",
+      "binary_hash": "89a03f806a5063c9395d9a61764dd148"
+    },
+    "runtime_fingerprint": {
+      "rustc_version": "rustc 1.94.1 (e408947bf 2026-03-25)",
+      "aion_version": "1.0.0",
+      "build_hash": "4d0e42804c3c8e25",
+      "enabled_features": []
+    }
+  },
+  "tokens": [
+    "emit"
+  ],
+  "token_trace": [
+    {
+      "index": 0,
+      "token": "emit",
+      "token_id": 14299453518961919833,
+      "timestamp": 0
+    }
+  ],
+  "event_stream": [
+    {
+      "kind": "run_start",
+      "model": "demo"
+    },
+    {
+      "kind": "prompt_ingested",
+      "chars": 13
+    },
+    {
+      "kind": "token_generated",
+      "index": 0,
+      "token": "emit"
+    },
+    {
+      "kind": "run_complete",
+      "token_count": 1
+    }
+  ],
+  "why": {
+    "why_schema_version": "2",
+    "model_version": "demo",
+    "seed": 9,
+    "determinism_profile": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1776857407, random_seed=0x9, syscall_intercept=false",
+    "nodes": [
+      {
+        "id": "determinism",
+        "kind": "determinism",
+        "text": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1776857407, random_seed=0x9, syscall_intercept=false",
+        "position": null
+      },
+      {
+        "id": "prompt_0",
+        "kind": "prompt",
+        "text": "cli_flow_test",
+        "position": 0
+      },
+      {
+        "id": "seed",
+        "kind": "seed",
+        "text": "Global RNG / sampling seed: 0x9",
+        "position": null
+      },
+      {
+        "id": "token_0",
+        "kind": "token",
+        "text": "emit",
+        "position": 0
+      }
+    ],
+    "edges": [
+      {
+        "from": "determinism",
+        "to": "token_0",
+        "weight": 0.9,
+        "reason": "Determinism profile pins time and RNG policy for the run"
+      },
+      {
+        "from": "prompt_0",
+        "to": "token_0",
+        "weight": 1.0,
+        "reason": "Prompt segment conditions the first emitted token"
+      },
+      {
+        "from": "seed",
+        "to": "token_0",
+        "weight": 0.95,
+        "reason": "Seed selects vocabulary draws for each index"
+      }
+    ],
+    "summary": "4 influence nodes, 3 causal edges, 1 emitted tokens; deterministic under the given model, prompt, seed, and determinism profile."
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "determinism",
+        "label": "model=demo; time_frozen=true; epoch=1776857407; random_seed=0x9; syscall_intercept=false",
+        "kind": "determinism"
+      },
+      {
+        "id": "prompt_0",
+        "label": "cli_flow_test",
+        "kind": "prompt"
+      },
+      {
+        "id": "seed",
+        "label": "0x9",
+        "kind": "seed"
+      },
+      {
+        "id": "token_0",
+        "label": "emit",
+        "kind": "token"
+      }
+    ],
+    "edges": [
+      {
+        "from": "determinism",
+        "to": "token_0"
+      },
+      {
+        "from": "prompt_0",
+        "to": "token_0"
+      },
+      {
+        "from": "seed",
+        "to": "token_0"
+      }
+    ]
+  },
+  "drift": {
+    "changed": false,
+    "categories": [],
+    "labels": [],
+    "fields": [],
+    "details": [],
+    "tolerance_profile": {
+      "max_token_delta": 0,
+      "max_event_delta": 0,
+      "max_timing_delta_ms": 0,
+      "max_labels": 0
+    },
+    "tolerance_violations": [],
+    "overflow": false
+  },
+  "evidence": {
+    "run_id": "d8f29a33544def36",
+    "records": [
+      {
+        "seq": 0,
+        "kind": "run",
+        "leaf_digest": "617380f2b6a9f843a059ea1c1bc8faa27532901cfbe53743315ed844ba740aa7",
+        "payload_digest": "d939d0b0e37ed5f1b98a05117bd456d7029cad8a1b325c08bad425f6642d9d13",
+        "parent_digest": null
+      },
+      {
+        "seq": 1,
+        "kind": "policy",
+        "leaf_digest": "50b6d8588685550bba803e350353f2de1884db090fc419bbed97e48f5b9911fb",
+        "payload_digest": "c8d513af38f22f3160feb1dafd6eec0aade9c9e7bd92bf00f6ecc328c1fd5e44",
+        "parent_digest": "d939d0b0e37ed5f1b98a05117bd456d7029cad8a1b325c08bad425f6642d9d13"
+      },
+      {
+        "seq": 2,
+        "kind": "determinism",
+        "leaf_digest": "4bd4962d1454bfb9ebc562a0ee28527d80fc652fa0f2a86a7a493c2f9fe575f6",
+        "payload_digest": "f6b3c209bc45041ea30df74e43cf3c369ebd51f5fd446f8cb63922c3b20a56a8",
+        "parent_digest": "c8d513af38f22f3160feb1dafd6eec0aade9c9e7bd92bf00f6ecc328c1fd5e44"
+      },
+      {
+        "seq": 3,
+        "kind": "artifact_schema",
+        "leaf_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "payload_digest": "307d71bba93660d47be149161a00df16c2ca24bf2a7f94a573e2f0ef50765bd4",
+        "parent_digest": "f6b3c209bc45041ea30df74e43cf3c369ebd51f5fd446f8cb63922c3b20a56a8"
+      }
+    ]
+  }
+}

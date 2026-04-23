@@ -1,0 +1,29 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "kind": "ops_runbooks",
+      "runbooks": {
+        "results": [
+          {
+            "preconditions": [
+              "policy_gate_failed"
+            ],
+            "scenario": "PolicyFailure",
+            "status": "ok",
+            "steps": [
+              {
+                "action": "apply_safe_policy_pack",
+                "expected_outcome": "policy_validation_restored",
+                "id": "01"
+              }
+            ]
+          }
+        ],
+        "status": "ok"
+      }
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

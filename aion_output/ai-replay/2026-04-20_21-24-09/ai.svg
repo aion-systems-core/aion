@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="200" viewBox="0 0 420 200">
+<rect width="100%" height="100%" fill="rgb(255,255,255)"/>
+<rect x="20" y="24" width="16" height="16" fill="rgb(39,174,96)" stroke="rgb(40,40,40)"/>
+<text x="44" y="37" font-size="12" font-family="sans-serif">tokens</text>
+<rect x="20" y="52" width="16" height="16" fill="rgb(39,174,96)" stroke="rgb(40,40,40)"/>
+<text x="44" y="65" font-size="12" font-family="sans-serif">events</text>
+<rect x="20" y="80" width="16" height="16" fill="rgb(39,174,96)" stroke="rgb(40,40,40)"/>
+<text x="44" y="93" font-size="12" font-family="sans-serif">graph</text>
+<rect x="20" y="108" width="16" height="16" fill="rgb(39,174,96)" stroke="rgb(40,40,40)"/>
+<text x="44" y="121" font-size="12" font-family="sans-serif">why</text>
+<rect x="20" y="136" width="16" height="16" fill="rgb(39,174,96)" stroke="rgb(40,40,40)"/>
+<text x="44" y="149" font-size="12" font-family="sans-serif">drift_clear</text>
+</svg>

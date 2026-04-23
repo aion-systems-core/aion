@@ -1,0 +1,6 @@
+version: "3.9"
+services:
+  aion-demo:
+    build: .
+    image: aion-os:demo
+    command: ["execute", "ai", "--model", "demo", "--prompt", "demo container", "--seed", "1"]

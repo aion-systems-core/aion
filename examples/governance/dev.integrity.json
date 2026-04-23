@@ -1,0 +1,8 @@
+{
+  "require_manifest": false,
+  "require_hashes": false,
+  "require_evidence_chain": false,
+  "require_graph": false,
+  "require_why": false,
+  "require_replay": false
+}

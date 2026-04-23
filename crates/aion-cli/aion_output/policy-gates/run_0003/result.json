@@ -1,0 +1,18 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "kind": "policy_gates",
+      "policy_gates": [
+        {
+          "context": "Cd",
+          "decision": "Allow",
+          "status": "ok",
+          "violations": []
+        }
+      ]
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

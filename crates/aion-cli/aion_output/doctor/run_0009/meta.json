@@ -1,0 +1,11 @@
+{
+  "data": {
+    "aion_version": "1.0.0",
+    "cli_args": "",
+    "command": "doctor",
+    "git_commit": null,
+    "utc_end": "2026-04-22T11:29:09Z",
+    "utc_start": "2026-04-22T11:29:09Z"
+  },
+  "status": "ok"
+}

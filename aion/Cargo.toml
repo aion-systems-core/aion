@@ -1,0 +1,3 @@
+[workspace]
+members = ["core", "kernel", "engine", "crates/aion-cli"]
+resolver = "2"

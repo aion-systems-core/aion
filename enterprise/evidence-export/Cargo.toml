@@ -1,0 +1,8 @@
+[package]
+name = "aion-evidence-export"
+version = "0.1.0"
+edition = "2021"
+license = "LicenseRef-AION-ELv1"
+description = "Enterprise long-term evidence export (TODO)"
+
+[dependencies]

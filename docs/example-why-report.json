@@ -1,0 +1,21 @@
+{
+  "why_schema_version": "2",
+  "model_version": "demo",
+  "seed": 1,
+  "determinism_profile": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1, random_seed=0x1, syscall_intercept=false",
+  "nodes": [
+    { "id": "prompt_0", "kind": "prompt", "text": "hello", "position": 0 },
+    { "id": "seed", "kind": "seed", "text": "Global RNG / sampling seed: 0x1", "position": null },
+    { "id": "determinism", "kind": "determinism", "text": "Determinism profile", "position": null },
+    { "id": "token_0", "kind": "token", "text": "token", "position": 0 }
+  ],
+  "edges": [
+    {
+      "from": "prompt_0",
+      "to": "token_0",
+      "weight": 1.0,
+      "reason": "Prompt segment conditions the first emitted token"
+    }
+  ],
+  "summary": "Example Why report"
+}

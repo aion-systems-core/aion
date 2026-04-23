@@ -1,0 +1,11 @@
+{
+  "nodes": [
+    {
+      "id": "phase3-graph-test",
+      "event_type": "run",
+      "surface": "",
+      "index": 0
+    }
+  ],
+  "edges": []
+}

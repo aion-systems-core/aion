@@ -1,0 +1,32 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "incident_model": {
+        "resolution": {
+          "resolution_code": "incident:resolved",
+          "resolved": true
+        },
+        "response_plan": {
+          "mttr_target_minutes": 60,
+          "owner": "oncall",
+          "steps": [
+            "isolate",
+            "mitigate"
+          ]
+        },
+        "status": "ok",
+        "triggers": [
+          {
+            "condition": "security_scan_failed",
+            "id": "security_event",
+            "severity": "P1"
+          }
+        ]
+      },
+      "kind": "ops_incidents"
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

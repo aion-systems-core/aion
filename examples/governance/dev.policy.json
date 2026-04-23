@@ -1,0 +1,9 @@
+{
+  "name": "dev",
+  "allowed_models": [],
+  "max_prompt_length": 0,
+  "allowed_seeds": null,
+  "max_drift_tokens": 0,
+  "require_evidence": false,
+  "require_replay_success": false
+}

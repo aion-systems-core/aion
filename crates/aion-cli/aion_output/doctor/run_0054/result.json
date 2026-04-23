@@ -1,0 +1,693 @@
+{
+  "status": "ok",
+  "data": {
+    "aion_version": "1.0.0",
+    "breaking_changes_detected": [],
+    "build_fingerprint": {
+      "abi_version": "v1",
+      "build_sha256": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a",
+      "contract_spec_version": "f76ba1d197005ecfc65913151d544d59748a47fb98c4166cc1d1c36dac5b64f9",
+      "global_consistency_contract_version": "d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44",
+      "kernel_version": "0.2.0+unknown"
+    },
+    "capsule_abi": {
+      "current_kernel_version": "0.2.0",
+      "result": {
+        "abi_version": "v1",
+        "status": "ok",
+        "violations": []
+      },
+      "supported_abi_versions": [
+        "v1"
+      ]
+    },
+    "checks": [
+      {
+        "check": "ffi_check",
+        "result": {
+          "cause": "library_not_found",
+          "code": "AION_FFI_IO",
+          "context": "doctor.ffi.library_load",
+          "origin": "ffi",
+          "status": "error"
+        }
+      },
+      {
+        "check": "python_bindings_check",
+        "result": {
+          "cause": "env_invalid",
+          "code": "AION_BINDINGS_IO",
+          "context": "doctor.bindings.aion_lib_path",
+          "origin": "bindings",
+          "status": "error"
+        }
+      },
+      {
+        "check": "policy_schema_check",
+        "result": {
+          "code": "AION_OK",
+          "context": "doctor.policy_schema.ok",
+          "origin": "policy",
+          "status": "ok"
+        }
+      }
+    ],
+    "compatibility_matrix": [
+      {
+        "reader_version": "0.2.0",
+        "rule": "N_reads_N_writes",
+        "status": "ok",
+        "writer_version": "0.2.0"
+      },
+      {
+        "reader_version": "0.1.0",
+        "rule": "N_minus_1_reads_N",
+        "status": "ok",
+        "writer_version": "0.2.0"
+      },
+      {
+        "reader_version": "0.0.0",
+        "rule": "N_minus_2_reads_N",
+        "status": "ok",
+        "writer_version": "0.2.0"
+      }
+    ],
+    "contract_stability": {
+      "breaking_changes_detected": [],
+      "compatibility_matrix": [
+        {
+          "reader_version": "0.2.0",
+          "rule": "N_reads_N_writes",
+          "status": "ok",
+          "writer_version": "0.2.0"
+        },
+        {
+          "reader_version": "0.1.0",
+          "rule": "N_minus_1_reads_N",
+          "status": "ok",
+          "writer_version": "0.2.0"
+        },
+        {
+          "reader_version": "0.0.0",
+          "rule": "N_minus_2_reads_N",
+          "status": "ok",
+          "writer_version": "0.2.0"
+        }
+      ],
+      "current_contract_versions": {
+        "capsule_abi": "0.2.0-v1",
+        "drift": "0.2.0-v1",
+        "error": "0.2.0-v1",
+        "evidence": "0.2.0-v1",
+        "global_consistency": "0.2.0-v1",
+        "identity": "0.2.0-v1",
+        "legal_determinism": "0.2.0-v1",
+        "observability": "0.2.0-v1",
+        "output": "0.2.0-v1",
+        "policy": "0.2.0-v1",
+        "replay": "0.2.0-v1",
+        "runtime_isolation": "0.2.0-v1",
+        "tenant_isolation": "0.2.0-v1",
+        "trust_chain": "0.2.0-v1",
+        "upgrade_replay": "0.2.0-v1"
+      },
+      "snapshot_hashes": {
+        "capsule_abi": "36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a",
+        "drift": "76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2",
+        "error": "f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9",
+        "evidence": "511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2",
+        "global_consistency": "e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23",
+        "identity": "0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85",
+        "legal_determinism": "c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27",
+        "observability": "50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990",
+        "output": "cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74",
+        "policy": "ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc",
+        "replay": "6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc",
+        "runtime_isolation": "73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a",
+        "tenant_isolation": "0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84",
+        "trust_chain": "20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987",
+        "upgrade_replay": "98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89"
+      },
+      "snapshots": [
+        {
+          "contract_name": "output",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "output:status_ok_final"
+          ],
+          "hash_sha256": "cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74",
+          "invariants": [
+            "output:deterministic_contract"
+          ],
+          "schema": {
+            "data": "object",
+            "error": "object|null",
+            "status": "string"
+          }
+        },
+        {
+          "contract_name": "error",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "error:status_ok_final"
+          ],
+          "hash_sha256": "f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9",
+          "invariants": [
+            "error:deterministic_contract"
+          ],
+          "schema": {
+            "cause": "string|null",
+            "code": "string",
+            "context": "string",
+            "message": "string",
+            "origin": "string"
+          }
+        },
+        {
+          "contract_name": "replay",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "replay:status_ok_final"
+          ],
+          "hash_sha256": "6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc",
+          "invariants": [
+            "replay:deterministic_contract"
+          ],
+          "schema": {
+            "differences": "array",
+            "replay_profile_error": "string|null",
+            "replay_symmetry_ok": "bool"
+          }
+        },
+        {
+          "contract_name": "drift",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "drift:status_ok_final"
+          ],
+          "hash_sha256": "76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2",
+          "invariants": [
+            "drift:deterministic_contract"
+          ],
+          "schema": {
+            "categories": "array",
+            "changed": "bool",
+            "labels": "array",
+            "tolerance_violations": "array"
+          }
+        },
+        {
+          "contract_name": "evidence",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "evidence:status_ok_final"
+          ],
+          "hash_sha256": "511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2",
+          "invariants": [
+            "evidence:deterministic_contract"
+          ],
+          "schema": {
+            "records": "array",
+            "replay_anchors": "object",
+            "root_anchor": "string"
+          }
+        },
+        {
+          "contract_name": "policy",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "policy:status_ok_final"
+          ],
+          "hash_sha256": "ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc",
+          "invariants": [
+            "policy:deterministic_contract"
+          ],
+          "schema": {
+            "policy_profile": "object",
+            "status": "string",
+            "violations": "array"
+          }
+        },
+        {
+          "contract_name": "global_consistency",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "global_consistency:status_ok_final"
+          ],
+          "hash_sha256": "e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23",
+          "invariants": [
+            "global_consistency:deterministic_contract"
+          ],
+          "schema": {
+            "capsule_finality": "object",
+            "evidence_finality": "object",
+            "replay_finality": "object",
+            "run_finality": "object"
+          }
+        },
+        {
+          "contract_name": "identity",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "identity:status_ok_final"
+          ],
+          "hash_sha256": "0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85",
+          "invariants": [
+            "identity:deterministic_contract"
+          ],
+          "schema": {
+            "compatibility_profile": "object",
+            "instance_id": "object|null",
+            "kernel_version": "object"
+          }
+        },
+        {
+          "contract_name": "upgrade_replay",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "upgrade:replay_mismatch",
+            "upgrade:abi_incompatible",
+            "upgrade:evidence_incompatible",
+            "upgrade:policy_incompatible"
+          ],
+          "finality_rules": [
+            "upgrade_replay:status_ok_final"
+          ],
+          "hash_sha256": "98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89",
+          "invariants": [
+            "upgrade_replay:deterministic_contract"
+          ],
+          "schema": {
+            "results": "array",
+            "support_window": "string",
+            "tested_upgrade_targets": "array"
+          }
+        },
+        {
+          "contract_name": "capsule_abi",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "capsule_abi:layout_incompatible",
+            "capsule_abi:fields_incompatible",
+            "capsule_abi:serialization_incompatible"
+          ],
+          "finality_rules": [
+            "capsule_abi:status_ok_final"
+          ],
+          "hash_sha256": "36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a",
+          "invariants": [
+            "capsule_abi:deterministic_contract"
+          ],
+          "schema": {
+            "result": "object",
+            "supported_abi_versions": "array"
+          }
+        },
+        {
+          "contract_name": "trust_chain",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "trust_chain:signature_invalid",
+            "trust_chain:attestation_invalid",
+            "trust_chain:key_rotation_invalid"
+          ],
+          "finality_rules": [
+            "trust_chain:status_ok_final"
+          ],
+          "hash_sha256": "20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987",
+          "invariants": [
+            "trust_chain:deterministic_contract"
+          ],
+          "schema": {
+            "attestation_required": "bool",
+            "key_rotation_policy": "string",
+            "result": "object"
+          }
+        },
+        {
+          "contract_name": "runtime_isolation",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "runtime_isolation:io_boundary_violation",
+            "runtime_isolation:side_effect_violation",
+            "runtime_isolation:network_violation"
+          ],
+          "finality_rules": [
+            "runtime_isolation:status_ok_final"
+          ],
+          "hash_sha256": "73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a",
+          "invariants": [
+            "runtime_isolation:deterministic_contract"
+          ],
+          "schema": {
+            "io_boundary_mode": "string",
+            "result": "object",
+            "side_effect_matrix_version": "string"
+          }
+        },
+        {
+          "contract_name": "observability",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "observability:log_nondeterministic",
+            "observability:metric_nondeterministic",
+            "observability:trace_nondeterministic"
+          ],
+          "finality_rules": [
+            "observability:status_ok_final"
+          ],
+          "hash_sha256": "50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990",
+          "invariants": [
+            "observability:deterministic_contract"
+          ],
+          "schema": {
+            "log_schema_version": "string",
+            "metrics_schema_version": "string",
+            "result": "object",
+            "trace_schema_version": "string"
+          }
+        },
+        {
+          "contract_name": "tenant_isolation",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "tenant_isolation:boundary_violation",
+            "tenant_isolation:cross_tenant_violation",
+            "tenant_isolation:scope_violation"
+          ],
+          "finality_rules": [
+            "tenant_isolation:status_ok_final"
+          ],
+          "hash_sha256": "0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84",
+          "invariants": [
+            "tenant_isolation:deterministic_contract"
+          ],
+          "schema": {
+            "guard_matrix_version": "string",
+            "result": "object"
+          }
+        },
+        {
+          "contract_name": "legal_determinism",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "legal_determinism:license_unstable",
+            "legal_determinism:sla_unstable",
+            "legal_determinism:terms_not_machine_readable"
+          ],
+          "finality_rules": [
+            "legal_determinism:status_ok_final"
+          ],
+          "hash_sha256": "c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27",
+          "invariants": [
+            "legal_determinism:deterministic_contract"
+          ],
+          "schema": {
+            "license_contract_version": "string",
+            "result": "object",
+            "sla_contract_version": "string"
+          }
+        }
+      ],
+      "status": "ok"
+    },
+    "current_contract_versions": {
+      "capsule_abi": "0.2.0-v1",
+      "drift": "0.2.0-v1",
+      "error": "0.2.0-v1",
+      "evidence": "0.2.0-v1",
+      "global_consistency": "0.2.0-v1",
+      "identity": "0.2.0-v1",
+      "legal_determinism": "0.2.0-v1",
+      "observability": "0.2.0-v1",
+      "output": "0.2.0-v1",
+      "policy": "0.2.0-v1",
+      "replay": "0.2.0-v1",
+      "runtime_isolation": "0.2.0-v1",
+      "tenant_isolation": "0.2.0-v1",
+      "trust_chain": "0.2.0-v1",
+      "upgrade_replay": "0.2.0-v1"
+    },
+    "cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2\\crates\\aion-cli",
+    "global_consistency": {
+      "capsule_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.capsule_finality",
+        "origin": "capsule",
+        "status": "ok"
+      },
+      "evidence_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.evidence_finality",
+        "origin": "evidence",
+        "status": "ok"
+      },
+      "replay_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.replay_finality",
+        "origin": "replay",
+        "status": "ok"
+      },
+      "run_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.run_finality",
+        "origin": "doctor",
+        "status": "ok"
+      }
+    },
+    "legal_determinism": {
+      "license_contract_version": "v1",
+      "result": {
+        "status": "ok",
+        "violations": []
+      },
+      "sla_contract_version": "v1"
+    },
+    "observability": {
+      "log_schema_version": "v1",
+      "metrics_schema_version": "v1",
+      "result": {
+        "status": "ok",
+        "violations": []
+      },
+      "trace_schema_version": "v1"
+    },
+    "ok": false,
+    "os_contract_spec_version": "f76ba1d197005ecfc65913151d544d59748a47fb98c4166cc1d1c36dac5b64f9",
+    "os_identity": {
+      "compatibility_profile": {
+        "global_consistency_contract_versions": [
+          "d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44"
+        ],
+        "os_contract_spec_versions": [
+          "f76ba1d197005ecfc65913151d544d59748a47fb98c4166cc1d1c36dac5b64f9"
+        ]
+      },
+      "global_consistency_contract_version": "d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44",
+      "instance_id": {
+        "source": "derived_explicit_inputs",
+        "value": "d21c4a1fc77c0d9e91e49498bd8a4f753dd802f2fc569b6d3f30536dab9e2e3e"
+      },
+      "kernel_version": {
+        "build_metadata": "unknown",
+        "semver": "0.2.0",
+        "value": "0.2.0+unknown"
+      },
+      "os_contract_spec_version": "f76ba1d197005ecfc65913151d544d59748a47fb98c4166cc1d1c36dac5b64f9"
+    },
+    "provenance": {
+      "predicate": {
+        "build_environment": [
+          "RUSTFLAGS=-Cdebuginfo=0",
+          "SOURCE_DATE_EPOCH=0"
+        ],
+        "build_steps": [
+          "build",
+          "sign",
+          "test"
+        ],
+        "inputs": [
+          "Cargo.lock",
+          "docs/os_contract_spec.md"
+        ],
+        "outputs": [
+          "aion-cli",
+          "aion-kernel"
+        ],
+        "signatures": [
+          "ed25519"
+        ]
+      },
+      "provenance_id": "fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47",
+      "subjects": [
+        {
+          "digest_sha256": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a",
+          "name": "aion-release"
+        }
+      ]
+    },
+    "release_signatures": [
+      {
+        "artifact_hash": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a",
+        "artifact_type": "kernel_binary",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "777cf0c35ba5681b422ed816647cf3c4292c35579961c65b9e967680a74e49d78e7fb9a62b6bc2feb0a2b7fa9f8b788cd8f862ce3e4c662e0d477440ece1ca02",
+        "timestamp": 0
+      },
+      {
+        "artifact_hash": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a",
+        "artifact_type": "cli_binary",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "bf3a4ee6579556fb14b5755fc110191d077cf7514e37257ebecb1e1e31eef657773ef0cf642cee2474c0abd025da7f9365ea69bf560d4852d5f7a351b225220e",
+        "timestamp": 0
+      },
+      {
+        "artifact_hash": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a",
+        "artifact_type": "capsule_writer",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "48a183ce2597776be94490dc03fd5e29c3fe6a5b1ce76042fbf14779f2c875ee64f1d960252b192e45d0475a07cb6ad54cdc4f449e4fe2da37658a0019499a0d",
+        "timestamp": 0
+      },
+      {
+        "artifact_hash": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a",
+        "artifact_type": "policy_bundles",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "4a0d42a712da4aa2bd4a35252b82c73d014a5fb9a8d4679867bbf8b3804c2d348ca8717f2100e87f2eb99480a63f0ee35902894f01f8a92638ffe4c25cff8c08",
+        "timestamp": 0
+      },
+      {
+        "artifact_hash": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a",
+        "artifact_type": "contract_snapshots",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "aceabab9d0a59bfc66a4e47aba412a569c2722b4f05114d0dee2898c353d9a71f8e0848a059c9b8635d35403b4eec4b9ff35b089ba2f6012a72dc8673d00c408",
+        "timestamp": 0
+      }
+    ],
+    "runtime_isolation": {
+      "io_boundary_mode": "strict",
+      "result": {
+        "status": "ok",
+        "violations": []
+      },
+      "side_effect_matrix_version": "v1"
+    },
+    "sbom": {
+      "build_metadata": [
+        "kernel_version=0.2.0+unknown",
+        "provenance_id=fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47"
+      ],
+      "components": [
+        {
+          "hashes": [
+            {
+              "alg": "sha256",
+              "value": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a"
+            }
+          ],
+          "license": "MIT",
+          "name": "aion-cli",
+          "version": "0.2.0"
+        },
+        {
+          "hashes": [
+            {
+              "alg": "sha256",
+              "value": "7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a"
+            }
+          ],
+          "license": "MIT",
+          "name": "aion-core",
+          "version": "0.2.0"
+        }
+      ],
+      "format": "spdx"
+    },
+    "snapshot_hashes": {
+      "capsule_abi": "36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a",
+      "drift": "76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2",
+      "error": "f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9",
+      "evidence": "511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2",
+      "global_consistency": "e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23",
+      "identity": "0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85",
+      "legal_determinism": "c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27",
+      "observability": "50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990",
+      "output": "cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74",
+      "policy": "ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc",
+      "replay": "6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc",
+      "runtime_isolation": "73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a",
+      "tenant_isolation": "0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84",
+      "trust_chain": "20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987",
+      "upgrade_replay": "98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89"
+    },
+    "tenant_isolation": {
+      "guard_matrix_version": "v1",
+      "result": {
+        "status": "ok",
+        "violations": []
+      }
+    },
+    "trust_chain": {
+      "attestation_required": true,
+      "key_rotation_policy": "deterministic_rotation_v1",
+      "result": {
+        "status": "ok",
+        "violations": []
+      }
+    },
+    "upgrade_replay": {
+      "current_kernel_version": "0.2.0",
+      "results": [
+        {
+          "status": "ok",
+          "target_version": "0.3.0",
+          "violations": []
+        },
+        {
+          "status": "ok",
+          "target_version": "0.4.0",
+          "violations": []
+        }
+      ],
+      "support_window": "N_to_Nplus2",
+      "tested_upgrade_targets": [
+        "0.3.0",
+        "0.4.0"
+      ]
+    },
+    "vulnerability_status": "ok"
+  }
+}

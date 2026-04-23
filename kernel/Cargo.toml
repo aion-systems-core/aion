@@ -1,0 +1,15 @@
+[package]
+name = "aion-kernel"
+version = "0.2.0"
+edition = "2021"
+description = "AION OS v2 — in-process deterministic kernel"
+license = "MIT"
+
+[lib]
+path = "src/lib.rs"
+
+[dependencies]
+aion-core = { path = "../core" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "0.10"

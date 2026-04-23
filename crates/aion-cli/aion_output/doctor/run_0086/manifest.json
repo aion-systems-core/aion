@@ -1,0 +1,14 @@
+{
+  "command": "doctor",
+  "files": [
+    "manifest.json",
+    "stdout.txt",
+    "stderr.txt",
+    "events.jsonl",
+    "replay.json",
+    "audit.jsonl",
+    "hashes.json"
+  ],
+  "run_id": "run_0086",
+  "version": "1.0.0"
+}

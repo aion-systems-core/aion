@@ -1,0 +1,18 @@
+name: benchmark
+
+on:
+  workflow_dispatch:
+  push:
+    branches: ["main", "master"]
+
+jobs:
+  smoke-benchmark:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build
+        run: cargo build -p aion-cli --release
+      - name: Replay smoke benchmark
+        run: |
+          /usr/bin/time -f "%E %MKB" cargo run -q -p aion-cli -- execute ai --model demo --prompt "bench" --seed 1

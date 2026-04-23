@@ -1,0 +1,67 @@
+{
+  "status": "ok",
+  "data": {
+    "aion_version": "1.0.0",
+    "checks": [
+      {
+        "check": "ffi_check",
+        "result": {
+          "cause": "library_not_found",
+          "code": "AION_FFI_IO",
+          "context": "doctor.ffi.library_load",
+          "origin": "ffi",
+          "status": "error"
+        }
+      },
+      {
+        "check": "python_bindings_check",
+        "result": {
+          "cause": "env_invalid",
+          "code": "AION_BINDINGS_IO",
+          "context": "doctor.bindings.aion_lib_path",
+          "origin": "bindings",
+          "status": "error"
+        }
+      },
+      {
+        "check": "policy_schema_check",
+        "result": {
+          "cause": "policy_invalid",
+          "code": "AION_GOVERNANCE_JSON",
+          "context": "doctor.policy_schema.load_policy",
+          "origin": "policy",
+          "status": "error"
+        }
+      }
+    ],
+    "cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2\\crates\\aion-cli",
+    "global_consistency": {
+      "capsule_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.capsule_finality",
+        "origin": "capsule",
+        "status": "ok"
+      },
+      "evidence_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.evidence_finality",
+        "origin": "evidence",
+        "status": "ok"
+      },
+      "replay_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.replay_finality",
+        "origin": "replay",
+        "status": "ok"
+      },
+      "run_finality": {
+        "cause": "run:policy_not_final",
+        "code": "AION_GOVERNANCE_JSON",
+        "context": "global_consistency.run_finality",
+        "origin": "doctor",
+        "status": "error"
+      }
+    },
+    "ok": false
+  }
+}

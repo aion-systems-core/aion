@@ -1,0 +1,174 @@
+{
+  "version": "1",
+  "prompt": "hello world",
+  "model": "demo",
+  "seed": 99,
+  "determinism": {
+    "time_frozen": true,
+    "time_epoch_secs": 99,
+    "random_seed": 99,
+    "syscall_intercept": false
+  },
+  "tokens": [
+    "emit",
+    "seed",
+    "kernel"
+  ],
+  "token_trace": [
+    {
+      "index": 0,
+      "token": "emit",
+      "logits": null,
+      "timestamp": 0
+    },
+    {
+      "index": 1,
+      "token": "seed",
+      "logits": null,
+      "timestamp": 1
+    },
+    {
+      "index": 2,
+      "token": "kernel",
+      "logits": null,
+      "timestamp": 2
+    }
+  ],
+  "event_stream": [
+    {
+      "kind": "run_start",
+      "model": "demo"
+    },
+    {
+      "kind": "prompt_ingested",
+      "chars": 11
+    },
+    {
+      "kind": "token_generated",
+      "index": 0,
+      "token": "emit"
+    },
+    {
+      "kind": "token_generated",
+      "index": 1,
+      "token": "seed"
+    },
+    {
+      "kind": "token_generated",
+      "index": 2,
+      "token": "kernel"
+    },
+    {
+      "kind": "run_complete",
+      "token_count": 3
+    }
+  ],
+  "why": {
+    "summary": "Emitted 3 tokens in strict index order; each token is a deterministic function of prompt (11 chars), model \"demo\", seed 0x63, and determinism.random_seed. Causal chain: prompt+model+seed condition t0; each t{i} feeds t{i+1} via next_token edges in the graph.",
+    "first_divergent_field": "tokens",
+    "suggestion": "Replay uses the same seed (99) and model (demo) to reproduce the token trace; change prompt or seed to alter the trajectory."
+  },
+  "graph": {
+    "edges": [
+      {
+        "from": "prompt",
+        "to": "t0",
+        "relation": "conditions"
+      },
+      {
+        "from": "model",
+        "to": "t0",
+        "relation": "routes"
+      },
+      {
+        "from": "seed",
+        "to": "t0",
+        "relation": "seeds"
+      },
+      {
+        "from": "t0",
+        "to": "t1",
+        "relation": "next_token"
+      },
+      {
+        "from": "t1",
+        "to": "t2",
+        "relation": "next_token"
+      }
+    ],
+    "nodes": [
+      {
+        "id": "prompt",
+        "kind": "input",
+        "label": "hello world"
+      },
+      {
+        "id": "model",
+        "kind": "config",
+        "label": "demo"
+      },
+      {
+        "id": "seed",
+        "kind": "config",
+        "label": "99"
+      },
+      {
+        "id": "t0",
+        "kind": "token",
+        "label": "emit",
+        "index": 0
+      },
+      {
+        "id": "t1",
+        "kind": "token",
+        "label": "seed",
+        "index": 1
+      },
+      {
+        "id": "t2",
+        "kind": "token",
+        "label": "kernel",
+        "index": 2
+      }
+    ],
+    "schema": "aion/ai_graph/v1"
+  },
+  "drift": {
+    "changed": false,
+    "fields": [],
+    "details": []
+  },
+  "evidence": {
+    "run_id": "007f895bda2cad26",
+    "records": [
+      {
+        "seq": 0,
+        "kind": "run",
+        "leaf_digest": "c8df92e45cf2175edb81118e2189c819eab57e712bbadc9f0a5103c35e7152f7",
+        "payload_digest": "96e590e13d500143b368aff72cf3f47cc7eeeefb257bdd6661b25d1bacdb8694",
+        "parent_digest": null
+      },
+      {
+        "seq": 1,
+        "kind": "policy",
+        "leaf_digest": "50b6d8588685550bba803e350353f2de1884db090fc419bbed97e48f5b9911fb",
+        "payload_digest": "bf27a839330fb4c0e456948391c209f6c50350278c28dfc2a81f9bcbde3b9949",
+        "parent_digest": "96e590e13d500143b368aff72cf3f47cc7eeeefb257bdd6661b25d1bacdb8694"
+      },
+      {
+        "seq": 2,
+        "kind": "determinism",
+        "leaf_digest": "ea852b4393fb03d95fbd9114ba4c8d74a03393ea57e7ead1512b42058643c810",
+        "payload_digest": "af7e9a45c2790f6f69978eb254a7a26ec695f256e618edace06c92d04702031b",
+        "parent_digest": "bf27a839330fb4c0e456948391c209f6c50350278c28dfc2a81f9bcbde3b9949"
+      },
+      {
+        "seq": 3,
+        "kind": "artifact_schema",
+        "leaf_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "payload_digest": "d594ae82c35bf75405a40435d194bca922cdb91d0ec1d0cbb4e9e08c6513d729",
+        "parent_digest": "af7e9a45c2790f6f69978eb254a7a26ec695f256e618edace06c92d04702031b"
+      }
+    ]
+  }
+}

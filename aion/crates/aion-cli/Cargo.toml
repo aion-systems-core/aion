@@ -1,0 +1,13 @@
+[package]
+name = "aion-cli"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "AION command-line interface (stub)"
+
+[[bin]]
+name = "aion"
+path = "src/main.rs"
+
+[dependencies]
+aion-engine = { path = "../../engine" }

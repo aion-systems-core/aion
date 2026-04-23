@@ -1,0 +1,37 @@
+{
+  "ok": false,
+  "cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2\\crates\\aion-cli",
+  "aion_version": "1.0.0",
+  "checks": [
+    {
+      "check": "ffi_check",
+      "result": {
+        "status": "error",
+        "code": "AION_FFI_IO",
+        "context": "doctor.ffi.library_load",
+        "origin": "ffi",
+        "cause": "library_not_found"
+      }
+    },
+    {
+      "check": "python_bindings_check",
+      "result": {
+        "status": "error",
+        "code": "AION_BINDINGS_IO",
+        "context": "doctor.bindings.aion_lib_path",
+        "origin": "bindings",
+        "cause": "env_invalid"
+      }
+    },
+    {
+      "check": "policy_schema_check",
+      "result": {
+        "status": "error",
+        "code": "AION_GOVERNANCE_JSON",
+        "context": "doctor.policy_schema.load_policy",
+        "origin": "policy",
+        "cause": "policy_invalid"
+      }
+    }
+  ]
+}

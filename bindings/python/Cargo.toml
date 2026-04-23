@@ -1,0 +1,16 @@
+[package]
+name = "aion-python"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+name = "_native"
+crate-type = ["cdylib"]
+
+[dependencies]
+pyo3 = { version = "0.22", features = ["extension-module"] }
+serde_json = "1"
+hex = "0.4"
+aion-engine = { path = "../../engine" }
+aion-core = { path = "../../core" }
+

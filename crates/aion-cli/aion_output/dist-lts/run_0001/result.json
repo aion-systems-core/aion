@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "kind": "dist_lts",
+      "lts_policy": {
+        "channel": "Lts24",
+        "eol_policy": {
+          "eol_date": "2028-01-01",
+          "status": "supported"
+        },
+        "status": "ok",
+        "support_window": {
+          "months": 24,
+          "starts_at": "2026-01-01"
+        }
+      }
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

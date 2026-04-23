@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>AION doctor</title>
+<style>
+body{font-family:system-ui,-apple-system,sans-serif;margin:2rem;line-height:1.45;color:#111}
+h1{font-size:1.35rem;margin:0 0 1rem}
+table{border-collapse:collapse;width:100%;max-width:56rem}
+th,td{border:1px solid #ccc;padding:.4rem .55rem;text-align:left;vertical-align:top}
+th{background:#f0f0f0}
+code,pre{font-family:ui-monospace,monospace;font-size:.88rem;background:#f6f6f6;padding:.15rem .35rem}
+pre{white-space:pre-wrap;word-break:break-word;padding:.75rem}
+.muted{color:#555;font-size:.9rem}
+</style>
+</head>
+<body>
+<h1>AION doctor</h1>
+<pre>{
+  &quot;ok&quot;: false,
+  &quot;cwd&quot;: &quot;C:\\Users\\noahp\\Documents\\aion-os-v2\\crates\\aion-cli&quot;,
+  &quot;aion_version&quot;: &quot;1.0.0&quot;,
+  &quot;os_contract_spec_version&quot;: &quot;f76ba1d197005ecfc65913151d544d59748a47fb98c4166cc1d1c36dac5b64f9&quot;,
+  &quot;os_identity&quot;: {
+    &quot;kernel_version&quot;: {
+      &quot;semver&quot;: &quot;0.2.0&quot;,
+      &quot;build_metadata&quot;: &quot;unknown&quot;,
+      &quot;value&quot;: &quot;0.2.0+unknown&quot;
+    },
+    &quot;os_contract_spec_version&quot;: &quot;f76ba1d197005ecfc65913151d544d59748a47fb98c4166cc1d1c36dac5b64f9&quot;,
+    &quot;global_consistency_contract_version&quot;: &quot;d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44&quot;,
+    &quot;compatibility_profile&quot;: {
+      &quot;os_contract_spec_versions&quot;: [
+        &quot;f76ba1d197005ecfc65913151d544d59748a47fb98c4166cc1d1c36dac5b64f9&quot;
+      ],
+      &quot;global_consistency_contract_versions&quot;: [
+        &quot;d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44&quot;
+      ]
+    },
+    &quot;instance_id&quot;: {
+      &quot;value&quot;: &quot;d21c4a1fc77c0d9e91e49498bd8a4f753dd802f2fc569b6d3f30536dab9e2e3e&quot;,
+      &quot;source&quot;: &quot;derived_explicit_inputs&quot;
+    }
+  },
+  &quot;upgrade_replay&quot;: {
+    &quot;current_kernel_version&quot;: &quot;0.2.0&quot;,
+    &quot;support_window&quot;: &quot;N_to_Nplus2&quot;,
+    &quot;tested_upgrade_targets&quot;: [
+      &quot;0.3.0&quot;,
+      &quot;0.4.0&quot;
+    ],
+    &quot;results&quot;: [
+      {
+        &quot;target_version&quot;: &quot;0.3.0&quot;,
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;violations&quot;: []
+      },
+      {
+        &quot;target_version&quot;: &quot;0.4.0&quot;,
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;violations&quot;: []
+      }
+    ]
+  },
+  &quot;capsule_abi&quot;: {
+    &quot;current_kernel_version&quot;: &quot;0.2.0&quot;,
+    &quot;supported_abi_versions&quot;: [
+      &quot;v1&quot;
+    ],
+    &quot;result&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;abi_version&quot;: &quot;v1&quot;,
+      &quot;violations&quot;: []
+    }
+  },
+  &quot;trust_chain&quot;: {
+    &quot;key_rotation_policy&quot;: &quot;deterministic_rotation_v1&quot;,
+    &quot;attestation_required&quot;: true,
+    &quot;result&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;violations&quot;: []
+    }
+  },
+  &quot;runtime_isolation&quot;: {
+    &quot;io_boundary_mode&quot;: &quot;strict&quot;,
+    &quot;side_effect_matrix_version&quot;: &quot;v1&quot;,
+    &quot;result&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;violations&quot;: []
+    }
+  },
+  &quot;observability&quot;: {
+    &quot;log_schema_version&quot;: &quot;v1&quot;,
+    &quot;metrics_schema_version&quot;: &quot;v1&quot;,
+    &quot;trace_schema_version&quot;: &quot;v1&quot;,
+    &quot;result&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;violations&quot;: []
+    }
+  },
+  &quot;tenant_isolation&quot;: {
+    &quot;guard_matrix_version&quot;: &quot;v1&quot;,
+    &quot;result&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;violations&quot;: []
+    }
+  },
+  &quot;legal_determinism&quot;: {
+    &quot;license_contract_version&quot;: &quot;v1&quot;,
+    &quot;sla_contract_version&quot;: &quot;v1&quot;,
+    &quot;result&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;violations&quot;: []
+    }
+  },
+  &quot;contract_stability&quot;: {
+    &quot;status&quot;: &quot;ok&quot;,
+    &quot;current_contract_versions&quot;: {
+      &quot;capsule_abi&quot;: &quot;0.2.0-v1&quot;,
+      &quot;drift&quot;: &quot;0.2.0-v1&quot;,
+      &quot;error&quot;: &quot;0.2.0-v1&quot;,
+      &quot;evidence&quot;: &quot;0.2.0-v1&quot;,
+      &quot;global_consistency&quot;: &quot;0.2.0-v1&quot;,
+      &quot;identity&quot;: &quot;0.2.0-v1&quot;,
+      &quot;legal_determinism&quot;: &quot;0.2.0-v1&quot;,
+      &quot;observability&quot;: &quot;0.2.0-v1&quot;,
+      &quot;output&quot;: &quot;0.2.0-v1&quot;,
+      &quot;policy&quot;: &quot;0.2.0-v1&quot;,
+      &quot;replay&quot;: &quot;0.2.0-v1&quot;,
+      &quot;runtime_isolation&quot;: &quot;0.2.0-v1&quot;,
+      &quot;tenant_isolation&quot;: &quot;0.2.0-v1&quot;,
+      &quot;trust_chain&quot;: &quot;0.2.0-v1&quot;,
+      &quot;upgrade_replay&quot;: &quot;0.2.0-v1&quot;
+    },
+    &quot;compatibility_matrix&quot;: [
+      {
+        &quot;reader_version&quot;: &quot;0.2.0&quot;,
+        &quot;writer_version&quot;: &quot;0.2.0&quot;,
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;rule&quot;: &quot;N_reads_N_writes&quot;
+      },
+      {
+        &quot;reader_version&quot;: &quot;0.1.0&quot;,
+        &quot;writer_version&quot;: &quot;0.2.0&quot;,
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;rule&quot;: &quot;N_minus_1_reads_N&quot;
+      },
+      {
+        &quot;reader_version&quot;: &quot;0.0.0&quot;,
+        &quot;writer_version&quot;: &quot;0.2.0&quot;,
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;rule&quot;: &quot;N_minus_2_reads_N&quot;
+      }
+    ],
+    &quot;breaking_changes_detected&quot;: [],
+    &quot;snapshots&quot;: [
+      {
+        &quot;contract_name&quot;: &quot;output&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74&quot;,
+        &quot;schema&quot;: {
+          &quot;status&quot;: &quot;string&quot;,
+          &quot;data&quot;: &quot;object&quot;,
+          &quot;error&quot;: &quot;object|null&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;output:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;AION_OK&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;output:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;error&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9&quot;,
+        &quot;schema&quot;: {
+          &quot;code&quot;: &quot;string&quot;,
+          &quot;message&quot;: &quot;string&quot;,
+          &quot;context&quot;: &quot;string&quot;,
+          &quot;origin&quot;: &quot;string&quot;,
+          &quot;cause&quot;: &quot;string|null&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;error:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;AION_OK&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;error:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;replay&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc&quot;,
+        &quot;schema&quot;: {
+          &quot;replay_symmetry_ok&quot;: &quot;bool&quot;,
+          &quot;replay_profile_error&quot;: &quot;string|null&quot;,
+          &quot;differences&quot;: &quot;array&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;replay:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;AION_OK&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;replay:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;drift&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2&quot;,
+        &quot;schema&quot;: {
+          &quot;changed&quot;: &quot;bool&quot;,
+          &quot;labels&quot;: &quot;array&quot;,
+          &quot;categories&quot;: &quot;array&quot;,
+          &quot;tolerance_violations&quot;: &quot;array&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;drift:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;AION_OK&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;drift:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;evidence&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2&quot;,
+        &quot;schema&quot;: {
+          &quot;records&quot;: &quot;array&quot;,
+          &quot;root_anchor&quot;: &quot;string&quot;,
+          &quot;replay_anchors&quot;: &quot;object&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;evidence:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;AION_OK&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;evidence:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;policy&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc&quot;,
+        &quot;schema&quot;: {
+          &quot;policy_profile&quot;: &quot;object&quot;,
+          &quot;violations&quot;: &quot;array&quot;,
+          &quot;status&quot;: &quot;string&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;policy:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;AION_OK&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;policy:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;global_consistency&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23&quot;,
+        &quot;schema&quot;: {
+          &quot;run_finality&quot;: &quot;object&quot;,
+          &quot;capsule_finality&quot;: &quot;object&quot;,
+          &quot;evidence_finality&quot;: &quot;object&quot;,
+          &quot;replay_finality&quot;: &quot;object&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;global_consistency:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;AION_OK&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;global_consistency:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;identity&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85&quot;,
+        &quot;schema&quot;: {
+          &quot;kernel_version&quot;: &quot;object&quot;,
+          &quot;compatibility_profile&quot;: &quot;object&quot;,
+          &quot;instance_id&quot;: &quot;object|null&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;identity:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;AION_OK&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;identity:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;upgrade_replay&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89&quot;,
+        &quot;schema&quot;: {
+          &quot;support_window&quot;: &quot;string&quot;,
+          &quot;tested_upgrade_targets&quot;: &quot;array&quot;,
+          &quot;results&quot;: &quot;array&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;upgrade_replay:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;upgrade:replay_mismatch&quot;,
+          &quot;upgrade:abi_incompatible&quot;,
+          &quot;upgrade:evidence_incompatible&quot;,
+          &quot;upgrade:policy_incompatible&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;upgrade_replay:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;capsule_abi&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a&quot;,
+        &quot;schema&quot;: {
+          &quot;supported_abi_versions&quot;: &quot;array&quot;,
+          &quot;result&quot;: &quot;object&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;capsule_abi:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;capsule_abi:layout_incompatible&quot;,
+          &quot;capsule_abi:fields_incompatible&quot;,
+          &quot;capsule_abi:serialization_incompatible&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;capsule_abi:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;trust_chain&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987&quot;,
+        &quot;schema&quot;: {
+          &quot;key_rotation_policy&quot;: &quot;string&quot;,
+          &quot;attestation_required&quot;: &quot;bool&quot;,
+          &quot;result&quot;: &quot;object&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;trust_chain:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;trust_chain:signature_invalid&quot;,
+          &quot;trust_chain:attestation_invalid&quot;,
+          &quot;trust_chain:key_rotation_invalid&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;trust_chain:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;runtime_isolation&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a&quot;,
+        &quot;schema&quot;: {
+          &quot;io_boundary_mode&quot;: &quot;string&quot;,
+          &quot;side_effect_matrix_version&quot;: &quot;string&quot;,
+          &quot;result&quot;: &quot;object&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;runtime_isolation:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;runtime_isolation:io_boundary_violation&quot;,
+          &quot;runtime_isolation:side_effect_violation&quot;,
+          &quot;runtime_isolation:network_violation&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;runtime_isolation:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;observability&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990&quot;,
+        &quot;schema&quot;: {
+          &quot;log_schema_version&quot;: &quot;string&quot;,
+          &quot;metrics_schema_version&quot;: &quot;string&quot;,
+          &quot;trace_schema_version&quot;: &quot;string&quot;,
+          &quot;result&quot;: &quot;object&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;observability:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;observability:log_nondeterministic&quot;,
+          &quot;observability:metric_nondeterministic&quot;,
+          &quot;observability:trace_nondeterministic&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;observability:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;tenant_isolation&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84&quot;,
+        &quot;schema&quot;: {
+          &quot;guard_matrix_version&quot;: &quot;string&quot;,
+          &quot;result&quot;: &quot;object&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;tenant_isolation:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;tenant_isolation:boundary_violation&quot;,
+          &quot;tenant_isolation:cross_tenant_violation&quot;,
+          &quot;tenant_isolation:scope_violation&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;tenant_isolation:status_ok_final&quot;
+        ]
+      },
+      {
+        &quot;contract_name&quot;: &quot;legal_determinism&quot;,
+        &quot;contract_version&quot;: &quot;0.2.0-v1&quot;,
+        &quot;hash_sha256&quot;: &quot;c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27&quot;,
+        &quot;schema&quot;: {
+          &quot;license_contract_version&quot;: &quot;string&quot;,
+          &quot;sla_contract_version&quot;: &quot;string&quot;,
+          &quot;result&quot;: &quot;object&quot;
+        },
+        &quot;invariants&quot;: [
+          &quot;legal_determinism:deterministic_contract&quot;
+        ],
+        &quot;error_codes&quot;: [
+          &quot;legal_determinism:license_unstable&quot;,
+          &quot;legal_determinism:sla_unstable&quot;,
+          &quot;legal_determinism:terms_not_machine_readable&quot;
+        ],
+        &quot;finality_rules&quot;: [
+          &quot;legal_determinism:status_ok_final&quot;
+        ]
+      }
+    ],
+    &quot;snapshot_hashes&quot;: {
+      &quot;capsule_abi&quot;: &quot;36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a&quot;,
+      &quot;drift&quot;: &quot;76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2&quot;,
+      &quot;error&quot;: &quot;f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9&quot;,
+      &quot;evidence&quot;: &quot;511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2&quot;,
+      &quot;global_consistency&quot;: &quot;e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23&quot;,
+      &quot;identity&quot;: &quot;0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85&quot;,
+      &quot;legal_determinism&quot;: &quot;c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27&quot;,
+      &quot;observability&quot;: &quot;50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990&quot;,
+      &quot;output&quot;: &quot;cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74&quot;,
+      &quot;policy&quot;: &quot;ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc&quot;,
+      &quot;replay&quot;: &quot;6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc&quot;,
+      &quot;runtime_isolation&quot;: &quot;73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a&quot;,
+      &quot;tenant_isolation&quot;: &quot;0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84&quot;,
+      &quot;trust_chain&quot;: &quot;20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987&quot;,
+      &quot;upgrade_replay&quot;: &quot;98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89&quot;
+    }
+  },
+  &quot;build_fingerprint&quot;: {
+    &quot;kernel_version&quot;: &quot;0.2.0+unknown&quot;,
+    &quot;contract_spec_version&quot;: &quot;f76ba1d197005ecfc65913151d544d59748a47fb98c4166cc1d1c36dac5b64f9&quot;,
+    &quot;global_consistency_contract_version&quot;: &quot;d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44&quot;,
+    &quot;abi_version&quot;: &quot;v1&quot;,
+    &quot;build_sha256&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;
+  },
+  &quot;release_signatures&quot;: [
+    {
+      &quot;artifact_hash&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;,
+      &quot;artifact_type&quot;: &quot;kernel_binary&quot;,
+      &quot;kernel_version&quot;: &quot;0.2.0+unknown&quot;,
+      &quot;timestamp&quot;: 0,
+      &quot;provenance_id&quot;: &quot;fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47&quot;,
+      &quot;signature_hex&quot;: &quot;777cf0c35ba5681b422ed816647cf3c4292c35579961c65b9e967680a74e49d78e7fb9a62b6bc2feb0a2b7fa9f8b788cd8f862ce3e4c662e0d477440ece1ca02&quot;,
+      &quot;public_key_hex&quot;: &quot;8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c&quot;
+    },
+    {
+      &quot;artifact_hash&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;,
+      &quot;artifact_type&quot;: &quot;cli_binary&quot;,
+      &quot;kernel_version&quot;: &quot;0.2.0+unknown&quot;,
+      &quot;timestamp&quot;: 0,
+      &quot;provenance_id&quot;: &quot;fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47&quot;,
+      &quot;signature_hex&quot;: &quot;bf3a4ee6579556fb14b5755fc110191d077cf7514e37257ebecb1e1e31eef657773ef0cf642cee2474c0abd025da7f9365ea69bf560d4852d5f7a351b225220e&quot;,
+      &quot;public_key_hex&quot;: &quot;8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c&quot;
+    },
+    {
+      &quot;artifact_hash&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;,
+      &quot;artifact_type&quot;: &quot;capsule_writer&quot;,
+      &quot;kernel_version&quot;: &quot;0.2.0+unknown&quot;,
+      &quot;timestamp&quot;: 0,
+      &quot;provenance_id&quot;: &quot;fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47&quot;,
+      &quot;signature_hex&quot;: &quot;48a183ce2597776be94490dc03fd5e29c3fe6a5b1ce76042fbf14779f2c875ee64f1d960252b192e45d0475a07cb6ad54cdc4f449e4fe2da37658a0019499a0d&quot;,
+      &quot;public_key_hex&quot;: &quot;8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c&quot;
+    },
+    {
+      &quot;artifact_hash&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;,
+      &quot;artifact_type&quot;: &quot;policy_bundles&quot;,
+      &quot;kernel_version&quot;: &quot;0.2.0+unknown&quot;,
+      &quot;timestamp&quot;: 0,
+      &quot;provenance_id&quot;: &quot;fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47&quot;,
+      &quot;signature_hex&quot;: &quot;4a0d42a712da4aa2bd4a35252b82c73d014a5fb9a8d4679867bbf8b3804c2d348ca8717f2100e87f2eb99480a63f0ee35902894f01f8a92638ffe4c25cff8c08&quot;,
+      &quot;public_key_hex&quot;: &quot;8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c&quot;
+    },
+    {
+      &quot;artifact_hash&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;,
+      &quot;artifact_type&quot;: &quot;contract_snapshots&quot;,
+      &quot;kernel_version&quot;: &quot;0.2.0+unknown&quot;,
+      &quot;timestamp&quot;: 0,
+      &quot;provenance_id&quot;: &quot;fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47&quot;,
+      &quot;signature_hex&quot;: &quot;aceabab9d0a59bfc66a4e47aba412a569c2722b4f05114d0dee2898c353d9a71f8e0848a059c9b8635d35403b4eec4b9ff35b089ba2f6012a72dc8673d00c408&quot;,
+      &quot;public_key_hex&quot;: &quot;8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c&quot;
+    }
+  ],
+  &quot;provenance&quot;: {
+    &quot;provenance_id&quot;: &quot;fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47&quot;,
+    &quot;subjects&quot;: [
+      {
+        &quot;name&quot;: &quot;aion-release&quot;,
+        &quot;digest_sha256&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;
+      }
+    ],
+    &quot;predicate&quot;: {
+      &quot;build_environment&quot;: [
+        &quot;RUSTFLAGS=-Cdebuginfo=0&quot;,
+        &quot;SOURCE_DATE_EPOCH=0&quot;
+      ],
+      &quot;build_steps&quot;: [
+        &quot;build&quot;,
+        &quot;sign&quot;,
+        &quot;test&quot;
+      ],
+      &quot;inputs&quot;: [
+        &quot;Cargo.lock&quot;,
+        &quot;docs/os_contract_spec.md&quot;
+      ],
+      &quot;outputs&quot;: [
+        &quot;aion-cli&quot;,
+        &quot;aion-kernel&quot;
+      ],
+      &quot;signatures&quot;: [
+        &quot;ed25519&quot;
+      ]
+    }
+  },
+  &quot;sbom&quot;: {
+    &quot;format&quot;: &quot;spdx&quot;,
+    &quot;build_metadata&quot;: [
+      &quot;kernel_version=0.2.0+unknown&quot;,
+      &quot;provenance_id=fb2118f71f3f8599624aaac2713d7808ad7b8f72bd8571142026701e77988c47&quot;
+    ],
+    &quot;components&quot;: [
+      {
+        &quot;name&quot;: &quot;aion-cli&quot;,
+        &quot;version&quot;: &quot;0.2.0&quot;,
+        &quot;license&quot;: &quot;MIT&quot;,
+        &quot;hashes&quot;: [
+          {
+            &quot;alg&quot;: &quot;sha256&quot;,
+            &quot;value&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;
+          }
+        ]
+      },
+      {
+        &quot;name&quot;: &quot;aion-core&quot;,
+        &quot;version&quot;: &quot;0.2.0&quot;,
+        &quot;license&quot;: &quot;MIT&quot;,
+        &quot;hashes&quot;: [
+          {
+            &quot;alg&quot;: &quot;sha256&quot;,
+            &quot;value&quot;: &quot;7231e58012cbe46d824fafe49dd7a34dbb5b030bd064705658e69d6f43224f8a&quot;
+          }
+        ]
+      }
+    ]
+  },
+  &quot;vulnerability_status&quot;: &quot;ok&quot;,
+  &quot;current_contract_versions&quot;: {
+    &quot;capsule_abi&quot;: &quot;0.2.0-v1&quot;,
+    &quot;drift&quot;: &quot;0.2.0-v1&quot;,
+    &quot;error&quot;: &quot;0.2.0-v1&quot;,
+    &quot;evidence&quot;: &quot;0.2.0-v1&quot;,
+    &quot;global_consistency&quot;: &quot;0.2.0-v1&quot;,
+    &quot;identity&quot;: &quot;0.2.0-v1&quot;,
+    &quot;legal_determinism&quot;: &quot;0.2.0-v1&quot;,
+    &quot;observability&quot;: &quot;0.2.0-v1&quot;,
+    &quot;output&quot;: &quot;0.2.0-v1&quot;,
+    &quot;policy&quot;: &quot;0.2.0-v1&quot;,
+    &quot;replay&quot;: &quot;0.2.0-v1&quot;,
+    &quot;runtime_isolation&quot;: &quot;0.2.0-v1&quot;,
+    &quot;tenant_isolation&quot;: &quot;0.2.0-v1&quot;,
+    &quot;trust_chain&quot;: &quot;0.2.0-v1&quot;,
+    &quot;upgrade_replay&quot;: &quot;0.2.0-v1&quot;
+  },
+  &quot;compatibility_matrix&quot;: [
+    {
+      &quot;reader_version&quot;: &quot;0.2.0&quot;,
+      &quot;writer_version&quot;: &quot;0.2.0&quot;,
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;rule&quot;: &quot;N_reads_N_writes&quot;
+    },
+    {
+      &quot;reader_version&quot;: &quot;0.1.0&quot;,
+      &quot;writer_version&quot;: &quot;0.2.0&quot;,
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;rule&quot;: &quot;N_minus_1_reads_N&quot;
+    },
+    {
+      &quot;reader_version&quot;: &quot;0.0.0&quot;,
+      &quot;writer_version&quot;: &quot;0.2.0&quot;,
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;rule&quot;: &quot;N_minus_2_reads_N&quot;
+    }
+  ],
+  &quot;breaking_changes_detected&quot;: [],
+  &quot;snapshot_hashes&quot;: {
+    &quot;capsule_abi&quot;: &quot;36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a&quot;,
+    &quot;drift&quot;: &quot;76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2&quot;,
+    &quot;error&quot;: &quot;f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9&quot;,
+    &quot;evidence&quot;: &quot;511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2&quot;,
+    &quot;global_consistency&quot;: &quot;e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23&quot;,
+    &quot;identity&quot;: &quot;0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85&quot;,
+    &quot;legal_determinism&quot;: &quot;c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27&quot;,
+    &quot;observability&quot;: &quot;50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990&quot;,
+    &quot;output&quot;: &quot;cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74&quot;,
+    &quot;policy&quot;: &quot;ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc&quot;,
+    &quot;replay&quot;: &quot;6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc&quot;,
+    &quot;runtime_isolation&quot;: &quot;73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a&quot;,
+    &quot;tenant_isolation&quot;: &quot;0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84&quot;,
+    &quot;trust_chain&quot;: &quot;20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987&quot;,
+    &quot;upgrade_replay&quot;: &quot;98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89&quot;
+  },
+  &quot;checks&quot;: [
+    {
+      &quot;check&quot;: &quot;ffi_check&quot;,
+      &quot;result&quot;: {
+        &quot;status&quot;: &quot;error&quot;,
+        &quot;code&quot;: &quot;AION_FFI_IO&quot;,
+        &quot;context&quot;: &quot;doctor.ffi.library_load&quot;,
+        &quot;origin&quot;: &quot;ffi&quot;,
+        &quot;cause&quot;: &quot;library_not_found&quot;
+      }
+    },
+    {
+      &quot;check&quot;: &quot;python_bindings_check&quot;,
+      &quot;result&quot;: {
+        &quot;status&quot;: &quot;error&quot;,
+        &quot;code&quot;: &quot;AION_BINDINGS_IO&quot;,
+        &quot;context&quot;: &quot;doctor.bindings.aion_lib_path&quot;,
+        &quot;origin&quot;: &quot;bindings&quot;,
+        &quot;cause&quot;: &quot;env_invalid&quot;
+      }
+    },
+    {
+      &quot;check&quot;: &quot;policy_schema_check&quot;,
+      &quot;result&quot;: {
+        &quot;status&quot;: &quot;ok&quot;,
+        &quot;code&quot;: &quot;AION_OK&quot;,
+        &quot;context&quot;: &quot;doctor.policy_schema.ok&quot;,
+        &quot;origin&quot;: &quot;policy&quot;
+      }
+    }
+  ],
+  &quot;global_consistency&quot;: {
+    &quot;run_finality&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;code&quot;: &quot;AION_OK&quot;,
+      &quot;context&quot;: &quot;global_consistency.run_finality&quot;,
+      &quot;origin&quot;: &quot;doctor&quot;
+    },
+    &quot;capsule_finality&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;code&quot;: &quot;AION_OK&quot;,
+      &quot;context&quot;: &quot;global_consistency.capsule_finality&quot;,
+      &quot;origin&quot;: &quot;capsule&quot;
+    },
+    &quot;evidence_finality&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;code&quot;: &quot;AION_OK&quot;,
+      &quot;context&quot;: &quot;global_consistency.evidence_finality&quot;,
+      &quot;origin&quot;: &quot;evidence&quot;
+    },
+    &quot;replay_finality&quot;: {
+      &quot;status&quot;: &quot;ok&quot;,
+      &quot;code&quot;: &quot;AION_OK&quot;,
+      &quot;context&quot;: &quot;global_consistency.replay_finality&quot;,
+      &quot;origin&quot;: &quot;replay&quot;
+    }
+  }
+}</pre>
+</body>
+</html>

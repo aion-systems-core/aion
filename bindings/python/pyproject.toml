@@ -1,0 +1,26 @@
+[build-system]
+requires = ["hatchling>=1.20"]
+build-backend = "hatchling.build"
+
+[project]
+name = "aion-python"
+version = "0.2.0"
+description = "AION pilot: ctypes bindings to the AION C-ABI (deterministic AI capsule operations)."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "AION" }]
+keywords = ["aion", "deterministic", "capsule", "replay", "ctypes"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+aion-py = "aion.__main__:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["aion"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

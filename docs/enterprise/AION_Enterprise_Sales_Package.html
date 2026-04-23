@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>AION Enterprise Sales Package</title>
+  <style>
+    :root { color-scheme: dark; --bg:#0b0f14; --card:#121923; --ink:#d8e1eb; --muted:#91a2b5; --line:#263445; --acc:#5aa8ff; }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: var(--bg); color: var(--ink); font: 15px/1.6 Inter, Segoe UI, Arial, sans-serif; }
+    main { max-width: 980px; margin: 0 auto; padding: 36px 20px 64px; }
+    h1,h2,h3 { line-height: 1.25; margin: 0 0 12px; }
+    h1 { font-size: 1.9rem; }
+    h2 { font-size: 1.25rem; margin-top: 28px; }
+    h3 { font-size: 1.05rem; margin-top: 18px; color: var(--acc); }
+    p, li { color: var(--ink); }
+    .muted { color: var(--muted); }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 16px; margin: 12px 0; }
+    code { color: #9fd0ff; }
+    ul { margin: 8px 0 0 20px; }
+    .grid { display:grid; gap:12px; grid-template-columns: repeat(auto-fit,minmax(220px,1fr)); }
+    .pill { display:inline-block; border:1px solid var(--line); border-radius:999px; padding:4px 10px; color:var(--muted); margin-right:6px; margin-bottom:6px; }
+    a { color: var(--acc); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    pre { background:#0d141d; border:1px solid var(--line); border-radius:8px; padding:10px; overflow:auto; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>AION Enterprise Sales Package</h1>
+    <p class="muted">Deterministic AI Execution-OS with a contract-first enterprise control plane.</p>
+
+    <h2>At a glance</h2>
+    <div class="card">
+      <span class="pill">Execution-OS</span>
+      <span class="pill">Contract-OS</span>
+      <span class="pill">Phase 1-12 readiness</span>
+      <span class="pill">Deterministic JSON outputs</span>
+      <span class="pill">Doctor-centered diagnostics</span>
+    </div>
+
+    <h2>Contract surface</h2>
+    <div class="grid">
+      <div class="card"><strong>Kernel layer</strong><ul><li>Replay</li><li>Drift</li><li>Evidence</li><li>Policy</li><li>Global consistency</li></ul></div>
+      <div class="card"><strong>Enterprise layer</strong><ul><li>Reliability</li><li>Operations</li><li>Distribution</li><li>Governance</li><li>UX / Tests / Measurement</li></ul></div>
+      <div class="card"><strong>Cross-cutting</strong><ul><li>Identity and finality</li><li>Compatibility and LTS</li><li>Trust chain</li><li>Audit and evidence export</li></ul></div>
+    </div>
+
+    <h2>CLI surface</h2>
+    <p>Canonical 7 domains: <code>reliability</code>, <code>ops</code>, <code>dist</code>, <code>governance</code>, <code>ux</code>, <code>tests</code>, <code>measure</code>.</p>
+    <pre>aion doctor
+aion reliability status
+aion ops runbooks
+aion dist status
+aion governance status
+aion ux api
+aion tests strategy
+aion measure metrics</pre>
+
+    <h2>12-phase story</h2>
+    <div class="card">
+      <p>Phase program covers OS meta contracts, contract stability, release/supply-chain security, security/compliance hardening, production determinism, reliability, operations, distribution/identity, governance hardening, UX stability, test strategy, and measurement/audit evidence.</p>
+    </div>
+
+    <h2>Governance and compliance</h2>
+    <ul>
+      <li>Policy packs, gates, and evidence are deterministic contracts.</li>
+      <li>No silent bypass path for policy decisions.</li>
+      <li>Compliance and security posture are exported in machine-readable doctor output.</li>
+    </ul>
+
+    <h2>Replay/Drift/Evidence story</h2>
+    <ul>
+      <li>Replay proves run fidelity across deterministic invariants.</li>
+      <li>Drift classifies changes in fixed categories with deterministic labels.</li>
+      <li>Evidence chain provides verifiable audit records and exportable proofs.</li>
+    </ul>
+
+    <h2>Enterprise-readiness</h2>
+    <p>AION is enterprise-ready when contract outputs remain deterministic, version-stable, and auditable across releases and environments.</p>
+
+    <h2>Related documentation</h2>
+    <ul>
+      <li><a href="./AION_Enterprise_Sales_Package.md">Sales package (Markdown)</a></li>
+      <li><a href="../os_contract_spec.md">OS contract spec</a></li>
+      <li><a href="../architecture.md">Architecture</a></li>
+      <li><a href="../cli-reference.md">CLI reference</a></li>
+    </ul>
+  </main>
+</body>
+</html>

@@ -1,0 +1,1844 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AION — Enterprise Sales Package</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ── Reset & Base ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:       #0D1117;
+  --ink2:      #161B22;
+  --ink3:      #21262D;
+  --rule:      #30363D;
+  --muted:     #8B949E;
+  --body:      #C9D1D9;
+  --head:      #E6EDF3;
+  --accent:    #1F6FEB;
+  --accent2:   #388BFD;
+  --accent-lo: rgba(31,111,235,0.12);
+  --green:     #2EA043;
+  --orange:    #D29922;
+  --red:       #DA3633;
+  --mono:      'IBM Plex Mono', monospace;
+  --sans:      'IBM Plex Sans', sans-serif;
+  --radius:    4px;
+}
+html { font-size: 15px; scroll-behavior: smooth; }
+body {
+  background: var(--ink);
+  color: var(--body);
+  font-family: var(--sans);
+  font-weight: 400;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+a { color: var(--accent2); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Shell ── */
+.shell {
+  display: grid;
+  grid-template-rows: 56px 1fr;
+  min-height: 100vh;
+}
+
+/* ── Top bar ── */
+.topbar {
+  position: sticky; top: 0; z-index: 100;
+  display: flex; align-items: center; gap: 0;
+  background: var(--ink2);
+  border-bottom: 1px solid var(--rule);
+  padding: 0 24px;
+}
+.topbar-brand {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--head);
+  letter-spacing: 0.08em;
+  margin-right: 32px;
+  white-space: nowrap;
+}
+.topbar-brand span {
+  color: var(--accent2);
+  margin-right: 6px;
+}
+.tabs {
+  display: flex; gap: 0;
+  height: 56px;
+  overflow-x: auto;
+}
+.tab {
+  display: flex; align-items: center;
+  padding: 0 18px;
+  height: 100%;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  white-space: nowrap;
+  transition: color 0.15s, border-color 0.15s;
+  user-select: none;
+}
+.tab:hover { color: var(--body); }
+.tab.active {
+  color: var(--accent2);
+  border-bottom-color: var(--accent);
+}
+.topbar-badge {
+  margin-left: auto;
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--orange);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+}
+
+/* ── Layout ── */
+.content { display: none; }
+.content.active { display: block; }
+
+/* ── Full-doc layout ── */
+.doc-layout {
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  min-height: calc(100vh - 56px);
+}
+.sidebar {
+  position: sticky; top: 56px; align-self: start;
+  height: calc(100vh - 56px);
+  overflow-y: auto;
+  background: var(--ink2);
+  border-right: 1px solid var(--rule);
+  padding: 24px 0;
+}
+.sidebar-section {
+  padding: 0 16px 8px;
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-top: 16px;
+}
+.sidebar-link {
+  display: block;
+  padding: 5px 20px;
+  font-size: 0.78rem;
+  color: var(--muted);
+  cursor: pointer;
+  transition: color 0.1s, background 0.1s;
+  border-left: 2px solid transparent;
+}
+.sidebar-link:hover {
+  color: var(--body);
+  background: var(--ink3);
+}
+.sidebar-link.active {
+  color: var(--accent2);
+  border-left-color: var(--accent);
+  background: var(--accent-lo);
+}
+
+/* ── Doc body ── */
+.doc-body {
+  padding: 48px 64px;
+  max-width: 900px;
+}
+@media (max-width: 900px) {
+  .doc-layout { grid-template-columns: 1fr; }
+  .sidebar { display: none; }
+  .doc-body { padding: 32px 24px; }
+}
+
+/* ── Typography ── */
+h1, h2, h3, h4 {
+  font-family: var(--sans);
+  font-weight: 600;
+  color: var(--head);
+  line-height: 1.25;
+}
+.doc-body h1 {
+  font-size: 1.75rem;
+  letter-spacing: -0.02em;
+  margin-bottom: 8px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--rule);
+}
+.doc-body h2 {
+  font-size: 1.1rem;
+  margin-top: 40px;
+  margin-bottom: 12px;
+  color: var(--accent2);
+}
+.doc-body h3 {
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-top: 28px;
+  margin-bottom: 8px;
+  color: var(--head);
+  font-family: var(--mono);
+}
+.doc-body p { margin-bottom: 12px; font-size: 0.9rem; }
+.doc-body ul, .doc-body ol {
+  margin: 8px 0 12px 20px;
+  font-size: 0.9rem;
+}
+.doc-body li { margin-bottom: 5px; }
+
+/* ── Code / file refs ── */
+code {
+  font-family: var(--mono);
+  font-size: 0.8em;
+  background: var(--ink3);
+  color: var(--accent2);
+  padding: 1px 5px;
+  border-radius: 3px;
+  border: 1px solid var(--rule);
+}
+.fileref {
+  font-family: var(--mono);
+  font-size: 0.78rem;
+  color: var(--muted);
+}
+
+/* ── Callout / blockquote ── */
+.doc-body blockquote {
+  border-left: 3px solid var(--accent);
+  background: var(--ink2);
+  padding: 12px 16px;
+  margin: 16px 0;
+  font-size: 0.85rem;
+  color: var(--muted);
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+.callout {
+  border: 1px solid var(--rule);
+  background: var(--ink2);
+  border-radius: var(--radius);
+  padding: 14px 18px;
+  margin: 16px 0;
+  font-size: 0.85rem;
+}
+.callout.warn { border-color: var(--orange); }
+.callout.info { border-color: var(--accent); }
+.callout-label {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+.callout.warn .callout-label { color: var(--orange); }
+.callout.info .callout-label { color: var(--accent2); }
+
+/* ── Tables ── */
+.doc-body table, .tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.82rem;
+  margin: 16px 0 24px;
+  overflow: hidden;
+  border-radius: var(--radius);
+}
+.doc-body th, .tbl th {
+  background: var(--ink3);
+  color: var(--head);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--rule);
+}
+.doc-body td, .tbl td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  line-height: 1.5;
+}
+.doc-body tr:last-child td, .tbl tr:last-child td { border-bottom: none; }
+.doc-body tr:hover td { background: rgba(255,255,255,0.02); }
+.tbl-mono { font-family: var(--mono); font-size: 0.75rem; color: var(--accent2); }
+
+/* ── Hero block ── */
+.hero {
+  background: linear-gradient(135deg, var(--ink2) 0%, #0D1B2A 100%);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 32px 36px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--accent) 0%, transparent 100%);
+}
+.hero-title {
+  font-family: var(--mono);
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--head);
+  letter-spacing: -0.02em;
+  margin-bottom: 4px;
+}
+.hero-sub {
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.hero-chips {
+  display: flex; flex-wrap: wrap; gap: 8px;
+  margin-top: 16px;
+}
+.chip {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  padding: 4px 10px;
+  background: var(--accent-lo);
+  color: var(--accent2);
+  border: 1px solid rgba(31,111,235,0.3);
+  border-radius: 2px;
+  letter-spacing: 0.04em;
+}
+.chip.green { background: rgba(46,160,67,0.1); color: var(--green); border-color: rgba(46,160,67,0.3); }
+.chip.orange { background: rgba(210,153,34,0.1); color: var(--orange); border-color: rgba(210,153,34,0.3); }
+
+/* ── Section divider ── */
+.section-rule {
+  border: none;
+  border-top: 1px solid var(--rule);
+  margin: 40px 0;
+}
+
+/* ── Part header ── */
+.part-header {
+  display: flex; align-items: center; gap: 12px;
+  margin-bottom: 4px;
+}
+.part-num {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent2);
+  background: var(--accent-lo);
+  border: 1px solid rgba(31,111,235,0.3);
+  padding: 2px 8px;
+  border-radius: 2px;
+  letter-spacing: 0.08em;
+}
+
+/* ── Evidence anchors ── */
+.evidence-anchor {
+  display: inline-flex; align-items: center; gap: 5px;
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+  background: var(--ink3);
+  border: 1px solid var(--rule);
+  padding: 2px 8px;
+  border-radius: 2px;
+  margin-top: 4px;
+}
+.evidence-anchor::before { content: '⌗'; color: var(--accent2); }
+
+/* ── Persona grid ── */
+.persona-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.persona-card {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px;
+  transition: border-color 0.15s;
+}
+.persona-card:hover { border-color: var(--accent); }
+.persona-role {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--accent2);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+}
+.persona-pain {
+  font-size: 0.82rem;
+  color: var(--body);
+  margin-bottom: 8px;
+  font-style: italic;
+  border-left: 2px solid var(--orange);
+  padding-left: 8px;
+}
+.persona-answer {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.persona-ref {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 8px;
+  opacity: 0.7;
+}
+
+/* ── Pilot timeline ── */
+.timeline {
+  display: flex; flex-direction: column; gap: 0;
+  margin: 20px 0;
+}
+.tl-row {
+  display: grid;
+  grid-template-columns: 52px 1fr;
+  gap: 0;
+}
+.tl-week {
+  display: flex; flex-direction: column; align-items: center;
+  padding-top: 14px;
+}
+.tl-num {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent2);
+  background: var(--accent-lo);
+  border: 1px solid rgba(31,111,235,0.3);
+  width: 30px; height: 30px;
+  display: flex; align-items: center; justify-content: center;
+  border-radius: 50%;
+}
+.tl-line {
+  flex: 1;
+  width: 1px;
+  background: var(--rule);
+  margin-top: 6px;
+}
+.tl-row:last-child .tl-line { display: none; }
+.tl-body {
+  padding: 12px 0 20px 16px;
+  border-bottom: 1px solid var(--rule);
+}
+.tl-row:last-child .tl-body { border-bottom: none; }
+.tl-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--head);
+  margin-bottom: 4px;
+}
+.tl-criterion {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.tl-output {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--green);
+}
+
+/* ── VP triad ── */
+.vp-triad {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin: 12px 0 20px;
+}
+.vp-item {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.vp-verb {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  font-weight: 600;
+}
+.vp-item:nth-child(1) .vp-verb { color: var(--green); }
+.vp-item:nth-child(2) .vp-verb { color: var(--orange); }
+.vp-item:nth-child(3) .vp-verb { color: var(--accent2); }
+.vp-text { font-size: 0.8rem; line-height: 1.5; }
+
+/* ── Non-claims footer ── */
+.nonclaims {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-top: 48px;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.nonclaims strong { color: var(--orange); }
+
+/* ── 1-Pager layout ── */
+.onepager {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 48px 40px;
+}
+.op-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 32px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--accent);
+}
+.op-title { font-family: var(--mono); font-size: 1.8rem; font-weight: 600; color: var(--head); }
+.op-meta { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); text-align: right; line-height: 1.8; }
+.op-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+.op-box {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 18px;
+}
+.op-box-title {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent2);
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--rule);
+}
+.op-box ul { list-style: none; padding: 0; }
+.op-box ul li {
+  font-size: 0.82rem;
+  padding: 4px 0;
+  border-bottom: 1px solid rgba(48,54,61,0.5);
+  display: flex; justify-content: space-between; align-items: flex-start; gap: 8px;
+}
+.op-box ul li:last-child { border-bottom: none; }
+.op-pill {
+  font-family: var(--mono);
+  font-size: 0.65rem;
+  background: var(--ink3);
+  color: var(--muted);
+  padding: 1px 6px;
+  border-radius: 2px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.op-full { grid-column: 1 / -1; }
+.op-footer {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--rule);
+  display: flex; justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* ── Exec Summary ── */
+.exec-layout { max-width: 800px; margin: 0 auto; padding: 48px 40px; }
+.exec-kpi-row {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin: 28px 0;
+}
+.exec-kpi {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px;
+  text-align: center;
+}
+.exec-kpi-val {
+  font-family: var(--mono);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent2);
+  display: block;
+}
+.exec-kpi-label {
+  font-size: 0.72rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.exec-section {
+  margin: 28px 0;
+}
+.exec-section-title {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent2);
+  margin-bottom: 12px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--rule);
+}
+.exec-prose {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: var(--body);
+}
+.exec-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+.exec-box {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px;
+}
+.exec-box-head {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.exec-box ul { list-style: none; padding: 0; }
+.exec-box ul li {
+  font-size: 0.82rem;
+  padding: 4px 0;
+  padding-left: 12px;
+  position: relative;
+  color: var(--body);
+}
+.exec-box ul li::before {
+  content: '—';
+  position: absolute; left: 0;
+  color: var(--accent2);
+  font-family: var(--mono);
+}
+.exec-next {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+.exec-step {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.exec-step-num {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.5;
+  display: block;
+  margin-bottom: 4px;
+}
+.exec-step-title { font-size: 0.82rem; font-weight: 600; color: var(--head); margin-bottom: 4px; }
+.exec-step-body { font-size: 0.78rem; color: var(--muted); }
+
+/* ── Compliance view ── */
+.comp-layout { max-width: 860px; margin: 0 auto; padding: 48px 40px; }
+.comp-header {
+  display: flex; justify-content: space-between; align-items: flex-start;
+  margin-bottom: 28px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--orange);
+}
+.comp-title { font-family: var(--mono); font-size: 1.5rem; font-weight: 600; color: var(--head); }
+.comp-badge {
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  color: var(--orange);
+  background: rgba(210,153,34,0.1);
+  border: 1px solid rgba(210,153,34,0.3);
+  padding: 4px 10px;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+}
+.comp-toc {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-bottom: 28px;
+}
+.comp-toc-title {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+.comp-toc ol {
+  list-style: decimal;
+  padding-left: 20px;
+  font-size: 0.85rem;
+  color: var(--accent2);
+}
+.comp-toc ol li { padding: 2px 0; }
+.comp-section-head {
+  display: flex; align-items: center; gap: 10px;
+  margin: 32px 0 12px;
+}
+.comp-section-num {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--orange);
+  background: rgba(210,153,34,0.1);
+  border: 1px solid rgba(210,153,34,0.3);
+  padding: 2px 8px;
+  border-radius: 2px;
+  white-space: nowrap;
+}
+.comp-section-title { font-size: 1rem; font-weight: 600; color: var(--head); }
+.comp-claim {
+  background: var(--ink2);
+  border-left: 3px solid var(--orange);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 12px 16px;
+  margin: 10px 0;
+  font-size: 0.85rem;
+}
+.comp-claim-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--orange);
+  margin-bottom: 4px;
+}
+.comp-claim-body { color: var(--body); }
+.comp-claim-source {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--muted);
+  margin-top: 6px;
+}
+.comp-gate {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  margin: 16px 0;
+}
+.comp-gate-item {
+  background: var(--ink2);
+  border: 1px solid var(--rule);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.comp-gate-label {
+  font-family: var(--mono);
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.comp-gate-val {
+  font-size: 0.85rem;
+  color: var(--body);
+  margin-bottom: 6px;
+}
+.comp-gate-src {
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  color: var(--accent2);
+}
+.comp-disclaimer {
+  background: rgba(210,153,34,0.06);
+  border: 1px solid rgba(210,153,34,0.25);
+  border-radius: var(--radius);
+  padding: 16px 20px;
+  margin-top: 32px;
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+.comp-disclaimer strong { color: var(--orange); }
+
+/* ── Buttons (tabs / sidebar) ── */
+button.tab,
+button.sidebar-link {
+  background: none;
+  border: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  width: 100%;
+  margin: 0;
+}
+button.tab {
+  width: auto;
+  text-align: center;
+}
+.tab:focus-visible,
+.sidebar-link:focus-visible {
+  outline: 2px solid var(--accent2);
+  outline-offset: 2px;
+}
+
+/* ── Skip link ── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 200;
+  padding: 8px 14px;
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  background: var(--accent);
+  color: var(--head);
+  border-radius: var(--radius);
+}
+.skip-link:focus {
+  left: 16px;
+  top: 64px;
+}
+
+/* ── Responsive / motion ── */
+@media (max-width: 960px) {
+  .vp-triad { grid-template-columns: 1fr; }
+  .exec-next { grid-template-columns: 1fr; }
+}
+@media (max-width: 720px) {
+  .exec-kpi-row { grid-template-columns: repeat(2, 1fr); }
+  .exec-two-col { grid-template-columns: 1fr; }
+  .op-grid { grid-template-columns: 1fr; }
+  .comp-gate { grid-template-columns: 1fr; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
+
+/* ── Print ── */
+@media print {
+  .topbar, .sidebar { display: none !important; }
+  .doc-layout { grid-template-columns: 1fr; }
+  .doc-body { padding: 0; max-width: none; }
+  .content { display: block !important; }
+  .content:not(.active) { page-break-before: always; }
+}
+</style>
+</head>
+<body>
+<a class="skip-link" href="#s-hero">Skip to content</a>
+<div class="shell">
+
+<!-- ── Topbar ── -->
+<nav class="topbar" aria-label="AION sales package">
+  <div class="topbar-brand"><span aria-hidden="true">◈</span> AION</div>
+  <div class="tabs" role="tablist" aria-label="Document views">
+    <button type="button" class="tab active" role="tab" aria-selected="true" aria-controls="view-full" id="tab-full" data-view="full">Full Document</button>
+    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="view-exec" id="tab-exec" data-view="exec">Executive Summary</button>
+    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="view-onepager" id="tab-onepager" data-view="onepager">1-Pager</button>
+    <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="view-compliance" id="tab-compliance" data-view="compliance">Compliance</button>
+  </div>
+  <div class="topbar-badge">CONFIDENTIAL — DRAFT</div>
+</nav>
+
+<!-- ════════════════════════════════════════════════════════
+     VIEW 1: FULL DOCUMENT
+═══════════════════════════════════════════════════════════ -->
+<div id="view-full" class="content active">
+<div class="doc-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar" aria-label="Section navigation">
+    <div class="sidebar-section">Overview</div>
+    <button type="button" class="sidebar-link active" data-scroll-target="s-hero">Introduction</button>
+    <div class="sidebar-section">Part 1 — Evidence</div>
+    <button type="button" class="sidebar-link" data-scroll-target="s-1-1">1.1 Deterministic Execution</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-1-2">1.2 Formal Replay</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-1-3">1.3 Syscall / IO Policy</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-1-4">1.4 Cross-Machine Replay</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-1-5">1.5 Evidence Chain</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-1-6">1.6 Compliance & Policy</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-1-7">1.7 Integrations</button>
+    <div class="sidebar-section">Parts 2–9</div>
+    <button type="button" class="sidebar-link" data-scroll-target="s-2">2. Personas & Pains</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-3">3. ROI Shapes</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-4">4. Competitive</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-5">5. Value Props</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-6">6. Pilot Framework</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-7">7. Pricing</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-8">8. Customer Journey</button>
+    <button type="button" class="sidebar-link" data-scroll-target="s-9">9. Messaging</button>
+  </aside>
+
+  <!-- Main body -->
+  <main class="doc-body">
+
+    <!-- Hero -->
+    <div id="s-hero" class="hero">
+      <div class="hero-title">AION-OS</div>
+      <div class="hero-sub">Enterprise Sales Package · Industrial Edition<br>
+      Deterministic AI Capsules · Replay Symmetry · Auditable Evidence Chains</div>
+      <div class="hero-chips">
+        <span class="chip">Blake3 Capsule Hash</span>
+        <span class="chip" title="TLA+ spec is optional; default CI is cargo test (see §1.2).">TLA+ (abstract) + Rust tests</span>
+        <span class="chip">Rolling SHA-256 Evidence</span>
+        <span class="chip">Ed25519 Signing</span>
+        <span class="chip green">C ABI · Python · CLI</span>
+        <span class="chip orange">CONFIDENTIAL — DRAFT</span>
+      </div>
+    </div>
+
+    <div class="callout info">
+      <div class="callout-label">Methodology</div>
+      Part 1 cites only this repository (paths + line ranges). Parts 2–9 rest on Part 1. Anything not stated in Part 1 is labelled as <strong>not repository-adjudicated</strong>. Third-party products are never scored here.
+    </div>
+
+    <!-- ── PART 1 ── -->
+    <h1 id="s-part1">Part 1 — Technical Evidence Pack</h1>
+    <blockquote>All statements in this part are grounded in this repository. Line ranges are inclusive. Drift in line numbers should be resolved by searching the cited symbol.</blockquote>
+
+    <!-- 1.1 -->
+    <h2 id="s-1-1">1.1 Deterministic Execution and Capsule Hash</h2>
+
+    <h3>Blake3 over canonical semantic JSON</h3>
+    <p><code>engine/src/capsule/hash.rs</code> lines <strong>24–48</strong>: <code>deterministic_capsule_hash</code> builds a <code>HashPayload</code> from <code>prompt</code>, <code>seed</code>, <code>determinism_profile</code>, canonical <code>token_trace</code> and <code>events</code>, canonical <code>graph</code> and <code>why</code> slices, and canonical <code>drift</code> JSON, then Blake3-hashes the canonical JSON string of that value. Field choice excludes capture-time noise by construction — no OS path or capsule timestamp fields in the payload struct.</p>
+
+    <h3>Canonical JSON</h3>
+    <p><code>engine/src/ai/canon.rs</code> lines <strong>11–24</strong>: <code>canonicalize_value</code> recursively sorts object keys (<code>BTreeMap</code>). Lines <strong>48–69</strong>: <code>canonical_capsule_bytes</code> optionally strips <code>version</code>, <code>execution_envelope</code>, <code>execution_environment</code>, and evidence attestation flags from canonical comparison bytes.</p>
+
+    <h3>Drift taxonomy</h3>
+    <p><code>engine/src/ai/drift.rs</code> lines <strong>22–55</strong>: <code>drift_between_runs</code> compares <strong>tokens</strong>, semantic <strong>token_trace</strong>, <strong>canonical event order</strong>, <strong>causal graph edges only</strong>, and <strong>Why causal edges only</strong>; emits a <code>DriftReport</code> with sorted, deduplicated <code>fields</code> and <code>details</code>.</p>
+
+    <h3>Runtime contract</h3>
+    <p><code>engine/src/ai/runtime.rs</code> lines <strong>51–52</strong>: <code>AiRuntime::run</code> documents that the deterministic token stream depends on <code>prompt</code>, <code>model</code>, <code>seed</code>, and <code>det</code> only. Lines <strong>84–88</strong>: events are passed through <code>sort_events_deterministic</code> before return.</p>
+
+    <hr class="section-rule">
+
+    <!-- 1.2 -->
+    <h2 id="s-1-2">1.2 Formal Replay Invariant (Abstract + Code + Tests)</h2>
+
+    <h3>TLA+ module</h3>
+    <p><code>docs/formal/replay_invariant.tla</code> lines <strong>29–30</strong>: <code>ReplayInvariant == (rId = 0) \/ (rId = cId)</code> — after any replay, the replayed capsule id must match the executed id.</p>
+
+    <h3>Shell helper</h3>
+    <p><code>scripts/check_replay_invariant.sh</code> lines <strong>13–26</strong>: if <code>tlc2</code> or <code>java</code> + <code>TLA_TOOLS_JAR</code> is available, TLC is executed with <code>-deadlock</code>. If not available, the script prints a skip message and <strong>exits 0</strong> — does not fail the shell pipeline for missing TLC.</p>
+
+    <div class="callout warn">
+      <div class="callout-label">CI Scope</div>
+      <code>.github/workflows/ci.yml</code> lines <strong>17–21</strong>: CI runs <code>cargo build --workspace</code> and <code>cargo test</code> only. <strong>No step runs <code>scripts/check_replay_invariant.sh</code> in the default workflow.</strong>
+    </div>
+
+    <h3>Engine bridge</h3>
+    <p><code>engine/src/replay/symmetry.rs</code> lines <strong>42–48</strong>: <code>assert_formal_replay_invariant</code> calls <code>assert_replay_symmetry</code> then requires <code>deterministic_capsule_hash(original) == deterministic_capsule_hash(replayed)</code>.</p>
+
+    <h3>Automated Rust tests</h3>
+    <p><code>engine/tests/formal_replay.rs</code> lines <strong>7–20</strong>: <code>formal_replay_invariant_holds</code> rebuilds a capsule and expects success; <code>formal_replay_invariant_breaks_on_tamper</code> mutates a token and expects failure.</p>
+
+    <hr class="section-rule">
+
+    <!-- 1.3 -->
+    <h2 id="s-1-3">1.3 Syscall / IO Policy Surface</h2>
+
+    <h3>IO policy enum on determinism profile</h3>
+    <p><code>core/src/contracts.rs</code> lines <strong>120–131</strong>: <code>DeterministicIOPolicy</code> is <code>Strict | Audit | Deny</code>, carried on <code>DeterminismProfile</code> (<code>io_policy</code> field, lines <strong>95–114</strong>).</p>
+
+    <h3>Syscall whitelist and evaluation</h3>
+    <p><code>engine/src/syscall/policy.rs</code> lines <strong>7–37</strong>: <code>SyscallName</code> covers <code>read</code>, <code>write</code>, <code>open</code>, <code>stat</code>, <code>clock_gettime</code> (with <code>fstat</code>/<code>lstat</code> normalised to <code>Stat</code> in <code>parse</code>). Lines <strong>60–87</strong>: <code>evaluate_syscall</code> returns <code>Err</code> for disallowed calls; <code>should_block</code> maps <code>Strict</code> and <code>Deny</code> to a hard-block flag.</p>
+
+    <h3>First-class capsule events</h3>
+    <p><code>engine/src/ai/trace.rs</code> lines <strong>27–41</strong>: <code>Event::SyscallCaptured</code> and <code>Event::PolicyViolation</code> variants carry syscall audit payloads as first-class capsule event stream entries.</p>
+
+    <hr class="section-rule">
+
+    <!-- 1.4 -->
+    <h2 id="s-1-4">1.4 Cross-Machine Replay</h2>
+
+    <h3>Machine fingerprint</h3>
+    <p><code>kernel/src/envelope.rs</code> lines <strong>14–22</strong>: <code>MachineFingerprint</code> stores <code>cpu_features</code>, <code>os_version</code>, <code>kernel_version</code>, <code>hostname_hash</code>, <code>binary_hash</code>. Lines <strong>29–30</strong>: <code>capture_machine_fingerprint</code> is documented as best-effort with <strong>no network I/O</strong>.</p>
+
+    <h3>Capsule embedding</h3>
+    <p><code>engine/src/ai/model.rs</code> lines <strong>9–37</strong>: <code>ExecutionEnvironment</code> pairs <code>machine_fingerprint</code> and <code>runtime_fingerprint</code>; optional on <code>AICapsuleV1</code> as <code>execution_environment</code>.</p>
+
+    <h3>Validator</h3>
+    <p><code>engine/src/replay/cross_machine.rs</code> lines <strong>6–41</strong>: <code>machine_fingerprint_tolerant_equal</code> compares CPU/OS/kernel only. <code>validate_cross_machine_replay</code> requires matching determinism, matching capsule Blake3 hash, matching token trace and event stream, and <strong>strict</strong> <code>runtime_fingerprint</code> equality when both sides carry <code>execution_environment</code>, with <strong>tolerant</strong> machine fingerprint comparison (hostname/binary path excluded).</p>
+
+    <hr class="section-rule">
+
+    <!-- 1.5 -->
+    <h2 id="s-1-5">1.5 Evidence Chain</h2>
+
+    <h3>Chain types</h3>
+    <p><code>core/src/evidence/chain.rs</code> lines <strong>7–27</strong>: <code>EvidenceRecord</code> carries <code>leaf_digest</code>, <code>payload_digest</code>, <code>parent_digest</code>; <code>EvidenceChain</code> adds optional <code>formal_replay_invariant_ok</code> and <code>cross_machine_replay_ok</code> attestation fields.</p>
+
+    <h3>Seal and verify</h3>
+    <p><code>core/src/evidence/proof.rs</code> lines <strong>11–45</strong>: <code>seal_run</code> builds a rolling <strong>SHA-256</strong> chain over run, policy, determinism, and schema artefacts. Lines <strong>47–61</strong>: <code>verify_linear</code> rejects digest or parent pointer mismatches.</p>
+
+    <h3>C ABI</h3>
+    <p><code>include/aion/aion.h</code> lines <strong>91–94</strong>: exports <code>aion_evidence_verify</code>, <code>aion_evidence_generate_keypair</code>, <code>aion_evidence_sign</code>, <code>aion_evidence_verify_with_key</code>.</p>
+
+    <h3>Rust integration tests</h3>
+    <p><code>engine/tests/governance_evidence.rs</code> lines <strong>13–27</strong>: integrity envelope stability + Ed25519 sign/verify and rejection on tampered message bytes. Lines <strong>77–89</strong>: <code>verify_linear</code> success, then failure after <code>leaf_digest</code> tamper.</p>
+
+    <h3>Replay writes attestation flags</h3>
+    <p><code>engine/src/ai/replay.rs</code> lines <strong>211–212</strong>: after replay, <code>replay_capsule.evidence.formal_replay_invariant_ok</code> and <code>cross_machine_replay_ok</code> are set from checks.</p>
+
+    <hr class="section-rule">
+
+    <!-- 1.6 -->
+    <h2 id="s-1-6">1.6 Compliance and Policy Enforcement</h2>
+
+    <h3>Policy validator</h3>
+    <p><code>engine/src/governance/policy.rs</code> lines <strong>142–202</strong>: <code>validate_capsule_against_policy</code> checks model allow-list (<code>model_allowed</code>, lines <strong>129–134</strong>), prompt length, optional seed band, token budget, <code>require_evidence</code> (non-empty evidence records), and <code>require_replay_success</code> when a replay outcome is supplied.</p>
+
+    <h3>Automated test</h3>
+    <p><code>engine/tests/governance_evidence.rs</code> lines <strong>57–75</strong>: capsule model not in <code>allowed_models</code> → <code>validate_capsule</code> reports <code>!r.policy.ok</code>.</p>
+
+    <hr class="section-rule">
+
+    <!-- 1.7 -->
+    <h2 id="s-1-7">1.7 Integrations: C ABI, Python Pilot, CLI</h2>
+
+    <h3>C ABI header</h3>
+    <p><code>include/aion/aion.h</code> lines <strong>82–98</strong>: exports include <code>aion_run</code>, <code>aion_capsule_save</code>, <code>aion_capsule_load</code>, <code>aion_replay_capsule</code>, drift/why/graph/validate, evidence verify/sign/keygen, <code>aion_doctor</code>, and free functions.</p>
+
+    <h3>Python pilot (ctypes wheel, not PyO3 in this wheel)</h3>
+    <p><code>bindings/python/pyproject.toml</code> lines <strong>1–22</strong>: build backend <strong>Hatchling</strong>, distribution name <strong>aion-python</strong>, version <strong>0.2.0</strong>. Optional PyO3 extension in <code>bindings/python/src/</code> is <strong>not</strong> part of this wheel (<code>README.md</code> lines <strong>45–47</strong>). <code>bindings/python/aion/api.py</code> lines <strong>33–52</strong>: <code>Pilot</code> loads the shared library and calls <code>aion_capsule_save</code> / <code>aion_replay_capsule</code> via ctypes.</p>
+
+    <h3>CLI</h3>
+    <p><code>crates/aion-cli/src/main.rs</code> lines <strong>16–29</strong>: <code>AION_AFTER_HELP</code> lists <code>doctor</code>, <code>evidence show</code>, <code>execute ai</code>, <code>execute ai-replay</code>, <code>policy validate</code>, and documents exit codes <strong>0 / 1 / 2</strong>. <code>aion version --full</code> (lines <strong>1109–1119</strong>) prints semver, rustc line, and build hash from <code>build.rs</code>. <code>aion doctor</code> emits JSON including <code>c_abi_library</code> path, <code>python_pilot_pkg</code> marker, fingerprint subset, and optional <code>replay_symmetry_probe</code> when <code>AION_PILOT_CAPSULE</code> points to a <code>.aionai</code> file.</p>
+
+    <hr class="section-rule">
+
+    <!-- ── PART 2 ── -->
+    <h1 id="s-2">Part 2 — Personas and Pains</h1>
+
+    <div class="persona-grid">
+      <div class="persona-card">
+        <div class="persona-role">Data Scientist</div>
+        <div class="persona-pain">Same inputs, divergent outputs; no portable artefact</div>
+        <div class="persona-answer">Capsule + deterministic runtime contract; drift field taxonomy names changed fields explicitly.</div>
+        <div class="persona-ref">runtime.rs 51–52 · drift.rs 22–55 · hash.rs 24–48</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-role">ML Engineer</div>
+        <div class="persona-pain">Hard to separate model vs infra vs nondeterminism</div>
+        <div class="persona-answer">Replay + symmetry + formal invariant helper; structured capsule diff.</div>
+        <div class="persona-ref">symmetry.rs 19–48 · replay.rs 199–212</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-role">MLOps</div>
+        <div class="persona-pain">Audit trail assembly ad hoc; unsigned only</div>
+        <div class="persona-answer"><code>seal_run</code> / <code>verify_linear</code>; C ABI sign/verify; Ed25519 governance tests.</div>
+        <div class="persona-ref">proof.rs 11–61 · aion.h 91–94</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-role">QA</div>
+        <div class="persona-pain">Cross-machine "same run" is undefined</div>
+        <div class="persona-answer"><code>validate_cross_machine_replay</code>: strict runtime, tolerant machine fingerprint.</div>
+        <div class="persona-ref">cross_machine.rs 6–41 · model.rs 9–37</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-role">Compliance</div>
+        <div class="persona-pain">Policy not machine-checkable; violations informal</div>
+        <div class="persona-answer"><code>validate_capsule_against_policy</code>: structured violation messages; <code>require_evidence</code> gate.</div>
+        <div class="persona-ref">policy.rs 142–202 · governance_evidence.rs 57–75</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-role">Security</div>
+        <div class="persona-pain">IO boundary for AI workloads informal</div>
+        <div class="persona-answer"><code>DeterministicIOPolicy</code> enum; typed syscall whitelist; <code>PolicyViolation</code> as first-class capsule event.</div>
+        <div class="persona-ref">contracts.rs 120–131 · syscall/policy.rs 7–87 · trace.rs 27–41</div>
+      </div>
+      <div class="persona-card">
+        <div class="persona-role">CTO / Architect</div>
+        <div class="persona-pain">Toolchain identity informal; upgrade reproducibility unclear</div>
+        <div class="persona-answer"><code>version --full</code> prints semver + rustc + build hash. <code>doctor</code> emits machine-readable JSON.</div>
+        <div class="persona-ref">build.rs 1–33 · main.rs 1109–1119</div>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+
+    <!-- ── PART 3 ── -->
+    <h1 id="s-3">Part 3 — ROI Scenario Shapes</h1>
+    <div class="callout warn">
+      <div class="callout-label">Note</div>
+      No currency, hours, or revenue figures exist in this repository. Below are <strong>capability shapes</strong> only.
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Scenario</th><th>Engineering / Ops Effect</th><th>Evidence / Replay Posture</th><th>Cross-Machine</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Conservative</strong></td>
+          <td>Use <code>deterministic_capsule_hash</code> + drift fields to replace opaque reruns</td>
+          <td><code>seal_run</code> + <code>verify_linear</code> as audit basis</td>
+          <td>Validator available when both capsules carry compatible <code>execution_environment</code></td>
+        </tr>
+        <tr>
+          <td><strong>Realistic</strong></td>
+          <td>Add full replay path + <code>assert_replay_symmetry</code> / <code>assert_formal_replay_invariant</code> in automation</td>
+          <td>Optional Ed25519 path as in <code>governance_evidence.rs</code></td>
+          <td>Run <code>aion doctor</code> with <code>AION_PILOT_CAPSULE</code> for optional symmetry probe</td>
+        </tr>
+        <tr>
+          <td><strong>Aggressive</strong></td>
+          <td>Keep <code>formal_replay.rs</code> in CI; optionally adopt TLC where toolchain available</td>
+          <td>Enforce <code>require_evidence</code> / <code>require_replay_success</code> in customer policy JSON</td>
+          <td>Enforce <code>validate_cross_machine_replay</code> in two-host pipelines</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <hr class="section-rule">
+
+    <!-- ── PART 4 ── -->
+    <h1 id="s-4">Part 4 — Competitive Positioning</h1>
+    <blockquote>AION column: Part 1 only. Third-party column: <strong>Not evaluated in this AION repository.</strong> Buyers must run independent diligence.</blockquote>
+
+    <table>
+      <thead>
+        <tr><th>Capability</th><th>AION (this repository)</th><th>Third-Party Landscape</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Deterministic digest</td><td>Blake3 over canonical semantic JSON (<code>hash.rs</code> 24–48)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Drift</td><td>Named fields + details (<code>drift.rs</code> 22–55)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Replay</td><td>Symmetry + formal invariant + full replay pipeline (<code>symmetry.rs</code>; <code>replay.rs</code>; <code>aion.h</code> 85)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Formal methods</td><td>TLA+ module + optional TLC script + Rust tests</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Syscall / IO policy</td><td>Typed enum + whitelist + events (<code>contracts.rs</code>; <code>syscall/policy.rs</code>; <code>trace.rs</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Cross-machine</td><td>Fingerprints + tolerant/strict validator (<code>envelope.rs</code>; <code>model.rs</code>; <code>cross_machine.rs</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Evidence chain</td><td>Rolling SHA-256 + optional Ed25519 + C ABI (<code>proof.rs</code>; <code>chain.rs</code>; <code>aion.h</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Compliance gating</td><td>Policy validator + tests (<code>policy.rs</code>; <code>governance_evidence.rs</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>C ABI</td><td>Header + showcase tree (<code>aion.h</code>; <code>examples/c_abi_showcase/</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Python bindings</td><td><code>aion-python</code> Hatchling wheel + ctypes <code>Pilot</code>; optional PyO3 subtree</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="section-rule">
+
+    <!-- ── PART 5 ── -->
+    <h1 id="s-5">Part 5 — Value Propositions</h1>
+    <p style="font-size:0.85rem;color:var(--muted);margin-bottom:24px;">Each persona: Guarantees · Eliminates · Proves — all grounded in Part 1 anchors.</p>
+
+    <h2>Data Scientist</h2>
+    <div class="vp-triad">
+      <div class="vp-item"><div class="vp-verb">Guarantees</div><div class="vp-text">Blake3 digest over declared semantic JSON payload for capsules (<code>hash.rs</code> 24–48)</div></div>
+      <div class="vp-item"><div class="vp-verb">Eliminates</div><div class="vp-text">Opaque "something changed" by listing drift <strong>fields</strong> (<code>drift.rs</code> 22–55)</div></div>
+      <div class="vp-item"><div class="vp-verb">Proves</div><div class="vp-text">Token stream inputs are documented in <code>AiRuntime::run</code> (<code>runtime.rs</code> 51–52)</div></div>
+    </div>
+
+    <h2>ML Engineer</h2>
+    <div class="vp-triad">
+      <div class="vp-item"><div class="vp-verb">Guarantees</div><div class="vp-text">Structural replay checks before Blake3 equality (<code>symmetry.rs</code> 19–48)</div></div>
+      <div class="vp-item"><div class="vp-verb">Eliminates</div><div class="vp-text">Hand-wavy graph/why diffs by canonicalising slices in symmetry checks</div></div>
+      <div class="vp-item"><div class="vp-verb">Proves</div><div class="vp-text">Replay persists attestation flags on <code>EvidenceChain</code> (<code>replay.rs</code> 211–212)</div></div>
+    </div>
+
+    <h2>MLOps</h2>
+    <div class="vp-triad">
+      <div class="vp-item"><div class="vp-verb">Guarantees</div><div class="vp-text">Linear sealed evidence model with <code>verify_linear</code> (<code>proof.rs</code> 47–61)</div></div>
+      <div class="vp-item"><div class="vp-verb">Eliminates</div><div class="vp-text">"Unsigned only" as the sole option — Ed25519 helpers + C ABI available</div></div>
+      <div class="vp-item"><div class="vp-verb">Proves</div><div class="vp-text">Tamper rejection in tests (<code>governance_evidence.rs</code> 26, 82–88)</div></div>
+    </div>
+
+    <h2>QA</h2>
+    <div class="vp-triad">
+      <div class="vp-item"><div class="vp-verb">Guarantees</div><div class="vp-text">Explicit cross-machine validator (<code>cross_machine.rs</code> 13–41)</div></div>
+      <div class="vp-item"><div class="vp-verb">Eliminates</div><div class="vp-text">Hostname/binary path as strict equality requirements in tolerant machine check</div></div>
+      <div class="vp-item"><div class="vp-verb">Proves</div><div class="vp-text">Optional environment embedding on capsule (<code>model.rs</code> 9–37)</div></div>
+    </div>
+
+    <h2>Compliance</h2>
+    <div class="vp-triad">
+      <div class="vp-item"><div class="vp-verb">Guarantees</div><div class="vp-text">Structured policy violation strings (<code>policy.rs</code> 149–200)</div></div>
+      <div class="vp-item"><div class="vp-verb">Eliminates</div><div class="vp-text">Silent allow-all when <code>allowed_models</code> is non-empty and excludes the model</div></div>
+      <div class="vp-item"><div class="vp-verb">Proves</div><div class="vp-text"><code>require_evidence</code> branch (<code>policy.rs</code> 183–185)</div></div>
+    </div>
+
+    <h2>Security</h2>
+    <div class="vp-triad">
+      <div class="vp-item"><div class="vp-verb">Guarantees</div><div class="vp-text">Syscall policy is a typed enum on <code>DeterminismProfile</code> (<code>contracts.rs</code> 120–131)</div></div>
+      <div class="vp-item"><div class="vp-verb">Eliminates</div><div class="vp-text">Narrative-only IO denial by emitting <code>PolicyViolation</code> events</div></div>
+      <div class="vp-item"><div class="vp-verb">Proves</div><div class="vp-text">Whitelist parse surface (<code>syscall/policy.rs</code> 29–37)</div></div>
+    </div>
+
+    <h2>CTO / Architect</h2>
+    <div class="vp-triad">
+      <div class="vp-item"><div class="vp-verb">Guarantees</div><div class="vp-text">Three-field <code>version --full</code> string: semver + rustc + build hash (<code>build.rs</code>)</div></div>
+      <div class="vp-item"><div class="vp-verb">Eliminates</div><div class="vp-text">Unknown rustc string when build succeeds (<code>build.rs</code> 18–27)</div></div>
+      <div class="vp-item"><div class="vp-verb">Proves</div><div class="vp-text">Doctor emits JSON with library path, pilot package marker, fingerprint subset</div></div>
+    </div>
+
+    <hr class="section-rule">
+
+    <!-- ── PART 6 ── -->
+    <h1 id="s-6">Part 6 — 8-Step Pilot Framework</h1>
+
+    <div class="callout info">
+      <div class="callout-label">Operating model</div>
+      These steps are <strong>technical validation gates</strong>, not a fixed eight-week calendar. They may be run <strong>in any order</strong> or <strong>in parallel</strong>; most enterprises complete <strong>multiple steps in the same week</strong> while keeping the same pass criteria and artefacts.
+    </div>
+
+    <blockquote lang="de" style="margin-bottom:16px;">
+      Die Pilotphase besteht aus 8 technischen Validierungsschritten. Sie können diese Schritte in beliebiger Reihenfolge durchführen — viele Kunden erledigen mehrere Schritte in derselben Woche. Die Schritte dienen nur dazu, sicherzustellen, dass alle Kernfunktionen von AION‑OS korrekt funktionieren.
+    </blockquote>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="tl-week"><div class="tl-num">1</div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Step 1 — Build &amp; Doctor</div>
+          <div class="tl-criterion">Pass: Doctor JSON <code>checks.c_abi_library</code> ≠ <code>"not_found"</code> when library built (<code>output_bundle.rs</code> 738–752)</div>
+          <div class="tl-output">↳ aion_output/doctor/.../result.json</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-week"><div class="tl-num">2</div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Step 2 — Python Pilot</div>
+          <div class="tl-criterion">Pass: <code>Pilot.replay</code> succeeds on demo capsule (<code>api.py</code> 49–52)</div>
+          <div class="tl-output">↳ Replay stdout / logs</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-week"><div class="tl-num">3</div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Step 3 — Evidence</div>
+          <div class="tl-criterion">Pass: <code>verify_linear</code> passes on shipped <code>EvidenceChain</code></div>
+          <div class="tl-output">↳ QA checklist (signed)</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-week"><div class="tl-num">4</div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Step 4 — Drift</div>
+          <div class="tl-criterion">Pass: <code>drift_between_runs</code> yields <code>changed == false</code> for identical rebuilds</div>
+          <div class="tl-output">↳ Drift JSON</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-week"><div class="tl-num">5</div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Step 5 — Formal Replay</div>
+          <div class="tl-criterion">Pass: <code>assert_formal_replay_invariant</code> passes on golden (<code>symmetry.rs</code> 42–48; <code>formal_replay.rs</code> 7–11)</div>
+          <div class="tl-output">↳ CI log with test name</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-week"><div class="tl-num">6</div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Step 6 — Optional TLC</div>
+          <div class="tl-criterion">If TLC installed: script runs TLC (non-zero on TLC failure). If missing: exits 0 — document as <em>skip</em>, not a pass.</div>
+          <div class="tl-output">↳ TLC stdout archived</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-week"><div class="tl-num">7</div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Step 7 — Cross-Machine</div>
+          <div class="tl-criterion">Pass: <code>validate_cross_machine_replay</code> passes on two hosts with compatible fingerprints</div>
+          <div class="tl-output">↳ Validator result JSON</div>
+        </div>
+      </div>
+      <div class="tl-row">
+        <div class="tl-week"><div class="tl-num">8</div><div class="tl-line"></div></div>
+        <div class="tl-body">
+          <div class="tl-title">Step 8 — Policy Integration</div>
+          <div class="tl-criterion">Pass: <code>validate_capsule_against_policy</code> integrated with customer policy JSON (<code>policy.rs</code> 142–202)</div>
+          <div class="tl-output">↳ Violation JSON template</div>
+        </div>
+      </div>
+    </div>
+
+    <hr class="section-rule">
+
+    <!-- ── PART 7 ── -->
+    <h1 id="s-7">Part 7 — Pricing Skeleton</h1>
+    <div class="callout warn">
+      <div class="callout-label">Note</div>
+      No commercial numbers in this repository. Structure only.
+    </div>
+    <table>
+      <thead><tr><th>Model</th><th>Definition</th><th>Pros</th><th>Cons</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Seat</strong></td><td>Licensed operators of AION tooling</td><td>Simple procurement</td><td>Not tied to run volume</td></tr>
+        <tr><td><strong>Usage</strong></td><td>Metered on capsules / validations</td><td>Cost tracks audit surface</td><td>Metering not defined in code</td></tr>
+        <tr><td><strong>Enterprise</strong></td><td>Support + optional formal gate + training</td><td>Matches compliance buying</td><td>Legal terms out of repo scope</td></tr>
+      </tbody>
+    </table>
+
+    <hr class="section-rule">
+
+    <!-- ── PART 8 ── -->
+    <h1 id="s-8">Part 8 — Customer Journey</h1>
+    <table>
+      <thead><tr><th>Stage</th><th>Action</th><th>Reference</th></tr></thead>
+      <tbody>
+        <tr><td><strong>1. First contact</strong></td><td>Read <code>AION_AFTER_HELP</code> and <code>bindings/python/README.md</code> install path</td><td><code>main.rs</code> 16–29</td></tr>
+        <tr><td><strong>2. Technical validation</strong></td><td><code>aion version --full</code> then <code>aion doctor</code></td><td><code>main.rs</code> 1109–1119; <code>output_bundle.rs</code> 727–776</td></tr>
+        <tr><td><strong>3. Pilot</strong></td><td>CLI <code>execute ai</code> / <code>execute ai-replay</code> or Python <code>Pilot</code>; inspect drift and evidence JSON</td><td><code>api.py</code> 33–52</td></tr>
+        <tr><td><strong>4. Rollout</strong></td><td>Integrate <code>validate_capsule_against_policy</code>; adopt <code>seal_run</code> / <code>verify_linear</code>; optional Ed25519</td><td><code>policy.rs</code>; <code>proof.rs</code>; <code>aion.h</code></td></tr>
+        <tr><td><strong>5. Renewal</strong></td><td>Regression anchored on <code>engine/tests/</code>: formal replay, governance evidence, syscall policy</td><td><code>cargo test -p aion-engine</code></td></tr>
+      </tbody>
+    </table>
+
+    <hr class="section-rule">
+
+    <!-- ── PART 9 ── -->
+    <h1 id="s-9">Part 9 — Messaging Layer</h1>
+
+    <h2>One sentence</h2>
+    <p>AION persists deterministic AI runs as capsules with Blake3 semantic hashing, structured drift, replay symmetry and formal invariant helpers, rolling SHA-256 evidence chains with optional Ed25519, and explicit cross-machine validation — implemented in Rust with a C ABI and a ctypes Python pilot.</p>
+
+    <h2>Three sentences</h2>
+    <p>AION computes a <strong>Blake3</strong> digest over canonical semantic JSON for capsules (<code>hash.rs</code>). AION compares reruns using symmetry helpers and optional Blake3 equality (<code>symmetry.rs</code>). AION seals runs into a rolling <strong>SHA-256</strong> evidence chain (<code>proof.rs</code>) with optional Ed25519 operations in the C header (<code>aion.h</code>) exercised in <code>governance_evidence.rs</code>.</p>
+
+    <h2>30-second pitch</h2>
+    <ol>
+      <li>Runtime contract (<code>runtime.rs</code> 51–52)</li>
+      <li>Drift field taxonomy (<code>drift.rs</code> 22–55)</li>
+      <li>Evidence chain mechanics (<code>proof.rs</code> 11–61)</li>
+      <li>Cross-machine validator (<code>cross_machine.rs</code> 6–41)</li>
+      <li>Pilot: build wheel from <code>bindings/python/README.md</code>; doctor probe via <code>AION_PILOT_CAPSULE</code></li>
+    </ol>
+
+    <h2>Two-minute walkthrough</h2>
+    <p>Walk Part 1 sections 1.1–1.7 in order; one "this proves" sentence per subsection. Close with Part 6 (<strong>Steps 1–2</strong> as a typical first slice, or any step pair relevant to the buyer). State explicitly: <strong>Part 4 does not evaluate third-party products.</strong></p>
+
+    <div class="nonclaims">
+      <strong>Explicit non-claims:</strong> This document does not assert third-party product capabilities, production SLAs, certifications, revenue, or TLC-in-CI for this repository. Buyers must run independent diligence. Line numbers may shift; symbols and paths remain the stable keys.
+    </div>
+
+    <p class="fileref" style="margin-top:28px;font-size:0.78rem;">Canonical Markdown (repo-relative from repository root): <a href="docs/enterprise/AION_Enterprise_Sales_Package.md">docs/enterprise/AION_Enterprise_Sales_Package.md</a> · HTML changelog: <a href="docs/enterprise/HTML_SALES_PACKAGE_CHANGELOG.md">docs/enterprise/HTML_SALES_PACKAGE_CHANGELOG.md</a></p>
+
+  </main>
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     VIEW 2: EXECUTIVE SUMMARY
+═══════════════════════════════════════════════════════════ -->
+<div id="view-exec" class="content">
+<div class="exec-layout">
+
+  <div class="hero" style="margin-bottom:28px;">
+    <div class="hero-title" style="font-size:1.4rem;">AION-OS — Executive Summary</div>
+    <div class="hero-sub">For C-suite and technical leadership. Source-backed, no invented claims.</div>
+    <div class="hero-chips">
+      <span class="chip">Blake3 Capsule Hash</span>
+      <span class="chip">Formal Replay Invariant</span>
+      <span class="chip">Linear Evidence Chain</span>
+      <span class="chip green">Ed25519 Signing</span>
+      <span class="chip orange">CONFIDENTIAL</span>
+    </div>
+  </div>
+
+  <div class="exec-kpi-row">
+    <div class="exec-kpi">
+      <span class="exec-kpi-val">Blake3</span>
+      <div class="exec-kpi-label">Capsule digest algorithm over canonical JSON</div>
+    </div>
+    <div class="exec-kpi">
+      <span class="exec-kpi-val">TLA+</span>
+      <div class="exec-kpi-label">Abstract replay invariant module shipped</div>
+    </div>
+    <div class="exec-kpi">
+      <span class="exec-kpi-val">SHA-256</span>
+      <div class="exec-kpi-label">Rolling evidence chain algorithm</div>
+    </div>
+    <div class="exec-kpi">
+      <span class="exec-kpi-val">Ed25519</span>
+      <div class="exec-kpi-label">Optional evidence signing via C ABI</div>
+    </div>
+  </div>
+
+  <div class="exec-section">
+    <div class="exec-section-title">What AION is</div>
+    <div class="exec-prose">
+      AION-OS is a <strong>deterministic AI execution layer</strong>. Inference-style runs are sealed into <strong>capsules</strong> — structured JSON artefacts carrying token trace, event stream, causal graph, Why payloads, drift summaries, and a linear evidence chain. A <strong>Blake3</strong> digest over canonical JSON of selected semantic fields (<code>deterministic_capsule_hash</code>, <code>hash.rs</code> 24–48) provides a stable, portable capsule identity. Capsules can be replayed, compared field-by-field via a structured drift report, and linked into a <strong>rolling SHA-256 evidence chain</strong> with optional <strong>Ed25519 signing</strong> through the C ABI. A minimal <strong>TLA+ abstract module</strong> ships under <code>docs/formal/</code> (optional TLC via <code>scripts/check_replay_invariant.sh</code>; not part of default CI). <strong>Default CI</strong> (<code>.github/workflows/ci.yml</code>) runs <code>cargo test</code>, including <code>engine/tests/formal_replay.rs</code>, which exercises <code>assert_formal_replay_invariant</code> on live capsules — distinct from the TLA+ abstraction.
+    </div>
+  </div>
+
+  <div class="exec-section">
+    <div class="exec-section-title">Seven personas — what changes</div>
+    <div class="exec-two-col">
+      <div class="exec-box">
+        <div class="exec-box-head">Engineering</div>
+        <ul>
+          <li><strong>Data Scientist</strong> — drift field taxonomy replaces opaque reruns</li>
+          <li><strong>ML Engineer</strong> — replay symmetry + formal invariant separates model vs infra</li>
+          <li><strong>MLOps</strong> — <code>seal_run</code> / <code>verify_linear</code> + optional Ed25519 replaces ad-hoc audit</li>
+          <li><strong>QA</strong> — <code>validate_cross_machine_replay</code> defines "same run" across hosts</li>
+        </ul>
+      </div>
+      <div class="exec-box">
+        <div class="exec-box-head">Governance & Leadership</div>
+        <ul>
+          <li><strong>Compliance</strong> — <code>validate_capsule_against_policy</code> with structured violation messages</li>
+          <li><strong>Security</strong> — <code>DeterministicIOPolicy</code> enum + typed syscall whitelist + capsule events</li>
+          <li><strong>CTO / Architect</strong> — <code>version --full</code> pins semver, rustc, build hash at compile time</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="exec-section">
+    <div class="exec-section-title">ROI posture (capability shapes — no figures in repository)</div>
+    <table class="tbl">
+      <thead><tr><th>Scenario</th><th>Primary lever</th><th>Evidence posture</th></tr></thead>
+      <tbody>
+        <tr><td><strong>Conservative</strong></td><td>Capsule hash + drift fields replace opaque reruns</td><td><code>seal_run</code> + <code>verify_linear</code> as audit basis</td></tr>
+        <tr><td><strong>Realistic</strong></td><td>Full replay path + <code>assert_formal_replay_invariant</code></td><td>Optional Ed25519 from governance test pattern</td></tr>
+        <tr><td><strong>Aggressive</strong></td><td><code>formal_replay.rs</code> in CI; TLC where toolchain available</td><td><code>require_evidence</code> + <code>require_replay_success</code> enforced</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="exec-section">
+    <div class="exec-section-title">One-sentence positioning</div>
+    <div class="exec-prose" style="background:var(--ink2);border:1px solid var(--rule);border-radius:4px;padding:16px 20px;font-size:0.95rem;">
+      AION persists deterministic AI runs as capsules with Blake3 semantic hashing, structured drift, replay symmetry and formal invariant helpers, rolling SHA-256 evidence chains with optional Ed25519, and explicit cross-machine validation — implemented in Rust with a C ABI and a ctypes Python pilot.
+    </div>
+  </div>
+
+  <div class="exec-section">
+    <div class="exec-section-title">Recommended next steps</div>
+    <div class="exec-next">
+      <div class="exec-step">
+        <span class="exec-step-num">01</span>
+        <div class="exec-step-title">Technical Validation</div>
+        <div class="exec-step-body">Run <code>aion version --full</code> and <code>aion doctor</code>. Confirm cdylib and Python pilot present.</div>
+      </div>
+      <div class="exec-step">
+        <span class="exec-step-num">02</span>
+        <div class="exec-step-title">8-Step Pilot Framework</div>
+        <div class="exec-step-body">Run Steps 1–8 in any order or parallel (e.g. evidence + drift early; formal replay + policy when ready). Most teams batch several gates per week.</div>
+      </div>
+      <div class="exec-step">
+        <span class="exec-step-num">03</span>
+        <div class="exec-step-title">Governance Integration</div>
+        <div class="exec-step-body">Integrate <code>validate_capsule_against_policy</code> with your policy JSON; enforce <code>require_evidence</code>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="nonclaims" style="margin-top:32px;">
+    <strong>Non-claims:</strong> This summary does not assert third-party product capabilities, SLAs, certifications, or revenue. All AION claims above are grounded in source code evidence (paths and line numbers on file).
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     VIEW 3: 1-PAGER
+═══════════════════════════════════════════════════════════ -->
+<div id="view-onepager" class="content">
+<div class="onepager">
+
+  <div class="op-header">
+    <div>
+      <div class="op-title">AION-OS</div>
+      <div style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);margin-top:4px;">Deterministic AI Execution · Enterprise Sales Reference</div>
+    </div>
+    <div class="op-meta">
+      CONFIDENTIAL — DRAFT<br>
+      Source: AION repository<br>
+      Third-party: not evaluated
+    </div>
+  </div>
+
+  <div class="op-grid">
+
+    <!-- What it is -->
+    <div class="op-box op-full">
+      <div class="op-box-title">What AION-OS does</div>
+      <p style="font-size:0.85rem;line-height:1.65;">AION-OS seals AI inference runs into deterministic <strong>capsules</strong> — portable JSON artefacts with token trace, event stream, causal graph, Why payload, drift report, and rolling SHA-256 evidence chain. A <strong>Blake3</strong> hash over canonical JSON (<code>hash.rs</code> 24–48) provides a stable capsule identity. Replay, drift comparison, policy enforcement, and optional Ed25519 signing are first-class operations via Rust engine, C ABI, Python ctypes pilot, and CLI.</p>
+    </div>
+
+    <!-- Capabilities -->
+    <div class="op-box">
+      <div class="op-box-title">Core Capabilities</div>
+      <ul>
+        <li>Deterministic capsule hash <span class="op-pill">hash.rs 24–48</span></li>
+        <li>Canonical JSON comparison <span class="op-pill">canon.rs 11–69</span></li>
+        <li>Structured drift report <span class="op-pill">drift.rs 22–55</span></li>
+        <li>Formal replay invariant (TLA+) <span class="op-pill">replay_invariant.tla</span></li>
+        <li>Replay symmetry + Blake3 check <span class="op-pill">symmetry.rs 42–48</span></li>
+        <li>Rolling SHA-256 evidence chain <span class="op-pill">proof.rs 11–61</span></li>
+        <li>Ed25519 sign / verify-with-key <span class="op-pill">aion.h 91–94</span></li>
+        <li>Cross-machine tolerant validator <span class="op-pill">cross_machine.rs 6–41</span></li>
+        <li>Syscall / IO policy (typed enum) <span class="op-pill">contracts.rs 120–131</span></li>
+        <li>Policy enforcement + CI test <span class="op-pill">policy.rs 142–202</span></li>
+      </ul>
+    </div>
+
+    <!-- Personas -->
+    <div class="op-box">
+      <div class="op-box-title">Persona → Outcome</div>
+      <ul>
+        <li>Data Scientist: named drift fields <span class="op-pill">drift.rs</span></li>
+        <li>ML Engineer: replay symmetry <span class="op-pill">symmetry.rs</span></li>
+        <li>MLOps: sealed evidence chain <span class="op-pill">proof.rs</span></li>
+        <li>QA: cross-machine validator <span class="op-pill">cross_machine.rs</span></li>
+        <li>Compliance: policy violations <span class="op-pill">policy.rs</span></li>
+        <li>Security: syscall whitelist + events <span class="op-pill">trace.rs</span></li>
+        <li>CTO: version --full identity <span class="op-pill">build.rs</span></li>
+      </ul>
+    </div>
+
+    <!-- Integration surface -->
+    <div class="op-box">
+      <div class="op-box-title">Integration Surface</div>
+      <ul>
+        <li>C ABI header — aion.h 82–98 <span class="op-pill">C / C++ / Go</span></li>
+        <li>Python: aion-python 0.2.0 Hatchling wheel <span class="op-pill">ctypes Pilot</span></li>
+        <li>CLI: aion doctor / version --full / evidence show <span class="op-pill">0/1/2 exit codes</span></li>
+        <li>Rust engine: cargo test -p aion-engine <span class="op-pill">CI-ready</span></li>
+      </ul>
+    </div>
+
+    <!-- Pilot schedule -->
+    <div class="op-box">
+      <div class="op-box-title">8-Step Pilot — Pass Criteria</div>
+      <ul>
+        <li>Step 1 — Build &amp; Doctor: doctor JSON c_abi_library ≠ not_found</li>
+        <li>Step 2 — Python Pilot: Pilot.replay succeeds on demo capsule</li>
+        <li>Step 3 — Evidence: verify_linear passes on shipped evidence</li>
+        <li>Step 4 — Drift: drift_between_runs changed == false</li>
+        <li>Step 5 — Formal Replay: assert_formal_replay_invariant passes</li>
+        <li>Step 6 — Optional TLC: TLC runs (or skip documented, not failed)</li>
+        <li>Step 7 — Cross-Machine: validate_cross_machine_replay passes</li>
+        <li>Step 8 — Policy Integration: policy validation integrated</li>
+      </ul>
+    </div>
+
+    <!-- Pricing skeleton -->
+    <div class="op-box">
+      <div class="op-box-title">Pricing Skeleton (no figures in repo)</div>
+      <ul>
+        <li>Seat — per licensed operator</li>
+        <li>Usage — metered on capsules / validations</li>
+        <li>Enterprise — SLA + formal gate + training</li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="op-footer">
+    <span>AION-OS · Enterprise Sales Package · CONFIDENTIAL</span>
+    <span>All claims: source-anchored · Third-party: not evaluated</span>
+  </div>
+
+</div>
+</div>
+
+<!-- ════════════════════════════════════════════════════════
+     VIEW 4: COMPLIANCE TEAMS
+═══════════════════════════════════════════════════════════ -->
+<div id="view-compliance" class="content">
+<div class="comp-layout">
+
+  <div class="comp-header">
+    <div>
+      <div class="comp-title">AION-OS — Compliance Reference</div>
+      <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);margin-top:4px;">For Compliance, Legal, and Risk Teams</div>
+    </div>
+    <div class="comp-badge">CONFIDENTIAL — DRAFT</div>
+  </div>
+
+  <div class="comp-toc">
+    <div class="comp-toc-title">Contents</div>
+    <ol>
+      <li>Policy enforcement capabilities</li>
+      <li>Evidence chain — structure and verification</li>
+      <li>Formal replay invariant — scope and CI status</li>
+      <li>Syscall / IO boundary</li>
+      <li>Cross-machine replay controls</li>
+      <li>Capability gating checklist</li>
+      <li>Non-claims and limitations</li>
+    </ol>
+  </div>
+
+  <!-- 1. Policy enforcement -->
+  <div class="comp-section-head">
+    <div class="comp-section-num">§1</div>
+    <div class="comp-section-title">Policy Enforcement Capabilities</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Claim</div>
+    <div class="comp-claim-body">AION provides a structured policy validator that checks capsule properties against a <code>PolicyProfile</code> and returns typed violation messages.</div>
+    <div class="comp-claim-source">Source: engine/src/governance/policy.rs lines 142–202 · validate_capsule_against_policy</div>
+  </div>
+
+  <div class="comp-gate">
+    <div class="comp-gate-item">
+      <div class="comp-gate-label">Model Allow-List</div>
+      <div class="comp-gate-val">Capsule model checked against <code>allowed_models</code>; violation message generated if not present.</div>
+      <div class="comp-gate-src">policy.rs 129–134, 149–156</div>
+    </div>
+    <div class="comp-gate-item">
+      <div class="comp-gate-label">Require Evidence</div>
+      <div class="comp-gate-val"><code>require_evidence</code> flag: fails validation if evidence chain has no records.</div>
+      <div class="comp-gate-src">policy.rs 183–185</div>
+    </div>
+    <div class="comp-gate-item">
+      <div class="comp-gate-label">Require Replay Success</div>
+      <div class="comp-gate-val"><code>require_replay_success</code>: fails when replay outcome supplied and indicates failure.</div>
+      <div class="comp-gate-src">policy.rs 187–192</div>
+    </div>
+    <div class="comp-gate-item">
+      <div class="comp-gate-label">Token Budget / Prompt Length / Seed Band</div>
+      <div class="comp-gate-val">Additional optional constraints on capsule parameters.</div>
+      <div class="comp-gate-src">policy.rs 142–202</div>
+    </div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Automated Test</div>
+    <div class="comp-claim-body">Test <code>policy_violation_fails_validation</code>: capsule with model not in <code>allowed_models</code> → <code>!r.policy.ok</code>. Test passes in <code>cargo test -p aion-engine</code>.</div>
+    <div class="comp-claim-source">engine/tests/governance_evidence.rs lines 57–75</div>
+  </div>
+
+  <!-- 2. Evidence chain -->
+  <div class="comp-section-head">
+    <div class="comp-section-num">§2</div>
+    <div class="comp-section-title">Evidence Chain — Structure and Verification</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Chain structure</div>
+    <div class="comp-claim-body"><code>EvidenceChain</code> is a linear list of <code>EvidenceRecord</code> values. Each record carries a <code>leaf_digest</code> (SHA-256 of the step bytes), a rolling <code>payload_digest</code> (SHA-256 of <code>parent|leaf</code>), and a <code>parent_digest</code> pointer. Optional boolean fields <code>formal_replay_invariant_ok</code> and <code>cross_machine_replay_ok</code> record post-hoc attestation results.</div>
+    <div class="comp-claim-source">core/src/evidence/chain.rs lines 7–27</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Seal</div>
+    <div class="comp-claim-body"><code>seal_run</code> builds the rolling SHA-256 chain over run result, policy, determinism profile, and schema version artefacts. Starting digest label: <code>GENESIS</code>.</div>
+    <div class="comp-claim-source">core/src/evidence/proof.rs lines 11–45</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Verify</div>
+    <div class="comp-claim-body"><code>verify_linear</code> recomputes each rolling digest from <code>leaf_digest</code> and <code>parent_digest</code>; returns <code>Err</code> on any mismatch. Tamper test in <code>governance_evidence.rs</code> confirms rejection when <code>leaf_digest</code> is mutated.</div>
+    <div class="comp-claim-source">core/src/evidence/proof.rs lines 47–61 · governance_evidence.rs lines 77–89</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Ed25519 Signing (optional)</div>
+    <div class="comp-claim-body">C ABI exports <code>aion_evidence_generate_keypair</code>, <code>aion_evidence_sign</code>, and <code>aion_evidence_verify_with_key</code>. Sign/verify roundtrip and tamper rejection tested in <code>governance_evidence.rs</code> lines 13–27.</div>
+    <div class="comp-claim-source">include/aion/aion.h lines 91–94</div>
+  </div>
+
+  <!-- 3. Formal invariant -->
+  <div class="comp-section-head">
+    <div class="comp-section-num">§3</div>
+    <div class="comp-section-title">Formal Replay Invariant — Scope and CI Status</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Abstract model</div>
+    <div class="comp-claim-body">A minimal TLA+ module ships under <code>docs/formal/replay_invariant.tla</code>. The predicate <code>ReplayInvariant == (rId = 0) \/ (rId = cId)</code> asserts that after any replay, the replayed capsule id equals the executed capsule id.</div>
+    <div class="comp-claim-source">docs/formal/replay_invariant.tla lines 29–30</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Live engine check</div>
+    <div class="comp-claim-body"><code>assert_formal_replay_invariant</code> in the Rust engine calls <code>assert_replay_symmetry</code> then requires Blake3 hash equality between original and replayed capsule.</div>
+    <div class="comp-claim-source">engine/src/replay/symmetry.rs lines 42–48</div>
+  </div>
+
+  <div class="callout warn">
+    <div class="callout-label">CI Scope Limitation</div>
+    The default GitHub Actions workflow (<code>.github/workflows/ci.yml</code> lines 17–21) runs <code>cargo build</code> and <code>cargo test</code> only. <strong>TLC is not invoked in the default CI pipeline.</strong> The shell helper <code>scripts/check_replay_invariant.sh</code> exits 0 when TLC is absent — this is a skip, not a pass. Compliance teams should note this distinction when assessing formal verification claims.
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Automated Rust tests (in default CI)</div>
+    <div class="comp-claim-body"><code>formal_replay_invariant_holds</code> and <code>formal_replay_invariant_breaks_on_tamper</code> run in <code>cargo test -p aion-engine</code> and are therefore checked in the default CI pipeline.</div>
+    <div class="comp-claim-source">engine/tests/formal_replay.rs lines 7–20</div>
+  </div>
+
+  <!-- 4. Syscall / IO -->
+  <div class="comp-section-head">
+    <div class="comp-section-num">§4</div>
+    <div class="comp-section-title">Syscall / IO Boundary</div>
+  </div>
+
+  <div class="comp-gate">
+    <div class="comp-gate-item">
+      <div class="comp-gate-label">Policy Enum</div>
+      <div class="comp-gate-val"><code>DeterministicIOPolicy: Strict | Audit | Deny</code> on <code>DeterminismProfile</code>.</div>
+      <div class="comp-gate-src">core/src/contracts.rs 120–131</div>
+    </div>
+    <div class="comp-gate-item">
+      <div class="comp-gate-label">Whitelist</div>
+      <div class="comp-gate-val"><code>read</code>, <code>write</code>, <code>open</code> (read-only), <code>stat</code> / <code>fstat</code> / <code>lstat</code>, <code>clock_gettime</code>.</div>
+      <div class="comp-gate-src">engine/src/syscall/policy.rs 7–37</div>
+    </div>
+    <div class="comp-gate-item">
+      <div class="comp-gate-label">Evaluation</div>
+      <div class="comp-gate-val"><code>evaluate_syscall</code> returns <code>Err</code> for disallowed; <code>should_block</code> → hard-block on Strict/Deny.</div>
+      <div class="comp-gate-src">syscall/policy.rs 60–87</div>
+    </div>
+    <div class="comp-gate-item">
+      <div class="comp-gate-label">Capsule Events</div>
+      <div class="comp-gate-val"><code>SyscallCaptured</code> and <code>PolicyViolation</code> are first-class event stream variants — auditable in the capsule record.</div>
+      <div class="comp-gate-src">engine/src/ai/trace.rs 27–41</div>
+    </div>
+  </div>
+
+  <!-- 5. Cross-machine -->
+  <div class="comp-section-head">
+    <div class="comp-section-num">§5</div>
+    <div class="comp-section-title">Cross-Machine Replay Controls</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Machine fingerprint</div>
+    <div class="comp-claim-body"><code>MachineFingerprint</code> records <code>cpu_features</code>, <code>os_version</code>, <code>kernel_version</code>, <code>hostname_hash</code>, <code>binary_hash</code>. Captured at seal time as best-effort with no network I/O.</div>
+    <div class="comp-claim-source">kernel/src/envelope.rs 14–30</div>
+  </div>
+
+  <div class="comp-claim">
+    <div class="comp-claim-label">Validator behaviour</div>
+    <div class="comp-claim-body"><code>validate_cross_machine_replay</code> enforces: (a) matching <code>DeterminismProfile</code>, (b) matching Blake3 capsule hash, (c) matching token trace and event stream, (d) <strong>strict</strong> <code>runtime_fingerprint</code> equality, (e) <strong>tolerant</strong> machine fingerprint (CPU/OS/kernel only — hostname and binary path excluded). Absence of <code>execution_environment</code> on both sides is accepted; mismatch in presence is rejected.</div>
+    <div class="comp-claim-source">engine/src/replay/cross_machine.rs 6–41</div>
+  </div>
+
+  <!-- 6. Checklist -->
+  <div class="comp-section-head">
+    <div class="comp-section-num">§6</div>
+    <div class="comp-section-title">Capability Gating Checklist</div>
+  </div>
+
+  <table class="tbl">
+    <thead><tr><th>Requirement</th><th>AION mechanism</th><th>Source</th><th>Status in default CI</th></tr></thead>
+    <tbody>
+      <tr><td>Model allow-list enforcement</td><td><code>validate_capsule_against_policy</code> — <code>allowed_models</code></td><td class="tbl-mono">policy.rs 129–156</td><td>Tested (cargo test)</td></tr>
+      <tr><td>Evidence chain required</td><td><code>require_evidence</code> policy flag</td><td class="tbl-mono">policy.rs 183–185</td><td>Code-present; enable in policy JSON</td></tr>
+      <tr><td>Replay success required</td><td><code>require_replay_success</code> policy flag</td><td class="tbl-mono">policy.rs 187–192</td><td>Code-present; enable in policy JSON</td></tr>
+      <tr><td>Evidence chain integrity</td><td><code>verify_linear</code> (SHA-256 rolling)</td><td class="tbl-mono">proof.rs 47–61</td><td>Tested (cargo test)</td></tr>
+      <tr><td>Evidence signing</td><td>Ed25519 via C ABI + governance helpers</td><td class="tbl-mono">aion.h 91–94</td><td>Tested (cargo test)</td></tr>
+      <tr><td>Syscall boundary</td><td><code>DeterministicIOPolicy</code> + whitelist evaluation</td><td class="tbl-mono">contracts.rs; syscall/policy.rs</td><td>Code-present; wire Strict/Deny in profile</td></tr>
+      <tr><td>Formal replay invariant (abstract)</td><td>TLA+ module + TLC script</td><td class="tbl-mono">replay_invariant.tla</td><td><strong>Not in default CI</strong> (TLC absent)</td></tr>
+      <tr><td>Formal replay invariant (live)</td><td><code>assert_formal_replay_invariant</code> Rust tests</td><td class="tbl-mono">formal_replay.rs 7–20</td><td>Tested (cargo test)</td></tr>
+      <tr><td>Cross-machine replay</td><td><code>validate_cross_machine_replay</code></td><td class="tbl-mono">cross_machine.rs 6–41</td><td>Code-present; requires fingerprinted capsules</td></tr>
+    </tbody>
+  </table>
+
+  <!-- 7. Non-claims -->
+  <div class="comp-section-head">
+    <div class="comp-section-num">§7</div>
+    <div class="comp-section-title">Non-Claims and Limitations</div>
+  </div>
+
+  <div class="comp-disclaimer">
+    <strong>This document does not assert:</strong> third-party product capabilities or comparisons; production SLAs or uptime guarantees; regulatory certifications (SOC 2, ISO 27001, or similar); revenue or commercial figures; TLC execution as part of the default CI pipeline for this repository. <strong>Line numbers are subject to change</strong> as the repository evolves — symbols and file paths are the stable reference keys. Buyers and compliance teams must conduct independent diligence and legal review. All AION capability claims in this document are grounded in repository source code at the paths and line ranges cited.
+  </div>
+
+</div>
+</div>
+
+</div><!-- end .shell -->
+
+<script>
+(function () {
+  function prefersReducedMotion() {
+    return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  }
+
+  function switchTab(view, tabEl) {
+    document.querySelectorAll('.tab').forEach(function (t) {
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
+    document.querySelectorAll('.content').forEach(function (c) {
+      c.classList.remove('active');
+    });
+    var panel = document.getElementById('view-' + view);
+    if (panel) panel.classList.add('active');
+    if (tabEl) {
+      tabEl.classList.add('active');
+      tabEl.setAttribute('aria-selected', 'true');
+    }
+    window.scrollTo(0, 0);
+  }
+
+  function scrollToSection(id, linkEl) {
+    var el = document.getElementById(id);
+    if (el) {
+      var y = el.getBoundingClientRect().top + window.scrollY - 72;
+      window.scrollTo({
+        top: y,
+        behavior: prefersReducedMotion() ? 'auto' : 'smooth',
+      });
+    }
+    document.querySelectorAll('.sidebar-link').forEach(function (l) {
+      l.classList.remove('active');
+    });
+    if (linkEl) linkEl.classList.add('active');
+  }
+
+  document.querySelectorAll('.tab').forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      switchTab(tab.getAttribute('data-view'), tab);
+    });
+    tab.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        switchTab(tab.getAttribute('data-view'), tab);
+      }
+    });
+  });
+
+  document.querySelectorAll('.sidebar-link').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var id = link.getAttribute('data-scroll-target');
+      if (id) scrollToSection(id, link);
+    });
+  });
+
+  var docBody = document.querySelector('.doc-body');
+  if (docBody) {
+    var sections = docBody.querySelectorAll('[id]');
+    var links = document.querySelectorAll('.sidebar-link');
+    window.addEventListener(
+      'scroll',
+      function () {
+        var y = window.scrollY + 100;
+        var current = '';
+        sections.forEach(function (s) {
+          var top = s.getBoundingClientRect().top + window.scrollY;
+          if (y >= top) current = s.id;
+        });
+        links.forEach(function (l) {
+          var t = l.getAttribute('data-scroll-target');
+          l.classList.toggle('active', t === current);
+        });
+      },
+      { passive: true }
+    );
+  }
+})();
+</script>
+</body>
+</html>

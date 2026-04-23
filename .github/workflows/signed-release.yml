@@ -1,0 +1,32 @@
+name: signed-release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  sign:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Build release binary
+        run: cargo build -p aion-cli --release
+      - name: Prepare artifact
+        run: |
+          mkdir -p dist
+          cp target/release/aion dist/aion-linux-amd64
+      - name: Sign with cosign keyless
+        uses: sigstore/cosign-installer@v3
+      - name: Generate signature
+        run: cosign sign-blob --yes --output-signature dist/aion-linux-amd64.sig dist/aion-linux-amd64
+      - name: Upload signed artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: signed-aion-release
+          path: dist/*

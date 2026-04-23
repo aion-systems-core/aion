@@ -1,0 +1,8 @@
+{
+  "freeze_time": false,
+  "freeze_random": false,
+  "freeze_env": false,
+  "freeze_io": false,
+  "freeze_network": false,
+  "freeze_parallelism": false
+}

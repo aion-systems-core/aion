@@ -1,0 +1,14 @@
+{
+  "command": "ai",
+  "files": [
+    "manifest.json",
+    "stdout.txt",
+    "stderr.txt",
+    "events.jsonl",
+    "replay.json",
+    "audit.jsonl",
+    "hashes.json"
+  ],
+  "run_id": "cli_flow_json_1776857406539429000",
+  "version": "1.0.0"
+}

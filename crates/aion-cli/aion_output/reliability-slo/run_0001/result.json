@@ -1,0 +1,48 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "kind": "reliability_slo",
+      "slo_status": {
+        "objectives": [
+          {
+            "target": "Availability",
+            "threshold_bps": 9950
+          },
+          {
+            "target": "ReplayFidelity",
+            "threshold_bps": 9990
+          },
+          {
+            "target": "ContractIntegrity",
+            "threshold_bps": 10000
+          }
+        ],
+        "results": [
+          {
+            "actual_bps": 9980,
+            "status": "ok",
+            "target": "Availability"
+          },
+          {
+            "actual_bps": 9995,
+            "status": "ok",
+            "target": "ReplayFidelity"
+          },
+          {
+            "actual_bps": 10000,
+            "status": "ok",
+            "target": "ContractIntegrity"
+          }
+        ],
+        "status": "ok",
+        "window": {
+          "duration_hours": 720,
+          "name": "rolling_30d"
+        }
+      }
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

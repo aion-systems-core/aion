@@ -1,0 +1,33 @@
+{
+  "run_id": "cb3265822e2a0499",
+  "records": [
+    {
+      "seq": 0,
+      "kind": "run",
+      "leaf_digest": "d3a976232f14f627c7c73104f795aba25cacc3e4f0d1eb8b9ea0e6e19b00e816",
+      "payload_digest": "0b6f6fc48fc6bb6df547881ded5460b80911a7f0fb187a06966dcae17c81e228",
+      "parent_digest": null
+    },
+    {
+      "seq": 1,
+      "kind": "policy",
+      "leaf_digest": "50b6d8588685550bba803e350353f2de1884db090fc419bbed97e48f5b9911fb",
+      "payload_digest": "5029a02d604c4d6fa718f65bada78489b2258a736bfb8624923c55af2cfbbda2",
+      "parent_digest": "0b6f6fc48fc6bb6df547881ded5460b80911a7f0fb187a06966dcae17c81e228"
+    },
+    {
+      "seq": 2,
+      "kind": "determinism",
+      "leaf_digest": "06d11cd49588703b4aca2e6cb452113971c742aa3c0795e0acdc75f82ba5586f",
+      "payload_digest": "6ad0a771b45b913a150c9e32a20daa47bccbc08f13f7b83af278d3961a054425",
+      "parent_digest": "5029a02d604c4d6fa718f65bada78489b2258a736bfb8624923c55af2cfbbda2"
+    },
+    {
+      "seq": 3,
+      "kind": "artifact_schema",
+      "leaf_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+      "payload_digest": "b87770a01bea9f56caf6944b355720bc70cec5944894fb829befded3ea44bb3d",
+      "parent_digest": "6ad0a771b45b913a150c9e32a20daa47bccbc08f13f7b83af278d3961a054425"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+/target/
+**/target/
+*.lib
+*.dll
+*.so
+*.pdb
+*.o
+*.a
+*.pyc
+__pycache__/
+**/*.rs.bk
+.DS_Store

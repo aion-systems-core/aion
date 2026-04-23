@@ -1,0 +1,8 @@
+{
+  "status": "ok",
+  "data": {
+    "config": "C:\\Users\\noahp\\AppData\\Local\\Temp\\aion-cli-telemetry-test-1776874216175\\.aion\\telemetry.toml",
+    "ok": true,
+    "telemetry_enabled": true
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "version": "1",
+  "aion_version": "1.0.0",
+  "created_at": 42,
+  "policy_profile": "dev",
+  "prompt": "hello",
+  "model": "demo",
+  "model_hash": "<sha256-hex>",
+  "seed": 1,
+  "determinism": {
+    "time_frozen": true,
+    "time_epoch_secs": 1,
+    "random_seed": 1,
+    "syscall_intercept": false
+  },
+  "tokens": ["token"],
+  "token_trace": [
+    { "index": 0, "token": "token", "logits": null, "timestamp": 0 }
+  ],
+  "event_stream": [
+    { "RunStart": { "model": "demo" } },
+    { "PromptIngested": { "chars": 5 } },
+    { "TokenGenerated": { "index": 0, "token": "token" } },
+    { "RunComplete": { "token_count": 1 } }
+  ],
+  "why": { "nodes": [], "edges": [], "summary": "example" },
+  "graph": { "nodes": [], "edges": [] },
+  "drift": { "changed": false, "fields": [], "details": [] },
+  "evidence": { "run_id": "example", "records": [] }
+}

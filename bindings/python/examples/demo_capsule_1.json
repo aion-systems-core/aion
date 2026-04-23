@@ -1,0 +1,515 @@
+{
+  "version": "1",
+  "aion_version": "1.0.0",
+  "created_at": 1776808652,
+  "policy_profile": "dev",
+  "backend_name": "dummy",
+  "prompt": "pilot-one",
+  "model": "demo",
+  "model_hash": "2a97516c354b68848cdbd8f54a226a0a55b21ed138e207ad6c5cbb9c00aa5aea",
+  "seed": 1001,
+  "determinism": {
+    "time_frozen": true,
+    "time_epoch_secs": 1776808652,
+    "random_seed": 1001,
+    "syscall_intercept": false,
+    "freeze_time": true,
+    "freeze_env": true,
+    "freeze_random": true,
+    "freeze_cwd": true,
+    "strict_replay": false,
+    "io_policy": "audit"
+  },
+  "execution_envelope": {
+    "frozen_time_ms": 1776808652599,
+    "frozen_env": {
+      "PATHEXT": ".COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.PY;.PYW;.CPL",
+      "USERPROFILE": "C:\\Users\\noahp"
+    },
+    "frozen_cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2",
+    "frozen_random_seed": 0,
+    "determinism_profile": {
+      "time_frozen": true,
+      "time_epoch_secs": 0,
+      "random_seed": 1001,
+      "syscall_intercept": false,
+      "freeze_time": true,
+      "freeze_env": true,
+      "freeze_random": true,
+      "freeze_cwd": true,
+      "strict_replay": false,
+      "io_policy": "audit"
+    }
+  },
+  "execution_environment": {
+    "machine_fingerprint": {
+      "cpu_features": "x86_64 windows",
+      "os_version": "windows",
+      "kernel_version": "Windows_NT",
+      "hostname_hash": "c782a998b909bc434bf4a62d28b0a9c6",
+      "binary_hash": "89a03f806a5063c9395d9a61764dd148"
+    },
+    "runtime_fingerprint": {
+      "rustc_version": "rustc 1.94.1 (e408947bf 2026-03-25)",
+      "aion_version": "1.0.0",
+      "build_hash": "4d0e42804c3c8e25",
+      "enabled_features": []
+    }
+  },
+  "tokens": [
+    "graph",
+    "seed",
+    "kernel",
+    "null",
+    "policy",
+    "causal",
+    "order",
+    "graph",
+    "trace",
+    "evidence"
+  ],
+  "token_trace": [
+    {
+      "index": 0,
+      "token": "graph",
+      "token_id": 4266986220558450338,
+      "timestamp": 0
+    },
+    {
+      "index": 1,
+      "token": "seed",
+      "token_id": 17763815041883191410,
+      "timestamp": 1
+    },
+    {
+      "index": 2,
+      "token": "kernel",
+      "token_id": 13448386734288884290,
+      "timestamp": 2
+    },
+    {
+      "index": 3,
+      "token": "null",
+      "token_id": 8498471481904073746,
+      "timestamp": 3
+    },
+    {
+      "index": 4,
+      "token": "policy",
+      "token_id": 4786689005750789602,
+      "timestamp": 4
+    },
+    {
+      "index": 5,
+      "token": "causal",
+      "token_id": 18283517827075530674,
+      "timestamp": 5
+    },
+    {
+      "index": 6,
+      "token": "order",
+      "token_id": 13968089519481223554,
+      "timestamp": 6
+    },
+    {
+      "index": 7,
+      "token": "graph",
+      "token_id": 9018174267096413010,
+      "timestamp": 7
+    },
+    {
+      "index": 8,
+      "token": "trace",
+      "token_id": 2077475812524273698,
+      "timestamp": 8
+    },
+    {
+      "index": 9,
+      "token": "evidence",
+      "token_id": 13079633996378958322,
+      "timestamp": 9
+    }
+  ],
+  "event_stream": [
+    {
+      "kind": "run_start",
+      "model": "demo"
+    },
+    {
+      "kind": "prompt_ingested",
+      "chars": 9
+    },
+    {
+      "kind": "token_generated",
+      "index": 0,
+      "token": "graph"
+    },
+    {
+      "kind": "token_generated",
+      "index": 1,
+      "token": "seed"
+    },
+    {
+      "kind": "token_generated",
+      "index": 2,
+      "token": "kernel"
+    },
+    {
+      "kind": "token_generated",
+      "index": 3,
+      "token": "null"
+    },
+    {
+      "kind": "token_generated",
+      "index": 4,
+      "token": "policy"
+    },
+    {
+      "kind": "token_generated",
+      "index": 5,
+      "token": "causal"
+    },
+    {
+      "kind": "token_generated",
+      "index": 6,
+      "token": "order"
+    },
+    {
+      "kind": "token_generated",
+      "index": 7,
+      "token": "graph"
+    },
+    {
+      "kind": "token_generated",
+      "index": 8,
+      "token": "trace"
+    },
+    {
+      "kind": "token_generated",
+      "index": 9,
+      "token": "evidence"
+    },
+    {
+      "kind": "run_complete",
+      "token_count": 10
+    }
+  ],
+  "why": {
+    "why_schema_version": "2",
+    "model_version": "demo",
+    "seed": 1001,
+    "determinism_profile": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1776808652, random_seed=0x3e9, syscall_intercept=false",
+    "nodes": [
+      {
+        "id": "determinism",
+        "kind": "determinism",
+        "text": "Determinism: model=demo, time_frozen=true, time_epoch_secs=1776808652, random_seed=0x3e9, syscall_intercept=false",
+        "position": null
+      },
+      {
+        "id": "prompt_0",
+        "kind": "prompt",
+        "text": "pilot-one",
+        "position": 0
+      },
+      {
+        "id": "seed",
+        "kind": "seed",
+        "text": "Global RNG / sampling seed: 0x3e9",
+        "position": null
+      },
+      {
+        "id": "token_0",
+        "kind": "token",
+        "text": "graph",
+        "position": 0
+      },
+      {
+        "id": "token_1",
+        "kind": "token",
+        "text": "seed",
+        "position": 1
+      },
+      {
+        "id": "token_2",
+        "kind": "token",
+        "text": "kernel",
+        "position": 2
+      },
+      {
+        "id": "token_3",
+        "kind": "token",
+        "text": "null",
+        "position": 3
+      },
+      {
+        "id": "token_4",
+        "kind": "token",
+        "text": "policy",
+        "position": 4
+      },
+      {
+        "id": "token_5",
+        "kind": "token",
+        "text": "causal",
+        "position": 5
+      },
+      {
+        "id": "token_6",
+        "kind": "token",
+        "text": "order",
+        "position": 6
+      },
+      {
+        "id": "token_7",
+        "kind": "token",
+        "text": "graph",
+        "position": 7
+      },
+      {
+        "id": "token_8",
+        "kind": "token",
+        "text": "trace",
+        "position": 8
+      },
+      {
+        "id": "token_9",
+        "kind": "token",
+        "text": "evidence",
+        "position": 9
+      }
+    ],
+    "edges": [
+      {
+        "from": "determinism",
+        "to": "token_0",
+        "weight": 0.9,
+        "reason": "Determinism profile pins time and RNG policy for the run"
+      },
+      {
+        "from": "prompt_0",
+        "to": "token_0",
+        "weight": 1.0,
+        "reason": "Prompt segment conditions the first emitted token"
+      },
+      {
+        "from": "seed",
+        "to": "token_0",
+        "weight": 0.95,
+        "reason": "Seed selects vocabulary draws for each index"
+      },
+      {
+        "from": "token_0",
+        "to": "token_1",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      },
+      {
+        "from": "token_1",
+        "to": "token_2",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      },
+      {
+        "from": "token_2",
+        "to": "token_3",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      },
+      {
+        "from": "token_3",
+        "to": "token_4",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      },
+      {
+        "from": "token_4",
+        "to": "token_5",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      },
+      {
+        "from": "token_5",
+        "to": "token_6",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      },
+      {
+        "from": "token_6",
+        "to": "token_7",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      },
+      {
+        "from": "token_7",
+        "to": "token_8",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      },
+      {
+        "from": "token_8",
+        "to": "token_9",
+        "weight": 0.85,
+        "reason": "Prior token state feeds the next token in sequence"
+      }
+    ],
+    "summary": "13 influence nodes, 12 causal edges, 10 emitted tokens; deterministic under the given model, prompt, seed, and determinism profile."
+  },
+  "graph": {
+    "nodes": [
+      {
+        "id": "determinism",
+        "label": "model=demo; time_frozen=true; epoch=1776808652; random_seed=0x3e9; syscall_intercept=false",
+        "kind": "determinism"
+      },
+      {
+        "id": "prompt_0",
+        "label": "pilot-one",
+        "kind": "prompt"
+      },
+      {
+        "id": "seed",
+        "label": "0x3e9",
+        "kind": "seed"
+      },
+      {
+        "id": "token_0",
+        "label": "graph",
+        "kind": "token"
+      },
+      {
+        "id": "token_1",
+        "label": "seed",
+        "kind": "token"
+      },
+      {
+        "id": "token_2",
+        "label": "kernel",
+        "kind": "token"
+      },
+      {
+        "id": "token_3",
+        "label": "null",
+        "kind": "token"
+      },
+      {
+        "id": "token_4",
+        "label": "policy",
+        "kind": "token"
+      },
+      {
+        "id": "token_5",
+        "label": "causal",
+        "kind": "token"
+      },
+      {
+        "id": "token_6",
+        "label": "order",
+        "kind": "token"
+      },
+      {
+        "id": "token_7",
+        "label": "graph",
+        "kind": "token"
+      },
+      {
+        "id": "token_8",
+        "label": "trace",
+        "kind": "token"
+      },
+      {
+        "id": "token_9",
+        "label": "evidence",
+        "kind": "token"
+      }
+    ],
+    "edges": [
+      {
+        "from": "determinism",
+        "to": "token_0"
+      },
+      {
+        "from": "prompt_0",
+        "to": "token_0"
+      },
+      {
+        "from": "seed",
+        "to": "token_0"
+      },
+      {
+        "from": "token_0",
+        "to": "token_1"
+      },
+      {
+        "from": "token_1",
+        "to": "token_2"
+      },
+      {
+        "from": "token_2",
+        "to": "token_3"
+      },
+      {
+        "from": "token_3",
+        "to": "token_4"
+      },
+      {
+        "from": "token_4",
+        "to": "token_5"
+      },
+      {
+        "from": "token_5",
+        "to": "token_6"
+      },
+      {
+        "from": "token_6",
+        "to": "token_7"
+      },
+      {
+        "from": "token_7",
+        "to": "token_8"
+      },
+      {
+        "from": "token_8",
+        "to": "token_9"
+      }
+    ]
+  },
+  "drift": {
+    "changed": false,
+    "fields": [],
+    "details": []
+  },
+  "evidence": {
+    "run_id": "0d04a319deec3e71",
+    "records": [
+      {
+        "seq": 0,
+        "kind": "run",
+        "leaf_digest": "52c31dc10c15fc4cf310f62355442aba21ddeb7b2adfa95a81e92a8ac9cd531f",
+        "payload_digest": "10d6895b602554e5eeb90223a9ddbfbff1e9049e32a8db87c83891432c44d360",
+        "parent_digest": null
+      },
+      {
+        "seq": 1,
+        "kind": "policy",
+        "leaf_digest": "50b6d8588685550bba803e350353f2de1884db090fc419bbed97e48f5b9911fb",
+        "payload_digest": "6281b5f894e30469ffb885f823c6ed2f90f78062a7febe535f602d031fea9f09",
+        "parent_digest": "10d6895b602554e5eeb90223a9ddbfbff1e9049e32a8db87c83891432c44d360"
+      },
+      {
+        "seq": 2,
+        "kind": "determinism",
+        "leaf_digest": "325c211c8d6fbb409f22ffb3c72fbd1e6086422b5fc8558f7c2ad025158ad248",
+        "payload_digest": "70b437a6cdcf3617d5d6b718c00980ccaa45a1dbd5395469181c6d8e1a7b2233",
+        "parent_digest": "6281b5f894e30469ffb885f823c6ed2f90f78062a7febe535f602d031fea9f09"
+      },
+      {
+        "seq": 3,
+        "kind": "artifact_schema",
+        "leaf_digest": "6b86b273ff34fce19d6b804eff5a3f5747ada4eaa22f1d49c01e52ddb7875b4b",
+        "payload_digest": "1c65af8ec850ed9fc9bb6138c1b6601dea85fc287ac00ec0723025aa1c444186",
+        "parent_digest": "70b437a6cdcf3617d5d6b718c00980ccaa45a1dbd5395469181c6d8e1a7b2233"
+      }
+    ]
+  }
+}

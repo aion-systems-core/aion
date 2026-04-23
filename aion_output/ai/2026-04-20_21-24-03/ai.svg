@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="146" viewBox="0 0 640 146">
+<rect width="100%" height="100%" fill="rgb(255,255,255)"/>
+<text x="12" y="22" font-size="13" font-family="sans-serif">model=demo seed=99</text>
+<rect x="20" y="40" width="600" height="18" fill="rgb(245,245,245)" stroke="rgb(80,80,80)"/><text x="28" y="53" font-size="11" font-family="sans-serif">0: emit</text><rect x="20" y="62" width="600" height="18" fill="rgb(245,245,245)" stroke="rgb(80,80,80)"/><text x="28" y="75" font-size="11" font-family="sans-serif">1: seed</text><rect x="20" y="84" width="600" height="18" fill="rgb(245,245,245)" stroke="rgb(80,80,80)"/><text x="28" y="97" font-size="11" font-family="sans-serif">2: kernel</text>
+</svg>

@@ -1,0 +1,117 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="220" viewBox="0 0 1200 220">
+<defs><marker id="arr" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="rgb(60,60,60)"/></marker></defs>
+<rect width="100%" height="100%" fill="rgb(252,252,252)"/>
+<g>
+<title>determinism — model=demo; time_frozen=true; epoch=1776808652; random_seed=0x3e9; syscall_intercept=false</title>
+<rect x="40" y="120" width="88" height="22" rx="3" fill="rgb(245,245,245)" stroke="rgb(80,80,80)"/>
+<text x="44" y="135" font-size="9" font-family="sans-serif">determinism</text>
+</g>
+<g>
+<title>prompt_0 — pilot-one</title>
+<rect x="200" y="40" width="88" height="22" rx="3" fill="rgb(230,240,255)" stroke="rgb(80,80,80)"/>
+<text x="204" y="55" font-size="9" font-family="sans-serif">prompt_0</text>
+</g>
+<g>
+<title>seed — 0x3e9</title>
+<rect x="40" y="40" width="88" height="22" rx="3" fill="rgb(255,245,230)" stroke="rgb(80,80,80)"/>
+<text x="44" y="55" font-size="9" font-family="sans-serif">seed</text>
+</g>
+<g>
+<title>token_0 — graph</title>
+<rect x="360" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="364" y="115" font-size="9" font-family="sans-serif">token_0</text>
+</g>
+<g>
+<title>token_1 — seed</title>
+<rect x="460" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="464" y="115" font-size="9" font-family="sans-serif">token_1</text>
+</g>
+<g>
+<title>token_2 — kernel</title>
+<rect x="560" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="564" y="115" font-size="9" font-family="sans-serif">token_2</text>
+</g>
+<g>
+<title>token_3 — null</title>
+<rect x="660" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="664" y="115" font-size="9" font-family="sans-serif">token_3</text>
+</g>
+<g>
+<title>token_4 — policy</title>
+<rect x="760" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="764" y="115" font-size="9" font-family="sans-serif">token_4</text>
+</g>
+<g>
+<title>token_5 — causal</title>
+<rect x="860" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="864" y="115" font-size="9" font-family="sans-serif">token_5</text>
+</g>
+<g>
+<title>token_6 — order</title>
+<rect x="960" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="964" y="115" font-size="9" font-family="sans-serif">token_6</text>
+</g>
+<g>
+<title>token_7 — graph</title>
+<rect x="1060" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="1064" y="115" font-size="9" font-family="sans-serif">token_7</text>
+</g>
+<g>
+<title>token_8 — trace</title>
+<rect x="1160" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="1164" y="115" font-size="9" font-family="sans-serif">token_8</text>
+</g>
+<g>
+<title>token_9 — evidence</title>
+<rect x="1260" y="100" width="88" height="22" rx="3" fill="rgb(240,255,240)" stroke="rgb(80,80,80)"/>
+<text x="1264" y="115" font-size="9" font-family="sans-serif">token_9</text>
+</g>
+<g>
+<title>determinism → token_0</title>
+<path d="M 128 131 L 360 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>prompt_0 → token_0</title>
+<path d="M 288 51 L 360 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>seed → token_0</title>
+<path d="M 128 51 L 360 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_0 → token_1</title>
+<path d="M 448 111 L 460 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_1 → token_2</title>
+<path d="M 548 111 L 560 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_2 → token_3</title>
+<path d="M 648 111 L 660 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_3 → token_4</title>
+<path d="M 748 111 L 760 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_4 → token_5</title>
+<path d="M 848 111 L 860 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_5 → token_6</title>
+<path d="M 948 111 L 960 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_6 → token_7</title>
+<path d="M 1048 111 L 1060 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_7 → token_8</title>
+<path d="M 1148 111 L 1160 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+<g>
+<title>token_8 → token_9</title>
+<path d="M 1248 111 L 1260 111" stroke="rgb(70,70,70)" fill="none" marker-end="url(#arr)"/>
+</g>
+</svg>

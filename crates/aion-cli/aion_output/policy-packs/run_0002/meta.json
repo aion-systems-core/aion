@@ -1,0 +1,11 @@
+{
+  "status": "ok",
+  "data": {
+    "aion_version": "1.0.0",
+    "cli_args": "",
+    "command": "policy-packs",
+    "git_commit": null,
+    "utc_end": "2026-04-22T17:01:38Z",
+    "utc_start": "2026-04-22T17:01:38Z"
+  }
+}

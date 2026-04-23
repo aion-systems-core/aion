@@ -1,0 +1,10 @@
+[package]
+name = "aion-engine"
+version = "0.1.0"
+edition = "2021"
+license = "MIT"
+description = "AION engine orchestration (stub)"
+
+[dependencies]
+aion-core = { path = "../core" }
+aion-kernel = { path = "../kernel" }

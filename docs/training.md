@@ -1,0 +1,38 @@
+# Training materials
+
+This guide defines a deterministic onboarding and enablement path for AION-OS teams.
+
+## At a glance
+
+- Fast onboarding path from overview to SDK automation
+- Labs mapped to replay, drift, governance, and contracts
+- Suitable for developer, ops, and governance onboarding
+
+## Suggested onboarding path
+
+1. [Overview](overview.md)
+2. [Quickstart](quickstart.md)
+3. [Capsules](capsules.md)
+4. [Replay](replay.md)
+5. [Governance](governance.md)
+6. [SDK](sdk.md)
+
+## Hands-on labs
+
+- Lab 1: deterministic AI run + replay
+- Lab 2: drift between seeds
+- Lab 3: governance baseline/check
+- Lab 4: SDK batch execution
+
+## CLI surface
+
+```bash
+aion execute ai --model demo --prompt "training" --seed 1
+aion execute ai-replay --capsule path/to/capsule.aionai
+aion sdk drift --a first.aionai --b second.aionai
+aion governance status
+```
+
+## Enterprise-readiness
+
+Training is enterprise-ready when participants can execute deterministic workflows and interpret contract outputs without ambiguity.

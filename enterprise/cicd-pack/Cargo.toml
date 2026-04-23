@@ -1,0 +1,8 @@
+[package]
+name = "aion-cicd-pack"
+version = "0.1.0"
+edition = "2021"
+license = "LicenseRef-AION-ELv1"
+description = "Enterprise CI/CD pack (TODO)"
+
+[dependencies]
