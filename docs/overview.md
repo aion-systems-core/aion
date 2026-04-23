@@ -84,7 +84,7 @@ aion measure metrics
 - [Compliance one-pager](compliance/aion_compliance_onepager.md)
 - [Pilot onboarding](pilot/00_install.md)
 - [AION in 5 Minuten (executive)](executive/aion_in_5_minutes.md)
-- [Enterprise sales package (source-anchored)](enterprise/AION_Enterprise_Sales_Package.md) · [HTML edition](enterprise/AION_Enterprise_Sales_Package.html)
+- [Enterprise sales package (source-anchored)](enterprise/AION_Enterprise_Sales_Package.md) · [Specs stub](specs/full.md)
 
 ## Enterprise status at a glance
 

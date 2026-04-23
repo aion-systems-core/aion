@@ -214,7 +214,9 @@ Pricing and legal terms are intentionally not hard-coded in repository docs. Use
 
 ---
 
-## HTML edition
+## Specs stubs
 
-- [AION_Enterprise_Sales_Package.html](AION_Enterprise_Sales_Package.html)
-- [HTML changelog](HTML_SALES_PACKAGE_CHANGELOG.md)
+- [Full spec stub](../specs/full.md)
+- [Executive spec stub](../specs/executive.md)
+- [One-pager spec stub](../specs/one-pager.md)
+- [Compliance spec stub](../specs/compliance.md)

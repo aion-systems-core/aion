@@ -1,4 +1,8 @@
 /target/
+aion_output/
+target/
+/.idea
+/.vscode
 **/target/
 *.lib
 *.dll

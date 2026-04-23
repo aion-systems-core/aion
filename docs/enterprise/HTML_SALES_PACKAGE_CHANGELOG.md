@@ -1,11 +1,11 @@
-# Enterprise sales package — HTML edition changelog
+# Enterprise sales package — packaging changelog
 
 Canonical narrative + line references: [`AION_Enterprise_Sales_Package.md`](AION_Enterprise_Sales_Package.md).
 
-HTML builds:
+Current packaging state:
 
-- **Repository root:** `AION_Enterprise_Sales_Package.html` (open from clone root so `docs/enterprise/*.md` links resolve).
-- **Mirror:** `docs/enterprise/AION_Enterprise_Sales_Package.html` (same content; footer links use same-directory `.md` paths).
+- **HTML package:** not present in this repository.
+- **Markdown stubs:** `docs/specs/full.md`, `docs/specs/executive.md`, `docs/specs/one-pager.md`, `docs/specs/compliance.md`.
 
 ## 2026-04-22 — Deterministic enterprise sync pass
 
