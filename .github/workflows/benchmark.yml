@@ -1,0 +1,30 @@
+name: Benchmark (Manual)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  benchmark:
+    name: deterministic-smoke-benchmark
+    runs-on: ubuntu-latest
+
+    steps:
+      # Lightweight manual benchmark: deterministic command and wall-clock timing.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Build (release)
+        run: cargo build --workspace --release
+
+      - name: Run deterministic benchmark command
+        run: |
+          start=$(date +%s)
+          cargo run -p aion-cli --release -- execute run -- echo benchmark
+          end=$(date +%s)
+          echo "benchmark_duration_seconds=$((end-start))"
