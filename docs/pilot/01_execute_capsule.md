@@ -1,16 +1,16 @@
 # Pilot onboarding — Execute capsule
 
-Produce a deterministic **AI capsule** and artefacts under `aion_output/ai/<id>/`.
+Produce a deterministic **AI capsule** and artefacts under `sealrun_output/ai/<id>/`.
 
 ```bash
-cargo run -p aion-cli -- execute ai --model demo --prompt "hello pilot" --seed 42 --id pilot_demo
+sealrun execute ai --model demo --prompt "hello pilot" --seed 42 --id pilot_demo
 ```
 
-You should see paths for `capsule.aionai`, `ai.json`, evidence files, and Why/graph HTML or SVG where enabled.
+You should see paths for `capsule\.sealrunai`, `ai.json`, evidence files, and Why/graph HTML or SVG where enabled.
 
 ## What to look for
 
-- **`capsule.aionai`** — Canonical run record for replay and governance.
+- **`capsule\.sealrunai`** — Canonical run record for replay and governance.
 - **Determinism metadata** — Frozen time / RNG policy used for the run.
 
 ## Next

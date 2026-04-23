@@ -3,7 +3,7 @@
 Replay compares a fresh deterministic run to the persisted capsule.
 
 ```bash
-cargo run -p aion-cli -- execute ai-replay --capsule aion_output/ai/pilot_demo/capsule.aionai
+sealrun execute ai-replay --capsule sealrun_output/ai/pilot_demo/capsule\.sealrunai
 ```
 
 (Adjust the path if you used a different `--id` or output base.)
@@ -11,7 +11,7 @@ cargo run -p aion-cli -- execute ai-replay --capsule aion_output/ai/pilot_demo/c
 ## What to look for
 
 - **`replay_symmetry_ok`** (human or `--json` output) — High-signal pass/fail for pilot reviews.
-- Artefacts under `aion_output/ai-replay/<timestamp>/` with structured diff data.
+- Artefacts under `sealrun_output/ai-replay/<timestamp>/` with structured diff data.
 
 ## Next
 

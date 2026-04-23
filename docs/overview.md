@@ -1,24 +1,24 @@
-# AION‑OS overview
+# SealRun overview
 
-AION‑OS is a **deterministic AI execution OS**: it records runs as **capsules**, verifies them with **replay**, compares them with **drift**, explains them with **Why** and **causal graphs**, and enforces rules through machine-readable **contracts** across governance, reliability, operations, distribution, UX, testing, and measurement.
+SealRun is a **deterministic AI execution engine**: it records runs as **capsules**, verifies them with **replay**, compares them with **drift**, explains them with **Why** and **causal graphs**, and enforces rules through machine-readable **contracts** across governance, reliability, operations, distribution, UX, testing, and measurement.
 
 ## At a glance
 
-- Execution-OS + Contract-OS model
+- deterministic execution engine + contract layer model
 - 5 kernel layers for deterministic run execution
 - Enterprise-layer contracts across phases 1-12
-- Canonical diagnostics and readiness output via `aion doctor`
+- Canonical diagnostics and readiness output via `sealrun doctor`
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is a deterministic execution engine, not a Security-Sandbox-OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
@@ -52,14 +52,14 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 ## CLI surface
 
 ```bash
-aion doctor
-aion reliability status
-aion ops runbooks
-aion dist status
-aion governance status
-aion ux api
-aion tests strategy
-aion measure metrics
+sealrun doctor
+sealrun reliability status
+sealrun ops runbooks
+sealrun dist status
+sealrun governance status
+sealrun ux api
+sealrun tests strategy
+sealrun measure metrics
 ```
 
 ## Enterprise-readiness
@@ -81,13 +81,13 @@ aion measure metrics
 - [Operations guide](operations-guide.md)
 - [Security guide](security-guide.md)
 - [Evidence model](evidence/evidence_model.md)
-- [Compliance one-pager](compliance/aion_compliance_onepager.md)
+- [Compliance one-pager](compliance/sealrun_compliance_onepager.md)
 - [Pilot onboarding](pilot/00_install.md)
-- [AION in 5 Minuten (executive)](executive/aion_in_5_minutes.md)
-- [Enterprise sales package (source-anchored)](enterprise/AION_Enterprise_Sales_Package.md) · [Specs stub](specs/full.md)
+- [SealRun in 5 Minuten (executive)](executive/sealrun_in_5_minutes.md)
+- [Enterprise sales package (source-anchored)](enterprise/SealRun_Enterprise_Sales_Package.md) · [Specs stub](specs/full.md)
 
 ## Enterprise status at a glance
 
-- Phase 1-12 enterprise contracts are implemented in `aion-core` and surfaced in `aion doctor`.
+- Phase 1-12 enterprise contracts are implemented in `aion-core` and surfaced in `sealrun doctor`.
 - Contract-centric command groups: `reliability`, `ops`, `dist`, `governance`, `ux`, `tests`, `measure`.
 - Deterministic JSON envelopes are the default audit interface for automation and compliance tooling.

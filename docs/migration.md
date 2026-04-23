@@ -1,6 +1,6 @@
 # Migration guide
 
-This guide defines deterministic upgrade and compatibility checks for AION-OS environments.
+This guide defines deterministic upgrade and compatibility checks for SealRun environments.
 
 ## At a glance
 
@@ -14,27 +14,27 @@ This guide defines deterministic upgrade and compatibility checks for AION-OS en
 2. Rebuild CLI:
    - `cargo build -p aion-cli --release`
 3. Validate with smoke commands:
-   - `aion --version`
-   - `aion execute ai --model demo --prompt "migration smoke" --seed 1`
-   - `aion execute ai-replay --capsule <latest capsule>`
+   - `sealrun --version`
+   - `sealrun execute ai --model demo --prompt "migration smoke" --seed 1`
+   - `sealrun execute ai-replay --capsule <latest capsule>`
 
 ## Output layout migration
 
 - Current outputs are deterministic under `<base>/<command>/<run_id>/`.
-- `AION_OUTPUT_BASE` and `AION_OUTPUT_ID` can be used to control path and run naming.
+- `SEALRUN_OUTPUT_BASE` and `SEALRUN_OUTPUT_ID` can be used to control path and run naming.
 
 ## SDK migration
 
-- `AION_SDK_VERSION` and `AION_SDK_OUTPUT_BASE` are additive.
-- Existing `aion sdk` commands remain compatible.
+- `SEALRUN_SDK_VERSION` and `SEALRUN_SDK_OUTPUT_BASE` are additive.
+- Existing `sealrun sdk` commands remain compatible.
 
 ## CLI surface
 
 ```bash
-aion --version
-aion doctor
-aion execute ai --model demo --prompt "migration smoke" --seed 1
-aion execute ai-replay --capsule <latest capsule>
+sealrun --version
+sealrun doctor
+sealrun execute ai --model demo --prompt "migration smoke" --seed 1
+sealrun execute ai-replay --capsule <latest capsule>
 ```
 
 ## Enterprise-readiness

@@ -1,6 +1,6 @@
 # Compatibility matrix
 
-This matrix summarizes core version anchors for deterministic compatibility in AION-OS.
+This matrix summarizes core version anchors for deterministic compatibility in SealRun.
 
 ## At a glance
 
@@ -10,8 +10,8 @@ This matrix summarizes core version anchors for deterministic compatibility in A
 
 | Component | Version |
 |-----------|---------|
-| AION‑OS product | `VERSION` file |
-| CLI binary | `aion --version` |
+| SealRun product | `VERSION` file |
+| CLI binary | `sealrun --version` |
 | AI capsule schema | `version = "1"` |
 | Why schema | `why_schema_version = "2"` |
 | Governance policy version | `policy_version = "1"` |
@@ -24,9 +24,9 @@ This matrix summarizes core version anchors for deterministic compatibility in A
 ## CLI surface
 
 ```bash
-aion --version
-aion doctor
-aion dist identity
+sealrun --version
+sealrun doctor
+sealrun dist identity
 ```
 
 ## Enterprise-readiness

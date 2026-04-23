@@ -33,7 +33,7 @@ This page describes how **capsules**, **hashes**, **signatures**, **replay**, an
 ## ASCII fallback
 
 ```
-  Capsule (.aionai)
+  Capsule (\.sealrunai)
        │
        ├─► SHA256(capsule JSON) ──► integrity envelope "signature"
        │

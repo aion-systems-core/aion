@@ -1,6 +1,6 @@
 # Case studies
 
-This document highlights representative enterprise usage patterns for AION-OS.
+This document highlights representative enterprise usage patterns for SealRun.
 
 ## At a glance
 
@@ -14,7 +14,7 @@ Teams use capsule replay + governance baseline checks to block nondeterministic 
 
 ## Audit-focused workflows
 
-Security and compliance teams use immutable output bundles (`.aion.zip`) and audit records for run traceability.
+Security and compliance teams use immutable output bundles (`.sealrun.zip`) and audit records for run traceability.
 
 ## Contract surface
 
@@ -25,10 +25,10 @@ Security and compliance teams use immutable output bundles (`.aion.zip`) and aud
 ## CLI surface
 
 ```bash
-aion ci baseline --capsule path/to/capsule.aionai --policy examples/governance/dev.policy.json --determinism examples/governance/dev.determinism.json --integrity examples/governance/dev.integrity.json
-aion ci check --capsule path/to/candidate.aionai --baseline path/to/baseline-governance.json
-aion governance status
-aion measure audits
+sealrun ci baseline --capsule path/to/capsule\.sealrunai --policy examples/governance/dev.policy.json --determinism examples/governance/dev.determinism.json --integrity examples/governance/dev.integrity.json
+sealrun ci check --capsule path/to/candidate\.sealrunai --baseline path/to/baseline-governance.json
+sealrun governance status
+sealrun measure audits
 ```
 
 ## Enterprise-readiness

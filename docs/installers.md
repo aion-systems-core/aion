@@ -16,27 +16,27 @@ cargo install --path crates/aion-cli
 
 ## Homebrew (tap draft)
 
-`packaging/homebrew/aion.rb` contains a starter formula template.
+`packaging/homebrew/sealrun.rb` contains a starter formula template.
 
 ## APT/RPM drafts
 
 - APT metadata scaffold: `packaging/apt/`
-- RPM spec scaffold: `packaging/rpm/aion.spec`
+- RPM spec scaffold: `packaging/rpm/sealrun.spec`
 
 ## Docker image
 
 ```bash
-docker build -t aion-os:latest .
-docker run --rm aion-os:latest --version
+docker build -t SealRun:latest .
+docker run --rm SealRun:latest --version
 ```
 
 ## CLI surface
 
 ```bash
-aion --version
-aion dist status
-aion dist installers
-aion dist lts
+sealrun --version
+sealrun dist status
+sealrun dist installers
+sealrun dist lts
 ```
 
 ## Enterprise-readiness

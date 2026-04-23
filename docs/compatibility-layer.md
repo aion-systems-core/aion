@@ -1,6 +1,6 @@
 # Compatibility Layer
 
-This document defines language/runtime interoperability boundaries for AION-OS.
+This document defines language/runtime interoperability boundaries for SealRun.
 
 ## At a glance
 
@@ -10,20 +10,20 @@ This document defines language/runtime interoperability boundaries for AION-OS.
 
 ## Supported languages
 
-- C/C++ via universal C ABI (`include/aion/aion.h`, `include/aion/aion.hpp`).
+- C/C++ via universal C ABI (`include/sealrun/sealrun.h`, `include/sealrun/sealrun.hpp`).
 - Rust via native `aion-core`/`aion-engine` APIs and optional C ABI feature (`ffi`).
 - Python via `pyo3` module in `bindings/python` and `ctypes` fallback in `bindings/python/ctypes`.
-- Go via `cgo` bridge in `bindings/go/aion.go`.
+- Go via `cgo` bridge in `bindings/go/sealrun.go`.
 - Java via JNI wrapper scaffold in `bindings/java`.
-- C# via P/Invoke scaffold in `bindings/csharp/AionNative.cs`.
+- C# via P/Invoke scaffold in `bindings/csharp/SealRunNative.cs`.
 - Node.js via `ffi-napi` scaffold in `bindings/node/index.js`.
 
 ## Supported operating systems
 
-- Linux (glibc 2.17+ / musl; `~/.aion` config defaults)
-- macOS 10.15+ (`~/Library/Application Support/AION` compatible paths)
-- Windows 10+ (`%APPDATA%/AION` and `%USERPROFILE%/.aion` compatibility)
-- FreeBSD 12+ (`~/.aion`)
+- Linux (glibc 2.17+ / musl; `~/.sealrun` config defaults)
+- macOS 10.15+ (`~/Library/Application Support/SealRun` compatible paths)
+- Windows 10+ (`%APPDATA%/SealRun` and `%USERPROFILE%/.sealrun` compatibility)
+- FreeBSD 12+ (`~/.sealrun`)
 
 ## Supported architectures
 
@@ -57,9 +57,9 @@ This document defines language/runtime interoperability boundaries for AION-OS.
 ## CLI surface
 
 ```bash
-aion doctor
-aion dist identity
-aion dist status
+sealrun doctor
+sealrun dist identity
+sealrun dist status
 ```
 
 ## Enterprise-readiness

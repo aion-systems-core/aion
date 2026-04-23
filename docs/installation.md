@@ -1,6 +1,6 @@
 # Installation
 
-AION‑OS is built from source as a Rust workspace. There is no separate installer in this repository slice.
+SealRun is built from source as a Rust workspace. There is no separate installer in this repository slice.
 
 ## At a glance
 
@@ -16,32 +16,32 @@ AION‑OS is built from source as a Rust workspace. There is no separate install
 ## Clone and build
 
 ```bash
-git clone <your-fork-or-upstream-url> aion-os
-cd aion-os
+git clone <your-fork-or-upstream-url> SealRun
+cd SealRun
 cargo build -p aion-cli
 ```
 
-The `aion` binary is produced under `target/debug/aion` (or `target/release/aion` with `--release`).
+The `sealrun` binary is produced under `target/debug/sealrun` (or `target/release/sealrun` with `--release`).
 
 ## Verify
 
 ```bash
-cargo run -p aion-cli -- --version
+sealrun --version
 ```
 
 ## CLI surface
 
 ```bash
-cargo run -p aion-cli -- --version
-cargo run -p aion-cli -- doctor
-cargo run -p aion-cli -- execute ai --model demo --prompt "install check" --seed 1
+sealrun --version
+sealrun doctor
+sealrun execute ai --model demo --prompt "install check" --seed 1
 ```
 
 ## Output location
 
-- By default, artefacts go under `<current working directory>/aion_output/<command>/<timestamp>/`.
-- Set **`AION_OUTPUT_BASE`** to an absolute or relative directory to redirect the `<command>/<timestamp>/` tree under that base instead of `cwd/aion_output`.
-- Each run folder includes **`meta.json`** (`aion_version`, optional `AION_GIT_COMMIT`, `command`, timestamps, and reserved optional policy fields).
+- By default, artefacts go under `<current working directory>/sealrun_output/<command>/<timestamp>/`.
+- Set **`SEALRUN_OUTPUT_BASE`** to an absolute or relative directory to redirect the `<command>/<timestamp>/` tree under that base instead of `cwd/sealrun_output`.
+- Each run folder includes **`meta.json`** (`sealrun_version`, optional `SEALRUN_GIT_COMMIT`, `command`, timestamps, and reserved optional policy fields).
 
 ## Next steps
 

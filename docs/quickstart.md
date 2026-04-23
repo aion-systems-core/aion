@@ -1,6 +1,6 @@
 # Quickstart
 
-This guide assumes you built the CLI (`cargo build -p aion-cli`) and invoke it with `cargo run -p aion-cli -- …` or put `target/debug` on your `PATH`.
+This guide assumes you built the CLI (`cargo build -p aion-cli`) and invoke it with `sealrun …` or put `target/debug` on your `PATH`.
 
 ## At a glance
 
@@ -11,47 +11,47 @@ This guide assumes you built the CLI (`cargo build -p aion-cli`) and invoke it w
 ## 1. Produce an AI capsule
 
 ```bash
-cargo run -p aion-cli -- execute ai --model demo --prompt "hello" --seed 1
+sealrun execute ai --model demo --prompt "hello" --seed 1
 ```
 
-**Output:** a timestamped directory under `aion_output/ai/<timestamp>/` containing `ai.json`, `ai.html`, `ai.svg`, `why.html`, `why.svg`, `capsule.aionai`, and `evidence.aionevidence`.
+**Output:** a timestamped directory under `sealrun_output/ai/<timestamp>/` containing `ai.json`, `ai.html`, `ai.svg`, `why.html`, `why.svg`, `capsule.sealrunai`, and `evidence.sealrunevidence`.
 
 ## 2. Replay the capsule
 
-Use the `capsule.aionai` path printed in the log line `Output written to: …`:
+Use the `capsule.sealrunai` path printed in the log line `Output written to: …`:
 
 ```bash
-cargo run -p aion-cli -- execute ai-replay --capsule aion_output/ai/<timestamp>/capsule.aionai
+sealrun execute ai-replay --capsule sealrun_output/ai/<timestamp>/capsule.sealrunai
 ```
 
-**Output:** `aion_output/ai-replay/<timestamp>/` with replay report JSON/HTML/SVG and why-diff artefacts.
+**Output:** `sealrun_output/ai-replay/<timestamp>/` with replay report JSON/HTML/SVG and why-diff artefacts.
 
 ## 3. Validate against a governance policy
 
 ```bash
-cargo run -p aion-cli -- policy validate \
-  --capsule aion_output/ai/<timestamp>/capsule.aionai \
+sealrun policy validate \
+  --capsule sealrun_output/ai/<timestamp>/capsule.sealrunai \
   --policy examples/governance/dev.policy.json
 ```
 
-**Output:** `aion_output/policy-validate/<timestamp>/governance.json` (+ HTML/SVG).
+**Output:** `sealrun_output/policy-validate/<timestamp>/governance.json` (+ HTML/SVG).
 
 ## 4. Check deterministic doctor surface
 
 ```bash
-cargo run -p aion-cli -- doctor
+sealrun doctor
 ```
 
 ## 5. Sample enterprise domain checks
 
 ```bash
-cargo run -p aion-cli -- reliability status
-cargo run -p aion-cli -- ops runbooks
-cargo run -p aion-cli -- dist status
-cargo run -p aion-cli -- governance status
-cargo run -p aion-cli -- ux api
-cargo run -p aion-cli -- tests strategy
-cargo run -p aion-cli -- measure metrics
+sealrun reliability status
+sealrun ops runbooks
+sealrun dist status
+sealrun governance status
+sealrun ux api
+sealrun tests strategy
+sealrun measure metrics
 ```
 
 ## Example JSON (truncated capsule)

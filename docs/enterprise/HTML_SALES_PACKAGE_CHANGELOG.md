@@ -1,6 +1,6 @@
 # Enterprise sales package — packaging changelog
 
-Canonical narrative + line references: [`AION_Enterprise_Sales_Package.md`](AION_Enterprise_Sales_Package.md).
+Canonical narrative + line references: [`SealRun_Enterprise_Sales_Package.md`](SealRun_Enterprise_Sales_Package.md).
 
 Current packaging state:
 
@@ -11,7 +11,7 @@ Current packaging state:
 
 - **Change:** Rebuilt the HTML edition to match the current phase 1-12 contract narrative.
 - **Structure:** Added normalized sections: At a glance, Contract surface, CLI surface, 12-phase story, governance/compliance, replay/drift/evidence, enterprise-readiness.
-- **Terminology:** Standardized Execution-OS and Contract-OS wording; aligned 7-domain CLI surface names.
+- **Terminology:** Standardized deterministic execution engine and contract layer wording; aligned 7-domain CLI surface names.
 - **Links:** Pointed HTML consumers to canonical markdown package, OS contract spec, architecture, and CLI reference.
 
 ## 2026-04-21 — Part 6: 8-Step Pilot Framework (repackaging)

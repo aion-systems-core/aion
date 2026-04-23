@@ -1,21 +1,21 @@
 # Enterprise Guide
 
-This section groups enterprise-facing AION documentation, including readiness, governance, and technical contract references.
+This section groups enterprise-facing SealRun documentation, including readiness, governance, and technical contract references.
 
-- [AION Enterprise Sales Package](./AION_Enterprise_Sales_Package.md)
+- [SealRun Enterprise Sales Package](./SealRun_Enterprise_Sales_Package.md)
 - [OS Contract Specification](../os_contract_spec.md)
 - [Architecture](../architecture.md)
 - [Security Guide](../security-guide.md)
 
 ## Enterprise contract scope
 
-AION extends kernel determinism with enterprise-grade contracts across governance, reliability, operations, distribution, UX, testing, and measurement.
+SealRun extends kernel determinism with enterprise-grade contracts across governance, reliability, operations, distribution, UX, testing, and measurement.
 
 ### Governance and policy
 
 - Deterministic policy packs, gates, and policy evidence outputs
 - Explicit machine-readable decisions with no silent bypass model
-- Governance status aggregation through `aion governance status` and `aion doctor`
+- Governance status aggregation through `sealrun governance status` and `sealrun doctor`
 
 ### Reliability and operations
 

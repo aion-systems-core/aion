@@ -1,6 +1,6 @@
 # Video plan
 
-This plan tracks demo content for deterministic AION-OS onboarding and buyer enablement.
+This plan tracks demo content for deterministic SealRun onboarding and buyer enablement.
 
 ## At a glance
 
@@ -18,10 +18,10 @@ Planned demo videos:
 ## CLI surface
 
 ```bash
-aion doctor
-aion execute ai --model demo --prompt "video" --seed 1
-aion execute ai-replay --capsule path/to/capsule.aionai
-aion governance status
+sealrun doctor
+sealrun execute ai --model demo --prompt "video" --seed 1
+sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
+sealrun governance status
 ```
 
 ## Enterprise-readiness

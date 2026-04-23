@@ -1,6 +1,6 @@
 # SDK
 
-The **SDK** is a thin, stable Rust API in the `aion-engine` crate (`aion_engine::sdk`) plus matching **`aion sdk`** CLI commands for scripting.
+The **SDK** is a thin, stable Rust API in the internal engine crate plus matching **`sealrun sdk`** CLI commands for scripting.
 
 ## At a glance
 
@@ -20,30 +20,30 @@ The **SDK** is a thin, stable Rust API in the `aion-engine` crate (`aion_engine:
 | CI | `ci_record_baseline`, `ci_check` |
 | Output | `write_output_bundle` (deterministic ordering, no timestamps) |
 
-## CLI: `aion sdk`
+## CLI: `sealrun sdk`
 
 Examples:
 
 ```bash
-cargo run -p aion-cli -- sdk capsule build --model m --prompt "hi" --seed 1
-cargo run -p aion-cli -- sdk replay --capsule path/to/capsule.aionai
-cargo run -p aion-cli -- sdk drift --a a.aionai --b b.aionai
-cargo run -p aion-cli -- sdk explain --capsule path/to/capsule.aionai
-cargo run -p aion-cli -- sdk info
+sealrun sdk capsule build --model m --prompt "hi" --seed 1
+sealrun sdk replay --capsule path/to/capsule.sealrunai
+sealrun sdk drift --a a.sealrunai --b b.sealrunai
+sealrun sdk explain --capsule path/to/capsule.sealrunai
+sealrun sdk info
 ```
 
-Each command writes `sdk.json`, `sdk.html`, and `sdk.svg` under `aion_output/<stem>/<timestamp>/`.
+Each command writes `sdk.json`, `sdk.html`, and `sdk.svg` under `sealrun_output/<stem>/<timestamp>/`.
 
 Batch + output controls:
 
 ```bash
-cargo run -p aion-cli -- sdk --output-format jsonl --quiet batch --file batch.json
+sealrun sdk --output-format jsonl --quiet batch --file batch.json
 ```
 
 Environment knobs:
 
-- `AION_SDK_VERSION` to override reported SDK version string.
-- `AION_SDK_OUTPUT_BASE` for `aion_engine::sdk::write_output_bundle` base path.
+- `SEALRUN_SDK_VERSION` to override reported SDK version string.
+- `SEALRUN_SDK_OUTPUT_BASE` for SDK output base path.
 
 ## Contract surface
 
@@ -54,10 +54,10 @@ Environment knobs:
 ## CLI surface
 
 ```bash
-aion sdk capsule build --model m --prompt "hi" --seed 1
-aion sdk replay --capsule path/to/capsule.aionai
-aion sdk drift --a a.aionai --b b.aionai
-aion sdk ci check --capsule path/to/candidate.aionai --baseline path/to/baseline-governance.json
+sealrun sdk capsule build --model m --prompt "hi" --seed 1
+sealrun sdk replay --capsule path/to/capsule.sealrunai
+sealrun sdk drift --a a.sealrunai --b b.sealrunai
+sealrun sdk ci check --capsule path/to/candidate.sealrunai --baseline path/to/baseline-governance.json
 ```
 
 ## Rust examples (cargo)

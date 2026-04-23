@@ -19,9 +19,10 @@ use std::fs;
 use std::path::{Path, PathBuf};
 use std::process::ExitCode;
 
-const AION_ABOUT: &str = "AION‑OS — Deterministic AI Execution Layer (CLI).";
+const AION_ABOUT: &str =
+    "SealRun — seal your run. Deterministic, replayable, auditable execution capsules.";
 const AION_AFTER_HELP: &str = r#"USAGE
-  aion [OPTIONS] <COMMAND>
+  sealrun [OPTIONS] <COMMAND>
 
 ARGS
   command_token  top_level_command
@@ -36,19 +37,19 @@ OPTIONS
   --output-dir <PATH>      output_directory_override
 
 EXAMPLES
-  aion doctor
-  aion evidence show path/to/capsule.aionai
-  aion execute ai --model demo --prompt "hello" --seed 1
-  aion execute ai-replay --capsule path/to/capsule.aionai
-  aion observe capture -- echo hello
-  aion policy validate --capsule path/to/capsule.aionai --policy examples/governance/dev.policy.json
-  aion sdk capsule build --model demo --prompt "hello" --seed 1
-  aion version --full
+  sealrun doctor
+  sealrun evidence show path/to/capsule.sealrunai
+  sealrun execute ai --model demo --prompt "hello" --seed 1
+  sealrun execute ai-replay --capsule path/to/capsule.sealrunai
+  sealrun observe capture -- echo hello
+  sealrun policy validate --capsule path/to/capsule.sealrunai --policy examples/governance/dev.policy.json
+  sealrun sdk capsule build --model demo --prompt "hello" --seed 1
+  sealrun version --full
 "#;
 
 #[derive(Parser, Debug)]
 #[command(
-    name = "aion",
+    name = "sealrun",
     version = env!("AION_SEMVER"),
     about = AION_ABOUT,
     disable_help_subcommand = true,
@@ -56,7 +57,7 @@ EXAMPLES
     after_long_help = AION_AFTER_HELP
 )]
 struct Cli {
-    /// Override output base directory (same effect as AION_OUTPUT_BASE).
+    /// Override output base directory (same effect as SEALRUN_OUTPUT_BASE).
     #[arg(long, global = true)]
     output_dir: Option<PathBuf>,
     /// Deterministic output run id (e.g. run_0001 or custom name).
@@ -78,37 +79,37 @@ struct Cli {
 #[derive(Subcommand, Debug)]
 enum TopLevel {
     /// Observe deterministic run, drift, replay, and integrity artifacts.
-    #[command(after_long_help = "EXAMPLES:\n  aion observe audit run_0001\n  aion observe capture -- echo ok\n  aion observe drift left.json right.json\n  aion observe graph run.json --format svg\n  aion observe integrity\n  aion observe why left.json right.json\n")]
+    #[command(after_long_help = "EXAMPLES:\n  sealrun observe audit run_0001\n  sealrun observe capture -- echo ok\n  sealrun observe drift left.json right.json\n  sealrun observe graph run.json --format svg\n  sealrun observe integrity\n  sealrun observe why left.json right.json\n")]
     Observe {
         #[command(subcommand)]
         command: ObserveCommand,
     },
     /// Execute deterministic shell and capsule replay workloads.
-    #[command(after_long_help = "EXAMPLES:\n  aion execute ai --model demo --prompt \"hello\" --seed 1\n  aion execute ai-replay --capsule path/to/capsule.aionai\n  aion execute capsule --policy dev -- echo hi\n  aion execute replay run.json --explain\n  aion execute run -- echo hi\n")]
+    #[command(after_long_help = "EXAMPLES:\n  sealrun execute ai --model demo --prompt \"hello\" --seed 1\n  sealrun execute ai-replay --capsule path/to/capsule.sealrunai\n  sealrun execute capsule --policy dev -- echo hi\n  sealrun execute replay run.json --explain\n  sealrun execute run -- echo hi\n")]
     Execute {
         #[command(subcommand)]
         command: ExecuteCommand,
     },
     /// Control policy, profile, integrity, and CI command surfaces.
-    #[command(after_long_help = "EXAMPLES:\n  aion control ci drift --cmd \"echo 1\"\n  aion control ci run --cmd \"echo 1\"\n  aion control determinism freeze --profile det.json\n  aion control integrity show-key\n  aion control policy list\n  aion control sdk\n")]
+    #[command(after_long_help = "EXAMPLES:\n  sealrun control ci drift --cmd \"echo 1\"\n  sealrun control ci run --cmd \"echo 1\"\n  sealrun control determinism freeze --profile det.json\n  sealrun control integrity show-key\n  sealrun control policy list\n  sealrun control sdk\n")]
     Control {
         #[command(subcommand)]
         command: ControlCommand,
     },
     /// Validate capsule policy profiles and constraints.
-    #[command(after_long_help = "EXAMPLES:\n  aion policy list\n  aion policy show dev\n  aion policy validate --capsule path/to/capsule.aionai --policy policy.json\n")]
+    #[command(after_long_help = "EXAMPLES:\n  sealrun policy list\n  sealrun policy show dev\n  sealrun policy validate --capsule path/to/capsule.sealrunai --policy policy.json\n")]
     Policy {
         #[command(subcommand)]
         command: GovPolicyCommand,
     },
     /// Record and check governance CI baselines for capsule replay.
-    #[command(after_long_help = "EXAMPLES:\n  aion ci baseline --capsule path/to/capsule.aionai --policy policy.json --determinism det.json --integrity integ.json\n  aion ci check --capsule path/to/capsule.aionai --baseline baseline.json\n")]
+    #[command(after_long_help = "EXAMPLES:\n  sealrun ci baseline --capsule path/to/capsule.sealrunai --policy policy.json --determinism det.json --integrity integ.json\n  sealrun ci check --capsule path/to/capsule.sealrunai --baseline baseline.json\n")]
     Ci {
         #[command(subcommand)]
         command: GovCiCommand,
     },
     /// SDK parity surface for capsule, policy, profile, and replay flows.
-    #[command(after_long_help = "EXAMPLES:\n  aion sdk capsule build --model demo --prompt \"hello\" --seed 1\n  aion sdk drift --a left.aionai --b right.aionai\n  aion sdk replay --capsule path/to/capsule.aionai\n  aion sdk validate --capsule path/to/capsule.aionai --policy policy.json\n")]
+    #[command(after_long_help = "EXAMPLES:\n  sealrun sdk capsule build --model demo --prompt \"hello\" --seed 1\n  sealrun sdk drift --a left.sealrunai --b right.sealrunai\n  sealrun sdk replay --capsule path/to/capsule.sealrunai\n  sealrun sdk validate --capsule path/to/capsule.sealrunai --policy policy.json\n")]
     Sdk {
         #[arg(long, default_value = "json")]
         output_format: String,
@@ -119,7 +120,7 @@ enum TopLevel {
         #[command(subcommand)]
         command: SdkCommand,
     },
-    /// Initialize local AION workspace files.
+    /// Initialize local SealRun workspace files.
     Setup,
     /// Print version (use `version --full` for toolchain metadata).
     Version {
@@ -505,7 +506,7 @@ enum ExecuteCommand {
         #[arg(long)]
         out_dir: Option<String>,
     },
-    /// Deterministic AI capsule run (writes ai.*, why.*, capsule.aionai).
+    /// Deterministic AI capsule run (writes ai.*, why.*, capsule.sealrunai).
     Ai {
         #[arg(long)]
         model: String,
@@ -566,7 +567,7 @@ enum PolicyCommand {
 
 #[derive(Subcommand, Debug)]
 enum DeterminismCommand {
-    /// Load and apply determinism freeze profile (exports AION_FREEZE_* env vars for current process).
+    /// Load and apply determinism freeze profile (exports SEALRUN_FREEZE_* env vars for current process).
     Freeze {
         #[arg(long)]
         profile: PathBuf,
@@ -602,14 +603,14 @@ enum CiCommand {
     Run {
         #[arg(long)]
         cmd: String,
-        #[arg(long, default_value = ".aion/baseline.json")]
+        #[arg(long, default_value = ".sealrun/baseline.json")]
         baseline: PathBuf,
     },
     /// Drift a new shell run against a stored baseline JSON.
     Drift {
         #[arg(long)]
         cmd: String,
-        #[arg(long, default_value = ".aion/baseline.json")]
+        #[arg(long, default_value = ".sealrun/baseline.json")]
         baseline: PathBuf,
     },
     /// Replay a RunResult JSON (same artefact layout as observe replay).
@@ -690,7 +691,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                         })
                     );
                 } else {
-                    println!("AION | observe drift — RunResult snapshot diff");
+                    println!("SealRun | observe drift — RunResult snapshot diff");
                     println!("  deterministic_fields: {:?}", drift.fields);
                 }
                 print_output_path(p);
@@ -718,7 +719,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                         })
                     );
                 } else {
-                    println!("AION | observe why — deterministic causal bundle (HTML/SVG under output)");
+                    println!("SealRun | observe why — deterministic causal bundle (HTML/SVG under output)");
                 }
                 print_output_path(p);
                 Ok(0)
@@ -788,7 +789,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                         })
                     );
                 } else {
-                    println!("AION | execute replay — stdout replay from RunResult JSON");
+                    println!("SealRun | execute replay — stdout replay from RunResult JSON");
                 }
                 print_output_path(p);
                 Ok(0)
@@ -829,13 +830,13 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                         "{}",
                         serde_json::json!({
                             "kind": "execute_ai",
-                            "product": "aion-os",
+                            "product": "sealrun",
                             "determinism_profile": cap.determinism,
                             "output_dir": p.display().to_string(),
                         })
                     );
                 } else {
-                    println!("AION | AI Execution OS — deterministic run");
+                    println!("SealRun | seal your run — deterministic run");
                     println!(
                         "  determinism_profile: {}",
                         serde_json::to_string(&cap.determinism).unwrap_or_else(|_| "{}".into())
@@ -869,7 +870,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                         })
                     );
                 } else {
-                    println!("AION | AI replay — symmetry check");
+                    println!("SealRun | AI replay — symmetry check");
                     println!("  replay_symmetry_ok: {}", rep.replay_symmetry_ok);
                     println!("  deterministic_hash_hex: {h}");
                 }
@@ -910,7 +911,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                             })
                         );
                     } else {
-                        println!("AION | policy validate — governance result");
+                        println!("SealRun | policy validate — governance result");
                         println!("  overall_success: {}", rep.success);
                         println!(
                             "  policy_ok: {}  determinism_ok: {}  integrity_ok: {}",
@@ -1017,7 +1018,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                         })
                     );
                 } else {
-                    println!("AION | policy validate — governance result");
+                    println!("SealRun | policy validate — governance result");
                     println!("  overall_success: {}", rep.success);
                     println!(
                         "  policy_ok: {}  determinism_ok: {}  integrity_ok: {}",

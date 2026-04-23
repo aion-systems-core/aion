@@ -1,6 +1,6 @@
 # Why & causal graph
 
-AION‑OS attaches a structured **Why** report and a **causal graph** to AI capsules so runs are explainable without opening proprietary model weights.
+SealRun attaches a structured **Why** report and a **causal graph** to AI capsules so runs are explainable without opening proprietary model weights.
 
 ## At a glance
 
@@ -10,14 +10,14 @@ AION‑OS attaches a structured **Why** report and a **causal graph** to AI caps
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is a deterministic execution engine, not a Security-Sandbox-OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
@@ -34,20 +34,20 @@ Replay adds **why diff** artefacts when you run `execute ai-replay`.
 ## CLI
 
 ```bash
-cargo run -p aion-cli -- execute ai --model m --prompt "a b" --seed 1
-# open aion_output/ai/<ts>/why.html in a browser
+sealrun execute ai --model m --prompt "a b" --seed 1
+# open sealrun_output/ai/<ts>/why.html in a browser
 ```
 
 `observe graph` supports format/depth controls:
 
 ```bash
-cargo run -p aion-cli -- observe graph path/to/run.json --format dot --depth 20
+sealrun observe graph path/to/run.json --format dot --depth 20
 ```
 
 ## Explain bundle (SDK)
 
 ```bash
-cargo run -p aion-cli -- sdk explain --capsule path/to/capsule.aionai
+sealrun sdk explain --capsule path/to/capsule.sealrunai
 ```
 
 ## Contract surface
@@ -59,9 +59,9 @@ cargo run -p aion-cli -- sdk explain --capsule path/to/capsule.aionai
 ## CLI surface
 
 ```bash
-aion execute ai --model m --prompt "a b" --seed 1
-aion observe graph path/to/run.json --format dot --depth 20
-aion sdk explain --capsule path/to/capsule.aionai
+sealrun execute ai --model m --prompt "a b" --seed 1
+sealrun observe graph path/to/run.json --format dot --depth 20
+sealrun sdk explain --capsule path/to/capsule.sealrunai
 ```
 
 ## ASCII sketch

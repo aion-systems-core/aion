@@ -1,6 +1,6 @@
 # Feedback survey
 
-This survey collects structured feedback for deterministic AION-OS product evolution.
+This survey collects structured feedback for deterministic SealRun product evolution.
 
 ## At a glance
 
@@ -20,9 +20,9 @@ Please provide feedback via GitHub issues with:
 When reporting issues, include relevant command outputs, for example:
 
 ```bash
-aion doctor
-aion governance status
-aion tests strategy
+sealrun doctor
+sealrun governance status
+sealrun tests strategy
 ```
 
 ## Enterprise-readiness

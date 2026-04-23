@@ -3,16 +3,16 @@
 Validate a capsule against a **policy JSON** (and optional determinism / integrity profiles on SDK paths).
 
 ```bash
-cargo run -p aion-cli -- policy validate \
-  --capsule aion_output/ai/pilot_demo/capsule.aionai \
+sealrun policy validate \
+  --capsule sealrun_output/ai/pilot_demo/capsule\.sealrunai \
   --policy examples/governance/dev.policy.json
 ```
 
 ## Built-in presets
 
 ```bash
-cargo run -p aion-cli -- policy list
-cargo run -p aion-cli -- policy show dev
+sealrun policy list
+sealrun policy show dev
 ```
 
 ## What to look for

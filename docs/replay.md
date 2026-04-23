@@ -10,27 +10,27 @@
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
 ## CLI: AI replay
 
 ```bash
-cargo run -p aion-cli -- execute ai-replay --capsule path/to/capsule.aionai
+sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
 ```
 
 ### Example output location
 
 ```
-aion_output/ai-replay/<timestamp>/ai.json
+sealrun_output/ai-replay/<timestamp>/ai.json
 ```
 
 The JSON summarises whether replay succeeded and lists comparison flags.
@@ -47,10 +47,10 @@ Replay reports include metadata fields such as:
 For headless workflows:
 
 ```bash
-cargo run -p aion-cli -- sdk replay --capsule path/to/capsule.aionai
+sealrun sdk replay --capsule path/to/capsule\.sealrunai
 ```
 
-This writes `sdk.json` (+ HTML/SVG) under `aion_output/sdk-replay/<timestamp>/`.
+This writes `sdk.json` (+ HTML/SVG) under `sealrun_output/sdk-replay/<timestamp>/`.
 
 ## Contract surface
 
@@ -61,9 +61,9 @@ This writes `sdk.json` (+ HTML/SVG) under `aion_output/sdk-replay/<timestamp>/`.
 ## CLI surface
 
 ```bash
-aion execute ai-replay --capsule path/to/capsule.aionai
-aion sdk replay --capsule path/to/capsule.aionai
-aion doctor
+sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
+sealrun sdk replay --capsule path/to/capsule\.sealrunai
+sealrun doctor
 ```
 
 ## Related

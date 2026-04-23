@@ -1,6 +1,6 @@
 # Community and support
 
-This page defines public support channels for AION-OS users and contributors.
+This page defines public support channels for SealRun users and contributors.
 
 ## At a glance
 
@@ -17,8 +17,8 @@ This page defines public support channels for AION-OS users and contributors.
 When opening issues, include relevant outputs:
 
 ```bash
-aion --version
-aion doctor
+sealrun --version
+sealrun doctor
 ```
 
 ## Enterprise-readiness

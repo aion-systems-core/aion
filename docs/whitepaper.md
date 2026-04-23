@@ -1,16 +1,16 @@
-# AION-OS Whitepaper (Draft)
+# SealRun Whitepaper (Draft)
 
-This draft summarizes AION-OS architecture and deterministic contract principles.
+This draft summarizes SealRun architecture and deterministic contract principles.
 
 ## At a glance
 
-- Execution-OS for deterministic AI workloads
-- Contract-OS control plane for governance and auditability
+- deterministic execution engine for deterministic AI workloads
+- contract layer control plane for governance and auditability
 - Kernel-layer and enterprise-layer model across phase 1-12
 
 ## Abstract
 
-AION-OS provides deterministic AI execution with portable capsules, replay verification, drift analysis, explainability, and governance controls.
+SealRun provides deterministic AI execution with portable capsules, replay verification, drift analysis, explainability, and governance controls.
 
 ## Design principles
 
@@ -36,14 +36,14 @@ AION-OS provides deterministic AI execution with portable capsules, replay verif
 ## CLI surface
 
 ```bash
-aion doctor
-aion governance status
-aion reliability status
-aion dist identity
-aion tests strategy
-aion measure audits
+sealrun doctor
+sealrun governance status
+sealrun reliability status
+sealrun dist identity
+sealrun tests strategy
+sealrun measure audits
 ```
 
 ## Enterprise-readiness
 
-AION reaches enterprise-readiness when contract outputs remain deterministic, version-stable, and auditable across supported environments.
+SealRun reaches enterprise-readiness when contract outputs remain deterministic, version-stable, and auditable across supported environments.

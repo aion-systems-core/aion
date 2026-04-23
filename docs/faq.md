@@ -2,23 +2,23 @@
 
 ## At a glance
 
-AION-OS is an Execution-OS with deterministic contracts for replay, drift, evidence, governance, and enterprise readiness.
+SealRun is an deterministic execution engine with deterministic contracts for replay, drift, evidence, governance, and enterprise readiness.
 
-## What is AION‑OS?
+## What is SealRun?
 
-AION‑OS is a deterministic AI Execution-OS and Contract-OS surface that emits reproducible artefacts for replay, drift, evidence, governance, operations, distribution, testing, and measurement workflows.
+SealRun is a deterministic AI execution engine and contract layer surface that emits reproducible artefacts for replay, drift, evidence, governance, operations, distribution, testing, and measurement workflows.
 
-## Does AION‑OS require a hosted service?
+## Does SealRun require a hosted service?
 
 No. The repository runs locally and writes artefacts to your filesystem.
 
 ## How do I verify determinism?
 
-Run `execute ai`, then `execute ai-replay` on the generated capsule, and validate `aion doctor` plus `aion tests strategy` outputs.
+Run `execute ai`, then `execute ai-replay` on the generated capsule, and validate `sealrun doctor` plus `sealrun tests strategy` outputs.
 
 ## How do I enforce policies in CI?
 
-Use policy and governance commands (`aion policy packs`, `aion policy gates`, `aion policy evidence`, `aion governance status`) and include them in CI evidence bundles.
+Use policy and governance commands (`sealrun policy packs`, `sealrun policy gates`, `sealrun policy evidence`, `sealrun governance status`) and include them in CI evidence bundles.
 
 ## Does telemetry run by default?
 

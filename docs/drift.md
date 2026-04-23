@@ -10,29 +10,29 @@
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
 ## CLI: drift between two run JSON files (observe)
 
 ```bash
-cargo run -p aion-cli -- observe drift left.json right.json
+sealrun observe drift left.json right.json
 ```
 
-Produces drift JSON/HTML/SVG under `aion_output/drift/<timestamp>/`.
+Produces drift JSON/HTML/SVG under `sealrun_output/drift/<timestamp>/`.
 
 ## CLI: drift between two capsules (SDK)
 
 ```bash
-cargo run -p aion-cli -- sdk drift --a first.aionai --b second.aionai
+sealrun sdk drift --a first\.sealrunai --b second\.sealrunai
 ```
 
 Exit code **2** when drift is detected (useful in CI).
@@ -56,9 +56,9 @@ Exit code **2** when drift is detected (useful in CI).
 ## CLI surface
 
 ```bash
-aion observe drift left.json right.json
-aion sdk drift --a first.aionai --b second.aionai
-aion doctor
+sealrun observe drift left.json right.json
+sealrun sdk drift --a first\.sealrunai --b second\.sealrunai
+sealrun doctor
 ```
 
 ## Related

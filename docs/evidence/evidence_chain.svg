@@ -23,6 +23,6 @@
   <path class="arr" d="M444 82 H470"/>
   <rect class="box" x="475" y="60" width="88" height="44"/>
   <text class="lbl" x="519" y="87" text-anchor="middle">Verify</text>
-  <text class="lbl" x="20" y="28" font-weight="600">AION evidence path</text>
+  <text class="lbl" x="20" y="28" font-weight="600">SealRun evidence path</text>
   <text class="lbl" x="20" y="150" font-size="11" fill="#64748b">Drift → Why → Graph → Evidence (explainability)</text>
 </svg>

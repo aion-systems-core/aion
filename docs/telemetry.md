@@ -1,6 +1,6 @@
 # Telemetry (opt-in)
 
-AION telemetry is disabled by default.
+SealRun telemetry is disabled by default.
 
 ## At a glance
 
@@ -11,22 +11,22 @@ AION telemetry is disabled by default.
 Use CLI commands to manage preference:
 
 ```bash
-aion telemetry enable
-aion telemetry status
-aion telemetry disable
+sealrun telemetry enable
+sealrun telemetry status
+sealrun telemetry disable
 ```
 
 Preference file path:
 
-- `%USERPROFILE%/.aion/telemetry.toml` (Windows)
-- `$HOME/.aion/telemetry.toml` (Unix-like)
+- `%USERPROFILE%/.sealrun/telemetry.toml` (Windows)
+- `$HOME/.sealrun/telemetry.toml` (Unix-like)
 
 ## CLI surface
 
 ```bash
-aion telemetry enable
-aion telemetry status
-aion telemetry disable
+sealrun telemetry enable
+sealrun telemetry status
+sealrun telemetry disable
 ```
 
 ## Enterprise-readiness

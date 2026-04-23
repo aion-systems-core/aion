@@ -15,4 +15,4 @@ The **evidence chain** is a linear sequence of records (`leaf_digest`, `payload_
 ## Next
 
 - [Evidence model (diagram)](../evidence/evidence_model.md)  
-- [Compliance one-pager](../compliance/aion_compliance_onepager.md)
+- [Compliance one-pager](../compliance/sealrun_compliance_onepager.md)

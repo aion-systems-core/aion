@@ -1,10 +1,10 @@
 # CLI reference
 
-This document defines the deterministic CLI surface of AION-OS.
+This document defines the deterministic CLI surface of SealRun.
 
 ## At a glance
 
-- Canonical diagnostics entrypoint: `aion doctor`
+- Canonical diagnostics entrypoint: `sealrun doctor`
 - Canonical machine output form: deterministic JSON envelope (`status`, `data`, `error`)
 - Enterprise command domains: `reliability`, `ops`, `dist`, `governance`, `ux`, `tests`, `measure`
 
@@ -18,68 +18,68 @@ This document defines the deterministic CLI surface of AION-OS.
 ### Reliability
 
 ```bash
-aion reliability status
-aion reliability slo
-aion reliability chaos
-aion reliability soak
+sealrun reliability status
+sealrun reliability slo
+sealrun reliability chaos
+sealrun reliability soak
 ```
 
 ### Operations
 
 ```bash
-aion ops runbooks
-aion ops incidents
-aion ops dr
-aion ops upgrade
+sealrun ops runbooks
+sealrun ops incidents
+sealrun ops dr
+sealrun ops upgrade
 ```
 
 ### Distribution
 
 ```bash
-aion dist status
-aion dist identity
-aion dist lts
-aion dist installers
+sealrun dist status
+sealrun dist identity
+sealrun dist lts
+sealrun dist installers
 ```
 
 ### Governance
 
 ```bash
-aion policy packs
-aion policy gates
-aion policy evidence
-aion governance status
+sealrun policy packs
+sealrun policy gates
+sealrun policy evidence
+sealrun governance status
 ```
 
 ### UX
 
 ```bash
-aion ux api
-aion ux cli
-aion ux admin
-aion ux golden-paths
+sealrun ux api
+sealrun ux cli
+sealrun ux admin
+sealrun ux golden-paths
 ```
 
 ### Tests
 
 ```bash
-aion tests strategy
-aion tests regression
-aion tests compatibility
-aion tests fuzz-property
+sealrun tests strategy
+sealrun tests regression
+sealrun tests compatibility
+sealrun tests fuzz-property
 ```
 
 ### Measurement
 
 ```bash
-aion measure metrics
-aion measure kpis
-aion measure audits
-aion measure evidence
+sealrun measure metrics
+sealrun measure kpis
+sealrun measure audits
+sealrun measure evidence
 ```
 
 ## Enterprise readiness
 
 - All listed commands map to explicit contracts in `aion-core`.
-- `aion doctor` aggregates contract state across all enterprise layers.
+- `sealrun doctor` aggregates contract state across all enterprise layers.
 - Use this surface as the canonical automation/API contract for CI and audit pipelines.

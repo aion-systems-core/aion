@@ -1,6 +1,6 @@
 # Developer guide
 
-This guide provides deterministic developer onboarding for AION-OS.
+This guide provides deterministic developer onboarding for SealRun.
 
 ## At a glance
 
@@ -10,14 +10,14 @@ This guide provides deterministic developer onboarding for AION-OS.
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
@@ -32,23 +32,23 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 ### 1) Run and replay
 
 ```bash
-cargo run -p aion-cli -- execute ai --model demo --prompt "hello" --seed 1
-cargo run -p aion-cli -- execute ai-replay --capsule path/to/capsule.aionai
+sealrun execute ai --model demo --prompt "hello" --seed 1
+sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
 ```
 
 ### 2) Drift and policy validation
 
 ```bash
-cargo run -p aion-cli -- policy validate --capsule path/to/capsule.aionai --policy examples/governance/dev.policy.json
-cargo run -p aion-cli -- policy gates
+sealrun policy validate --capsule path/to/capsule\.sealrunai --policy examples/governance/dev.policy.json
+sealrun policy gates
 ```
 
 ### 3) Deterministic diagnostics
 
 ```bash
-cargo run -p aion-cli -- doctor
-cargo run -p aion-cli -- tests strategy
-cargo run -p aion-cli -- measure metrics
+sealrun doctor
+sealrun tests strategy
+sealrun measure metrics
 ```
 
 ## Replay/Drift/Evidence flows
@@ -60,8 +60,8 @@ cargo run -p aion-cli -- measure metrics
 ## Identity and distribution flows
 
 ```bash
-cargo run -p aion-cli -- dist identity
-cargo run -p aion-cli -- dist status
+sealrun dist identity
+sealrun dist status
 ```
 
 Use identity/distribution outputs to validate environment support, ABI/contract alignment, and support status.

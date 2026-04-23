@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AION — Enterprise Sales Package</title>
+<title>SealRun — Enterprise Sales Package</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
 <style>
@@ -847,8 +847,8 @@ button.tab {
 <div class="shell">
 
 <!-- ── Topbar ── -->
-<nav class="topbar" aria-label="AION sales package">
-  <div class="topbar-brand"><span aria-hidden="true">◈</span> AION</div>
+<nav class="topbar" aria-label="SealRun sales package">
+  <div class="topbar-brand"><span aria-hidden="true">◈</span> SealRun</div>
   <div class="tabs" role="tablist" aria-label="Document views">
     <button type="button" class="tab active" role="tab" aria-selected="true" aria-controls="view-full" id="tab-full" data-view="full">Full Document</button>
     <button type="button" class="tab" role="tab" aria-selected="false" aria-controls="view-exec" id="tab-exec" data-view="exec">Executive Summary</button>
@@ -891,7 +891,7 @@ button.tab {
 
     <!-- Hero -->
     <div id="s-hero" class="hero">
-      <div class="hero-title">AION-OS</div>
+      <div class="hero-title">SealRun</div>
       <div class="hero-sub">Enterprise Sales Package · Industrial Edition<br>
       Deterministic AI Capsules · Replay Symmetry · Auditable Evidence Chains</div>
       <div class="hero-chips">
@@ -990,7 +990,7 @@ button.tab {
     <p><code>core/src/evidence/proof.rs</code> lines <strong>11–45</strong>: <code>seal_run</code> builds a rolling <strong>SHA-256</strong> chain over run, policy, determinism, and schema artefacts. Lines <strong>47–61</strong>: <code>verify_linear</code> rejects digest or parent pointer mismatches.</p>
 
     <h3>C ABI</h3>
-    <p><code>include/aion/aion.h</code> lines <strong>91–94</strong>: exports <code>aion_evidence_verify</code>, <code>aion_evidence_generate_keypair</code>, <code>aion_evidence_sign</code>, <code>aion_evidence_verify_with_key</code>.</p>
+    <p><code>include/sealrun/sealrun.h</code> lines <strong>91–94</strong>: exports <code>aion_evidence_verify</code>, <code>aion_evidence_generate_keypair</code>, <code>aion_evidence_sign</code>, <code>aion_evidence_verify_with_key</code>.</p>
 
     <h3>Rust integration tests</h3>
     <p><code>engine/tests/governance_evidence.rs</code> lines <strong>13–27</strong>: integrity envelope stability + Ed25519 sign/verify and rejection on tampered message bytes. Lines <strong>77–89</strong>: <code>verify_linear</code> success, then failure after <code>leaf_digest</code> tamper.</p>
@@ -1015,13 +1015,13 @@ button.tab {
     <h2 id="s-1-7">1.7 Integrations: C ABI, Python Pilot, CLI</h2>
 
     <h3>C ABI header</h3>
-    <p><code>include/aion/aion.h</code> lines <strong>82–98</strong>: exports include <code>aion_run</code>, <code>aion_capsule_save</code>, <code>aion_capsule_load</code>, <code>aion_replay_capsule</code>, drift/why/graph/validate, evidence verify/sign/keygen, <code>aion_doctor</code>, and free functions.</p>
+    <p><code>include/sealrun/sealrun.h</code> lines <strong>82–98</strong>: exports include <code>aion_run</code>, <code>aion_capsule_save</code>, <code>aion_capsule_load</code>, <code>aion_replay_capsule</code>, drift/why/graph/validate, evidence verify/sign/keygen, <code>aion_doctor</code>, and free functions.</p>
 
     <h3>Python pilot (ctypes wheel, not PyO3 in this wheel)</h3>
-    <p><code>bindings/python/pyproject.toml</code> lines <strong>1–22</strong>: build backend <strong>Hatchling</strong>, distribution name <strong>aion-python</strong>, version <strong>0.2.0</strong>. Optional PyO3 extension in <code>bindings/python/src/</code> is <strong>not</strong> part of this wheel (<code>README.md</code> lines <strong>45–47</strong>). <code>bindings/python/aion/api.py</code> lines <strong>33–52</strong>: <code>Pilot</code> loads the shared library and calls <code>aion_capsule_save</code> / <code>aion_replay_capsule</code> via ctypes.</p>
+    <p><code>bindings/python/pyproject.toml</code> lines <strong>1–22</strong>: build backend <strong>Hatchling</strong>, distribution name <strong>aion-python</strong>, version <strong>0.2.0</strong>. Optional PyO3 extension in <code>bindings/python/src/</code> is <strong>not</strong> part of this wheel (<code>README.md</code> lines <strong>45–47</strong>). <code>bindings/python/sealrun/api.py</code> lines <strong>33–52</strong>: <code>Pilot</code> loads the shared library and calls <code>aion_capsule_save</code> / <code>aion_replay_capsule</code> via ctypes.</p>
 
     <h3>CLI</h3>
-    <p><code>crates/aion-cli/src/main.rs</code> lines <strong>16–29</strong>: <code>AION_AFTER_HELP</code> lists <code>doctor</code>, <code>evidence show</code>, <code>execute ai</code>, <code>execute ai-replay</code>, <code>policy validate</code>, and documents exit codes <strong>0 / 1 / 2</strong>. <code>aion version --full</code> (lines <strong>1109–1119</strong>) prints semver, rustc line, and build hash from <code>build.rs</code>. <code>aion doctor</code> emits JSON including <code>c_abi_library</code> path, <code>python_pilot_pkg</code> marker, fingerprint subset, and optional <code>replay_symmetry_probe</code> when <code>AION_PILOT_CAPSULE</code> points to a <code>.aionai</code> file.</p>
+    <p><code>crates/aion-cli/src/main.rs</code> lines <strong>16–29</strong>: <code>AION_AFTER_HELP</code> lists <code>doctor</code>, <code>evidence show</code>, <code>execute ai</code>, <code>execute ai-replay</code>, <code>policy validate</code>, and documents exit codes <strong>0 / 1 / 2</strong>. <code>sealrun version --full</code> (lines <strong>1109–1119</strong>) prints semver, rustc line, and build hash from <code>build.rs</code>. <code>sealrun doctor</code> emits JSON including <code>c_abi_library</code> path, <code>python_pilot_pkg</code> marker, fingerprint subset, and optional <code>replay_symmetry_probe</code> when <code>AION_PILOT_CAPSULE</code> points to a <code>\.sealrunai</code> file.</p>
 
     <hr class="section-rule">
 
@@ -1045,7 +1045,7 @@ button.tab {
         <div class="persona-role">MLOps</div>
         <div class="persona-pain">Audit trail assembly ad hoc; unsigned only</div>
         <div class="persona-answer"><code>seal_run</code> / <code>verify_linear</code>; C ABI sign/verify; Ed25519 governance tests.</div>
-        <div class="persona-ref">proof.rs 11–61 · aion.h 91–94</div>
+        <div class="persona-ref">proof.rs 11–61 · sealrun.h 91–94</div>
       </div>
       <div class="persona-card">
         <div class="persona-role">QA</div>
@@ -1097,7 +1097,7 @@ button.tab {
           <td><strong>Realistic</strong></td>
           <td>Add full replay path + <code>assert_replay_symmetry</code> / <code>assert_formal_replay_invariant</code> in automation</td>
           <td>Optional Ed25519 path as in <code>governance_evidence.rs</code></td>
-          <td>Run <code>aion doctor</code> with <code>AION_PILOT_CAPSULE</code> for optional symmetry probe</td>
+          <td>Run <code>sealrun doctor</code> with <code>AION_PILOT_CAPSULE</code> for optional symmetry probe</td>
         </tr>
         <tr>
           <td><strong>Aggressive</strong></td>
@@ -1112,23 +1112,23 @@ button.tab {
 
     <!-- ── PART 4 ── -->
     <h1 id="s-4">Part 4 — Competitive Positioning</h1>
-    <blockquote>AION column: Part 1 only. Third-party column: <strong>Not evaluated in this AION repository.</strong> Buyers must run independent diligence.</blockquote>
+    <blockquote>SealRun column: Part 1 only. Third-party column: <strong>Not evaluated in this SealRun repository.</strong> Buyers must run independent diligence.</blockquote>
 
     <table>
       <thead>
-        <tr><th>Capability</th><th>AION (this repository)</th><th>Third-Party Landscape</th></tr>
+        <tr><th>Capability</th><th>SealRun (this repository)</th><th>Third-Party Landscape</th></tr>
       </thead>
       <tbody>
-        <tr><td>Deterministic digest</td><td>Blake3 over canonical semantic JSON (<code>hash.rs</code> 24–48)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>Drift</td><td>Named fields + details (<code>drift.rs</code> 22–55)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>Replay</td><td>Symmetry + formal invariant + full replay pipeline (<code>symmetry.rs</code>; <code>replay.rs</code>; <code>aion.h</code> 85)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>Formal methods</td><td>TLA+ module + optional TLC script + Rust tests</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>Syscall / IO policy</td><td>Typed enum + whitelist + events (<code>contracts.rs</code>; <code>syscall/policy.rs</code>; <code>trace.rs</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>Cross-machine</td><td>Fingerprints + tolerant/strict validator (<code>envelope.rs</code>; <code>model.rs</code>; <code>cross_machine.rs</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>Evidence chain</td><td>Rolling SHA-256 + optional Ed25519 + C ABI (<code>proof.rs</code>; <code>chain.rs</code>; <code>aion.h</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>Compliance gating</td><td>Policy validator + tests (<code>policy.rs</code>; <code>governance_evidence.rs</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>C ABI</td><td>Header + showcase tree (<code>aion.h</code>; <code>examples/c_abi_showcase/</code>)</td><td class="fileref">Not evaluated in this AION repository</td></tr>
-        <tr><td>Python bindings</td><td><code>aion-python</code> Hatchling wheel + ctypes <code>Pilot</code>; optional PyO3 subtree</td><td class="fileref">Not evaluated in this AION repository</td></tr>
+        <tr><td>Deterministic digest</td><td>Blake3 over canonical semantic JSON (<code>hash.rs</code> 24–48)</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>Drift</td><td>Named fields + details (<code>drift.rs</code> 22–55)</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>Replay</td><td>Symmetry + formal invariant + full replay pipeline (<code>symmetry.rs</code>; <code>replay.rs</code>; <code>sealrun.h</code> 85)</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>Formal methods</td><td>TLA+ module + optional TLC script + Rust tests</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>Syscall / IO policy</td><td>Typed enum + whitelist + events (<code>contracts.rs</code>; <code>syscall/policy.rs</code>; <code>trace.rs</code>)</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>Cross-machine</td><td>Fingerprints + tolerant/strict validator (<code>envelope.rs</code>; <code>model.rs</code>; <code>cross_machine.rs</code>)</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>Evidence chain</td><td>Rolling SHA-256 + optional Ed25519 + C ABI (<code>proof.rs</code>; <code>chain.rs</code>; <code>sealrun.h</code>)</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>Compliance gating</td><td>Policy validator + tests (<code>policy.rs</code>; <code>governance_evidence.rs</code>)</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>C ABI</td><td>Header + showcase tree (<code>sealrun.h</code>; <code>examples/c_abi_showcase/</code>)</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
+        <tr><td>Python bindings</td><td><code>aion-python</code> Hatchling wheel + ctypes <code>Pilot</code>; optional PyO3 subtree</td><td class="fileref">Not evaluated in this SealRun repository</td></tr>
       </tbody>
     </table>
 
@@ -1207,7 +1207,7 @@ button.tab {
         <div class="tl-body">
           <div class="tl-title">Step 1 — Build &amp; Doctor</div>
           <div class="tl-criterion">Pass: Doctor JSON <code>checks.c_abi_library</code> ≠ <code>"not_found"</code> when library built (<code>output_bundle.rs</code> 738–752)</div>
-          <div class="tl-output">↳ aion_output/doctor/.../result.json</div>
+          <div class="tl-output">↳ sealrun_output/doctor/.../result.json</div>
         </div>
       </div>
       <div class="tl-row">
@@ -1279,7 +1279,7 @@ button.tab {
     <table>
       <thead><tr><th>Model</th><th>Definition</th><th>Pros</th><th>Cons</th></tr></thead>
       <tbody>
-        <tr><td><strong>Seat</strong></td><td>Licensed operators of AION tooling</td><td>Simple procurement</td><td>Not tied to run volume</td></tr>
+        <tr><td><strong>Seat</strong></td><td>Licensed operators of SealRun tooling</td><td>Simple procurement</td><td>Not tied to run volume</td></tr>
         <tr><td><strong>Usage</strong></td><td>Metered on capsules / validations</td><td>Cost tracks audit surface</td><td>Metering not defined in code</td></tr>
         <tr><td><strong>Enterprise</strong></td><td>Support + optional formal gate + training</td><td>Matches compliance buying</td><td>Legal terms out of repo scope</td></tr>
       </tbody>
@@ -1293,9 +1293,9 @@ button.tab {
       <thead><tr><th>Stage</th><th>Action</th><th>Reference</th></tr></thead>
       <tbody>
         <tr><td><strong>1. First contact</strong></td><td>Read <code>AION_AFTER_HELP</code> and <code>bindings/python/README.md</code> install path</td><td><code>main.rs</code> 16–29</td></tr>
-        <tr><td><strong>2. Technical validation</strong></td><td><code>aion version --full</code> then <code>aion doctor</code></td><td><code>main.rs</code> 1109–1119; <code>output_bundle.rs</code> 727–776</td></tr>
+        <tr><td><strong>2. Technical validation</strong></td><td><code>sealrun version --full</code> then <code>sealrun doctor</code></td><td><code>main.rs</code> 1109–1119; <code>output_bundle.rs</code> 727–776</td></tr>
         <tr><td><strong>3. Pilot</strong></td><td>CLI <code>execute ai</code> / <code>execute ai-replay</code> or Python <code>Pilot</code>; inspect drift and evidence JSON</td><td><code>api.py</code> 33–52</td></tr>
-        <tr><td><strong>4. Rollout</strong></td><td>Integrate <code>validate_capsule_against_policy</code>; adopt <code>seal_run</code> / <code>verify_linear</code>; optional Ed25519</td><td><code>policy.rs</code>; <code>proof.rs</code>; <code>aion.h</code></td></tr>
+        <tr><td><strong>4. Rollout</strong></td><td>Integrate <code>validate_capsule_against_policy</code>; adopt <code>seal_run</code> / <code>verify_linear</code>; optional Ed25519</td><td><code>policy.rs</code>; <code>proof.rs</code>; <code>sealrun.h</code></td></tr>
         <tr><td><strong>5. Renewal</strong></td><td>Regression anchored on <code>engine/tests/</code>: formal replay, governance evidence, syscall policy</td><td><code>cargo test -p aion-engine</code></td></tr>
       </tbody>
     </table>
@@ -1306,10 +1306,10 @@ button.tab {
     <h1 id="s-9">Part 9 — Messaging Layer</h1>
 
     <h2>One sentence</h2>
-    <p>AION persists deterministic AI runs as capsules with Blake3 semantic hashing, structured drift, replay symmetry and formal invariant helpers, rolling SHA-256 evidence chains with optional Ed25519, and explicit cross-machine validation — implemented in Rust with a C ABI and a ctypes Python pilot.</p>
+    <p>SealRun persists deterministic AI runs as capsules with Blake3 semantic hashing, structured drift, replay symmetry and formal invariant helpers, rolling SHA-256 evidence chains with optional Ed25519, and explicit cross-machine validation — implemented in Rust with a C ABI and a ctypes Python pilot.</p>
 
     <h2>Three sentences</h2>
-    <p>AION computes a <strong>Blake3</strong> digest over canonical semantic JSON for capsules (<code>hash.rs</code>). AION compares reruns using symmetry helpers and optional Blake3 equality (<code>symmetry.rs</code>). AION seals runs into a rolling <strong>SHA-256</strong> evidence chain (<code>proof.rs</code>) with optional Ed25519 operations in the C header (<code>aion.h</code>) exercised in <code>governance_evidence.rs</code>.</p>
+    <p>SealRun computes a <strong>Blake3</strong> digest over canonical semantic JSON for capsules (<code>hash.rs</code>). SealRun compares reruns using symmetry helpers and optional Blake3 equality (<code>symmetry.rs</code>). SealRun seals runs into a rolling <strong>SHA-256</strong> evidence chain (<code>proof.rs</code>) with optional Ed25519 operations in the C header (<code>sealrun.h</code>) exercised in <code>governance_evidence.rs</code>.</p>
 
     <h2>30-second pitch</h2>
     <ol>
@@ -1327,7 +1327,7 @@ button.tab {
       <strong>Explicit non-claims:</strong> This document does not assert third-party product capabilities, production SLAs, certifications, revenue, or TLC-in-CI for this repository. Buyers must run independent diligence. Line numbers may shift; symbols and paths remain the stable keys.
     </div>
 
-    <p class="fileref" style="margin-top:28px;font-size:0.78rem;">Canonical Markdown (repo-relative from repository root): <a href="docs/enterprise/AION_Enterprise_Sales_Package.md">docs/enterprise/AION_Enterprise_Sales_Package.md</a> · HTML changelog: <a href="docs/enterprise/HTML_SALES_PACKAGE_CHANGELOG.md">docs/enterprise/HTML_SALES_PACKAGE_CHANGELOG.md</a></p>
+    <p class="fileref" style="margin-top:28px;font-size:0.78rem;">Canonical Markdown (repo-relative from repository root): <a href="docs/enterprise/SealRun_Enterprise_Sales_Package.md">docs/enterprise/SealRun_Enterprise_Sales_Package.md</a> · HTML changelog: <a href="docs/enterprise/HTML_SALES_PACKAGE_CHANGELOG.md">docs/enterprise/HTML_SALES_PACKAGE_CHANGELOG.md</a></p>
 
   </main>
 </div>
@@ -1340,7 +1340,7 @@ button.tab {
 <div class="exec-layout">
 
   <div class="hero" style="margin-bottom:28px;">
-    <div class="hero-title" style="font-size:1.4rem;">AION-OS — Executive Summary</div>
+    <div class="hero-title" style="font-size:1.4rem;">SealRun — Executive Summary</div>
     <div class="hero-sub">For C-suite and technical leadership. Source-backed, no invented claims.</div>
     <div class="hero-chips">
       <span class="chip">Blake3 Capsule Hash</span>
@@ -1371,9 +1371,9 @@ button.tab {
   </div>
 
   <div class="exec-section">
-    <div class="exec-section-title">What AION is</div>
+    <div class="exec-section-title">What SealRun is</div>
     <div class="exec-prose">
-      AION-OS is a <strong>deterministic AI execution layer</strong>. Inference-style runs are sealed into <strong>capsules</strong> — structured JSON artefacts carrying token trace, event stream, causal graph, Why payloads, drift summaries, and a linear evidence chain. A <strong>Blake3</strong> digest over canonical JSON of selected semantic fields (<code>deterministic_capsule_hash</code>, <code>hash.rs</code> 24–48) provides a stable, portable capsule identity. Capsules can be replayed, compared field-by-field via a structured drift report, and linked into a <strong>rolling SHA-256 evidence chain</strong> with optional <strong>Ed25519 signing</strong> through the C ABI. A minimal <strong>TLA+ abstract module</strong> ships under <code>docs/formal/</code> (optional TLC via <code>scripts/check_replay_invariant.sh</code>; not part of default CI). <strong>Default CI</strong> (<code>.github/workflows/ci.yml</code>) runs <code>cargo test</code>, including <code>engine/tests/formal_replay.rs</code>, which exercises <code>assert_formal_replay_invariant</code> on live capsules — distinct from the TLA+ abstraction.
+      SealRun is a <strong>deterministic AI execution layer</strong>. Inference-style runs are sealed into <strong>capsules</strong> — structured JSON artefacts carrying token trace, event stream, causal graph, Why payloads, drift summaries, and a linear evidence chain. A <strong>Blake3</strong> digest over canonical JSON of selected semantic fields (<code>deterministic_capsule_hash</code>, <code>hash.rs</code> 24–48) provides a stable, portable capsule identity. Capsules can be replayed, compared field-by-field via a structured drift report, and linked into a <strong>rolling SHA-256 evidence chain</strong> with optional <strong>Ed25519 signing</strong> through the C ABI. A minimal <strong>TLA+ abstract module</strong> ships under <code>docs/formal/</code> (optional TLC via <code>scripts/check_replay_invariant.sh</code>; not part of default CI). <strong>Default CI</strong> (<code>.github/workflows/ci.yml</code>) runs <code>cargo test</code>, including <code>engine/tests/formal_replay.rs</code>, which exercises <code>assert_formal_replay_invariant</code> on live capsules — distinct from the TLA+ abstraction.
     </div>
   </div>
 
@@ -1415,7 +1415,7 @@ button.tab {
   <div class="exec-section">
     <div class="exec-section-title">One-sentence positioning</div>
     <div class="exec-prose" style="background:var(--ink2);border:1px solid var(--rule);border-radius:4px;padding:16px 20px;font-size:0.95rem;">
-      AION persists deterministic AI runs as capsules with Blake3 semantic hashing, structured drift, replay symmetry and formal invariant helpers, rolling SHA-256 evidence chains with optional Ed25519, and explicit cross-machine validation — implemented in Rust with a C ABI and a ctypes Python pilot.
+      SealRun persists deterministic AI runs as capsules with Blake3 semantic hashing, structured drift, replay symmetry and formal invariant helpers, rolling SHA-256 evidence chains with optional Ed25519, and explicit cross-machine validation — implemented in Rust with a C ABI and a ctypes Python pilot.
     </div>
   </div>
 
@@ -1425,7 +1425,7 @@ button.tab {
       <div class="exec-step">
         <span class="exec-step-num">01</span>
         <div class="exec-step-title">Technical Validation</div>
-        <div class="exec-step-body">Run <code>aion version --full</code> and <code>aion doctor</code>. Confirm cdylib and Python pilot present.</div>
+        <div class="exec-step-body">Run <code>sealrun version --full</code> and <code>sealrun doctor</code>. Confirm cdylib and Python pilot present.</div>
       </div>
       <div class="exec-step">
         <span class="exec-step-num">02</span>
@@ -1441,7 +1441,7 @@ button.tab {
   </div>
 
   <div class="nonclaims" style="margin-top:32px;">
-    <strong>Non-claims:</strong> This summary does not assert third-party product capabilities, SLAs, certifications, or revenue. All AION claims above are grounded in source code evidence (paths and line numbers on file).
+    <strong>Non-claims:</strong> This summary does not assert third-party product capabilities, SLAs, certifications, or revenue. All SealRun claims above are grounded in source code evidence (paths and line numbers on file).
   </div>
 
 </div>
@@ -1455,12 +1455,12 @@ button.tab {
 
   <div class="op-header">
     <div>
-      <div class="op-title">AION-OS</div>
+      <div class="op-title">SealRun</div>
       <div style="font-family:var(--mono);font-size:0.78rem;color:var(--muted);margin-top:4px;">Deterministic AI Execution · Enterprise Sales Reference</div>
     </div>
     <div class="op-meta">
       CONFIDENTIAL — DRAFT<br>
-      Source: AION repository<br>
+      Source: SealRun repository<br>
       Third-party: not evaluated
     </div>
   </div>
@@ -1469,8 +1469,8 @@ button.tab {
 
     <!-- What it is -->
     <div class="op-box op-full">
-      <div class="op-box-title">What AION-OS does</div>
-      <p style="font-size:0.85rem;line-height:1.65;">AION-OS seals AI inference runs into deterministic <strong>capsules</strong> — portable JSON artefacts with token trace, event stream, causal graph, Why payload, drift report, and rolling SHA-256 evidence chain. A <strong>Blake3</strong> hash over canonical JSON (<code>hash.rs</code> 24–48) provides a stable capsule identity. Replay, drift comparison, policy enforcement, and optional Ed25519 signing are first-class operations via Rust engine, C ABI, Python ctypes pilot, and CLI.</p>
+      <div class="op-box-title">What SealRun does</div>
+      <p style="font-size:0.85rem;line-height:1.65;">SealRun seals AI inference runs into deterministic <strong>capsules</strong> — portable JSON artefacts with token trace, event stream, causal graph, Why payload, drift report, and rolling SHA-256 evidence chain. A <strong>Blake3</strong> hash over canonical JSON (<code>hash.rs</code> 24–48) provides a stable capsule identity. Replay, drift comparison, policy enforcement, and optional Ed25519 signing are first-class operations via Rust engine, C ABI, Python ctypes pilot, and CLI.</p>
     </div>
 
     <!-- Capabilities -->
@@ -1483,7 +1483,7 @@ button.tab {
         <li>Formal replay invariant (TLA+) <span class="op-pill">replay_invariant.tla</span></li>
         <li>Replay symmetry + Blake3 check <span class="op-pill">symmetry.rs 42–48</span></li>
         <li>Rolling SHA-256 evidence chain <span class="op-pill">proof.rs 11–61</span></li>
-        <li>Ed25519 sign / verify-with-key <span class="op-pill">aion.h 91–94</span></li>
+        <li>Ed25519 sign / verify-with-key <span class="op-pill">sealrun.h 91–94</span></li>
         <li>Cross-machine tolerant validator <span class="op-pill">cross_machine.rs 6–41</span></li>
         <li>Syscall / IO policy (typed enum) <span class="op-pill">contracts.rs 120–131</span></li>
         <li>Policy enforcement + CI test <span class="op-pill">policy.rs 142–202</span></li>
@@ -1508,9 +1508,9 @@ button.tab {
     <div class="op-box">
       <div class="op-box-title">Integration Surface</div>
       <ul>
-        <li>C ABI header — aion.h 82–98 <span class="op-pill">C / C++ / Go</span></li>
+        <li>C ABI header — sealrun.h 82–98 <span class="op-pill">C / C++ / Go</span></li>
         <li>Python: aion-python 0.2.0 Hatchling wheel <span class="op-pill">ctypes Pilot</span></li>
-        <li>CLI: aion doctor / version --full / evidence show <span class="op-pill">0/1/2 exit codes</span></li>
+        <li>CLI: sealrun doctor / version --full / evidence show <span class="op-pill">0/1/2 exit codes</span></li>
         <li>Rust engine: cargo test -p aion-engine <span class="op-pill">CI-ready</span></li>
       </ul>
     </div>
@@ -1543,7 +1543,7 @@ button.tab {
   </div>
 
   <div class="op-footer">
-    <span>AION-OS · Enterprise Sales Package · CONFIDENTIAL</span>
+    <span>SealRun · Enterprise Sales Package · CONFIDENTIAL</span>
     <span>All claims: source-anchored · Third-party: not evaluated</span>
   </div>
 
@@ -1558,7 +1558,7 @@ button.tab {
 
   <div class="comp-header">
     <div>
-      <div class="comp-title">AION-OS — Compliance Reference</div>
+      <div class="comp-title">SealRun — Compliance Reference</div>
       <div style="font-family:var(--mono);font-size:0.75rem;color:var(--muted);margin-top:4px;">For Compliance, Legal, and Risk Teams</div>
     </div>
     <div class="comp-badge">CONFIDENTIAL — DRAFT</div>
@@ -1585,7 +1585,7 @@ button.tab {
 
   <div class="comp-claim">
     <div class="comp-claim-label">Claim</div>
-    <div class="comp-claim-body">AION provides a structured policy validator that checks capsule properties against a <code>PolicyProfile</code> and returns typed violation messages.</div>
+    <div class="comp-claim-body">SealRun provides a structured policy validator that checks capsule properties against a <code>PolicyProfile</code> and returns typed violation messages.</div>
     <div class="comp-claim-source">Source: engine/src/governance/policy.rs lines 142–202 · validate_capsule_against_policy</div>
   </div>
 
@@ -1645,7 +1645,7 @@ button.tab {
   <div class="comp-claim">
     <div class="comp-claim-label">Ed25519 Signing (optional)</div>
     <div class="comp-claim-body">C ABI exports <code>aion_evidence_generate_keypair</code>, <code>aion_evidence_sign</code>, and <code>aion_evidence_verify_with_key</code>. Sign/verify roundtrip and tamper rejection tested in <code>governance_evidence.rs</code> lines 13–27.</div>
-    <div class="comp-claim-source">include/aion/aion.h lines 91–94</div>
+    <div class="comp-claim-source">include/sealrun/sealrun.h lines 91–94</div>
   </div>
 
   <!-- 3. Formal invariant -->
@@ -1731,13 +1731,13 @@ button.tab {
   </div>
 
   <table class="tbl">
-    <thead><tr><th>Requirement</th><th>AION mechanism</th><th>Source</th><th>Status in default CI</th></tr></thead>
+    <thead><tr><th>Requirement</th><th>SealRun mechanism</th><th>Source</th><th>Status in default CI</th></tr></thead>
     <tbody>
       <tr><td>Model allow-list enforcement</td><td><code>validate_capsule_against_policy</code> — <code>allowed_models</code></td><td class="tbl-mono">policy.rs 129–156</td><td>Tested (cargo test)</td></tr>
       <tr><td>Evidence chain required</td><td><code>require_evidence</code> policy flag</td><td class="tbl-mono">policy.rs 183–185</td><td>Code-present; enable in policy JSON</td></tr>
       <tr><td>Replay success required</td><td><code>require_replay_success</code> policy flag</td><td class="tbl-mono">policy.rs 187–192</td><td>Code-present; enable in policy JSON</td></tr>
       <tr><td>Evidence chain integrity</td><td><code>verify_linear</code> (SHA-256 rolling)</td><td class="tbl-mono">proof.rs 47–61</td><td>Tested (cargo test)</td></tr>
-      <tr><td>Evidence signing</td><td>Ed25519 via C ABI + governance helpers</td><td class="tbl-mono">aion.h 91–94</td><td>Tested (cargo test)</td></tr>
+      <tr><td>Evidence signing</td><td>Ed25519 via C ABI + governance helpers</td><td class="tbl-mono">sealrun.h 91–94</td><td>Tested (cargo test)</td></tr>
       <tr><td>Syscall boundary</td><td><code>DeterministicIOPolicy</code> + whitelist evaluation</td><td class="tbl-mono">contracts.rs; syscall/policy.rs</td><td>Code-present; wire Strict/Deny in profile</td></tr>
       <tr><td>Formal replay invariant (abstract)</td><td>TLA+ module + TLC script</td><td class="tbl-mono">replay_invariant.tla</td><td><strong>Not in default CI</strong> (TLC absent)</td></tr>
       <tr><td>Formal replay invariant (live)</td><td><code>assert_formal_replay_invariant</code> Rust tests</td><td class="tbl-mono">formal_replay.rs 7–20</td><td>Tested (cargo test)</td></tr>
@@ -1752,7 +1752,7 @@ button.tab {
   </div>
 
   <div class="comp-disclaimer">
-    <strong>This document does not assert:</strong> third-party product capabilities or comparisons; production SLAs or uptime guarantees; regulatory certifications (SOC 2, ISO 27001, or similar); revenue or commercial figures; TLC execution as part of the default CI pipeline for this repository. <strong>Line numbers are subject to change</strong> as the repository evolves — symbols and file paths are the stable reference keys. Buyers and compliance teams must conduct independent diligence and legal review. All AION capability claims in this document are grounded in repository source code at the paths and line ranges cited.
+    <strong>This document does not assert:</strong> third-party product capabilities or comparisons; production SLAs or uptime guarantees; regulatory certifications (SOC 2, ISO 27001, or similar); revenue or commercial figures; TLC execution as part of the default CI pipeline for this repository. <strong>Line numbers are subject to change</strong> as the repository evolves — symbols and file paths are the stable reference keys. Buyers and compliance teams must conduct independent diligence and legal review. All SealRun capability claims in this document are grounded in repository source code at the paths and line ranges cited.
   </div>
 
 </div>

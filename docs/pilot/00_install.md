@@ -13,13 +13,13 @@
 cargo build -p aion-cli
 ```
 
-Invoke via `cargo run -p aion-cli -- <subcommand>` or add `target/debug` to your `PATH`.
+Invoke via `sealrun <subcommand>` or add `target/debug` to your `PATH`.
 
 ## Sanity checks
 
 ```bash
-cargo run -p aion-cli -- doctor
-cargo run -p aion-cli -- setup
+sealrun doctor
+sealrun setup
 ```
 
 ## Next

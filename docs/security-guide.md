@@ -1,6 +1,6 @@
 # Security guide
 
-This guide explains deterministic security controls and evidence surfaces in AION-OS.
+This guide explains deterministic security controls and evidence surfaces in SealRun.
 
 ## At a glance
 
@@ -10,14 +10,14 @@ This guide explains deterministic security controls and evidence surfaces in AIO
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
@@ -31,13 +31,13 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 ## CLI surface
 
 ```bash
-aion governance status
-aion policy gates
-aion policy evidence
-aion dist installers
-aion dist identity
-aion measure audits
-aion measure evidence
+sealrun governance status
+sealrun policy gates
+sealrun policy evidence
+sealrun dist installers
+sealrun dist identity
+sealrun measure audits
+sealrun measure evidence
 ```
 
 ## Deterministic execution guarantees

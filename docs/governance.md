@@ -1,6 +1,6 @@
 # Governance
 
-This guide describes AION-OS governance as deterministic policy and evidence contracts.
+This guide describes SealRun governance as deterministic policy and evidence contracts.
 
 ## At a glance
 
@@ -20,29 +20,29 @@ This guide describes AION-OS governance as deterministic policy and evidence con
 ### Policy contracts
 
 ```bash
-cargo run -p aion-cli -- policy packs
-cargo run -p aion-cli -- policy gates
-cargo run -p aion-cli -- policy evidence
+sealrun policy packs
+sealrun policy gates
+sealrun policy evidence
 ```
 
 ### Governance aggregate
 
 ```bash
-cargo run -p aion-cli -- governance status
+sealrun governance status
 ```
 
 ### Capsule policy validation
 
 ```bash
-cargo run -p aion-cli -- policy validate \
-  --capsule path/to/capsule.aionai \
+sealrun policy validate \
+  --capsule path/to/capsule\.sealrunai \
   --policy examples/governance/dev.policy.json
 ```
 
 ## Enterprise-readiness
 
 - Governance readiness requires explicit policy decisions with no silent bypass paths.
-- Use `aion doctor` plus governance commands as release admission evidence.
+- Use `sealrun doctor` plus governance commands as release admission evidence.
 
 ## Related
 

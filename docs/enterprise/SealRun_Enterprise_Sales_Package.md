@@ -1,6 +1,6 @@
-# AION Enterprise Sales Package
+# SealRun Enterprise Sales Package
 
-> Deterministic AI Execution OS for enterprise-grade replay, evidence, governance, and auditability.
+> Deterministic AI deterministic execution engine for enterprise-grade replay, evidence, governance, and auditability.
 >  
 > Status: up to date with the 12-phase enterprise contract roadmap.
 
@@ -8,7 +8,7 @@
 
 ## Executive summary
 
-AION-OS provides deterministic AI run execution with machine-readable contracts across the full enterprise lifecycle:
+SealRun provides deterministic AI run execution with machine-readable contracts across the full enterprise lifecycle:
 
 - deterministic execution and replay
 - drift and evidence contracts
@@ -17,38 +17,38 @@ AION-OS provides deterministic AI run execution with machine-readable contracts 
 - UX stability and test strategy contracts
 - measurement, KPI, audit, and evidence export contracts
 
-The core product truth is emitted via deterministic JSON outputs and aggregated by `aion doctor`.
+The core product truth is emitted via deterministic JSON outputs and aggregated by `sealrun doctor`.
 
 ---
 
 ## At a glance
 
-- Category: deterministic AI Execution-OS with Contract-OS governance
+- Category: deterministic AI deterministic execution engine with contract layer governance
 - Readiness model: phase 1-12 contract program
 - Buyer proof anchor: deterministic CLI + doctor contract outputs
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
 ## Product positioning
 
-### What AION is
+### What SealRun is
 
-- A deterministic execution OS for AI workloads.
+- A deterministic deterministic execution engine for AI workloads.
 - A contract-driven evidence and governance layer over replayable AI runs.
 - A machine-readable audit surface for engineering, compliance, and security teams.
 
-### What AION is not
+### What SealRun is not
 
 - Not a foundation model provider.
 - Not a replacement for customer SIEM/GRC tooling.
@@ -105,8 +105,8 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 ### Core diagnostics
 
 ```bash
-aion doctor
-aion version --full
+sealrun doctor
+sealrun version --full
 ```
 
 ### 7-domain enterprise CLI surface
@@ -116,46 +116,46 @@ aion version --full
 ### Governance and policy
 
 ```bash
-aion policy packs
-aion policy gates
-aion policy evidence
-aion governance status
+sealrun policy packs
+sealrun policy gates
+sealrun policy evidence
+sealrun governance status
 ```
 
 ### Reliability and operations
 
 ```bash
-aion reliability status
-aion ops runbooks
-aion ops incidents
-aion ops dr
-aion ops upgrade
+sealrun reliability status
+sealrun ops runbooks
+sealrun ops incidents
+sealrun ops dr
+sealrun ops upgrade
 ```
 
 ### Distribution and UX
 
 ```bash
-aion dist status
-aion dist identity
-aion dist lts
-aion dist installers
-aion ux api
-aion ux cli
-aion ux admin
-aion ux golden-paths
+sealrun dist status
+sealrun dist identity
+sealrun dist lts
+sealrun dist installers
+sealrun ux api
+sealrun ux cli
+sealrun ux admin
+sealrun ux golden-paths
 ```
 
 ### Test and measurement
 
 ```bash
-aion tests strategy
-aion tests regression
-aion tests compatibility
-aion tests fuzz-property
-aion measure metrics
-aion measure kpis
-aion measure audits
-aion measure evidence
+sealrun tests strategy
+sealrun tests regression
+sealrun tests compatibility
+sealrun tests fuzz-property
+sealrun measure metrics
+sealrun measure kpis
+sealrun measure audits
+sealrun measure evidence
 ```
 
 ---
@@ -179,11 +179,11 @@ Deliverable: deterministic artifact bundle + doctor report + policy/governance/m
 
 ### One sentence
 
-AION turns AI execution into deterministic, replayable, auditable contracts for enterprise engineering and compliance.
+SealRun turns AI execution into deterministic, replayable, auditable contracts for enterprise engineering and compliance.
 
 ### 30-second pitch
 
-AION is a deterministic AI execution OS: runs are sealed as capsules, replay and drift are verifiable, policy and governance are machine-readable, and operations/distribution/test/measurement readiness is exposed through one deterministic contract surface (`aion doctor` + CLI contracts).
+SealRun is a deterministic AI deterministic execution engine: runs are sealed as capsules, replay and drift are verifiable, policy and governance are machine-readable, and operations/distribution/test/measurement readiness is exposed through one deterministic contract surface (`sealrun doctor` + CLI contracts).
 
 ### 2-minute walkthrough
 
@@ -199,7 +199,7 @@ Pricing and legal terms are intentionally not hard-coded in repository docs. Use
 
 ## Enterprise-readiness
 
-- AION is enterprise-ready when contracts remain deterministic, versioned, and auditable across releases.
+- SealRun is enterprise-ready when contracts remain deterministic, versioned, and auditable across releases.
 - Production rollout should require passing doctor, governance, reliability, operations, distribution, testing, and measurement checks.
 
 ---
@@ -210,7 +210,7 @@ Pricing and legal terms are intentionally not hard-coded in repository docs. Use
 - [Architecture](../architecture.md)
 - [Overview](../overview.md)
 - [Guided tour](../guided_tour.md)
-- [Compliance one-pager](../compliance/aion_compliance_onepager.md)
+- [Compliance one-pager](../compliance/sealrun_compliance_onepager.md)
 
 ---
 

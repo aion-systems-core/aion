@@ -2,12 +2,12 @@
 name = "aion-cli"
 version = "0.2.0"
 edition = "2021"
-description = "AION‑OS — CLI (observe / execute / governance / sdk)"
+description = "SealRun — CLI (observe / execute / governance / sdk)"
 license = "MIT"
 build = "build.rs"
 
 [[bin]]
-name = "aion"
+name = "sealrun"
 path = "src/main.rs"
 
 [[example]]
