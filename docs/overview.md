@@ -84,7 +84,7 @@ sealrun measure metrics
 - [Compliance one-pager](compliance/sealrun_compliance_onepager.md)
 - [Pilot onboarding](pilot/00_install.md)
 - [SealRun in 5 Minuten (executive)](executive/sealrun_in_5_minutes.md)
-- [Enterprise sales package (source-anchored)](enterprise/SealRun_Enterprise_Sales_Package.md) · [Specs stub](specs/full.md)
+- [Enterprise sales package (source-anchored)](enterprise/SealRun_Enterprise_Sales_Package.md) · [Compliance one-pager](compliance/sealrun_compliance_onepager.md)
 
 ## Enterprise status at a glance
 

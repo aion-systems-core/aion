@@ -1,35 +1,26 @@
 # Operations guide
 
-This guide maps SealRun contracts to SRE and platform operations workflows.
+This guide maps SealRun **contract outputs** to platform and SRE workflows: change management, incidents, upgrades, and evidence retention.
 
 ## At a glance
 
-- Reliability contracts define SLOs, budgets, chaos, and soak readiness.
-- Operations contracts define runbooks, incident response, DR, and migration paths.
-- Distribution and measurement contracts provide supportability and audit reporting.
+- **Reliability** contracts expose SLO, chaos, and soak readiness as structured JSON.
+- **Operations** contracts cover runbooks, incidents, DR, and upgrade/migration status.
+- **Measurement** contracts cover metrics, KPIs, audits, and evidence export surfaces.
+- **Admission control:** treat `sealrun doctor` plus domain JSON as mandatory artefacts in release pipelines.
 
----
+Isolation and security posture are **not** implied by deterministic execution alone; align workload boundaries with [Security guide](security-guide.md) and your organisational policy.
 
-SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-SealRun intentionally does not enforce filesystem or network isolation.  
-The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
+## Contract surface (operations-relevant)
 
-This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
-
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
-
----
-
-## Contract surface
-
-- Reliability: `slo_status`, `reliability_status`, `chaos_status`, `soak_status`
-- Operations: `runbooks`, `incident_model`, `dr_status`, `upgrade_migration_status`
-- Measurement: `metrics_contract`, `kpi_contract`, `audit_reports`, `evidence_export`, `measurement_model`
+- Reliability: `reliability_status`, SLO/chaos/soak projections (see CLI reference for exact command mapping).
+- Operations: runbooks, incident model, DR status, upgrade/migration status.
+- Measurement: metrics, KPIs, audit reports, evidence export hooks.
 
 ## CLI surface
 
 ```bash
+sealrun doctor
 sealrun reliability status
 sealrun ops runbooks
 sealrun ops incidents
@@ -41,18 +32,26 @@ sealrun measure audits
 
 ## SRE flows
 
-- **Incident triage:** start with `sealrun doctor`, then `sealrun ops incidents`.
-- **Rollback/migration:** validate `sealrun ops upgrade` before release transitions.
-- **DR checks:** run `sealrun ops dr` and track restore-plan status in release sign-off.
-- **SLO tracking:** use `sealrun reliability slo` and `sealrun measure kpis` for regular reviews.
+| Scenario | Suggested sequence |
+|----------|-------------------|
+| **Incident triage** | `sealrun doctor` → `sealrun ops incidents` → attach latest capsule/replay JSON from the affected run. |
+| **Change / release** | Baseline `doctor` + domain checks → execute smoke capsule + replay → archive JSON under change record. |
+| **DR / restore** | `sealrun ops dr` → verify contract outputs against last known good snapshots. |
+| **Upgrade** | `sealrun ops upgrade` → re-run replay/drift on reference capsules before traffic shift. |
 
-## Finality rules
+## Evidence retention
 
-- Run-level finality is defined in global consistency contract outputs.
-- Operations finality depends on complete runbooks, incident plan, DR readiness, and migration steps.
-- Measurement finality depends on no critical gaps in metrics/KPI/audit/export contracts.
+- Persist **CLI JSON envelopes** as the canonical machine-readable record; retain HTML/SVG only if your audit programme requires human-readable annexes.
+- Tie each retention object to a **capsule path** or hash referenced in your CMDB or ticket system.
+- For governance baselines, store the **baseline JSON** produced by `ci baseline` (see [CI](ci.md)).
 
-## Enterprise readiness
+## Finality and readiness
 
-- Make `sealrun doctor` and `sealrun ops/reliability/measure` outputs mandatory in operational change reviews.
-- Persist JSON envelopes as primary operational evidence artifacts.
+Operational **readiness** is the conjunction of: stable contract snapshots, successful replay on reference workloads, acceptable drift against baselines, and no critical gaps in `doctor` and measurement outputs. Exact finality fields are defined in [OS contract spec](os_contract_spec.md).
+
+## Related
+
+- [Architecture](architecture.md)
+- [CLI reference](cli-reference.md)
+- [Governance](governance.md)
+- [Enterprise README](enterprise/README.md)

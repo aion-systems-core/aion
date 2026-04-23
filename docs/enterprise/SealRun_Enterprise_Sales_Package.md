@@ -214,9 +214,8 @@ Pricing and legal terms are intentionally not hard-coded in repository docs. Use
 
 ---
 
-## Specs stubs
+## Technical documentation
 
-- [Full spec stub](../specs/full.md)
-- [Executive spec stub](../specs/executive.md)
-- [One-pager spec stub](../specs/one-pager.md)
-- [Compliance spec stub](../specs/compliance.md)
+- [OS Contract Spec](../os_contract_spec.md)
+- [Architecture](../architecture.md)
+- [Compliance one-pager](../compliance/sealrun_compliance_onepager.md)

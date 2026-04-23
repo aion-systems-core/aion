@@ -1,8 +1,10 @@
-# SealRun — seal your run
+# SealRun ? seal your run
 
 SealRun is a deterministic execution engine that seals every run into a verifiable capsule.
 
 **GitHub description:** SealRun is a deterministic execution engine that seals every run into a verifiable capsule.
+
+**Suggested GitHub topics:** `compliance`, `audit`, `evidence`, `governance`, `reproducibility`, `determinism`
 
 ## Problem -> Solution
 
@@ -63,10 +65,17 @@ Artifacts are written under `sealrun_output/...`.
 - [Operations Guide](docs/operations-guide.md)
 - [Security Guide](docs/security-guide.md)
 - [Enterprise Guide](docs/enterprise/README.md)
-- [Specs: Full](docs/specs/full.md)
-- [Specs: Executive](docs/specs/executive.md)
-- [Specs: One-pager](docs/specs/one-pager.md)
-- [Specs: Compliance](docs/specs/compliance.md)
+
+## Compliance & Audit Readiness
+
+- Deterministic evidence surfaces: capsule-bound artefacts and machine-readable CLI JSON envelopes.
+- Replay and drift for reproducible comparisons suitable for audit trails and release gates.
+- Governance and policy validation for admission control in CI and operations.
+- Summary for security and compliance reviews: [Compliance one-pager](docs/compliance/sealrun_compliance_onepager.md).
+- Isolation scope and threat assumptions: [Security Guide](docs/security-guide.md).
+- Policy contracts and enforcement surfaces: [Governance](docs/governance.md).
+
+Additional references: [Capsules](docs/capsules.md), [Replay](docs/replay.md), [Drift](docs/drift.md).
 
 ## Contributing
 

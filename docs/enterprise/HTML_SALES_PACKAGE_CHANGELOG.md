@@ -5,7 +5,7 @@ Canonical narrative + line references: [`SealRun_Enterprise_Sales_Package.md`](S
 Current packaging state:
 
 - **HTML package:** not present in this repository.
-- **Markdown stubs:** `docs/specs/full.md`, `docs/specs/executive.md`, `docs/specs/one-pager.md`, `docs/specs/compliance.md`.
+- **Markdown specs stubs:** removed; use `docs/os_contract_spec.md`, `docs/architecture.md`, and `docs/compliance/sealrun_compliance_onepager.md` as canonical technical references.
 
 ## 2026-04-22 — Deterministic enterprise sync pass
 

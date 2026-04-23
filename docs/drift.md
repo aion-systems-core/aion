@@ -1,43 +1,30 @@
 # Drift
 
-**Drift** answers: “what changed between two runs?” For AI capsules, drift is computed over stable fields (tokens, evidence digests, embedded Why/graph projections, etc.).
+**Drift** quantifies **deterministic differences** between two runs or two capsules: which fields diverged, under which categories, and whether the delta is within configured tolerance for your gate.
 
 ## At a glance
 
-- Drift classifies deterministic differences between runs.
-- Output categories and labels are tokenized and machine-readable.
-- Drift contributes to finality and release admission decisions.
+- Map-layer **comparison contract**: stable labels and categories for automation.
+- Used for **CI admission**, **A/B** analysis of prompts/models, and **post-incident** forensics when paired with capsules.
+- Complements **replay** (symmetry of one capsule) with **pairwise** comparison.
 
----
+Drift does not assert **causal** root cause of non-determinism in external dependencies; it reports **observed** structured differences on captured artefacts.
 
-SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-SealRun intentionally does not enforce filesystem or network isolation.  
-The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
+## Comparison targets
 
-This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+| Mode | Typical use |
+|------|-------------|
+| **Run JSON pair** | `sealrun observe drift left.json right.json` after capture/observe flows. |
+| **Capsule pair** | `sealrun sdk drift --a a.sealrunai --b b.sealrunai` for sealed-record comparison. |
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
+Outputs land under `sealrun_output/drift/<run-id>/` (observe) or SDK output trees for `sdk drift`.
 
----
+## Semantics
 
-## CLI: drift between two run JSON files (observe)
+- **Field-level classification:** tokens, seed, evidence digests, embedded Why/graph projections, etc., per report schema.
+- **Exit codes:** use CLI help for the command; a non-zero exit on detected drift is intended for **CI gating** where documented.
 
-```bash
-sealrun observe drift left.json right.json
-```
-
-Produces drift JSON/HTML/SVG under `sealrun_output/drift/<timestamp>/`.
-
-## CLI: drift between two capsules (SDK)
-
-```bash
-sealrun sdk drift --a first\.sealrunai --b second\.sealrunai
-```
-
-Exit code **2** when drift is detected (useful in CI).
-
-## Example drift JSON (shape)
+## Example drift JSON (illustrative shape)
 
 ```json
 {
@@ -47,25 +34,27 @@ Exit code **2** when drift is detected (useful in CI).
 }
 ```
 
+Exact keys are versioned with the tool; pin versions for stable CI parsers.
+
 ## Contract surface
 
-- Map-Contract (Drift-Contract) with fixed categories and tolerance profile
-- Global Consistency integration via run finality
-- Measurement inputs for trend and KPI reporting
+- **Drift contract:** categories, tolerances, and deterministic ordering of findings.
+- **Governance / measurement:** drift feeds gates and trend reporting ([Governance](governance.md)).
 
 ## CLI surface
 
 ```bash
 sealrun observe drift left.json right.json
-sealrun sdk drift --a first\.sealrunai --b second\.sealrunai
+sealrun sdk drift --a first.sealrunai --b second.sealrunai
 sealrun doctor
 ```
 
 ## Related
 
 - [Replay](replay.md)
-- [Governance](governance.md)
+- [Capsules](capsules.md)
+- [CI](ci.md)
 
 ## Enterprise-readiness
 
-Drift is enterprise-ready when labels/categories and tolerance outcomes remain deterministic across CI and production comparisons.
+Define **allowed drift classes** per environment (e.g., documentation-only HTML deltas vs token deltas). Archive drift JSON with the **pair of capsule hashes** and tool version for audit reconstruction.

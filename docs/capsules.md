@@ -1,78 +1,61 @@
 # Capsules
 
-A **capsule** is the durable record of a deterministic AI run: model, prompt, seed, emitted tokens, traces, evidence, and explainability payloads (Why report and causal graph).
+A **capsule** is the durable, versioned record of a deterministic AI run. It is the integration point for **replay**, **drift**, **evidence**, and **governance**.
 
 ## At a glance
 
-- Capsule is the canonical run artifact in the deterministic execution engine kernel layer.
-- Capsules are replayable, drift-comparable, and policy-verifiable.
-- Capsules feed evidence and governance contracts in the enterprise layer.
+- Canonical kernel-layer artefact for a sealed run.
+- Serializable, diffable, and policy-validatable.
+- On-disk companion files (HTML/SVG/JSON) are **projections** of the same logical record for humans and tooling.
 
----
+For security and isolation scope, see [Security guide](security-guide.md) (SealRun open-core does not substitute for workload sandboxing).
 
-SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-SealRun intentionally does not enforce filesystem or network isolation.  
-The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
+## Logical contents
 
-This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+A capsule aggregates, at minimum:
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
+| Concern | Purpose |
+|---------|---------|
+| **Identity** | Stable run identity, schema/capsule version, model and prompt (or hash references where used). |
+| **Determinism envelope** | Seed, determinism profile inputs, and parameters needed to re-execute or compare. |
+| **Emitted sequence** | Token stream (or equivalent) as the primary replay comparison surface. |
+| **Evidence** | Digests and chain steps binding the run to integrity checks. |
+| **Explainability** | Why report and causal graph projections for audit and regression review. |
 
----
+Exact field names and required keys are defined in [AI capsule schema](ai-capsule-schema.json) and [Example capsule JSON](example-capsule.json).
 
-## Why capsules matter
+## On-disk layout
 
-Capsules are the **unit of audit**: you can archive them, diff them, replay them, and validate them against governance profiles.
+Typical `sealrun execute ai` output directory:
 
-## CLI: create a capsule
+- `capsule.sealrunai` — capsule payload used by replay and SDK.
+- `ai.json` / `ai.html` / `ai.svg` — run summary projections.
+- `why.html` / `why.svg` — explainability projections.
+- Evidence sidecar files as emitted by the engine (names may vary by command; treat directory as one **evidence bundle**).
 
-```bash
-sealrun execute ai --model M --prompt "your text" --seed 42
-```
-
-The on-disk capsule is typically named `capsule\.sealrunai` inside the output directory.
-
-## CLI: replay artefacts
-
-```bash
-sealrun execute ai-replay --capsule /path/to/capsule\.sealrunai
-```
+Paths are rooted under `sealrun_output/<command>/<run-id>/` unless overridden by output base configuration (see [Installation](installation.md)).
 
 ## Contract surface
 
-- State-Contract input for replay and identity/finality checks
-- Evidence-Contract input for chain verification
-- Governance input for policy validation and policy evidence
+- **State / process:** capsule as input to replay-invariant checks.
+- **Evidence:** capsule-bound chain verification inputs.
+- **Governance:** capsule as input to `policy validate` and CI baseline/check.
 
 ## CLI surface
 
 ```bash
 sealrun execute ai --model M --prompt "your text" --seed 42
-sealrun execute ai-replay --capsule /path/to/capsule\.sealrunai
-sealrun policy validate --capsule /path/to/capsule\.sealrunai --policy examples/governance/dev.policy.json
-```
-
-## Conceptual diagram
-
-```
-  ┌─────────────┐
-  │  Capsule    │
-  ├─────────────┤
-  │ tokens      │
-  │ evidence    │
-  │ why + graph │
-  └─────────────┘
+sealrun execute ai-replay --capsule path/to/capsule.sealrunai
+sealrun policy validate --capsule path/to/capsule.sealrunai --policy examples/governance/dev.policy.json
 ```
 
 ## Related
 
 - [Replay](replay.md)
 - [Drift](drift.md)
-- [SDK](sdk.md) — `sdk capsule build|load`
-- [AI capsule schema](ai-capsule-schema.json)
-- [Example capsule JSON](example-capsule.json)
+- [SDK](sdk.md)
+- [OS contract spec](os_contract_spec.md)
 
 ## Enterprise-readiness
 
-Capsules are enterprise-ready when serialization, replay behavior, and evidence linkage remain deterministic across supported versions.
+Treat capsule **schema version**, replay symmetry, and evidence linkage as **release invariants**: any change requires explicit compatibility notes and migration guidance ([Migration](migration.md), [Compatibility matrix](compatibility-matrix.md)).

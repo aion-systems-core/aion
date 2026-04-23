@@ -1,68 +1,52 @@
 # Replay
 
-**Replay** reconstructs a run from a capsule and compares it to the stored record, producing a structured **replay report** (JSON/HTML/SVG).
+**Replay** re-executes a workload from a **capsule** and produces a structured **replay report** that states whether the re-run matches the recorded run under the contract’s replay invariant.
 
 ## At a glance
 
-- Replay is a kernel-layer determinism control.
-- Outputs are deterministic and machine-readable.
-- Replay status contributes to finality and doctor readiness.
+- Kernel-layer **determinism control**: pass/fail is machine-checkable.
+- Outputs are deterministic **JSON** (with optional HTML/SVG projections).
+- Used for regression, release gates, and audit evidence alongside drift and governance.
 
----
+Replay verifies **contractual symmetry**, not environmental security; combine with your own isolation controls where required ([Security guide](security-guide.md)).
 
-SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-SealRun intentionally does not enforce filesystem or network isolation.  
-The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
+## Guarantees (contract-level)
 
-This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
-
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
-
----
+1. **Same inputs envelope:** replay uses the capsule’s stored determinism inputs (model, prompt, seed, profiles as applicable).
+2. **Comparable outputs:** the report states match or identifies a **first differing token** (or equivalent locus) for investigation.
+3. **Stable machine contract:** replay JSON is suitable for CI gating; non-zero exit semantics follow CLI help for the command in use.
+4. **Version awareness:** reports include **implementation version metadata** so auditors can detect tool/capsule skew (exact field names depend on engine version; treat as opaque identifiers in automation unless pinned).
 
 ## CLI: AI replay
 
 ```bash
-sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
+sealrun execute ai-replay --capsule path/to/capsule.sealrunai
 ```
 
-### Example output location
+Typical output path:
 
+```text
+sealrun_output/ai-replay/<run-id>/ai.json
 ```
-sealrun_output/ai-replay/<timestamp>/ai.json
-```
-
-The JSON summarises whether replay succeeded and lists comparison flags.
-Replay reports include metadata fields such as:
-
-- `replay_timestamp`
-- `replay_aion_version`
-- `replay_duration_ms`
-- `first_differing_token`
-- `warnings` (version mismatch / missing evidence notices)
 
 ## SDK / automation
 
-For headless workflows:
-
 ```bash
-sealrun sdk replay --capsule path/to/capsule\.sealrunai
+sealrun sdk replay --capsule path/to/capsule.sealrunai
 ```
 
-This writes `sdk.json` (+ HTML/SVG) under `sealrun_output/sdk-replay/<timestamp>/`.
+Writes `sdk.json` (and projections) under `sealrun_output/sdk-replay/<run-id>/`.
 
 ## Contract surface
 
-- Process-Contract (Replay-Invariant)
-- Global Consistency finality (`replay_finality`, `run_finality`)
-- Determinism/compatibility checks across version windows
+- **Replay invariant** (process contract): defines what “match” means for the workload class.
+- **Global consistency:** replay outcome feeds run-level finality where defined in [OS contract spec](os_contract_spec.md).
 
 ## CLI surface
 
 ```bash
-sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
-sealrun sdk replay --capsule path/to/capsule\.sealrunai
+sealrun execute ai-replay --capsule path/to/capsule.sealrunai
+sealrun sdk replay --capsule path/to/capsule.sealrunai
 sealrun doctor
 ```
 
@@ -74,4 +58,4 @@ sealrun doctor
 
 ## Enterprise-readiness
 
-Replay is enterprise-ready when invariant/symmetry checks and mismatch outputs stay stable across supported environments and versions.
+Require **pinned tool versions** and archived **replay JSON** for each production-impacting model or prompt template change. Pair with drift baselines for multi-capsule fleets ([Drift](drift.md), [CI](ci.md)).

@@ -1,12 +1,22 @@
 # SDK
 
-The **SDK** is a thin, stable Rust API in the internal engine crate plus matching **`sealrun sdk`** CLI commands for scripting.
+The **SDK** is the programmatic surface for the same contracts exposed by the `sealrun` CLI: build/load capsules, replay, drift, explain, validate, and CI baseline/check — with **deterministic output bundles** for automation.
 
 ## At a glance
 
-- SDK is the deterministic automation interface for contract-backed workflows.
-- CLI and Rust entry points align on stable output structure.
-- JSON outputs are intended as machine contracts in CI/CD.
+- **Rust API** lives in the internal engine crate (see workspace `Cargo.toml`); stable entry points mirror CLI semantics.
+- **`sealrun sdk`** provides a **scriptable**, JSON-first path without linking Rust.
+- Outputs use **canonical ordering** rules suitable for content-addressed storage and CI caches.
+
+Authoritative behaviour and invariants: [OS contract spec](os_contract_spec.md).
+
+## Integration points
+
+| Layer | How to integrate |
+|-------|------------------|
+| **Shell / CI** | Invoke `sealrun sdk …`; parse `sdk.json` and command-specific JSON under `sealrun_output/`. |
+| **Rust services** | Call SDK functions for capsule/replay/drift/governance; use `write_output_bundle` for deterministic artefact trees. |
+| **Cross-language** | Prefer subprocess + JSON contracts; optional native bindings are described in [Compatibility layer](compatibility-layer.md) where present. |
 
 ## Rust API (summary)
 
@@ -18,11 +28,9 @@ The **SDK** is a thin, stable Rust API in the internal engine crate plus matchin
 | Explain | `explain_capsule`, `why_diff` |
 | Governance | `validate_capsule` |
 | CI | `ci_record_baseline`, `ci_check` |
-| Output | `write_output_bundle` (deterministic ordering, no timestamps) |
+| Output | `write_output_bundle` (deterministic ordering) |
 
 ## CLI: `sealrun sdk`
-
-Examples:
 
 ```bash
 sealrun sdk capsule build --model m --prompt "hi" --seed 1
@@ -32,37 +40,25 @@ sealrun sdk explain --capsule path/to/capsule.sealrunai
 sealrun sdk info
 ```
 
-Each command writes `sdk.json`, `sdk.html`, and `sdk.svg` under `sealrun_output/<stem>/<timestamp>/`.
+Each command writes `sdk.json`, `sdk.html`, and `sdk.svg` under `sealrun_output/<stem>/<run-id>/`.
 
-Batch + output controls:
+Batch:
 
 ```bash
 sealrun sdk --output-format jsonl --quiet batch --file batch.json
 ```
 
-Environment knobs:
+## Environment variables (documentation)
 
-- `SEALRUN_SDK_VERSION` to override reported SDK version string.
-- `SEALRUN_SDK_OUTPUT_BASE` for SDK output base path.
+- `SEALRUN_SDK_VERSION` — override reported SDK version string in outputs.
+- `SEALRUN_SDK_OUTPUT_BASE` — base path for SDK bundle writes (aligns with organisational artefact layout policies).
 
 ## Contract surface
 
-- Replay, drift, explainability, governance, and CI helper contracts
-- Deterministic output bundle semantics
-- Bridge between kernel-layer execution and enterprise-layer automation
-
-## CLI surface
-
-```bash
-sealrun sdk capsule build --model m --prompt "hi" --seed 1
-sealrun sdk replay --capsule path/to/capsule.sealrunai
-sealrun sdk drift --a a.sealrunai --b b.sealrunai
-sealrun sdk ci check --capsule path/to/candidate.sealrunai --baseline path/to/baseline-governance.json
-```
+- Parity with kernel and enterprise contracts: replay, drift, explainability, governance, CI helpers.
+- **Deterministic envelopes** are the stable integration boundary; HTML/SVG are optional human annexes.
 
 ## Rust examples (cargo)
-
-From the repo root:
 
 ```bash
 cargo run -p aion-cli --example sdk_capsule_build
@@ -72,7 +68,8 @@ cargo run -p aion-cli --example sdk_capsule_build
 
 - [Governance](governance.md)
 - [CI](ci.md)
+- [Developer guide](developer-guide.md)
 
 ## Enterprise-readiness
 
-SDK readiness requires stable command semantics, deterministic output envelopes, and compatibility-preserving behavior across supported versions.
+Pin **SDK/engine versions**, validate **output schema** in CI, and store bundles with **capsule hash + git commit + policy version** for traceability.
