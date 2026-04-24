@@ -228,7 +228,10 @@ pub unsafe extern "C" fn aion_run(
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn aion_capsule_save(capsule: *const AionCapsule, path: *const c_char) -> i32 {
+pub unsafe extern "C" fn aion_capsule_save(
+    capsule: *const AionCapsule,
+    path: *const c_char,
+) -> i32 {
     if capsule.is_null() {
         return set_last_error(line(code::FFI_NULL_ARG, "aion_capsule_save", "capsule"));
     }
@@ -256,7 +259,10 @@ pub unsafe extern "C" fn aion_capsule_save(capsule: *const AionCapsule, path: *c
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn aion_capsule_load(path: *const c_char, out_capsule: *mut AionCapsule) -> i32 {
+pub unsafe extern "C" fn aion_capsule_load(
+    path: *const c_char,
+    out_capsule: *mut AionCapsule,
+) -> i32 {
     if out_capsule.is_null() {
         return set_last_error(line(code::FFI_NULL_ARG, "aion_capsule_load", "out_capsule"));
     }
@@ -317,7 +323,10 @@ pub unsafe extern "C" fn aion_capsule_load(path: *const c_char, out_capsule: *mu
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn aion_replay_capsule(path: *const c_char, out_result: *mut AionRunResult) -> i32 {
+pub unsafe extern "C" fn aion_replay_capsule(
+    path: *const c_char,
+    out_result: *mut AionRunResult,
+) -> i32 {
     if out_result.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -643,7 +652,10 @@ pub unsafe extern "C" fn aion_validate_capsule(
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn aion_evidence_verify(evidence_path: *const c_char, out_valid: *mut u8) -> i32 {
+pub unsafe extern "C" fn aion_evidence_verify(
+    evidence_path: *const c_char,
+    out_valid: *mut u8,
+) -> i32 {
     if out_valid.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
