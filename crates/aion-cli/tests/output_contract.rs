@@ -22,7 +22,8 @@ fn output_contract_has_deterministic_key_order() {
     std::env::set_var("AION_OUTPUT_ID", "run_keys");
 
     let w = OutputWriter::new("contract").expect("writer");
-    w.write_json("result", &json!({"z": 1, "a": 2})).expect("write json");
+    w.write_json("result", &json!({"z": 1, "a": 2}))
+        .expect("write json");
     let (body, _json) = read_result(w.root());
     let status_pos = body.find("\"status\"").expect("status key");
     let data_pos = body.find("\"data\"").expect("data key");
@@ -88,7 +89,9 @@ fn doctor_output_avoids_free_text_error_shapes() {
             code == "AION_OK" || code.starts_with("AION_"),
             "doctor code must use AION contract code"
         );
-        assert!(result.get("message").is_none(), "no free-text message field");
+        assert!(
+            result.get("message").is_none(),
+            "no free-text message field"
+        );
     }
 }
-

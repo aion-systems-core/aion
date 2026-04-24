@@ -1,5 +1,9 @@
 # Governance
 
+## Purpose
+
+Clarify **governance policy packs**, **gates**, and **policy evidence** outputs on the **Policy** layer, plus open-core vs. enterprise packaging ([Enterprise Guide](enterprise/README.md)).
+
 SealRun **governance** is the set of **deterministic, machine-readable** policy and evidence contracts applied to capsules and CI baselines.
 
 ## At a glance
@@ -33,7 +37,7 @@ sealrun policy gates
 sealrun policy evidence
 sealrun governance status
 sealrun policy validate \
-  --capsule path/to/capsule.sealrunai \
+  --capsule path/to/capsule.aionai \
   --policy examples/governance/dev.policy.json
 ```
 

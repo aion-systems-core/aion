@@ -1,0 +1,2314 @@
+{
+  "status": "ok",
+  "data": {
+    "admin_docs": {
+      "coverage": [
+        {
+          "section": "Architecture",
+          "status": "complete"
+        },
+        {
+          "section": "Operations",
+          "status": "complete"
+        },
+        {
+          "section": "Security",
+          "status": "complete"
+        },
+        {
+          "section": "Troubleshooting",
+          "status": "complete"
+        }
+      ],
+      "status": "complete"
+    },
+    "aion_version": "1.0.0",
+    "api_stability": {
+      "change_type": "Compatible",
+      "deprecation_notice": {
+        "since_version": "1.0.0",
+        "sunset_version": "2.0.0"
+      },
+      "status": "ok",
+      "surface": "DoctorOutput"
+    },
+    "audit_reports": {
+      "findings": [
+        {
+          "evidence_ref": "ev_sec_001",
+          "id": "audit_sec_001",
+          "scope": "Security",
+          "severity": "Low"
+        }
+      ],
+      "status": "findings"
+    },
+    "breaking_changes_detected": [],
+    "build_fingerprint": {
+      "abi_version": "v1",
+      "build_sha256": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10",
+      "contract_spec_version": "bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b",
+      "global_consistency_contract_version": "d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44",
+      "kernel_version": "0.2.0+unknown"
+    },
+    "capsule_abi": {
+      "current_kernel_version": "0.2.0",
+      "result": {
+        "abi_version": "v1",
+        "status": "ok",
+        "violations": []
+      },
+      "supported_abi_versions": [
+        "v1"
+      ]
+    },
+    "chaos_status": {
+      "experiments": [
+        {
+          "expected_behavior": "error_contract_emitted",
+          "fault": "Corruption",
+          "id": "chaos_evidence_corruption",
+          "status": "executed",
+          "target": "Evidence"
+        },
+        {
+          "expected_behavior": "retry_then_error_contract",
+          "fault": "Timeout",
+          "id": "chaos_io_timeout",
+          "status": "planned",
+          "target": "Io"
+        }
+      ],
+      "status": "partial"
+    },
+    "checks": [
+      {
+        "check": "ffi_check",
+        "result": {
+          "cause": "library_not_found",
+          "code": "AION_FFI_IO",
+          "context": "doctor.ffi.library_load",
+          "origin": "ffi",
+          "status": "error"
+        }
+      },
+      {
+        "check": "python_bindings_check",
+        "result": {
+          "cause": "env_invalid",
+          "code": "AION_BINDINGS_IO",
+          "context": "doctor.bindings.aion_lib_path",
+          "origin": "bindings",
+          "status": "error"
+        }
+      },
+      {
+        "check": "policy_schema_check",
+        "result": {
+          "code": "AION_OK",
+          "context": "doctor.policy_schema.ok",
+          "origin": "policy",
+          "status": "ok"
+        }
+      }
+    ],
+    "cli_stability": {
+      "status": "ok",
+      "surfaces": [
+        {
+          "command": "aion doctor",
+          "flags": [
+            {
+              "change_type": "Compatible",
+              "deprecation_warning": {
+                "code": "AION_CLI_STABLE",
+                "message": "stable_flag"
+              },
+              "name": "--json"
+            }
+          ]
+        }
+      ]
+    },
+    "compatibility_matrix": [
+      {
+        "reader_version": "0.2.0",
+        "rule": "N_reads_N_writes",
+        "status": "ok",
+        "writer_version": "0.2.0"
+      },
+      {
+        "reader_version": "0.1.0",
+        "rule": "N_minus_1_reads_N",
+        "status": "ok",
+        "writer_version": "0.2.0"
+      },
+      {
+        "reader_version": "0.0.0",
+        "rule": "N_minus_2_reads_N",
+        "status": "ok",
+        "writer_version": "0.2.0"
+      }
+    ],
+    "compatibility_tests": {
+      "cases": [
+        {
+          "abi": "v1",
+          "arch": "x64",
+          "contract_version": "1",
+          "id": "compat_n",
+          "os": "linux",
+          "version": "N"
+        },
+        {
+          "abi": "v1",
+          "arch": "x64",
+          "contract_version": "1",
+          "id": "compat_n1",
+          "os": "linux",
+          "version": "N-1"
+        },
+        {
+          "abi": "v1",
+          "arch": "x64",
+          "contract_version": "1",
+          "id": "compat_n2",
+          "os": "linux",
+          "version": "N-2"
+        }
+      ],
+      "dimensions": [
+        "Version",
+        "Os",
+        "Arch",
+        "Abi",
+        "ContractVersion"
+      ],
+      "results": [
+        {
+          "case_id": "compat_n",
+          "status": "ok"
+        },
+        {
+          "case_id": "compat_n1",
+          "status": "ok"
+        },
+        {
+          "case_id": "compat_n2",
+          "status": "ok"
+        }
+      ],
+      "status": "ok"
+    },
+    "compliance_status": {
+      "controls": [
+        {
+          "control": "logging_retention",
+          "domain": "Dsgvo",
+          "status": "partial"
+        },
+        {
+          "control": "policy_engine",
+          "domain": "Iso27001",
+          "status": "ok"
+        },
+        {
+          "control": "release_governance",
+          "domain": "Iso27001",
+          "status": "ok"
+        },
+        {
+          "control": "evidence_chain",
+          "domain": "Soc2",
+          "status": "ok"
+        },
+        {
+          "control": "identity_distribution",
+          "domain": "Soc2",
+          "status": "ok"
+        }
+      ],
+      "evidence": [
+        {
+          "control": "evidence_chain",
+          "source_contract": "evidence_contract"
+        },
+        {
+          "control": "identity_distribution",
+          "source_contract": "identity_contract"
+        },
+        {
+          "control": "logging_retention",
+          "source_contract": "logging_policy"
+        },
+        {
+          "control": "policy_engine",
+          "source_contract": "policy_contract"
+        },
+        {
+          "control": "release_governance",
+          "source_contract": "release_governance_contract"
+        }
+      ],
+      "status": "partial"
+    },
+    "contract_stability": {
+      "breaking_changes_detected": [],
+      "compatibility_matrix": [
+        {
+          "reader_version": "0.2.0",
+          "rule": "N_reads_N_writes",
+          "status": "ok",
+          "writer_version": "0.2.0"
+        },
+        {
+          "reader_version": "0.1.0",
+          "rule": "N_minus_1_reads_N",
+          "status": "ok",
+          "writer_version": "0.2.0"
+        },
+        {
+          "reader_version": "0.0.0",
+          "rule": "N_minus_2_reads_N",
+          "status": "ok",
+          "writer_version": "0.2.0"
+        }
+      ],
+      "current_contract_versions": {
+        "capsule_abi": "0.2.0-v1",
+        "drift": "0.2.0-v1",
+        "error": "0.2.0-v1",
+        "evidence": "0.2.0-v1",
+        "global_consistency": "0.2.0-v1",
+        "identity": "0.2.0-v1",
+        "legal_determinism": "0.2.0-v1",
+        "observability": "0.2.0-v1",
+        "output": "0.2.0-v1",
+        "policy": "0.2.0-v1",
+        "replay": "0.2.0-v1",
+        "runtime_isolation": "0.2.0-v1",
+        "tenant_isolation": "0.2.0-v1",
+        "trust_chain": "0.2.0-v1",
+        "upgrade_replay": "0.2.0-v1"
+      },
+      "snapshot_hashes": {
+        "capsule_abi": "36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a",
+        "drift": "76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2",
+        "error": "f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9",
+        "evidence": "511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2",
+        "global_consistency": "e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23",
+        "identity": "0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85",
+        "legal_determinism": "c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27",
+        "observability": "50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990",
+        "output": "cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74",
+        "policy": "ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc",
+        "replay": "6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc",
+        "runtime_isolation": "73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a",
+        "tenant_isolation": "0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84",
+        "trust_chain": "20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987",
+        "upgrade_replay": "98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89"
+      },
+      "snapshots": [
+        {
+          "contract_name": "output",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "output:status_ok_final"
+          ],
+          "hash_sha256": "cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74",
+          "invariants": [
+            "output:deterministic_contract"
+          ],
+          "schema": {
+            "data": "object",
+            "error": "object|null",
+            "status": "string"
+          }
+        },
+        {
+          "contract_name": "error",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "error:status_ok_final"
+          ],
+          "hash_sha256": "f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9",
+          "invariants": [
+            "error:deterministic_contract"
+          ],
+          "schema": {
+            "cause": "string|null",
+            "code": "string",
+            "context": "string",
+            "message": "string",
+            "origin": "string"
+          }
+        },
+        {
+          "contract_name": "replay",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "replay:status_ok_final"
+          ],
+          "hash_sha256": "6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc",
+          "invariants": [
+            "replay:deterministic_contract"
+          ],
+          "schema": {
+            "differences": "array",
+            "replay_profile_error": "string|null",
+            "replay_symmetry_ok": "bool"
+          }
+        },
+        {
+          "contract_name": "drift",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "drift:status_ok_final"
+          ],
+          "hash_sha256": "76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2",
+          "invariants": [
+            "drift:deterministic_contract"
+          ],
+          "schema": {
+            "categories": "array",
+            "changed": "bool",
+            "labels": "array",
+            "tolerance_violations": "array"
+          }
+        },
+        {
+          "contract_name": "evidence",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "evidence:status_ok_final"
+          ],
+          "hash_sha256": "511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2",
+          "invariants": [
+            "evidence:deterministic_contract"
+          ],
+          "schema": {
+            "records": "array",
+            "replay_anchors": "object",
+            "root_anchor": "string"
+          }
+        },
+        {
+          "contract_name": "policy",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "policy:status_ok_final"
+          ],
+          "hash_sha256": "ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc",
+          "invariants": [
+            "policy:deterministic_contract"
+          ],
+          "schema": {
+            "policy_profile": "object",
+            "status": "string",
+            "violations": "array"
+          }
+        },
+        {
+          "contract_name": "global_consistency",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "global_consistency:status_ok_final"
+          ],
+          "hash_sha256": "e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23",
+          "invariants": [
+            "global_consistency:deterministic_contract"
+          ],
+          "schema": {
+            "capsule_finality": "object",
+            "evidence_finality": "object",
+            "replay_finality": "object",
+            "run_finality": "object"
+          }
+        },
+        {
+          "contract_name": "identity",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "AION_OK"
+          ],
+          "finality_rules": [
+            "identity:status_ok_final"
+          ],
+          "hash_sha256": "0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85",
+          "invariants": [
+            "identity:deterministic_contract"
+          ],
+          "schema": {
+            "compatibility_profile": "object",
+            "instance_id": "object|null",
+            "kernel_version": "object"
+          }
+        },
+        {
+          "contract_name": "upgrade_replay",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "upgrade:replay_mismatch",
+            "upgrade:abi_incompatible",
+            "upgrade:evidence_incompatible",
+            "upgrade:policy_incompatible"
+          ],
+          "finality_rules": [
+            "upgrade_replay:status_ok_final"
+          ],
+          "hash_sha256": "98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89",
+          "invariants": [
+            "upgrade_replay:deterministic_contract"
+          ],
+          "schema": {
+            "results": "array",
+            "support_window": "string",
+            "tested_upgrade_targets": "array"
+          }
+        },
+        {
+          "contract_name": "capsule_abi",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "capsule_abi:layout_incompatible",
+            "capsule_abi:fields_incompatible",
+            "capsule_abi:serialization_incompatible"
+          ],
+          "finality_rules": [
+            "capsule_abi:status_ok_final"
+          ],
+          "hash_sha256": "36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a",
+          "invariants": [
+            "capsule_abi:deterministic_contract"
+          ],
+          "schema": {
+            "result": "object",
+            "supported_abi_versions": "array"
+          }
+        },
+        {
+          "contract_name": "trust_chain",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "trust_chain:signature_invalid",
+            "trust_chain:attestation_invalid",
+            "trust_chain:key_rotation_invalid"
+          ],
+          "finality_rules": [
+            "trust_chain:status_ok_final"
+          ],
+          "hash_sha256": "20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987",
+          "invariants": [
+            "trust_chain:deterministic_contract"
+          ],
+          "schema": {
+            "attestation_required": "bool",
+            "key_rotation_policy": "string",
+            "result": "object"
+          }
+        },
+        {
+          "contract_name": "runtime_isolation",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "runtime_isolation:io_boundary_violation",
+            "runtime_isolation:side_effect_violation",
+            "runtime_isolation:network_violation"
+          ],
+          "finality_rules": [
+            "runtime_isolation:status_ok_final"
+          ],
+          "hash_sha256": "73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a",
+          "invariants": [
+            "runtime_isolation:deterministic_contract"
+          ],
+          "schema": {
+            "io_boundary_mode": "string",
+            "result": "object",
+            "side_effect_matrix_version": "string"
+          }
+        },
+        {
+          "contract_name": "observability",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "observability:log_nondeterministic",
+            "observability:metric_nondeterministic",
+            "observability:trace_nondeterministic"
+          ],
+          "finality_rules": [
+            "observability:status_ok_final"
+          ],
+          "hash_sha256": "50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990",
+          "invariants": [
+            "observability:deterministic_contract"
+          ],
+          "schema": {
+            "log_schema_version": "string",
+            "metrics_schema_version": "string",
+            "result": "object",
+            "trace_schema_version": "string"
+          }
+        },
+        {
+          "contract_name": "tenant_isolation",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "tenant_isolation:boundary_violation",
+            "tenant_isolation:cross_tenant_violation",
+            "tenant_isolation:scope_violation"
+          ],
+          "finality_rules": [
+            "tenant_isolation:status_ok_final"
+          ],
+          "hash_sha256": "0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84",
+          "invariants": [
+            "tenant_isolation:deterministic_contract"
+          ],
+          "schema": {
+            "guard_matrix_version": "string",
+            "result": "object"
+          }
+        },
+        {
+          "contract_name": "legal_determinism",
+          "contract_version": "0.2.0-v1",
+          "error_codes": [
+            "legal_determinism:license_unstable",
+            "legal_determinism:sla_unstable",
+            "legal_determinism:terms_not_machine_readable"
+          ],
+          "finality_rules": [
+            "legal_determinism:status_ok_final"
+          ],
+          "hash_sha256": "c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27",
+          "invariants": [
+            "legal_determinism:deterministic_contract"
+          ],
+          "schema": {
+            "license_contract_version": "string",
+            "result": "object",
+            "sla_contract_version": "string"
+          }
+        }
+      ],
+      "status": "ok"
+    },
+    "current_contract_versions": {
+      "capsule_abi": "0.2.0-v1",
+      "drift": "0.2.0-v1",
+      "error": "0.2.0-v1",
+      "evidence": "0.2.0-v1",
+      "global_consistency": "0.2.0-v1",
+      "identity": "0.2.0-v1",
+      "legal_determinism": "0.2.0-v1",
+      "observability": "0.2.0-v1",
+      "output": "0.2.0-v1",
+      "policy": "0.2.0-v1",
+      "replay": "0.2.0-v1",
+      "runtime_isolation": "0.2.0-v1",
+      "tenant_isolation": "0.2.0-v1",
+      "trust_chain": "0.2.0-v1",
+      "upgrade_replay": "0.2.0-v1"
+    },
+    "cwd": "C:\\Users\\noahp\\Documents\\aion-os-v2\\crates\\aion-cli",
+    "determinism_contract": {
+      "guarantees": [
+        {
+          "guarantee": "replay_deterministic_for_supported_matrix",
+          "scope": "replay"
+        },
+        {
+          "guarantee": "drift_contract_deterministic",
+          "scope": "drift"
+        },
+        {
+          "guarantee": "evidence_chain_deterministic",
+          "scope": "evidence"
+        },
+        {
+          "guarantee": "policy_decisions_deterministic",
+          "scope": "policy"
+        },
+        {
+          "guarantee": "global_finality_deterministic",
+          "scope": "global_consistency"
+        },
+        {
+          "guarantee": "cross_version_replay_deterministic",
+          "scope": "upgrade_replay"
+        }
+      ],
+      "status": "ok",
+      "violations": []
+    },
+    "determinism_matrix": {
+      "axes": [
+        "Os",
+        "Arch",
+        "Locale",
+        "Timezone",
+        "Seed",
+        "Env"
+      ],
+      "results": [
+        {
+          "code": "AION_OK",
+          "context": "determinism_matrix.evaluate",
+          "status": "ok",
+          "target": {
+            "arch": "x64",
+            "env_profile": "frozen",
+            "locale": "en_US.UTF-8",
+            "os": "linux",
+            "seed": 42,
+            "timezone": "UTC"
+          }
+        },
+        {
+          "code": "AION_OK",
+          "context": "determinism_matrix.evaluate",
+          "status": "ok",
+          "target": {
+            "arch": "arm64",
+            "env_profile": "frozen",
+            "locale": "en_US.UTF-8",
+            "os": "macos",
+            "seed": 42,
+            "timezone": "UTC"
+          }
+        },
+        {
+          "code": "AION_OK",
+          "context": "determinism_matrix.evaluate",
+          "status": "ok",
+          "target": {
+            "arch": "x64",
+            "env_profile": "frozen",
+            "locale": "en_US.UTF-8",
+            "os": "windows",
+            "seed": 42,
+            "timezone": "UTC"
+          }
+        }
+      ],
+      "targets": [
+        {
+          "arch": "x64",
+          "env_profile": "frozen",
+          "locale": "en_US.UTF-8",
+          "os": "linux",
+          "seed": 42,
+          "timezone": "UTC"
+        },
+        {
+          "arch": "arm64",
+          "env_profile": "frozen",
+          "locale": "en_US.UTF-8",
+          "os": "macos",
+          "seed": 42,
+          "timezone": "UTC"
+        },
+        {
+          "arch": "x64",
+          "env_profile": "frozen",
+          "locale": "en_US.UTF-8",
+          "os": "windows",
+          "seed": 42,
+          "timezone": "UTC"
+        }
+      ]
+    },
+    "distribution_model": {
+      "distribution_status": {
+        "artifacts": [
+          {
+            "channel": "Binary",
+            "name": "aion-cli",
+            "platform": "windows-x64",
+            "status": "supported",
+            "version": "0.2.0"
+          },
+          {
+            "channel": "Container",
+            "name": "aion-kernel",
+            "platform": "linux-x64",
+            "status": "preview",
+            "version": "0.2.0"
+          }
+        ],
+        "status": "ok",
+        "support": [
+          {
+            "platform": "linux-x64",
+            "status": "supported"
+          },
+          {
+            "platform": "windows-x64",
+            "status": "supported"
+          }
+        ]
+      },
+      "identity_matrix": {
+        "compatibility": [
+          {
+            "key": "0.2.0|v1|bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b|linux|x64",
+            "status": "supported"
+          },
+          {
+            "key": "0.2.0|v1|bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b|windows|x64",
+            "status": "supported"
+          }
+        ],
+        "dimensions": [
+          "KernelVersion",
+          "AbiVersion",
+          "ContractSpecVersion",
+          "Os",
+          "Arch"
+        ],
+        "entries": [
+          {
+            "abi_version": "v1",
+            "arch": "x64",
+            "contract_spec_version": "bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b",
+            "kernel_version": "0.2.0",
+            "os": "linux",
+            "status": "supported"
+          },
+          {
+            "abi_version": "v1",
+            "arch": "x64",
+            "contract_spec_version": "bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b",
+            "kernel_version": "0.2.0",
+            "os": "windows",
+            "status": "supported"
+          }
+        ],
+        "status": "ok"
+      },
+      "installer_trust_chain": {
+        "artifacts": [
+          {
+            "installer_type": "Container",
+            "name": "aion-container",
+            "provenance_ref": "provenance:release"
+          },
+          {
+            "installer_type": "Homebrew",
+            "name": "aion-homebrew",
+            "provenance_ref": "provenance:release"
+          }
+        ],
+        "signatures": [
+          {
+            "algorithm": "ed25519",
+            "signature_id": "sig-container",
+            "trusted": true
+          },
+          {
+            "algorithm": "ed25519",
+            "signature_id": "sig-homebrew",
+            "trusted": true
+          }
+        ],
+        "status": "trusted"
+      },
+      "lts_policy": {
+        "channel": "Lts12",
+        "eol_policy": {
+          "eol_date": "2027-01-01",
+          "status": "supported"
+        },
+        "status": "ok",
+        "support_window": {
+          "months": 12,
+          "starts_at": "2026-01-01"
+        }
+      },
+      "status": "ok"
+    },
+    "distribution_status": {
+      "artifacts": [
+        {
+          "channel": "Binary",
+          "name": "aion-cli",
+          "platform": "windows-x64",
+          "status": "supported",
+          "version": "0.2.0"
+        },
+        {
+          "channel": "Container",
+          "name": "aion-kernel",
+          "platform": "linux-x64",
+          "status": "preview",
+          "version": "0.2.0"
+        }
+      ],
+      "status": "ok",
+      "support": [
+        {
+          "platform": "linux-x64",
+          "status": "supported"
+        },
+        {
+          "platform": "windows-x64",
+          "status": "supported"
+        }
+      ]
+    },
+    "dr_status": {
+      "backup_policy": {
+        "cadence": "hourly",
+        "immutable": true,
+        "retention_days": 30
+      },
+      "objective": {
+        "rpo_minutes": 15,
+        "rto_minutes": 60
+      },
+      "restore_plan": {
+        "last_tested_epoch": 0,
+        "steps": [
+          "restore_latest_snapshot",
+          "validate_integrity"
+        ]
+      },
+      "status": "ok",
+      "tests": [
+        {
+          "scenario": "restore",
+          "status": "passed"
+        }
+      ]
+    },
+    "evidence_export": {
+      "results": [
+        {
+          "request": {
+            "format": "NdJson",
+            "scope": "Governance"
+          },
+          "status": "supported"
+        },
+        {
+          "request": {
+            "format": "Json",
+            "scope": "Replay"
+          },
+          "status": "supported"
+        }
+      ],
+      "status": "supported"
+    },
+    "fuzz_property_tests": {
+      "fuzz": {
+        "findings": [
+          {
+            "id": "fuzz_001",
+            "severity": "low"
+          }
+        ],
+        "targets": [
+          {
+            "name": "policy_parser",
+            "status": "implemented"
+          }
+        ]
+      },
+      "property": {
+        "invariants": [
+          {
+            "id": "prop_001",
+            "statement": "deterministic_hash_chain"
+          }
+        ],
+        "targets": [
+          {
+            "name": "evidence_invariants",
+            "status": "implemented"
+          }
+        ]
+      },
+      "status": "implemented"
+    },
+    "global_consistency": {
+      "capsule_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.capsule_finality",
+        "origin": "capsule",
+        "status": "ok"
+      },
+      "evidence_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.evidence_finality",
+        "origin": "evidence",
+        "status": "ok"
+      },
+      "replay_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.replay_finality",
+        "origin": "replay",
+        "status": "ok"
+      },
+      "run_finality": {
+        "code": "AION_OK",
+        "context": "global_consistency.run_finality",
+        "origin": "doctor",
+        "status": "ok"
+      }
+    },
+    "golden_paths": {
+      "paths": [
+        {
+          "scenario": "Pilot",
+          "status": "ok",
+          "steps": [
+            {
+              "action": "run_doctor_and_policy",
+              "expected_outcome": "pilot_validated",
+              "id": "01",
+              "precondition": "pilot_env_ready"
+            }
+          ]
+        },
+        {
+          "scenario": "Staging",
+          "status": "ok",
+          "steps": [
+            {
+              "action": "deploy_staging_and_verify",
+              "expected_outcome": "staging_validated",
+              "id": "01",
+              "precondition": "pilot_validated"
+            }
+          ]
+        },
+        {
+          "scenario": "ProductionRollout",
+          "status": "ok",
+          "steps": [
+            {
+              "action": "rollout_production",
+              "expected_outcome": "production_live",
+              "id": "01",
+              "precondition": "staging_validated"
+            }
+          ]
+        }
+      ],
+      "status": "ok"
+    },
+    "governance_model": {
+      "domains": [
+        {
+          "domain": "Policy",
+          "status": "ok"
+        },
+        {
+          "domain": "Security",
+          "status": "ok"
+        },
+        {
+          "domain": "Compliance",
+          "status": "ok"
+        },
+        {
+          "domain": "Release",
+          "status": "ok"
+        },
+        {
+          "domain": "Operations",
+          "status": "ok"
+        }
+      ],
+      "gaps": [],
+      "policy_evidence": {
+        "audit_trail": {
+          "entries": [
+            "policy_gate_ci_allow"
+          ]
+        },
+        "chain": {
+          "hash": "policy-evidence-hash",
+          "records": [
+            {
+              "actor": "doctor",
+              "input_ref": "run:doctor",
+              "policy_ref": "baseline:1.0.0",
+              "result": "allow",
+              "timestamp": 1
+            }
+          ]
+        },
+        "status": "complete"
+      },
+      "policy_gates": [
+        {
+          "context": "Ci",
+          "decision": "Allow",
+          "status": "ok",
+          "violations": []
+        },
+        {
+          "context": "Runtime",
+          "decision": "Warn",
+          "status": "ok",
+          "violations": [
+            {
+              "code": "policy:runtime_warn",
+              "message": "non_blocking_policy_notice"
+            }
+          ]
+        }
+      ],
+      "policy_packs": [
+        {
+          "entries": [
+            {
+              "id": "pack_rule_01",
+              "rule": "policy_mandatory",
+              "use_case": "internal"
+            }
+          ],
+          "level": "Baseline",
+          "name": "baseline",
+          "signature": {
+            "algorithm": "ed25519",
+            "signature_id": "policy-pack-sig",
+            "valid": true
+          },
+          "status": "valid",
+          "version": "1.0.0"
+        }
+      ],
+      "status": "ok"
+    },
+    "identity_matrix": {
+      "compatibility": [
+        {
+          "key": "0.2.0|v1|bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b|linux|x64",
+          "status": "supported"
+        },
+        {
+          "key": "0.2.0|v1|bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b|windows|x64",
+          "status": "supported"
+        }
+      ],
+      "dimensions": [
+        "KernelVersion",
+        "AbiVersion",
+        "ContractSpecVersion",
+        "Os",
+        "Arch"
+      ],
+      "entries": [
+        {
+          "abi_version": "v1",
+          "arch": "x64",
+          "contract_spec_version": "bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b",
+          "kernel_version": "0.2.0",
+          "os": "linux",
+          "status": "supported"
+        },
+        {
+          "abi_version": "v1",
+          "arch": "x64",
+          "contract_spec_version": "bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b",
+          "kernel_version": "0.2.0",
+          "os": "windows",
+          "status": "supported"
+        }
+      ],
+      "status": "ok"
+    },
+    "incident_model": {
+      "resolution": {
+        "resolution_code": "incident:resolved",
+        "resolved": true
+      },
+      "response_plan": {
+        "mttr_target_minutes": 60,
+        "owner": "oncall",
+        "steps": [
+          "mitigate",
+          "postmortem",
+          "triage"
+        ]
+      },
+      "status": "ok",
+      "triggers": [
+        {
+          "condition": "replay_contract_failed",
+          "id": "incident_replay_failure",
+          "severity": "P1"
+        },
+        {
+          "condition": "availability_below_threshold",
+          "id": "incident_slo_violation",
+          "severity": "P2"
+        }
+      ]
+    },
+    "installer_trust_chain": {
+      "artifacts": [
+        {
+          "installer_type": "Container",
+          "name": "aion-container",
+          "provenance_ref": "provenance:release"
+        },
+        {
+          "installer_type": "Homebrew",
+          "name": "aion-homebrew",
+          "provenance_ref": "provenance:release"
+        }
+      ],
+      "signatures": [
+        {
+          "algorithm": "ed25519",
+          "signature_id": "sig-container",
+          "trusted": true
+        },
+        {
+          "algorithm": "ed25519",
+          "signature_id": "sig-homebrew",
+          "trusted": true
+        }
+      ],
+      "status": "trusted"
+    },
+    "kpi_contract": {
+      "kpis": [
+        {
+          "domain": "Operations",
+          "id": "kpi_mttr",
+          "status": "AtRisk",
+          "target": {
+            "threshold": "<=60m"
+          }
+        },
+        {
+          "domain": "Reliability",
+          "id": "kpi_slo",
+          "status": "OnTrack",
+          "target": {
+            "threshold": ">=99.5%"
+          }
+        }
+      ],
+      "status": "ok"
+    },
+    "legal_determinism": {
+      "license_contract_version": "v1",
+      "result": {
+        "status": "ok",
+        "violations": []
+      },
+      "sla_contract_version": "v1"
+    },
+    "logging_policy": {
+      "status": "ok",
+      "violations": []
+    },
+    "lts_policy": {
+      "channel": "Lts12",
+      "eol_policy": {
+        "eol_date": "2027-01-01",
+        "status": "supported"
+      },
+      "status": "ok",
+      "support_window": {
+        "months": 12,
+        "starts_at": "2026-01-01"
+      }
+    },
+    "measurement_model": {
+      "audit_reports": {
+        "findings": [
+          {
+            "evidence_ref": "ev_sec_001",
+            "id": "audit_sec_001",
+            "scope": "Security",
+            "severity": "Low"
+          }
+        ],
+        "status": "findings"
+      },
+      "evidence_export": {
+        "results": [
+          {
+            "request": {
+              "format": "NdJson",
+              "scope": "Governance"
+            },
+            "status": "supported"
+          },
+          {
+            "request": {
+              "format": "Json",
+              "scope": "Replay"
+            },
+            "status": "supported"
+          }
+        ],
+        "status": "supported"
+      },
+      "gaps": [],
+      "kpi_contract": {
+        "kpis": [
+          {
+            "domain": "Operations",
+            "id": "kpi_mttr",
+            "status": "AtRisk",
+            "target": {
+              "threshold": "<=60m"
+            }
+          },
+          {
+            "domain": "Reliability",
+            "id": "kpi_slo",
+            "status": "OnTrack",
+            "target": {
+              "threshold": ">=99.5%"
+            }
+          }
+        ],
+        "status": "ok"
+      },
+      "metrics_contract": {
+        "metrics": [
+          {
+            "metric_type": "Counter",
+            "name": "aion_policy_violation_total",
+            "namespace": "Policy",
+            "status": "Defined"
+          },
+          {
+            "metric_type": "Counter",
+            "name": "aion_replay_total",
+            "namespace": "Replay",
+            "status": "Defined"
+          }
+        ],
+        "status": "ok"
+      },
+      "status": {
+        "status": "ok"
+      }
+    },
+    "metrics_contract": {
+      "metrics": [
+        {
+          "metric_type": "Counter",
+          "name": "aion_policy_violation_total",
+          "namespace": "Policy",
+          "status": "Defined"
+        },
+        {
+          "metric_type": "Counter",
+          "name": "aion_replay_total",
+          "namespace": "Replay",
+          "status": "Defined"
+        }
+      ],
+      "status": "ok"
+    },
+    "observability": {
+      "log_schema_version": "v1",
+      "metrics_schema_version": "v1",
+      "result": {
+        "status": "ok",
+        "violations": []
+      },
+      "trace_schema_version": "v1"
+    },
+    "ok": false,
+    "operations_model": {
+      "dr_status": {
+        "backup_policy": {
+          "cadence": "hourly",
+          "immutable": true,
+          "retention_days": 30
+        },
+        "objective": {
+          "rpo_minutes": 15,
+          "rto_minutes": 60
+        },
+        "restore_plan": {
+          "last_tested_epoch": 0,
+          "steps": [
+            "restore_latest_snapshot",
+            "validate_integrity"
+          ]
+        },
+        "status": "ok",
+        "tests": [
+          {
+            "scenario": "restore",
+            "status": "passed"
+          }
+        ]
+      },
+      "incident_model": {
+        "resolution": {
+          "resolution_code": "incident:resolved",
+          "resolved": true
+        },
+        "response_plan": {
+          "mttr_target_minutes": 60,
+          "owner": "oncall",
+          "steps": [
+            "mitigate",
+            "postmortem",
+            "triage"
+          ]
+        },
+        "status": "ok",
+        "triggers": [
+          {
+            "condition": "replay_contract_failed",
+            "id": "incident_replay_failure",
+            "severity": "P1"
+          },
+          {
+            "condition": "availability_below_threshold",
+            "id": "incident_slo_violation",
+            "severity": "P2"
+          }
+        ]
+      },
+      "runbooks": {
+        "results": [
+          {
+            "preconditions": [
+              "alert_received",
+              "oncall_available"
+            ],
+            "scenario": "Incident",
+            "status": "ok",
+            "steps": [
+              {
+                "action": "acknowledge_incident",
+                "expected_outcome": "incident_channel_open",
+                "id": "01"
+              },
+              {
+                "action": "triage_scope",
+                "expected_outcome": "impact_assessed",
+                "id": "02"
+              }
+            ]
+          },
+          {
+            "preconditions": [
+              "release_deployed"
+            ],
+            "scenario": "Rollback",
+            "status": "ok",
+            "steps": [
+              {
+                "action": "switch_previous_release",
+                "expected_outcome": "service_restored",
+                "id": "01"
+              }
+            ]
+          }
+        ],
+        "status": "ok"
+      },
+      "status": "ok",
+      "upgrade_migration_status": {
+        "downgrade_paths": [
+          {
+            "from_version": "N+1",
+            "steps": [
+              {
+                "action": "restore_snapshot_compat",
+                "id": "01",
+                "scope": "contracts"
+              }
+            ],
+            "to_version": "N"
+          }
+        ],
+        "risks": [
+          {
+            "id": "risk_contract_schema",
+            "level": "medium",
+            "mitigation": "preflight_contract_diff"
+          }
+        ],
+        "status": "ok",
+        "upgrade_paths": [
+          {
+            "from_version": "N",
+            "steps": [
+              {
+                "action": "migrate_contract_snapshots",
+                "id": "01",
+                "scope": "contracts"
+              }
+            ],
+            "to_version": "N+1"
+          },
+          {
+            "from_version": "N",
+            "steps": [
+              {
+                "action": "reindex_evidence_anchors",
+                "id": "01",
+                "scope": "evidence"
+              }
+            ],
+            "to_version": "N+2"
+          }
+        ]
+      }
+    },
+    "os_contract_spec_version": "bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b",
+    "os_identity": {
+      "compatibility_profile": {
+        "global_consistency_contract_versions": [
+          "d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44"
+        ],
+        "os_contract_spec_versions": [
+          "bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b"
+        ]
+      },
+      "global_consistency_contract_version": "d4e63cc501df8ed1d25e7d39036c98f5dbb8dd6ceadcb0e637405b7dc61a9c44",
+      "instance_id": {
+        "source": "derived_explicit_inputs",
+        "value": "d21c4a1fc77c0d9e91e49498bd8a4f753dd802f2fc569b6d3f30536dab9e2e3e"
+      },
+      "kernel_version": {
+        "build_metadata": "unknown",
+        "semver": "0.2.0",
+        "value": "0.2.0+unknown"
+      },
+      "os_contract_spec_version": "bcf39fb5dff37c8d6c0926a867d46c298c5322f6898da7dc9b873f2094701b7b"
+    },
+    "policy_evidence": {
+      "audit_trail": {
+        "entries": [
+          "policy_gate_ci_allow"
+        ]
+      },
+      "chain": {
+        "hash": "policy-evidence-hash",
+        "records": [
+          {
+            "actor": "doctor",
+            "input_ref": "run:doctor",
+            "policy_ref": "baseline:1.0.0",
+            "result": "allow",
+            "timestamp": 1
+          }
+        ]
+      },
+      "status": "complete"
+    },
+    "policy_gates": [
+      {
+        "context": "Ci",
+        "decision": "Allow",
+        "status": "ok",
+        "violations": []
+      },
+      {
+        "context": "Runtime",
+        "decision": "Warn",
+        "status": "ok",
+        "violations": [
+          {
+            "code": "policy:runtime_warn",
+            "message": "non_blocking_policy_notice"
+          }
+        ]
+      }
+    ],
+    "policy_packs": [
+      {
+        "entries": [
+          {
+            "id": "pack_rule_01",
+            "rule": "policy_mandatory",
+            "use_case": "internal"
+          }
+        ],
+        "level": "Baseline",
+        "name": "baseline",
+        "signature": {
+          "algorithm": "ed25519",
+          "signature_id": "policy-pack-sig",
+          "valid": true
+        },
+        "status": "valid",
+        "version": "1.0.0"
+      }
+    ],
+    "provenance": {
+      "predicate": {
+        "build_environment": [
+          "RUSTFLAGS=-Cdebuginfo=0",
+          "SOURCE_DATE_EPOCH=0"
+        ],
+        "build_steps": [
+          "build",
+          "sign",
+          "test"
+        ],
+        "inputs": [
+          "Cargo.lock",
+          "docs/os_contract_spec.md"
+        ],
+        "outputs": [
+          "aion-cli",
+          "aion-kernel"
+        ],
+        "signatures": [
+          "ed25519"
+        ]
+      },
+      "provenance_id": "71af68afc651e729cbc5cd2cc7a7c0d0d42b0bc15b6987b163c5daf215dd9454",
+      "subjects": [
+        {
+          "digest_sha256": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10",
+          "name": "aion-release"
+        }
+      ]
+    },
+    "regression_matrix": {
+      "cases": [
+        {
+          "area": "Kernel",
+          "id": "reg_kernel_001",
+          "label": "kernel_startup"
+        },
+        {
+          "area": "Policy",
+          "id": "reg_policy_001",
+          "label": "policy_validation"
+        }
+      ],
+      "results": [
+        {
+          "case_id": "reg_kernel_001",
+          "status": "ok"
+        },
+        {
+          "case_id": "reg_policy_001",
+          "status": "ok"
+        }
+      ],
+      "status": "ok"
+    },
+    "release_signatures": [
+      {
+        "artifact_hash": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10",
+        "artifact_type": "kernel_binary",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "71af68afc651e729cbc5cd2cc7a7c0d0d42b0bc15b6987b163c5daf215dd9454",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "588dd892e1fa9a5a0b09bbafebede84bc06ef626792c95e5b75059bc832a853a1190a2581127e3280243f7418abcde1137ff1e636c4427b3c46fe8891aea6406",
+        "timestamp": 0
+      },
+      {
+        "artifact_hash": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10",
+        "artifact_type": "cli_binary",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "71af68afc651e729cbc5cd2cc7a7c0d0d42b0bc15b6987b163c5daf215dd9454",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "67bf6ce53f2e48bc9a7665ca8d81b8f46a3cffe0c19bc85b1028e29c925a649f5375000cba89dd6d27b190a2521ff92930f15864033761c42589c97c1ad6430b",
+        "timestamp": 0
+      },
+      {
+        "artifact_hash": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10",
+        "artifact_type": "capsule_writer",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "71af68afc651e729cbc5cd2cc7a7c0d0d42b0bc15b6987b163c5daf215dd9454",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "8fe292d36998f673d29e02d34e173b2860ffc85803da5bbb810c9f6ed046c7d0c55a046b3b7ed7d54dd495d8e18fd9b5ca427a6460486fcb8aca04f3db5f9500",
+        "timestamp": 0
+      },
+      {
+        "artifact_hash": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10",
+        "artifact_type": "policy_bundles",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "71af68afc651e729cbc5cd2cc7a7c0d0d42b0bc15b6987b163c5daf215dd9454",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "1d05c22770dc008a97cbe2420cecbccfbb14636055a07ea29d55da681814b88e5bac0226c88caac68e3a9873b019e19043e71ef93655baaf2c2553354cce7607",
+        "timestamp": 0
+      },
+      {
+        "artifact_hash": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10",
+        "artifact_type": "contract_snapshots",
+        "kernel_version": "0.2.0+unknown",
+        "provenance_id": "71af68afc651e729cbc5cd2cc7a7c0d0d42b0bc15b6987b163c5daf215dd9454",
+        "public_key_hex": "8a88e3dd7409f195fd52db2d3cba5d72ca6709bf1d94121bf3748801b40f6f5c",
+        "signature_hex": "d1ed8388279a4cb479aeb54feb02a71ee58db55c79285f8a221a85dc7ee5cbc394854f13ae3ccde4010c48c59afcb75e384b20d3c4a852680f3f7a268cec7107",
+        "timestamp": 0
+      }
+    ],
+    "reliability_status": {
+      "chaos_status": {
+        "experiments": [
+          {
+            "expected_behavior": "error_contract_emitted",
+            "fault": "Corruption",
+            "id": "chaos_evidence_corruption",
+            "status": "executed",
+            "target": "Evidence"
+          },
+          {
+            "expected_behavior": "retry_then_error_contract",
+            "fault": "Timeout",
+            "id": "chaos_io_timeout",
+            "status": "planned",
+            "target": "Io"
+          }
+        ],
+        "status": "partial"
+      },
+      "reliability_status": {
+        "change_failure_rate_target_bps": 500,
+        "error_budget_status": {
+          "budgets": [
+            {
+              "remaining_bps": 20,
+              "slo_target": "Availability"
+            },
+            {
+              "remaining_bps": 0,
+              "slo_target": "ContractIntegrity"
+            },
+            {
+              "remaining_bps": 5,
+              "slo_target": "ReplayFidelity"
+            }
+          ],
+          "status": "ok"
+        },
+        "incident_criteria": {
+          "p1_trigger": "availability_below_99_0_or_contract_break",
+          "p2_trigger": "replay_fidelity_below_99_5",
+          "p3_trigger": "transient_degradation_without_data_risk"
+        },
+        "mttr_target_minutes": 60,
+        "status": "ok"
+      },
+      "slo_status": {
+        "objectives": [
+          {
+            "target": "Availability",
+            "threshold_bps": 9950
+          },
+          {
+            "target": "ReplayFidelity",
+            "threshold_bps": 9990
+          },
+          {
+            "target": "ContractIntegrity",
+            "threshold_bps": 10000
+          }
+        ],
+        "results": [
+          {
+            "actual_bps": 9980,
+            "status": "ok",
+            "target": "Availability"
+          },
+          {
+            "actual_bps": 9995,
+            "status": "ok",
+            "target": "ReplayFidelity"
+          },
+          {
+            "actual_bps": 10000,
+            "status": "ok",
+            "target": "ContractIntegrity"
+          }
+        ],
+        "status": "ok",
+        "window": {
+          "duration_hours": 720,
+          "name": "rolling_30d"
+        }
+      },
+      "soak_status": {
+        "notes": [
+          "soak:stable"
+        ],
+        "plan": {
+          "metrics": [
+            {
+              "name": "memory_growth",
+              "threshold": "<5%"
+            },
+            {
+              "name": "replay_stability",
+              "threshold": ">=99.9%"
+            }
+          ],
+          "targets": [
+            {
+              "duration_hours": 24,
+              "name": "replay_drift_longrun"
+            }
+          ]
+        },
+        "status": "ok"
+      }
+    },
+    "replay_invariant_gate": {
+      "checks": [
+        {
+          "name": "replay_invariant",
+          "status": "ok"
+        },
+        {
+          "name": "determinism_matrix",
+          "status": "ok"
+        },
+        {
+          "name": "contract_snapshots",
+          "status": "ok"
+        }
+      ],
+      "status": "ok",
+      "violations": []
+    },
+    "runbooks": {
+      "results": [
+        {
+          "preconditions": [
+            "alert_received",
+            "oncall_available"
+          ],
+          "scenario": "Incident",
+          "status": "ok",
+          "steps": [
+            {
+              "action": "acknowledge_incident",
+              "expected_outcome": "incident_channel_open",
+              "id": "01"
+            },
+            {
+              "action": "triage_scope",
+              "expected_outcome": "impact_assessed",
+              "id": "02"
+            }
+          ]
+        },
+        {
+          "preconditions": [
+            "release_deployed"
+          ],
+          "scenario": "Rollback",
+          "status": "ok",
+          "steps": [
+            {
+              "action": "switch_previous_release",
+              "expected_outcome": "service_restored",
+              "id": "01"
+            }
+          ]
+        }
+      ],
+      "status": "ok"
+    },
+    "runtime_isolation": {
+      "io_boundary_mode": "strict",
+      "result": {
+        "status": "ok",
+        "violations": []
+      },
+      "side_effect_matrix_version": "v1"
+    },
+    "sbom": {
+      "build_metadata": [
+        "kernel_version=0.2.0+unknown",
+        "provenance_id=71af68afc651e729cbc5cd2cc7a7c0d0d42b0bc15b6987b163c5daf215dd9454"
+      ],
+      "components": [
+        {
+          "hashes": [
+            {
+              "alg": "sha256",
+              "value": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10"
+            }
+          ],
+          "license": "MIT",
+          "name": "aion-cli",
+          "version": "0.2.0"
+        },
+        {
+          "hashes": [
+            {
+              "alg": "sha256",
+              "value": "26295a367207d3f6cdf8cc3560a6331b88120df7a2cc17307b0e365044d11f10"
+            }
+          ],
+          "license": "MIT",
+          "name": "aion-core",
+          "version": "0.2.0"
+        }
+      ],
+      "format": "spdx"
+    },
+    "security_model": {
+      "compliance_contract": {
+        "controls": [
+          {
+            "control": "logging_retention",
+            "domain": "Dsgvo",
+            "status": "partial"
+          },
+          {
+            "control": "policy_engine",
+            "domain": "Iso27001",
+            "status": "ok"
+          },
+          {
+            "control": "release_governance",
+            "domain": "Iso27001",
+            "status": "ok"
+          },
+          {
+            "control": "evidence_chain",
+            "domain": "Soc2",
+            "status": "ok"
+          },
+          {
+            "control": "identity_distribution",
+            "domain": "Soc2",
+            "status": "ok"
+          }
+        ],
+        "evidence": [
+          {
+            "control": "evidence_chain",
+            "source_contract": "evidence_contract"
+          },
+          {
+            "control": "identity_distribution",
+            "source_contract": "identity_contract"
+          },
+          {
+            "control": "logging_retention",
+            "source_contract": "logging_policy"
+          },
+          {
+            "control": "policy_engine",
+            "source_contract": "policy_contract"
+          },
+          {
+            "control": "release_governance",
+            "source_contract": "release_governance_contract"
+          }
+        ],
+        "status": "partial"
+      },
+      "logging_compliance": {
+        "status": "ok",
+        "violations": []
+      },
+      "posture": {
+        "gaps": [],
+        "status": "ok"
+      },
+      "security_scanning": {
+        "issues": [],
+        "last_run_epoch": 0,
+        "scans": [
+          {
+            "mode": "optional",
+            "scan": "container_scanning"
+          },
+          {
+            "mode": "required",
+            "scan": "dependency_scanning"
+          },
+          {
+            "mode": "required",
+            "scan": "sast"
+          },
+          {
+            "mode": "required",
+            "scan": "secret_scanning"
+          }
+        ],
+        "status": "ok"
+      },
+      "threat_model": {
+        "mitigations": [
+          {
+            "category": "Spoofing",
+            "mitigation": "identity_contract"
+          },
+          {
+            "category": "Tampering",
+            "mitigation": "evidence_chain_and_hashes"
+          },
+          {
+            "category": "Repudiation",
+            "mitigation": "canonical_error_and_output_contracts"
+          },
+          {
+            "category": "InformationDisclosure",
+            "mitigation": "sanitized_error_cause_and_policy_controls"
+          },
+          {
+            "category": "DenialOfService",
+            "mitigation": "deterministic_policy_constraints"
+          },
+          {
+            "category": "ElevationOfPrivilege",
+            "mitigation": "tenant_and_policy_isolation_contracts"
+          }
+        ],
+        "status": "ok",
+        "surfaces": [
+          {
+            "categories": [
+              "Repudiation",
+              "Tampering"
+            ],
+            "name": "cli"
+          },
+          {
+            "categories": [
+              "ElevationOfPrivilege",
+              "Tampering"
+            ],
+            "name": "evidence_policy_replay"
+          },
+          {
+            "categories": [
+              "InformationDisclosure",
+              "Spoofing"
+            ],
+            "name": "ffi_bindings"
+          },
+          {
+            "categories": [
+              "DenialOfService",
+              "Tampering"
+            ],
+            "name": "kernel"
+          },
+          {
+            "categories": [
+              "Repudiation",
+              "Tampering"
+            ],
+            "name": "output_contracts"
+          }
+        ]
+      },
+      "vulnerability_sla_status": "ok"
+    },
+    "security_scanning": {
+      "issues": [],
+      "last_run_epoch": 0,
+      "scans": [
+        {
+          "mode": "optional",
+          "scan": "container_scanning"
+        },
+        {
+          "mode": "required",
+          "scan": "dependency_scanning"
+        },
+        {
+          "mode": "required",
+          "scan": "sast"
+        },
+        {
+          "mode": "required",
+          "scan": "secret_scanning"
+        }
+      ],
+      "status": "ok"
+    },
+    "slo_status": {
+      "objectives": [
+        {
+          "target": "Availability",
+          "threshold_bps": 9950
+        },
+        {
+          "target": "ReplayFidelity",
+          "threshold_bps": 9990
+        },
+        {
+          "target": "ContractIntegrity",
+          "threshold_bps": 10000
+        }
+      ],
+      "results": [
+        {
+          "actual_bps": 9980,
+          "status": "ok",
+          "target": "Availability"
+        },
+        {
+          "actual_bps": 9995,
+          "status": "ok",
+          "target": "ReplayFidelity"
+        },
+        {
+          "actual_bps": 10000,
+          "status": "ok",
+          "target": "ContractIntegrity"
+        }
+      ],
+      "status": "ok",
+      "window": {
+        "duration_hours": 720,
+        "name": "rolling_30d"
+      }
+    },
+    "snapshot_hashes": {
+      "capsule_abi": "36ef6ce09e0ccbf73612716d224afd58070a6753524f7eb3a363da6b5f13dd4a",
+      "drift": "76351736100e6e16bdfade6db2a65e6903adb3993e202b3dee66c603b5d39fb2",
+      "error": "f97cf558b16157ff7ee0379e5126fee03cd437213532603e2c80ee2a935c4de9",
+      "evidence": "511beb43d4a63fb73f114dca85c13cf6f3c50310197822d9799714017ab7f6d2",
+      "global_consistency": "e94536efa8bb26a9bbc0d228ea632400734fea60a042ccfd1652e597ce810d23",
+      "identity": "0e7a816633cb001f4f3e46b083655327605f78c72e6d59ab84fe37813ddbdc85",
+      "legal_determinism": "c8e5147b7d1369a5f8e76bd56972d76441ae35e92198c44c98c2dbf91453ee27",
+      "observability": "50eb8db9000de4ec1d70f1d503d4d339e2b3e89c4a8f9f07bcc3f429073e5990",
+      "output": "cdd6c90cc2147f89b6aa3890b3f42e862a30ce4d8a8b6df8b0463cf8c5b46b74",
+      "policy": "ee7332b299826dba36ea162e34a230d3890a5c2df871b1a22fb185bb74f290dc",
+      "replay": "6f7158470baeb53d749b1096c6f301491c2806dd774026e0ec5379385958a6cc",
+      "runtime_isolation": "73e51b01cde15ab9f6868b5aa2a713239e5b1ec16a89667b3248e0d2e9b3cf9a",
+      "tenant_isolation": "0737a97d237f29ebb97581bbec98d215ca25d6becee154ccdabc5e47a447ee84",
+      "trust_chain": "20dec7a626d56e49ea23d59268d7e2db656e6566a91702fb4670ae9fdf355987",
+      "upgrade_replay": "98d178ca15eb95d12b064930e44c0055c9ac97a91dbb4eda10a92ee10f16af89"
+    },
+    "soak_status": {
+      "notes": [
+        "soak:stable"
+      ],
+      "plan": {
+        "metrics": [
+          {
+            "name": "memory_growth",
+            "threshold": "<5%"
+          },
+          {
+            "name": "replay_stability",
+            "threshold": ">=99.9%"
+          }
+        ],
+        "targets": [
+          {
+            "duration_hours": 24,
+            "name": "replay_drift_longrun"
+          }
+        ]
+      },
+      "status": "ok"
+    },
+    "tenant_isolation": {
+      "guard_matrix_version": "v1",
+      "result": {
+        "status": "ok",
+        "violations": []
+      }
+    },
+    "test_strategy": {
+      "coverage": [
+        {
+          "area": "cli",
+          "status": "complete"
+        },
+        {
+          "area": "kernel",
+          "status": "complete"
+        }
+      ],
+      "status": "complete",
+      "targets": [
+        {
+          "area": "cli",
+          "layers": [
+            "Unit",
+            "Integration",
+            "E2e"
+          ]
+        },
+        {
+          "area": "kernel",
+          "layers": [
+            "Unit",
+            "Integration",
+            "Regression"
+          ]
+        }
+      ]
+    },
+    "threat_model": {
+      "mitigations": [
+        {
+          "category": "Spoofing",
+          "mitigation": "identity_contract"
+        },
+        {
+          "category": "Tampering",
+          "mitigation": "evidence_chain_and_hashes"
+        },
+        {
+          "category": "Repudiation",
+          "mitigation": "canonical_error_and_output_contracts"
+        },
+        {
+          "category": "InformationDisclosure",
+          "mitigation": "sanitized_error_cause_and_policy_controls"
+        },
+        {
+          "category": "DenialOfService",
+          "mitigation": "deterministic_policy_constraints"
+        },
+        {
+          "category": "ElevationOfPrivilege",
+          "mitigation": "tenant_and_policy_isolation_contracts"
+        }
+      ],
+      "status": "ok",
+      "surfaces": [
+        {
+          "categories": [
+            "Repudiation",
+            "Tampering"
+          ],
+          "name": "cli"
+        },
+        {
+          "categories": [
+            "ElevationOfPrivilege",
+            "Tampering"
+          ],
+          "name": "evidence_policy_replay"
+        },
+        {
+          "categories": [
+            "InformationDisclosure",
+            "Spoofing"
+          ],
+          "name": "ffi_bindings"
+        },
+        {
+          "categories": [
+            "DenialOfService",
+            "Tampering"
+          ],
+          "name": "kernel"
+        },
+        {
+          "categories": [
+            "Repudiation",
+            "Tampering"
+          ],
+          "name": "output_contracts"
+        }
+      ]
+    },
+    "trust_chain": {
+      "attestation_required": true,
+      "key_rotation_policy": "deterministic_rotation_v1",
+      "result": {
+        "status": "ok",
+        "violations": []
+      }
+    },
+    "upgrade_migration_status": {
+      "downgrade_paths": [
+        {
+          "from_version": "N+1",
+          "steps": [
+            {
+              "action": "restore_snapshot_compat",
+              "id": "01",
+              "scope": "contracts"
+            }
+          ],
+          "to_version": "N"
+        }
+      ],
+      "risks": [
+        {
+          "id": "risk_contract_schema",
+          "level": "medium",
+          "mitigation": "preflight_contract_diff"
+        }
+      ],
+      "status": "ok",
+      "upgrade_paths": [
+        {
+          "from_version": "N",
+          "steps": [
+            {
+              "action": "migrate_contract_snapshots",
+              "id": "01",
+              "scope": "contracts"
+            }
+          ],
+          "to_version": "N+1"
+        },
+        {
+          "from_version": "N",
+          "steps": [
+            {
+              "action": "reindex_evidence_anchors",
+              "id": "01",
+              "scope": "evidence"
+            }
+          ],
+          "to_version": "N+2"
+        }
+      ]
+    },
+    "upgrade_replay": {
+      "current_kernel_version": "0.2.0",
+      "results": [
+        {
+          "status": "ok",
+          "target_version": "0.3.0",
+          "violations": []
+        },
+        {
+          "status": "ok",
+          "target_version": "0.4.0",
+          "violations": []
+        }
+      ],
+      "support_window": "N_to_Nplus2",
+      "tested_upgrade_targets": [
+        "0.3.0",
+        "0.4.0"
+      ]
+    },
+    "vulnerability_status": "ok"
+  }
+}

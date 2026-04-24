@@ -70,4 +70,3 @@ mod tests {
         assert_eq!(err.status, "error");
     }
 }
-

@@ -39,11 +39,10 @@ pub fn render_causal_graph_svg(graph: &CausalGraphV2) -> String {
                 p
             }
             GraphNodeKind::Token => {
-                let idx = n
-                    .id
-                    .strip_prefix("token_")
-                    .and_then(|s| s.parse::<usize>().ok())
-                    .unwrap_or(0);
+                let idx =
+                    n.id.strip_prefix("token_")
+                        .and_then(|s| s.parse::<usize>().ok())
+                        .unwrap_or(0);
                 (360 + (idx as i32) * 100, 100)
             }
         };

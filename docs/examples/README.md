@@ -1,5 +1,9 @@
 # Doc-linked examples
 
+## Purpose
+
+Maps documentation references to **runnable** `examples/` trees (shell + Rust SDK) that exercise capsules, replay, drift, and governance.
+
 Runnable copies of the examples live under the repository **`examples/`** tree (shell scripts and Rust SDK examples).
 
 | Topic | Location |

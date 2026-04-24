@@ -57,7 +57,11 @@ pub fn evaluate_tenant_isolation_contract(input: TenantIsolationInput) -> Tenant
     TenantIsolationContract {
         guard_matrix_version: "v1".to_string(),
         result: TenantIsolationResult {
-            status: if violations.is_empty() { "ok".into() } else { "error".into() },
+            status: if violations.is_empty() {
+                "ok".into()
+            } else {
+                "error".into()
+            },
             violations,
         },
     }
@@ -84,7 +88,12 @@ mod tests {
             cross_tenant_access_blocked: false,
             token_scope_valid: false,
         });
-        let codes: Vec<&str> = c.result.violations.iter().map(|v| v.code.as_str()).collect();
+        let codes: Vec<&str> = c
+            .result
+            .violations
+            .iter()
+            .map(|v| v.code.as_str())
+            .collect();
         assert_eq!(
             codes,
             vec![
@@ -95,4 +104,3 @@ mod tests {
         );
     }
 }
-

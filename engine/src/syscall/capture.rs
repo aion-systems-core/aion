@@ -50,7 +50,8 @@ pub fn capture_syscall(
     let parsed = match super::policy::SyscallName::parse(&name_lc) {
         Some(p) => p,
         None => {
-            let reason = format!("syscall {raw_name} is outside the deterministic syscall whitelist");
+            let reason =
+                format!("syscall {raw_name} is outside the deterministic syscall whitelist");
             violations_out.push(Event::PolicyViolation {
                 syscall: raw_name.into(),
                 reason: reason.clone(),

@@ -52,7 +52,11 @@ pub fn diff_run_snapshots(a: &RunResult, b: &RunResult) -> DriftReport {
     let changed = !fields.is_empty() || !violations.is_empty();
     let error = if !violations.is_empty() {
         Some(canonical_error_json(
-            &line(code::DRIFT_TOLERANCE, "diff_run_snapshots", "tolerance_violation"),
+            &line(
+                code::DRIFT_TOLERANCE,
+                "diff_run_snapshots",
+                "tolerance_violation",
+            ),
             "drift",
         ))
     } else {

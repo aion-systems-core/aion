@@ -1,5 +1,9 @@
 # Replay
 
+## Purpose
+
+Define **replay symmetry**: what the replay report guarantees, how it maps to the **Process** layer, and how CLI/SDK invoke it without changing the capsule binary format.
+
 **Replay** re-executes a workload from a **capsule** and produces a structured **replay report** that states whether the re-run matches the recorded run under the contract’s replay invariant.
 
 ## At a glance
@@ -20,7 +24,7 @@ Replay verifies **contractual symmetry**, not environmental security; combine wi
 ## CLI: AI replay
 
 ```bash
-sealrun execute ai-replay --capsule path/to/capsule.sealrunai
+sealrun execute ai-replay --capsule path/to/capsule.aionai
 ```
 
 Typical output path:
@@ -32,7 +36,7 @@ sealrun_output/ai-replay/<run-id>/ai.json
 ## SDK / automation
 
 ```bash
-sealrun sdk replay --capsule path/to/capsule.sealrunai
+sealrun sdk replay --capsule path/to/capsule.aionai
 ```
 
 Writes `sdk.json` (and projections) under `sealrun_output/sdk-replay/<run-id>/`.
@@ -45,8 +49,8 @@ Writes `sdk.json` (and projections) under `sealrun_output/sdk-replay/<run-id>/`.
 ## CLI surface
 
 ```bash
-sealrun execute ai-replay --capsule path/to/capsule.sealrunai
-sealrun sdk replay --capsule path/to/capsule.sealrunai
+sealrun execute ai-replay --capsule path/to/capsule.aionai
+sealrun sdk replay --capsule path/to/capsule.aionai
 sealrun doctor
 ```
 

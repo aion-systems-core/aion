@@ -63,4 +63,3 @@ mod tests {
         assert_eq!(r.status, "failed");
     }
 }
-

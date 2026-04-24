@@ -32,7 +32,10 @@ fn why_deterministic_slice(w: &WhyReportV2) -> String {
 /// Invariant: token trace, events, canonical graph/why/drift, and determinism profile must be equal.
 /// I/O: `(original, replayed)` capsule pair -> `Ok(())` or mismatch token in `Err(String)`.
 /// Determinism: comparisons are pure and canonicalized where needed.
-pub fn assert_replay_symmetry(original: &AICapsuleV1, replayed: &AICapsuleV1) -> Result<(), String> {
+pub fn assert_replay_symmetry(
+    original: &AICapsuleV1,
+    replayed: &AICapsuleV1,
+) -> Result<(), String> {
     if original.version != replayed.version {
         return Err("replay:invariant_failed".into());
     }
@@ -69,7 +72,10 @@ pub fn assert_replay_symmetry(original: &AICapsuleV1, replayed: &AICapsuleV1) ->
 /// Invariant: `assert_replay_symmetry` holds and `deterministic_capsule_hash` values are identical.
 /// I/O: `(original, replayed)` capsule pair -> `Ok(())` or formal invariant failure token.
 /// Determinism: hash input is canonical semantic payload, yielding stable digest comparison.
-pub fn assert_formal_replay_invariant(original: &AICapsuleV1, replayed: &AICapsuleV1) -> Result<(), String> {
+pub fn assert_formal_replay_invariant(
+    original: &AICapsuleV1,
+    replayed: &AICapsuleV1,
+) -> Result<(), String> {
     assert_replay_symmetry(original, replayed)?;
     if deterministic_capsule_hash(original) != deterministic_capsule_hash(replayed) {
         return Err("replay:invariant_failed".into());

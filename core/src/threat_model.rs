@@ -52,7 +52,10 @@ pub fn evaluate_threat_model() -> ThreatModel {
         },
         ThreatSurface {
             name: "evidence_policy_replay".to_string(),
-            categories: vec![ThreatCategory::Tampering, ThreatCategory::ElevationOfPrivilege],
+            categories: vec![
+                ThreatCategory::Tampering,
+                ThreatCategory::ElevationOfPrivilege,
+            ],
         },
     ];
     surfaces.sort_by(|a, b| a.name.cmp(&b.name));
@@ -119,4 +122,3 @@ mod tests {
         assert!(all.contains(&ThreatCategory::Tampering));
     }
 }
-

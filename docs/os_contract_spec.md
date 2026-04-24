@@ -1,5 +1,9 @@
 # OS Contract Spec
 
+## Purpose
+
+Normative reference for **deterministic JSON envelopes**, finality, versioning, and contract IDs. Implementation and tests should trace to sections here.
+
 This specification is the canonical contract definition for SealRun kernel-layer and enterprise-layer behavior.
 
 spec_id: `SealRun-contract`

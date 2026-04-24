@@ -1,5 +1,9 @@
 # Community and support
 
+## Purpose
+
+Where to ask questions and file issues; points readers back to **deterministic contract** docs for technical depth.
+
 This page defines public support channels for SealRun users and contributors.
 
 ## At a glance

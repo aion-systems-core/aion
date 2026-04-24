@@ -1,6 +1,10 @@
 # SealRun Enterprise Sales Package
 
-> Deterministic AI deterministic execution engine for enterprise-grade replay, evidence, governance, and auditability.
+## Purpose
+
+Enterprise narrative and **12-phase contract roadmap** aligned with the normative [OS Contract Spec](../os_contract_spec.md) and [Architecture](../architecture.md).
+
+> Deterministic AI execution engine for enterprise-grade replay, evidence, governance, and auditability.
 >  
 > Status: up to date with the 12-phase enterprise contract roadmap.
 

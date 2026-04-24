@@ -34,9 +34,18 @@ pub struct UpgradeReplayInput {
 fn parse_semver_triplet(v: &str) -> (u64, u64, u64) {
     let core = v.split('+').next().unwrap_or(v);
     let mut parts = core.split('.');
-    let major = parts.next().and_then(|x| x.parse::<u64>().ok()).unwrap_or(0);
-    let minor = parts.next().and_then(|x| x.parse::<u64>().ok()).unwrap_or(0);
-    let patch = parts.next().and_then(|x| x.parse::<u64>().ok()).unwrap_or(0);
+    let major = parts
+        .next()
+        .and_then(|x| x.parse::<u64>().ok())
+        .unwrap_or(0);
+    let minor = parts
+        .next()
+        .and_then(|x| x.parse::<u64>().ok())
+        .unwrap_or(0);
+    let patch = parts
+        .next()
+        .and_then(|x| x.parse::<u64>().ok())
+        .unwrap_or(0);
     (major, minor, patch)
 }
 
@@ -129,12 +138,10 @@ mod tests {
         bad.abi_compatible = false;
         let c = evaluate_upgrade_replay("0.2.0", bad, ok_input());
         assert_eq!(c.results[0].status, "error");
-        assert!(
-            c.results[0]
-                .violations
-                .iter()
-                .any(|v| v.code == "upgrade:abi_incompatible")
-        );
+        assert!(c.results[0]
+            .violations
+            .iter()
+            .any(|v| v.code == "upgrade:abi_incompatible"));
     }
 
     #[test]
@@ -143,12 +150,10 @@ mod tests {
         bad.evidence_compatible = false;
         let c = evaluate_upgrade_replay("0.2.0", ok_input(), bad);
         assert_eq!(c.results[1].status, "error");
-        assert!(
-            c.results[1]
-                .violations
-                .iter()
-                .any(|v| v.code == "upgrade:evidence_incompatible")
-        );
+        assert!(c.results[1]
+            .violations
+            .iter()
+            .any(|v| v.code == "upgrade:evidence_incompatible"));
     }
 
     #[test]
@@ -160,7 +165,11 @@ mod tests {
             policy_compatible: false,
         };
         let c = evaluate_upgrade_replay("0.2.0", bad, ok_input());
-        let codes: Vec<&str> = c.results[0].violations.iter().map(|v| v.code.as_str()).collect();
+        let codes: Vec<&str> = c.results[0]
+            .violations
+            .iter()
+            .map(|v| v.code.as_str())
+            .collect();
         assert_eq!(
             codes,
             vec![
@@ -172,4 +181,3 @@ mod tests {
         );
     }
 }
-

@@ -1,5 +1,9 @@
 # Enterprise license note
 
+## Purpose
+
+Separates **MIT open-core** defaults from commercial **enterprise** packaging; points to [Enterprise Guide](enterprise/README.md).
+
 The default repository license is MIT.
 
 ## At a glance

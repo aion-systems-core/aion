@@ -29,7 +29,9 @@ pub struct LegalDeterminismInput {
     pub terms_machine_readable: bool,
 }
 
-pub fn evaluate_legal_determinism_contract(input: LegalDeterminismInput) -> LegalDeterminismContract {
+pub fn evaluate_legal_determinism_contract(
+    input: LegalDeterminismInput,
+) -> LegalDeterminismContract {
     let mut violations = Vec::new();
     if !input.license_stable {
         violations.push(LegalDeterminismViolation {
@@ -59,7 +61,11 @@ pub fn evaluate_legal_determinism_contract(input: LegalDeterminismInput) -> Lega
         license_contract_version: "v1".to_string(),
         sla_contract_version: "v1".to_string(),
         result: LegalDeterminismResult {
-            status: if violations.is_empty() { "ok".into() } else { "error".into() },
+            status: if violations.is_empty() {
+                "ok".into()
+            } else {
+                "error".into()
+            },
             violations,
         },
     }
@@ -86,7 +92,12 @@ mod tests {
             sla_stable: false,
             terms_machine_readable: false,
         });
-        let codes: Vec<&str> = c.result.violations.iter().map(|v| v.code.as_str()).collect();
+        let codes: Vec<&str> = c
+            .result
+            .violations
+            .iter()
+            .map(|v| v.code.as_str())
+            .collect();
         assert_eq!(
             codes,
             vec![
@@ -97,4 +108,3 @@ mod tests {
         );
     }
 }
-

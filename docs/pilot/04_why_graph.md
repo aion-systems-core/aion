@@ -1,5 +1,9 @@
 # Pilot onboarding — Why graph
 
+## Purpose
+
+Pilot step opening **why.html** / **why.svg** after a capsule exists—links to explainability contracts ([Why & causal graph](../why-graph.md)).
+
 **Why** explains *why tokens look the way they do* in a structured report; the **causal graph** is a DAG view over the same run.
 
 After you have a capsule path:

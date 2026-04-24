@@ -1,5 +1,9 @@
 # Quickstart
 
+## Purpose
+
+Shortest path from **clone** to **capsule**, **replay symmetry**, **drift** on `RunResult` JSON, **policy validation**, and **`doctor`**—with paths that match the engine’s on-disk names.
+
 This guide assumes you built the CLI (`cargo build -p aion-cli`) and invoke it with `sealrun …` or put `target/debug` on your `PATH`.
 
 ## At a glance
@@ -14,14 +18,14 @@ This guide assumes you built the CLI (`cargo build -p aion-cli`) and invoke it w
 sealrun execute ai --model demo --prompt "hello" --seed 1
 ```
 
-**Output:** a timestamped directory under `sealrun_output/ai/<timestamp>/` containing `ai.json`, `ai.html`, `ai.svg`, `why.html`, `why.svg`, `capsule.sealrunai`, and `evidence.sealrunevidence`.
+**Output:** a directory under `<output_base>/ai/<run_id>/` (default base may be `aion_output`; set `AION_OUTPUT_BASE` for `sealrun_output/`) containing `ai.json`, `ai.html`, `ai.svg`, `why.html`, `why.svg`, **`capsule.aionai`**, and **`*.aionevidence`** sidecars.
 
 ## 2. Replay the capsule
 
-Use the `capsule.sealrunai` path printed in the log line `Output written to: …`:
+Use the **`capsule.aionai`** path under the printed output directory (`Output written to: …`):
 
 ```bash
-sealrun execute ai-replay --capsule sealrun_output/ai/<timestamp>/capsule.sealrunai
+sealrun execute ai-replay --capsule <output_base>/ai/<run_id>/capsule.aionai
 ```
 
 **Output:** `sealrun_output/ai-replay/<timestamp>/` with replay report JSON/HTML/SVG and why-diff artefacts.
@@ -30,7 +34,7 @@ sealrun execute ai-replay --capsule sealrun_output/ai/<timestamp>/capsule.sealru
 
 ```bash
 sealrun policy validate \
-  --capsule sealrun_output/ai/<timestamp>/capsule.sealrunai \
+  --capsule <output_base>/ai/<run_id>/capsule.aionai \
   --policy examples/governance/dev.policy.json
 ```
 

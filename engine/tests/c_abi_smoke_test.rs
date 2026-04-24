@@ -80,7 +80,11 @@ fn c_abi_evidence_io_error_is_contract_json() {
     assert_eq!(rc, AION_ERR_IO);
     let err_ptr = aion_last_error();
     assert!(!err_ptr.is_null());
-    let err = unsafe { std::ffi::CStr::from_ptr(err_ptr).to_string_lossy().into_owned() };
+    let err = unsafe {
+        std::ffi::CStr::from_ptr(err_ptr)
+            .to_string_lossy()
+            .into_owned()
+    };
     let v: serde_json::Value = serde_json::from_str(&err).expect("json error");
     assert_eq!(v["schema_version"], 1);
     assert_eq!(v["code"], "AION_EVIDENCE_IO");

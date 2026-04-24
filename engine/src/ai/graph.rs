@@ -35,10 +35,7 @@ pub struct CausalGraphV2 {
 fn det_label(model: &str, det: &DeterminismProfile) -> String {
     format!(
         "model={model}; time_frozen={}; epoch={}; random_seed=0x{:x}; syscall_intercept={}",
-        det.time_frozen,
-        det.time_epoch_secs,
-        det.random_seed,
-        det.syscall_intercept
+        det.time_frozen, det.time_epoch_secs, det.random_seed, det.syscall_intercept
     )
 }
 

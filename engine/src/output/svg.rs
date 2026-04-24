@@ -1,8 +1,8 @@
 //! Minimal deterministic SVG (no external fonts).
 
-use aion_core::DriftReport;
 use crate::events::EventStreamFile;
 use crate::graph::CausalGraph;
+use aion_core::DriftReport;
 use serde_json::Value;
 
 fn xml_esc(s: &str) -> String {
@@ -19,7 +19,9 @@ fn xml_esc(s: &str) -> String {
     o
 }
 
-fn graph_from_value(v: &Value) -> Option<(Vec<(String, String, usize)>, Vec<(String, String, String)>)> {
+fn graph_from_value(
+    v: &Value,
+) -> Option<(Vec<(String, String, usize)>, Vec<(String, String, String)>)> {
     let nodes = v.get("nodes")?.as_array()?;
     let edges = v.get("edges")?.as_array()?;
     let mut ns: Vec<(String, String, usize)> = Vec::new();

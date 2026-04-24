@@ -20,10 +20,19 @@ pub struct AiTokenEvent {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(tag = "kind", rename_all = "snake_case")]
 pub enum Event {
-    RunStart { model: String },
-    PromptIngested { chars: usize },
-    TokenGenerated { index: u32, token: String },
-    RunComplete { token_count: usize },
+    RunStart {
+        model: String,
+    },
+    PromptIngested {
+        chars: usize,
+    },
+    TokenGenerated {
+        index: u32,
+        token: String,
+    },
+    RunComplete {
+        token_count: usize,
+    },
     /// Deterministic syscall capture (whitelist policy).
     SyscallCaptured {
         id: u64,

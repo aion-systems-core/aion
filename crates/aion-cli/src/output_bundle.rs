@@ -1,65 +1,59 @@
 //! Write standard artefacts for one CLI invocation.
 
 use aion_core::{
-    evaluate_capsule_abi_contract, evaluate_global_consistency_contract,
-    evaluate_compliance_contract,
-    evaluate_determinism_contract, evaluate_determinism_matrix,
-    evaluate_legal_determinism_contract, evaluate_observability_contract,
-    evaluate_runtime_isolation_contract, evaluate_tenant_isolation_contract,
-    evaluate_trust_chain_contract, evaluate_upgrade_replay, generate_provenance, generate_sbom,
-    evaluate_deterministic_build_contract, evaluate_security_model, evaluate_threat_model,
-    evaluate_vulnerability_sla, os_identity, os_kernel_version, run_security_scans,
-    sign_release_artifact, verify_provenance, verify_sbom, seal_run, verify_linear, BuildFingerprint,
-    DeterminismContract, DeterminismContractInput, DeterminismMatrix, DeterminismTarget,
-    Capsule, CapsuleAbiContract, CapsuleAbiInput, ContractBreakingChange,
-    ComplianceContract,
-    ContractCompatibilityRule, ContractStabilityReport, DeterminismProfile, EvidenceChain,
-    GlobalConsistencyContract, GlobalConsistencySignals, LegalDeterminismContract,
-    LoggingPolicy, LogCategory, RetentionRule, LoggingComplianceResult, SecurityModel, SecurityScanResult,
-    LegalDeterminismInput, ObservabilityContract, ObservabilityInput, OsIdentity, PolicyProfile,
-    ProvenancePredicate, ProvenanceStatement, ProvenanceSubject, ReleaseSignature, SbomDocument,
-    ReplayInvariantGate, run_replay_invariant_gate,
-    SloContract, ReliabilityContract, ChaosResult, SoakTestResult,
-    RunbookContract, IncidentContract, DisasterRecoveryContract, UpgradeMigrationContract, OperationsModel,
-    DistributionContract, IdentityMatrix, LtsPolicy, InstallerTrustChain, DistributionModel,
-    PolicyPack, PolicyGate, PolicyEvidence, GovernanceModel,
-    ApiStabilityContract, CliStabilityContract, AdminDocContract, GoldenPathContract,
-    TestStrategyContract, RegressionMatrix, CompatibilityTestContract, FuzzPropertyContract,
-    MetricsContract, KpiContract, AuditReport, EvidenceExportContract, MeasurementModel,
-    SbomComponent, SbomHash, VulnerabilityReport, VulnerabilitySeverity,
-    RunResult, RuntimeIsolationContract, RuntimeIsolationInput, TenantIsolationContract,
-    TenantIsolationInput, TrustChainContract, TrustChainInput, UpgradeReplayContract,
-    UpgradeReplayInput, evaluate_contract_stability,
-    evaluate_slo_contract, evaluate_reliability_contract, run_chaos_experiments,
-    run_soak_test_plan, ChaosExperiment, ChaosFault, ChaosTarget, SoakTestMetric,
-    SoakTestPlan, SoakTestTarget,
-    evaluate_runbook_contract, evaluate_incident_contract, evaluate_dr_contract,
-    evaluate_upgrade_migration_contract, evaluate_operations_model, IncidentResolution,
-    IncidentResponsePlan, IncidentSeverity, IncidentTrigger, RecoveryObjective, BackupPolicy,
-    RestorePlan, DrTestResult, RunbookResult, RunbookScenario, RunbookStep, UpgradePath,
-    DowngradePath, MigrationStep, MigrationRisk,
-    evaluate_distribution_contract, evaluate_identity_matrix, evaluate_lts_policy,
-    evaluate_installer_trust_chain, evaluate_distribution_model, DistributionArtifact,
-    DistributionChannel, DistributionSupportStatus, IdentityEntry, LtsChannel, SupportWindow,
-    EolPolicy, InstallerArtifact, InstallerSignature, InstallerType,
-    evaluate_policy_pack, evaluate_policy_gate, evaluate_policy_evidence, evaluate_governance_model,
-    PolicyPackEntry, PolicyPackLevel, PolicyPackSignature, PolicyGateContext, PolicyGateDecision,
-    PolicyGateViolation, PolicyDecisionRecord, PolicyEvidenceChain, PolicyAuditTrail,
-    GovernanceStatus, GovernanceDomain,
-    evaluate_api_stability_contract, evaluate_cli_stability_contract, evaluate_admin_docs_contract,
-    evaluate_golden_path_contract, ApiSurface, ApiChangeType, ApiDeprecationNotice,
-    CliCommandSurface, CliFlag, CliChangeType, CliDeprecationWarning, AdminDocCoverage,
-    AdminDocSection, GoldenPathResult, GoldenPathScenario, GoldenPathStep,
-    evaluate_test_strategy_contract, evaluate_regression_matrix,
-    evaluate_compatibility_test_contract, evaluate_fuzz_property_contract, TestCoverageTarget,
-    TestCoverageStatus, TestLayer, RegressionCase, RegressionArea, RegressionStatus,
-    CompatibilityCase, CompatibilityResult, FuzzTestContract, FuzzTarget, FuzzFinding,
-    PropertyTestContract, PropertyTarget, PropertyInvariant,
-    evaluate_metrics_contract, evaluate_kpi_contract, evaluate_audit_report_contract,
-    evaluate_evidence_export_contract, evaluate_measurement_model, MetricDefinition,
-    MetricNamespace, MetricStatus, MetricType, KpiDefinition, KpiDomain, KpiTarget, KpiStatus,
-    AuditFinding, AuditScope, AuditFindingSeverity, EvidenceExportResult, EvidenceExportRequest,
-    EvidenceExportScope, EvidenceExportFormat,
+    evaluate_admin_docs_contract, evaluate_api_stability_contract, evaluate_audit_report_contract,
+    evaluate_capsule_abi_contract, evaluate_cli_stability_contract,
+    evaluate_compatibility_test_contract, evaluate_compliance_contract,
+    evaluate_contract_stability, evaluate_determinism_contract, evaluate_determinism_matrix,
+    evaluate_deterministic_build_contract, evaluate_distribution_contract,
+    evaluate_distribution_model, evaluate_dr_contract, evaluate_evidence_export_contract,
+    evaluate_fuzz_property_contract, evaluate_global_consistency_contract,
+    evaluate_golden_path_contract, evaluate_governance_model, evaluate_identity_matrix,
+    evaluate_incident_contract, evaluate_installer_trust_chain, evaluate_kpi_contract,
+    evaluate_legal_determinism_contract, evaluate_lts_policy, evaluate_measurement_model,
+    evaluate_metrics_contract, evaluate_observability_contract, evaluate_operations_model,
+    evaluate_policy_evidence, evaluate_policy_gate, evaluate_policy_pack,
+    evaluate_regression_matrix, evaluate_reliability_contract, evaluate_runbook_contract,
+    evaluate_runtime_isolation_contract, evaluate_security_model, evaluate_slo_contract,
+    evaluate_tenant_isolation_contract, evaluate_test_strategy_contract, evaluate_threat_model,
+    evaluate_trust_chain_contract, evaluate_upgrade_migration_contract, evaluate_upgrade_replay,
+    evaluate_vulnerability_sla, generate_provenance, generate_sbom, os_identity, os_kernel_version,
+    run_chaos_experiments, run_replay_invariant_gate, run_security_scans, run_soak_test_plan,
+    seal_run, sign_release_artifact, verify_linear, verify_provenance, verify_sbom,
+    AdminDocContract, AdminDocCoverage, AdminDocSection, ApiChangeType, ApiDeprecationNotice,
+    ApiStabilityContract, ApiSurface, AuditFinding, AuditFindingSeverity, AuditReport, AuditScope,
+    BackupPolicy, BuildFingerprint, Capsule, CapsuleAbiContract, CapsuleAbiInput, ChaosExperiment,
+    ChaosFault, ChaosResult, ChaosTarget, CliChangeType, CliCommandSurface, CliDeprecationWarning,
+    CliFlag, CliStabilityContract, CompatibilityCase, CompatibilityResult,
+    CompatibilityTestContract, ComplianceContract, ContractBreakingChange,
+    ContractCompatibilityRule, ContractStabilityReport, DeterminismContract,
+    DeterminismContractInput, DeterminismMatrix, DeterminismProfile, DeterminismTarget,
+    DisasterRecoveryContract, DistributionArtifact, DistributionChannel, DistributionContract,
+    DistributionModel, DistributionSupportStatus, DowngradePath, DrTestResult, EolPolicy,
+    EvidenceChain, EvidenceExportContract, EvidenceExportFormat, EvidenceExportRequest,
+    EvidenceExportResult, EvidenceExportScope, FuzzFinding, FuzzPropertyContract, FuzzTarget,
+    FuzzTestContract, GlobalConsistencyContract, GlobalConsistencySignals, GoldenPathContract,
+    GoldenPathResult, GoldenPathScenario, GoldenPathStep, GovernanceDomain, GovernanceModel,
+    GovernanceStatus, IdentityEntry, IdentityMatrix, IncidentContract, IncidentResolution,
+    IncidentResponsePlan, IncidentSeverity, IncidentTrigger, InstallerArtifact, InstallerSignature,
+    InstallerTrustChain, InstallerType, KpiContract, KpiDefinition, KpiDomain, KpiStatus,
+    KpiTarget, LegalDeterminismContract, LegalDeterminismInput, LogCategory,
+    LoggingComplianceResult, LoggingPolicy, LtsChannel, LtsPolicy, MeasurementModel,
+    MetricDefinition, MetricNamespace, MetricStatus, MetricType, MetricsContract, MigrationRisk,
+    MigrationStep, ObservabilityContract, ObservabilityInput, OperationsModel, OsIdentity,
+    PolicyAuditTrail, PolicyDecisionRecord, PolicyEvidence, PolicyEvidenceChain, PolicyGate,
+    PolicyGateContext, PolicyGateDecision, PolicyGateViolation, PolicyPack, PolicyPackEntry,
+    PolicyPackLevel, PolicyPackSignature, PolicyProfile, PropertyInvariant, PropertyTarget,
+    PropertyTestContract, ProvenancePredicate, ProvenanceStatement, ProvenanceSubject,
+    RecoveryObjective, RegressionArea, RegressionCase, RegressionMatrix, RegressionStatus,
+    ReleaseSignature, ReliabilityContract, ReplayInvariantGate, RestorePlan, RetentionRule,
+    RunResult, RunbookContract, RunbookResult, RunbookScenario, RunbookStep,
+    RuntimeIsolationContract, RuntimeIsolationInput, SbomComponent, SbomDocument, SbomHash,
+    SecurityModel, SecurityScanResult, SloContract, SoakTestMetric, SoakTestPlan, SoakTestResult,
+    SoakTestTarget, SupportWindow, TenantIsolationContract, TenantIsolationInput,
+    TestCoverageStatus, TestCoverageTarget, TestLayer, TestStrategyContract, TrustChainContract,
+    TrustChainInput, UpgradeMigrationContract, UpgradePath, UpgradeReplayContract,
+    UpgradeReplayInput, VulnerabilityReport, VulnerabilitySeverity,
 };
 use aion_engine::events::{store_from_run, EventStreamFile};
 use aion_engine::governance::GovernanceReport;
@@ -161,7 +155,9 @@ pub fn write_why_output(
 
 fn trim_graph_depth(mut v: Value, depth: Option<usize>) -> Value {
     let Some(d) = depth else { return v };
-    let Some(nodes) = v.get("nodes").and_then(|n| n.as_array()) else { return v };
+    let Some(nodes) = v.get("nodes").and_then(|n| n.as_array()) else {
+        return v;
+    };
     let keep = d.min(nodes.len());
     let mut ids = std::collections::BTreeSet::new();
     for n in nodes.iter().take(keep) {
@@ -188,7 +184,11 @@ fn graph_to_dot(v: &Value) -> String {
         for n in nodes {
             let id = n.get("id").and_then(|x| x.as_str()).unwrap_or("node");
             let lbl = n.get("label").and_then(|x| x.as_str()).unwrap_or(id);
-            out.push_str(&format!("  \"{}\" [label=\"{}\"];\n", id, lbl.replace('"', "'")));
+            out.push_str(&format!(
+                "  \"{}\" [label=\"{}\"];\n",
+                id,
+                lbl.replace('"', "'")
+            ));
         }
     }
     if let Some(edges) = v.get("edges").and_then(|x| x.as_array()) {
@@ -204,7 +204,11 @@ fn graph_to_dot(v: &Value) -> String {
     out
 }
 
-pub fn write_graph_output(run_json: &str, format: GraphFormat, depth: Option<usize>) -> Result<std::path::PathBuf, String> {
+pub fn write_graph_output(
+    run_json: &str,
+    format: GraphFormat,
+    depth: Option<usize>,
+) -> Result<std::path::PathBuf, String> {
     let w = OutputWriter::new("graph")?;
     let g = causal_graph_from_run_json(run_json)?;
     let v: Value = trim_graph_depth(serde_json::to_value(&g).map_err(|e| e.to_string())?, depth);
@@ -280,16 +284,14 @@ pub fn write_capsule_artefacts(w: &OutputWriter, capsule: &Capsule) -> Result<()
     let stream: EventStreamFile = store.into_file();
     w.write_svg("result", &svg::render_trace_svg(&stream))?;
     w.write_capsule("capsule", capsule)?;
-    let ev = seal_run(
-        &capsule.run,
-        &capsule.policy,
-        &capsule.determinism,
-    );
+    let ev = seal_run(&capsule.run, &capsule.policy, &capsule.determinism);
     w.write_evidence("evidence", &ev)?;
     Ok(())
 }
 
-pub fn write_ci_run_output(bundle: &aion_engine::ci::CiRunBundle) -> Result<std::path::PathBuf, String> {
+pub fn write_ci_run_output(
+    bundle: &aion_engine::ci::CiRunBundle,
+) -> Result<std::path::PathBuf, String> {
     let w = OutputWriter::new("ci-run")?;
     w.write_json("result", bundle)?;
     let v = serde_json::to_value(bundle).map_err(|e| e.to_string())?;
@@ -303,7 +305,9 @@ pub fn write_ci_run_output(bundle: &aion_engine::ci::CiRunBundle) -> Result<std:
     Ok(w.into_root())
 }
 
-pub fn write_ci_drift_output(bundle: &aion_engine::ci::CiDriftBundle) -> Result<std::path::PathBuf, String> {
+pub fn write_ci_drift_output(
+    bundle: &aion_engine::ci::CiDriftBundle,
+) -> Result<std::path::PathBuf, String> {
     let w = OutputWriter::new("ci-drift")?;
     w.write_json("result", bundle)?;
     let v = serde_json::to_value(bundle).map_err(|e| e.to_string())?;
@@ -373,7 +377,9 @@ pub struct SdkReport {
 pub fn write_sdk_output() -> Result<std::path::PathBuf, String> {
     let w = OutputWriter::new("sdk")?;
     let rep = SdkReport {
-        description: "AION v2 SDK: Rust crates aion-core, aion-kernel, aion-engine; CLI binary `aion`.".into(),
+        description:
+            "AION v2 SDK: Rust crates aion-core, aion-kernel, aion-engine; CLI binary `aion`."
+                .into(),
         crates: vec![
             "aion-core".into(),
             "aion-kernel".into(),
@@ -395,7 +401,7 @@ pub fn write_sdk_output() -> Result<std::path::PathBuf, String> {
     Ok(w.into_root())
 }
 
-/// `aion execute ai` — writes `ai.json`, `ai.html`, `ai.svg`, `why.html`, `why.svg`, `capsule.aionai`, `evidence.aionevidence`.
+/// `sealrun execute ai` — writes `ai.json`, `ai.html`, `ai.svg`, `why.html`, `why.svg`, `capsule.aionai`, `evidence.aionevidence`.
 pub fn write_ai_execute_output(
     model: &str,
     prompt: &str,
@@ -423,8 +429,10 @@ pub fn write_ai_execute_output(
     Ok((w.into_root(), cap))
 }
 
-/// `aion execute ai-replay` — writes replay `ai.json` / `ai.html` / `ai.svg` plus `why_diff.html` / `why_diff.svg`.
-pub fn write_ai_replay_output(capsule_path: &std::path::Path) -> Result<std::path::PathBuf, String> {
+/// `sealrun execute ai-replay` — writes replay `ai.json` / `ai.html` / `ai.svg` plus `why_diff.html` / `why_diff.svg`.
+pub fn write_ai_replay_output(
+    capsule_path: &std::path::Path,
+) -> Result<std::path::PathBuf, String> {
     let cap = aion_engine::ai::read_ai_capsule_v1(capsule_path)?;
     let rep = aion_engine::ai::replay_ai_capsule(&cap);
     let w = OutputWriter::new("ai-replay")?;
@@ -439,7 +447,10 @@ pub fn write_ai_replay_output(capsule_path: &std::path::Path) -> Result<std::pat
             &rep.replay_capsule.why,
         ),
     )?;
-    w.write_svg("why_diff", &aion_engine::ai::render_why_diff_svg(&rep.why_diff))?;
+    w.write_svg(
+        "why_diff",
+        &aion_engine::ai::render_why_diff_svg(&rep.why_diff),
+    )?;
     w.write_evidence("evidence", &cap.evidence)?;
     let cap_body = aion_engine::ai::ai_capsule_to_json(&cap)?;
     w.write_aionai("capsule", &cap_body)?;
@@ -486,7 +497,10 @@ pub fn write_governance_policy_show_output(name: &str) -> Result<std::path::Path
 <body><h1>Governance policy: {}</h1><pre>{}</pre></body></html>"#,
         html_escape(name),
         html_escape(name),
-        html_escape(&aion_engine::output::layout::canonical_json_from_serialize(&p).map_err(|e| e.to_string())?),
+        html_escape(
+            &aion_engine::output::layout::canonical_json_from_serialize(&p)
+                .map_err(|e| e.to_string())?
+        ),
     );
     w.write_html("governance", &html)?;
     w.write_svg(
@@ -547,7 +561,8 @@ pub fn write_governance_ci_baseline_output(
     let policy = aion_engine::governance::load_policy(policy_path)?;
     let determinism = aion_engine::governance::load_determinism(determinism_path)?;
     let integrity = aion_engine::governance::load_integrity(integrity_path)?;
-    let baseline = aion_engine::governance::ci_record_baseline(capsule, policy, determinism, integrity);
+    let baseline =
+        aion_engine::governance::ci_record_baseline(capsule, policy, determinism, integrity);
     let w = OutputWriter::new("ci-baseline")?;
     w.write_json("governance", &baseline)?;
     let rep = aion_engine::governance::validate_capsule(
@@ -634,7 +649,10 @@ pub fn write_control_determinism_freeze_output(
         }
     });
     w.write_json("governance", &body)?;
-    w.write_html("governance", &html::render_json_value("Determinism freeze", &body))?;
+    w.write_html(
+        "governance",
+        &html::render_json_value("Determinism freeze", &body),
+    )?;
     w.write_svg("governance", &svg::render_graph_svg(&body))?;
     Ok(w.into_root())
 }
@@ -654,8 +672,7 @@ pub fn write_control_integrity_sign_output(
         let (sk, _pk) = aion_engine::governance::aion_evidence_generate_keypair();
         sk
     };
-    let ed25519_sig =
-        aion_engine::governance::aion_evidence_sign(&evidence_bytes, &private_key)?;
+    let ed25519_sig = aion_engine::governance::aion_evidence_sign(&evidence_bytes, &private_key)?;
     let rec = aion_engine::governance::GovernanceAuditRecord {
         ts_epoch_secs: chrono::Utc::now().timestamp().max(0) as u64,
         action: "control.integrity.sign".into(),
@@ -671,7 +688,10 @@ pub fn write_control_integrity_sign_output(
         "audit_log": audit_path,
     });
     w.write_json("governance", &body)?;
-    w.write_html("governance", &html::render_json_value("Integrity sign", &body))?;
+    w.write_html(
+        "governance",
+        &html::render_json_value("Integrity sign", &body),
+    )?;
     w.write_svg("governance", &svg::render_graph_svg(&body))?;
     Ok(w.into_root())
 }
@@ -686,11 +706,16 @@ pub fn write_control_integrity_verify_output(
     let sig_hex = std::env::var("AION_EVIDENCE_SIGNATURE_HEX")
         .map_err(|_| "set AION_EVIDENCE_SIGNATURE_HEX to verify signature".to_string())?;
     let sig = hex::decode(sig_hex).map_err(|e| format!("signature hex: {e}"))?;
-    let ok = aion_engine::governance::aion_evidence_verify_ed25519(&evidence_bytes, &sig, &public_key)?;
+    let ok =
+        aion_engine::governance::aion_evidence_verify_ed25519(&evidence_bytes, &sig, &public_key)?;
     let w = OutputWriter::new("control-integrity-verify")?;
-    let body = serde_json::json!({"ok": ok, "capsule": capsule_path, "public_key": public_key_path});
+    let body =
+        serde_json::json!({"ok": ok, "capsule": capsule_path, "public_key": public_key_path});
     w.write_json("governance", &body)?;
-    w.write_html("governance", &html::render_json_value("Integrity verify", &body))?;
+    w.write_html(
+        "governance",
+        &html::render_json_value("Integrity verify", &body),
+    )?;
     w.write_svg("governance", &svg::render_graph_svg(&body))?;
     Ok(w.into_root())
 }
@@ -715,13 +740,20 @@ pub fn write_control_integrity_show_key_output(
         "private_key_hex": hex::encode(private_key),
     });
     w.write_json("governance", &body)?;
-    w.write_html("governance", &html::render_json_value("Integrity key", &body))?;
+    w.write_html(
+        "governance",
+        &html::render_json_value("Integrity key", &body),
+    )?;
     w.write_svg("governance", &svg::render_graph_svg(&body))?;
     Ok(w.into_root())
 }
 
 /// `aion sdk …` — `sdk.json` / `sdk.html` / `sdk.svg` under a timestamped output folder (`stem` names the folder prefix).
-pub fn write_sdk_bundle(stem: &str, payload: &impl Serialize, success: bool) -> Result<std::path::PathBuf, String> {
+pub fn write_sdk_bundle(
+    stem: &str,
+    payload: &impl Serialize,
+    success: bool,
+) -> Result<std::path::PathBuf, String> {
     write_sdk_bundle_with_format(stem, payload, success, "json")
 }
 
@@ -738,11 +770,13 @@ pub fn write_sdk_bundle_with_format(
             "{}\n",
             serde_json::to_string(&value).map_err(|e| e.to_string())?
         );
-        std::fs::write(w.root().join("sdk.json"), body).map_err(|e| format!("write sdk.json: {e}"))?;
+        std::fs::write(w.root().join("sdk.json"), body)
+            .map_err(|e| format!("write sdk.json: {e}"))?;
     } else {
         w.write_json("sdk", &value)?;
     }
-    let json = aion_engine::output::layout::canonical_json_from_serialize(payload).map_err(|e| e.to_string())?;
+    let json = aion_engine::output::layout::canonical_json_from_serialize(payload)
+        .map_err(|e| e.to_string())?;
     let html = aion_engine::sdk::render_sdk_html("AION SDK v1", &json);
     let svg = aion_engine::sdk::render_sdk_svg(success);
     w.write_html("sdk", &html)?;
@@ -877,7 +911,12 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
             .map(|s| s.to_string())
     }
 
-    fn err_result(code: &str, context: &str, origin: &'static str, cause: Option<String>) -> DoctorCheckResult {
+    fn err_result(
+        code: &str,
+        context: &str,
+        origin: &'static str,
+        cause: Option<String>,
+    ) -> DoctorCheckResult {
         DoctorCheckResult {
             status: "error",
             code: code.to_string(),
@@ -918,7 +957,8 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
         type CapsuleVersionFn = unsafe extern "C" fn() -> *const std::os::raw::c_char;
         let Some(lib_path) = ffi_library_candidate_paths(manifest_dir)
             .into_iter()
-            .find(|p| p.exists()) else {
+            .find(|p| p.exists())
+        else {
             return err_result(
                 "AION_FFI_IO",
                 "doctor.ffi.library_load",
@@ -955,7 +995,8 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
             );
         }
 
-        let capsule_version: Result<Symbol<CapsuleVersionFn>, _> = unsafe { lib.get(b"aion_capsule_version") };
+        let capsule_version: Result<Symbol<CapsuleVersionFn>, _> =
+            unsafe { lib.get(b"aion_capsule_version") };
         let Ok(capsule_version) = capsule_version else {
             return err_result(
                 "AION_FFI_IO",
@@ -998,17 +1039,19 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
                 Some("env_invalid".to_string()),
             );
         }
-        let py_bin = std::env::var("AION_DOCTOR_PYTHON_BIN").unwrap_or_else(|_| "python".to_string());
+        let py_bin =
+            std::env::var("AION_DOCTOR_PYTHON_BIN").unwrap_or_else(|_| "python".to_string());
         let py_pkg = manifest_dir.join("../../bindings/python");
         let cmd = "import aion; aion.version()";
         let mut proc = std::process::Command::new(&py_bin);
-        proc
-            .arg("-c")
-            .arg(cmd);
+        proc.arg("-c").arg(cmd);
         let py_path = if let Ok(current_python_path) = std::env::var("PYTHONPATH") {
-            std::env::join_paths([py_pkg.as_os_str(), std::ffi::OsStr::new(&current_python_path)])
-                .ok()
-                .map(|v| v.to_string_lossy().to_string())
+            std::env::join_paths([
+                py_pkg.as_os_str(),
+                std::ffi::OsStr::new(&current_python_path),
+            ])
+            .ok()
+            .map(|v| v.to_string_lossy().to_string())
         } else {
             Some(py_pkg.display().to_string())
         };
@@ -1040,7 +1083,9 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
             std::path::PathBuf::from(explicit)
         } else {
             let fallback = manifest_dir.join("../../target/aion-doctor-policy-dev.json");
-            let body = match serde_json::to_string(&aion_engine::governance::builtin_policy_profile("dev")) {
+            let body = match serde_json::to_string(
+                &aion_engine::governance::builtin_policy_profile("dev"),
+            ) {
                 Ok(v) => v,
                 Err(_) => {
                     return err_result(
@@ -1065,8 +1110,14 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
             Ok(_) => ok_result("doctor.policy_schema.ok", "policy"),
             Err(e) => {
                 let canonical = aion_core::error::canonical_error_json(&e, "policy");
-                let code = code_from_error_json(&canonical).unwrap_or_else(|| "AION_GOVERNANCE_JSON".to_string());
-                err_result(&code, "doctor.policy_schema.load_policy", "policy", Some("policy_invalid".to_string()))
+                let code = code_from_error_json(&canonical)
+                    .unwrap_or_else(|| "AION_GOVERNANCE_JSON".to_string());
+                err_result(
+                    &code,
+                    "doctor.policy_schema.load_policy",
+                    "policy",
+                    Some("policy_invalid".to_string()),
+                )
             }
         }
     }
@@ -1186,7 +1237,10 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
             digest_sha256: build.fingerprint.build_sha256.clone(),
         }],
         ProvenancePredicate {
-            build_environment: vec!["SOURCE_DATE_EPOCH=0".into(), "RUSTFLAGS=-Cdebuginfo=0".into()],
+            build_environment: vec![
+                "SOURCE_DATE_EPOCH=0".into(),
+                "RUSTFLAGS=-Cdebuginfo=0".into(),
+            ],
             build_steps: vec!["build".into(), "test".into(), "sign".into()],
             inputs: vec!["Cargo.lock".into(), "docs/os_contract_spec.md".into()],
             outputs: vec!["aion-cli".into(), "aion-kernel".into()],
@@ -1281,9 +1335,18 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
             "security_events".into(),
         ],
         retention: vec![
-            RetentionRule { category: LogCategory::Audit, retention_days: 365 },
-            RetentionRule { category: LogCategory::Security, retention_days: 365 },
-            RetentionRule { category: LogCategory::Operational, retention_days: 90 },
+            RetentionRule {
+                category: LogCategory::Audit,
+                retention_days: 365,
+            },
+            RetentionRule {
+                category: LogCategory::Security,
+                retention_days: 365,
+            },
+            RetentionRule {
+                category: LogCategory::Operational,
+                retention_days: 90,
+            },
         ],
         pii_guard: "enabled".into(),
     };
@@ -1432,7 +1495,10 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
             immutable: true,
         },
         RestorePlan {
-            steps: vec!["restore_latest_snapshot".into(), "validate_integrity".into()],
+            steps: vec![
+                "restore_latest_snapshot".into(),
+                "validate_integrity".into(),
+            ],
             last_tested_epoch: 0,
         },
         vec![DrTestResult {
@@ -1571,24 +1637,22 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
         lts_policy.clone(),
         installer_trust_chain.clone(),
     );
-    let policy_packs = vec![
-        evaluate_policy_pack(PolicyPack {
-            name: "baseline".into(),
-            version: "1.0.0".into(),
-            level: PolicyPackLevel::Baseline,
-            entries: vec![PolicyPackEntry {
-                id: "pack_rule_01".into(),
-                use_case: "internal".into(),
-                rule: "policy_mandatory".into(),
-            }],
-            signature: Some(PolicyPackSignature {
-                signature_id: "policy-pack-sig".into(),
-                algorithm: "ed25519".into(),
-                valid: true,
-            }),
-            status: String::new(),
+    let policy_packs = vec![evaluate_policy_pack(PolicyPack {
+        name: "baseline".into(),
+        version: "1.0.0".into(),
+        level: PolicyPackLevel::Baseline,
+        entries: vec![PolicyPackEntry {
+            id: "pack_rule_01".into(),
+            use_case: "internal".into(),
+            rule: "policy_mandatory".into(),
+        }],
+        signature: Some(PolicyPackSignature {
+            signature_id: "policy-pack-sig".into(),
+            algorithm: "ed25519".into(),
+            valid: true,
         }),
-    ];
+        status: String::new(),
+    })];
     let policy_gates = vec![
         evaluate_policy_gate(PolicyGate {
             context: PolicyGateContext::Ci,
@@ -1732,7 +1796,11 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
         vec![
             TestCoverageTarget {
                 area: "kernel".into(),
-                layers: vec![TestLayer::Unit, TestLayer::Integration, TestLayer::Regression],
+                layers: vec![
+                    TestLayer::Unit,
+                    TestLayer::Integration,
+                    TestLayer::Regression,
+                ],
             },
             TestCoverageTarget {
                 area: "cli".into(),
@@ -1971,7 +2039,10 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
     };
     w.write_json("result", &rep)?;
     let rep_value = serde_json::to_value(&rep).map_err(|e| e.to_string())?;
-    w.write_html("result", &html::render_json_value("AION doctor", &rep_value))?;
+    w.write_html(
+        "result",
+        &html::render_json_value("AION doctor", &rep_value),
+    )?;
     w.write_svg("result", &svg::render_graph_svg(&rep_value))?;
     Ok(w.into_root())
 }
@@ -2012,7 +2083,10 @@ pub fn write_reliability_status_output() -> Result<std::path::PathBuf, String> {
         "error": serde_json::Value::Null
     });
     w.write_json("result", &body)?;
-    w.write_html("result", &html::render_json_value("Reliability status", &body))?;
+    w.write_html(
+        "result",
+        &html::render_json_value("Reliability status", &body),
+    )?;
     w.write_svg("result", &svg::render_graph_svg(&body))?;
     Ok(w.into_root())
 }
@@ -2765,7 +2839,9 @@ fn telemetry_pref_path() -> Result<std::path::PathBuf, String> {
     let home = std::env::var_os("USERPROFILE")
         .or_else(|| std::env::var_os("HOME"))
         .ok_or_else(|| "unable to resolve home directory".to_string())?;
-    Ok(std::path::PathBuf::from(home).join(".aion").join("telemetry.toml"))
+    Ok(std::path::PathBuf::from(home)
+        .join(".aion")
+        .join("telemetry.toml"))
 }
 
 pub fn write_product_telemetry_enable_output() -> Result<std::path::PathBuf, String> {
@@ -2777,7 +2853,10 @@ pub fn write_product_telemetry_enable_output() -> Result<std::path::PathBuf, Str
     std::fs::write(&p, "enabled = true\n").map_err(|e| format!("write {}: {e}", p.display()))?;
     let rep = serde_json::json!({"ok": true, "telemetry_enabled": true, "config": p});
     w.write_json("result", &rep)?;
-    w.write_html("result", &html::render_json_value("AION telemetry enable", &rep))?;
+    w.write_html(
+        "result",
+        &html::render_json_value("AION telemetry enable", &rep),
+    )?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())
 }
@@ -2791,7 +2870,10 @@ pub fn write_product_telemetry_disable_output() -> Result<std::path::PathBuf, St
     std::fs::write(&p, "enabled = false\n").map_err(|e| format!("write {}: {e}", p.display()))?;
     let rep = serde_json::json!({"ok": true, "telemetry_enabled": false, "config": p});
     w.write_json("result", &rep)?;
-    w.write_html("result", &html::render_json_value("AION telemetry disable", &rep))?;
+    w.write_html(
+        "result",
+        &html::render_json_value("AION telemetry disable", &rep),
+    )?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())
 }
@@ -2805,7 +2887,10 @@ pub fn write_product_telemetry_status_output() -> Result<std::path::PathBuf, Str
         .unwrap_or(false);
     let rep = serde_json::json!({"ok": true, "telemetry_enabled": enabled, "config": p});
     w.write_json("result", &rep)?;
-    w.write_html("result", &html::render_json_value("AION telemetry status", &rep))?;
+    w.write_html(
+        "result",
+        &html::render_json_value("AION telemetry status", &rep),
+    )?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())
 }

@@ -1,0 +1,21 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "kind": "measure_metrics",
+      "metrics_contract": {
+        "metrics": [
+          {
+            "metric_type": "Counter",
+            "name": "aion_doctor_runs_total",
+            "namespace": "Cli",
+            "status": "Defined"
+          }
+        ],
+        "status": "ok"
+      }
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

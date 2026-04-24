@@ -21,7 +21,9 @@ pub struct VulnerabilitySla {
     pub max_hours: u64,
 }
 
-pub fn evaluate_vulnerability_sla(report: &VulnerabilityReport) -> Result<VulnerabilitySla, String> {
+pub fn evaluate_vulnerability_sla(
+    report: &VulnerabilityReport,
+) -> Result<VulnerabilitySla, String> {
     let max = match report.severity {
         VulnerabilitySeverity::Critical => 72,
         VulnerabilitySeverity::High => 24 * 7,
@@ -61,4 +63,3 @@ mod tests {
         assert!(evaluate_vulnerability_sla(&r).is_err());
     }
 }
-

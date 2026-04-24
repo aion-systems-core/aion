@@ -39,13 +39,8 @@ impl OutputWriter {
     }
 
     pub fn write_capsule(&self, name: &str, capsule: &Capsule) -> Result<PathBuf, String> {
-        let body = layout::canonical_json_from_serialize(capsule).map_err(|_| {
-            line(
-                code::OUTPUT_JSON_SERIALIZE,
-                "write_capsule",
-                "invalid_json",
-            )
-        })?;
+        let body = layout::canonical_json_from_serialize(capsule)
+            .map_err(|_| line(code::OUTPUT_JSON_SERIALIZE, "write_capsule", "invalid_json"))?;
         let stem = name.trim_end_matches(".aion");
         layout::write_capsule(&self.path.root, stem, &body)
     }
@@ -67,11 +62,7 @@ impl OutputWriter {
         let stem = name.trim_end_matches(".aionai");
         let path = self.path.root.join(format!("{stem}.aionai"));
         if path.exists() {
-            return Err(line(
-                code::OUTPUT_AIONAI_EXISTS,
-                "write_aionai",
-                "exists",
-            ));
+            return Err(line(code::OUTPUT_AIONAI_EXISTS, "write_aionai", "exists"));
         }
         layout::write_aionai(&self.path.root, stem, body)
     }

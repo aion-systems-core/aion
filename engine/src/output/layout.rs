@@ -150,7 +150,9 @@ fn write_meta_json(root: &Path, command: &str, cli_args: &str) -> Result<(), Str
     let now = chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Secs, true);
     let meta = OutputRunMeta {
         aion_version: PRODUCT_VERSION.trim().to_string(),
-        git_commit: std::env::var("AION_GIT_COMMIT").ok().filter(|s| !s.is_empty()),
+        git_commit: std::env::var("AION_GIT_COMMIT")
+            .ok()
+            .filter(|s| !s.is_empty()),
         command: command.to_string(),
         cli_args: cli_args.to_string(),
         utc_start: now.clone(),
@@ -170,8 +172,7 @@ fn update_latest_link(command_dir: &Path, root: &Path) -> Result<(), String> {
     }
     #[cfg(unix)]
     {
-        std::os::unix::fs::symlink(root, &latest)
-            .map_err(|e| format!("latest symlink: {e}"))?;
+        std::os::unix::fs::symlink(root, &latest).map_err(|e| format!("latest symlink: {e}"))?;
     }
     #[cfg(windows)]
     {
@@ -245,7 +246,14 @@ pub fn finalize_output_bundle(root: &Path) -> Result<PathBuf, String> {
         .map_err(|e| format!("manifest write: {e}"))?;
 
     let mut entries: Vec<(String, String)> = Vec::new();
-    for f in ["manifest.json", "stdout.txt", "stderr.txt", "events.jsonl", "replay.json", "audit.jsonl"] {
+    for f in [
+        "manifest.json",
+        "stdout.txt",
+        "stderr.txt",
+        "events.jsonl",
+        "replay.json",
+        "audit.jsonl",
+    ] {
         entries.push((f.to_string(), file_hash_hex(&root.join(f))?));
     }
     entries.sort_by(|a, b| a.0.cmp(&b.0));
@@ -302,7 +310,13 @@ impl OutputPath {
 fn sanitize_command(command: &str) -> String {
     command
         .chars()
-        .map(|c| if c.is_ascii_alphanumeric() || c == '-' || c == '_' { c } else { '-' })
+        .map(|c| {
+            if c.is_ascii_alphanumeric() || c == '-' || c == '_' {
+                c
+            } else {
+                '-'
+            }
+        })
         .collect()
 }
 
@@ -374,7 +388,11 @@ pub fn canonical_json_from_serialize<T: Serialize + ?Sized>(value: &T) -> Result
 }
 
 /// Write deterministic contract JSON with stable key order.
-pub fn write_json<T: Serialize + ?Sized>(root: &Path, name: &str, value: &T) -> Result<PathBuf, String> {
+pub fn write_json<T: Serialize + ?Sized>(
+    root: &Path,
+    name: &str,
+    value: &T,
+) -> Result<PathBuf, String> {
     #[derive(Serialize)]
     struct OutputEnvelope {
         status: &'static str,

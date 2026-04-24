@@ -103,15 +103,13 @@ fn cstr_to_string(ptr: *const c_char, name: &str) -> Result<String, i32> {
 }
 
 fn to_c_owned(s: String) -> Result<*mut c_char, i32> {
-    CString::new(s)
-        .map(|x| x.into_raw())
-        .map_err(|_| {
-            set_last_error(line(
-                code::FFI_CSTRING_INTERIOR_NULL,
-                "to_c_owned",
-                "interior_null",
-            ))
-        })
+    CString::new(s).map(|x| x.into_raw()).map_err(|_| {
+        set_last_error(line(
+            code::FFI_CSTRING_INTERIOR_NULL,
+            "to_c_owned",
+            "interior_null",
+        ))
+    })
 }
 
 fn extract_primary_code(e: &str) -> String {
@@ -134,20 +132,22 @@ fn map_err_code(e: &str) -> i32 {
                 AION_ERR_IO
             }
         }
-        "AION_CAPSULE_JSON" | "AION_CAPSULE_SERIALIZE" | "AION_CAPSULE_VALIDATE"
+        "AION_CAPSULE_JSON"
+        | "AION_CAPSULE_SERIALIZE"
+        | "AION_CAPSULE_VALIDATE"
         | "AION_CAPSULE_INPUT" => AION_ERR_CAPSULE_CORRUPT,
         "AION_CAPSULE_SAVE_EXISTS" | "AION_CAPSULE_SAVE_IO" | "AION_CAPSULE_SAVE_MKDIR" => {
             AION_ERR_IO
         }
         "AION_OUTPUT_AIONAI_EXISTS" | "AION_OUTPUT_JSON_SERIALIZE" => AION_ERR_IO,
-        "AION_SDK_PARSE" | "AION_SDK_VALIDATION" | "AION_SDK_VERSION" => {
-            AION_ERR_CAPSULE_CORRUPT
-        }
+        "AION_SDK_PARSE" | "AION_SDK_VALIDATION" | "AION_SDK_VERSION" => AION_ERR_CAPSULE_CORRUPT,
         "AION_SDK_IO" => AION_ERR_IO,
         "AION_CAPTURE_EMPTY" => AION_ERR_GENERIC,
         "AION_GOVERNANCE_IO" | "AION_GOVERNANCE_JSON" => AION_ERR_INVALID_POLICY,
         "AION_KERNEL_SPAWN" => AION_ERR_IO,
-        "AION_CLI_IO_READ" | "AION_CLI_JSON_PARSE" | "AION_CLI_JSON_SERIALIZE"
+        "AION_CLI_IO_READ"
+        | "AION_CLI_JSON_PARSE"
+        | "AION_CLI_JSON_SERIALIZE"
         | "AION_CLI_SPEC_SHAPE" => AION_ERR_GENERIC,
         "AION_FFI_IO" | "AION_EVIDENCE_IO" => AION_ERR_IO,
         "AION_EVIDENCE_HASH" | "AION_EVIDENCE_ANCHOR" => AION_ERR_EVIDENCE_INVALID,
@@ -180,11 +180,7 @@ pub extern "C" fn aion_run(
     out_result: *mut AionRunResult,
 ) -> i32 {
     if out_result.is_null() {
-        return set_last_error(line(
-            code::FFI_NULL_ARG,
-            "aion_run",
-            "out_result",
-        ));
+        return set_last_error(line(code::FFI_NULL_ARG, "aion_run", "out_result"));
     }
     let cmd_s = match cstr_to_string(cmd, "cmd") {
         Ok(v) => v,
@@ -230,11 +226,7 @@ pub extern "C" fn aion_run(
 #[no_mangle]
 pub extern "C" fn aion_capsule_save(capsule: *const AionCapsule, path: *const c_char) -> i32 {
     if capsule.is_null() {
-        return set_last_error(line(
-            code::FFI_NULL_ARG,
-            "aion_capsule_save",
-            "capsule",
-        ));
+        return set_last_error(line(code::FFI_NULL_ARG, "aion_capsule_save", "capsule"));
     }
     let path_s = match cstr_to_string(path, "path") {
         Ok(v) => v,
@@ -262,11 +254,7 @@ pub extern "C" fn aion_capsule_save(capsule: *const AionCapsule, path: *const c_
 #[no_mangle]
 pub extern "C" fn aion_capsule_load(path: *const c_char, out_capsule: *mut AionCapsule) -> i32 {
     if out_capsule.is_null() {
-        return set_last_error(line(
-            code::FFI_NULL_ARG,
-            "aion_capsule_load",
-            "out_capsule",
-        ));
+        return set_last_error(line(code::FFI_NULL_ARG, "aion_capsule_load", "out_capsule"));
     }
     let path_s = match cstr_to_string(path, "path") {
         Ok(v) => v,
@@ -280,16 +268,47 @@ pub extern "C" fn aion_capsule_load(path: *const c_char, out_capsule: *mut AionC
         }
     };
     let out = unsafe { &mut *out_capsule };
-    out.model = match to_c_owned(cap.model) { Ok(v) => v, Err(c) => return c };
-    out.prompt = match to_c_owned(cap.prompt) { Ok(v) => v, Err(c) => return c };
+    out.model = match to_c_owned(cap.model) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    out.prompt = match to_c_owned(cap.prompt) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     out.seed = cap.seed;
-    out.determinism_profile_json = match to_c_owned(serde_json::to_string(&cap.determinism).unwrap_or_default()) { Ok(v) => v, Err(c) => return c };
-    out.token_trace_json = match to_c_owned(serde_json::to_string(&cap.token_trace).unwrap_or_default()) { Ok(v) => v, Err(c) => return c };
-    out.events_json = match to_c_owned(serde_json::to_string(&cap.event_stream).unwrap_or_default()) { Ok(v) => v, Err(c) => return c };
-    out.graph_json = match to_c_owned(serde_json::to_string(&cap.graph).unwrap_or_default()) { Ok(v) => v, Err(c) => return c };
-    out.why_report_json = match to_c_owned(serde_json::to_string(&cap.why).unwrap_or_default()) { Ok(v) => v, Err(c) => return c };
-    out.drift_report_json = match to_c_owned(serde_json::to_string(&cap.drift).unwrap_or_default()) { Ok(v) => v, Err(c) => return c };
-    out.evidence_path = match to_c_owned(path_s) { Ok(v) => v, Err(c) => return c };
+    out.determinism_profile_json =
+        match to_c_owned(serde_json::to_string(&cap.determinism).unwrap_or_default()) {
+            Ok(v) => v,
+            Err(c) => return c,
+        };
+    out.token_trace_json =
+        match to_c_owned(serde_json::to_string(&cap.token_trace).unwrap_or_default()) {
+            Ok(v) => v,
+            Err(c) => return c,
+        };
+    out.events_json = match to_c_owned(serde_json::to_string(&cap.event_stream).unwrap_or_default())
+    {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    out.graph_json = match to_c_owned(serde_json::to_string(&cap.graph).unwrap_or_default()) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    out.why_report_json = match to_c_owned(serde_json::to_string(&cap.why).unwrap_or_default()) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    out.drift_report_json = match to_c_owned(serde_json::to_string(&cap.drift).unwrap_or_default())
+    {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    out.evidence_path = match to_c_owned(path_s) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     AION_OK
 }
 
@@ -302,10 +321,16 @@ pub extern "C" fn aion_replay_capsule(path: *const c_char, out_result: *mut Aion
             "out_result",
         ));
     }
-    let p = match cstr_to_string(path, "capsule_path") { Ok(v) => v, Err(c) => return c };
+    let p = match cstr_to_string(path, "capsule_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     let cap = match crate::sdk::load_capsule(Path::new(&p)) {
         Ok(v) => v,
-        Err(e) => { let _ = set_last_error(&e); return map_err_code(&e); }
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return map_err_code(&e);
+        }
     };
     let rep = crate::sdk::replay_capsule(&cap);
     let stdout = rep.replay_capsule.tokens.join(" ");
@@ -314,14 +339,24 @@ pub extern "C" fn aion_replay_capsule(path: *const c_char, out_result: *mut Aion
     out.stderr_len = 0;
     out.exit_code = if rep.success { 0 } else { 1 };
     out.duration_ms = rep.replay_duration_ms;
-    out.stdout_data = match to_c_owned(stdout) { Ok(v) => v, Err(c) => return c };
+    out.stdout_data = match to_c_owned(stdout) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     out.stderr_data = ptr::null_mut();
-    out.capsule_id = match to_c_owned(rep.replay_capsule.evidence.run_id) { Ok(v) => v, Err(c) => return c };
+    out.capsule_id = match to_c_owned(rep.replay_capsule.evidence.run_id) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     AION_OK
 }
 
 #[no_mangle]
-pub extern "C" fn aion_compare_capsules(left_path: *const c_char, right_path: *const c_char, out_comparison: *mut AionReplayComparison) -> i32 {
+pub extern "C" fn aion_compare_capsules(
+    left_path: *const c_char,
+    right_path: *const c_char,
+    out_comparison: *mut AionReplayComparison,
+) -> i32 {
     if out_comparison.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -329,10 +364,28 @@ pub extern "C" fn aion_compare_capsules(left_path: *const c_char, right_path: *c
             "out_comparison",
         ));
     }
-    let l = match cstr_to_string(left_path, "left_path") { Ok(v) => v, Err(c) => return c };
-    let r = match cstr_to_string(right_path, "right_path") { Ok(v) => v, Err(c) => return c };
-    let a = match crate::sdk::load_capsule(Path::new(&l)) { Ok(v) => v, Err(e) => { let _ = set_last_error(&e); return map_err_code(&e); } };
-    let b = match crate::sdk::load_capsule(Path::new(&r)) { Ok(v) => v, Err(e) => { let _ = set_last_error(&e); return map_err_code(&e); } };
+    let l = match cstr_to_string(left_path, "left_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    let r = match cstr_to_string(right_path, "right_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    let a = match crate::sdk::load_capsule(Path::new(&l)) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return map_err_code(&e);
+        }
+    };
+    let b = match crate::sdk::load_capsule(Path::new(&r)) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return map_err_code(&e);
+        }
+    };
     let c = crate::sdk::compare_capsules(&a, &b);
     let out = unsafe { &mut *out_comparison };
     out.tokens_equal = c.tokens_equal as u8;
@@ -359,7 +412,11 @@ pub extern "C" fn aion_compare_capsules(left_path: *const c_char, right_path: *c
 }
 
 #[no_mangle]
-pub extern "C" fn aion_drift_between_capsules(a_path: *const c_char, b_path: *const c_char, out_report: *mut AionDriftReport) -> i32 {
+pub extern "C" fn aion_drift_between_capsules(
+    a_path: *const c_char,
+    b_path: *const c_char,
+    out_report: *mut AionDriftReport,
+) -> i32 {
     if out_report.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -367,19 +424,43 @@ pub extern "C" fn aion_drift_between_capsules(a_path: *const c_char, b_path: *co
             "out_report",
         ));
     }
-    let a = match cstr_to_string(a_path, "a_path") { Ok(v) => v, Err(c) => return c };
-    let b = match cstr_to_string(b_path, "b_path") { Ok(v) => v, Err(c) => return c };
-    let ca = match crate::sdk::load_capsule(Path::new(&a)) { Ok(v) => v, Err(e) => { let _ = set_last_error(&e); return map_err_code(&e); } };
-    let cb = match crate::sdk::load_capsule(Path::new(&b)) { Ok(v) => v, Err(e) => { let _ = set_last_error(&e); return map_err_code(&e); } };
+    let a = match cstr_to_string(a_path, "a_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    let b = match cstr_to_string(b_path, "b_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    let ca = match crate::sdk::load_capsule(Path::new(&a)) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return map_err_code(&e);
+        }
+    };
+    let cb = match crate::sdk::load_capsule(Path::new(&b)) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return map_err_code(&e);
+        }
+    };
     let d = crate::sdk::drift_between(&ca, &cb);
     let out = unsafe { &mut *out_report };
     out.changed = d.changed as u8;
-    out.fields_json = match to_c_owned(serde_json::to_string(&d.fields).unwrap_or_default()) { Ok(v) => v, Err(c) => return c };
+    out.fields_json = match to_c_owned(serde_json::to_string(&d.fields).unwrap_or_default()) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     AION_OK
 }
 
 #[no_mangle]
-pub extern "C" fn aion_why_explain_capsule(capsule_path: *const c_char, out_why_json: *mut *mut c_char) -> i32 {
+pub extern "C" fn aion_why_explain_capsule(
+    capsule_path: *const c_char,
+    out_why_json: *mut *mut c_char,
+) -> i32 {
     if out_why_json.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -387,15 +468,32 @@ pub extern "C" fn aion_why_explain_capsule(capsule_path: *const c_char, out_why_
             "out_why_json",
         ));
     }
-    let p = match cstr_to_string(capsule_path, "capsule_path") { Ok(v) => v, Err(c) => return c };
-    let cap = match crate::sdk::load_capsule(Path::new(&p)) { Ok(v) => v, Err(e) => { let _ = set_last_error(&e); return map_err_code(&e); } };
+    let p = match cstr_to_string(capsule_path, "capsule_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    let cap = match crate::sdk::load_capsule(Path::new(&p)) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return map_err_code(&e);
+        }
+    };
     let exp = crate::sdk::explain_capsule(&cap);
-    unsafe { *out_why_json = match to_c_owned(serde_json::to_string(&exp.why).unwrap_or_default()) { Ok(v) => v, Err(c) => return c }; }
+    unsafe {
+        *out_why_json = match to_c_owned(serde_json::to_string(&exp.why).unwrap_or_default()) {
+            Ok(v) => v,
+            Err(c) => return c,
+        };
+    }
     AION_OK
 }
 
 #[no_mangle]
-pub extern "C" fn aion_graph_causal(capsule_path: *const c_char, out_graph_json: *mut *mut c_char) -> i32 {
+pub extern "C" fn aion_graph_causal(
+    capsule_path: *const c_char,
+    out_graph_json: *mut *mut c_char,
+) -> i32 {
     if out_graph_json.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -403,9 +501,23 @@ pub extern "C" fn aion_graph_causal(capsule_path: *const c_char, out_graph_json:
             "out_graph_json",
         ));
     }
-    let p = match cstr_to_string(capsule_path, "capsule_path") { Ok(v) => v, Err(c) => return c };
-    let cap = match crate::sdk::load_capsule(Path::new(&p)) { Ok(v) => v, Err(e) => { let _ = set_last_error(&e); return map_err_code(&e); } };
-    unsafe { *out_graph_json = match to_c_owned(serde_json::to_string(&cap.graph).unwrap_or_default()) { Ok(v) => v, Err(c) => return c }; }
+    let p = match cstr_to_string(capsule_path, "capsule_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    let cap = match crate::sdk::load_capsule(Path::new(&p)) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return map_err_code(&e);
+        }
+    };
+    unsafe {
+        *out_graph_json = match to_c_owned(serde_json::to_string(&cap.graph).unwrap_or_default()) {
+            Ok(v) => v,
+            Err(c) => return c,
+        };
+    }
     AION_OK
 }
 
@@ -475,7 +587,11 @@ pub extern "C" fn aion_replay_symmetry_ok(path: *const c_char, out_ok: *mut u8) 
 }
 
 #[no_mangle]
-pub extern "C" fn aion_validate_capsule(capsule_path: *const c_char, policy_path: *const c_char, out_report: *mut AionGovernanceReport) -> i32 {
+pub extern "C" fn aion_validate_capsule(
+    capsule_path: *const c_char,
+    policy_path: *const c_char,
+    out_report: *mut AionGovernanceReport,
+) -> i32 {
     if out_report.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -483,16 +599,42 @@ pub extern "C" fn aion_validate_capsule(capsule_path: *const c_char, policy_path
             "out_report",
         ));
     }
-    let cp = match cstr_to_string(capsule_path, "capsule_path") { Ok(v) => v, Err(c) => return c };
-    let pp = match cstr_to_string(policy_path, "policy_path") { Ok(v) => v, Err(c) => return c };
-    let cap = match crate::sdk::load_capsule(Path::new(&cp)) { Ok(v) => v, Err(e) => { let _ = set_last_error(&e); return map_err_code(&e); } };
-    let pol = match governance::load_policy(Path::new(&pp)) { Ok(v) => v, Err(e) => { let _ = set_last_error(&e); return AION_ERR_INVALID_POLICY; } };
-    let rep = crate::sdk::validate_capsule(&cap, &pol, &DeterminismProfile::default(), &IntegrityProfile::default());
+    let cp = match cstr_to_string(capsule_path, "capsule_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    let pp = match cstr_to_string(policy_path, "policy_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
+    let cap = match crate::sdk::load_capsule(Path::new(&cp)) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return map_err_code(&e);
+        }
+    };
+    let pol = match governance::load_policy(Path::new(&pp)) {
+        Ok(v) => v,
+        Err(e) => {
+            let _ = set_last_error(&e);
+            return AION_ERR_INVALID_POLICY;
+        }
+    };
+    let rep = crate::sdk::validate_capsule(
+        &cap,
+        &pol,
+        &DeterminismProfile::default(),
+        &IntegrityProfile::default(),
+    );
     let out = unsafe { &mut *out_report };
     out.policy_ok = rep.policy.ok as u8;
     out.determinism_ok = rep.determinism.ok as u8;
     out.integrity_ok = rep.integrity.ok as u8;
-    out.violations_json = match to_c_owned(serde_json::to_string(&rep).unwrap_or_default()) { Ok(v) => v, Err(c) => return c };
+    out.violations_json = match to_c_owned(serde_json::to_string(&rep).unwrap_or_default()) {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     AION_OK
 }
 
@@ -505,7 +647,10 @@ pub extern "C" fn aion_evidence_verify(evidence_path: *const c_char, out_valid: 
             "out_valid",
         ));
     }
-    let p = match cstr_to_string(evidence_path, "evidence_path") { Ok(v) => v, Err(c) => return c };
+    let p = match cstr_to_string(evidence_path, "evidence_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     let body = match std::fs::read_to_string(&p) {
         Ok(v) => v,
         Err(e) => {
@@ -521,8 +666,14 @@ pub extern "C" fn aion_evidence_verify(evidence_path: *const c_char, out_valid: 
         .ok()
         .map(|c| aion_core::verify_linear(&c).is_ok())
         .unwrap_or(false);
-    unsafe { *out_valid = ok as u8; }
-    if ok { AION_OK } else { AION_ERR_EVIDENCE_INVALID }
+    unsafe {
+        *out_valid = ok as u8;
+    }
+    if ok {
+        AION_OK
+    } else {
+        AION_ERR_EVIDENCE_INVALID
+    }
 }
 
 #[no_mangle]
@@ -532,7 +683,11 @@ pub extern "C" fn aion_evidence_generate_keypair(
     out_public_key: *mut u8,
     out_public_len: *mut size_t,
 ) -> i32 {
-    if out_private_key.is_null() || out_private_len.is_null() || out_public_key.is_null() || out_public_len.is_null() {
+    if out_private_key.is_null()
+        || out_private_len.is_null()
+        || out_public_key.is_null()
+        || out_public_len.is_null()
+    {
         return set_last_error(line(
             code::FFI_NULL_ARG,
             "aion_evidence_generate_keypair",
@@ -558,12 +713,12 @@ pub extern "C" fn aion_evidence_sign(
     out_signature: *mut u8,
     out_signature_len: *mut size_t,
 ) -> i32 {
-    if evidence_data.is_null() || private_key.is_null() || out_signature.is_null() || out_signature_len.is_null() {
-        return set_last_error(line(
-            code::FFI_NULL_ARG,
-            "aion_evidence_sign",
-            "pointers",
-        ));
+    if evidence_data.is_null()
+        || private_key.is_null()
+        || out_signature.is_null()
+        || out_signature_len.is_null()
+    {
+        return set_last_error(line(code::FFI_NULL_ARG, "aion_evidence_sign", "pointers"));
     }
     let data = unsafe { std::slice::from_raw_parts(evidence_data, evidence_len) };
     let sk = unsafe { std::slice::from_raw_parts(private_key, private_key_len) };
@@ -588,7 +743,8 @@ pub extern "C" fn aion_evidence_verify_with_key(
     public_key_len: size_t,
     out_valid: *mut u8,
 ) -> i32 {
-    if evidence_data.is_null() || signature.is_null() || public_key.is_null() || out_valid.is_null() {
+    if evidence_data.is_null() || signature.is_null() || public_key.is_null() || out_valid.is_null()
+    {
         return set_last_error(line(
             code::FFI_NULL_ARG,
             "aion_evidence_verify_with_key",
@@ -602,8 +758,14 @@ pub extern "C" fn aion_evidence_verify_with_key(
         Ok(v) => v,
         Err(e) => return set_last_error(e),
     };
-    unsafe { *out_valid = ok as u8; }
-    if ok { AION_OK } else { AION_ERR_EVIDENCE_INVALID }
+    unsafe {
+        *out_valid = ok as u8;
+    }
+    if ok {
+        AION_OK
+    } else {
+        AION_ERR_EVIDENCE_INVALID
+    }
 }
 
 #[no_mangle]
@@ -616,9 +778,20 @@ pub extern "C" fn aion_telemetry_set_enabled(enabled: u8) -> i32 {
             "home_unset",
         ));
     };
-    let p = std::path::PathBuf::from(home).join(".aion").join("telemetry.toml");
-    if let Some(parent) = p.parent() { let _ = std::fs::create_dir_all(parent); }
-    match std::fs::write(&p, if enabled == 0 { "enabled = false\n" } else { "enabled = true\n" }) {
+    let p = std::path::PathBuf::from(home)
+        .join(".aion")
+        .join("telemetry.toml");
+    if let Some(parent) = p.parent() {
+        let _ = std::fs::create_dir_all(parent);
+    }
+    match std::fs::write(
+        &p,
+        if enabled == 0 {
+            "enabled = false\n"
+        } else {
+            "enabled = true\n"
+        },
+    ) {
         Ok(()) => AION_OK,
         Err(e) => {
             let _ = set_last_error(line(
@@ -648,24 +821,30 @@ pub extern "C" fn aion_telemetry_get_enabled(out_enabled: *mut u8) -> i32 {
             "home_unset",
         ));
     };
-    let p = std::path::PathBuf::from(home).join(".aion").join("telemetry.toml");
-    let enabled = std::fs::read_to_string(&p).ok().map(|s| s.contains("true")).unwrap_or(false);
-    unsafe { *out_enabled = enabled as u8; }
+    let p = std::path::PathBuf::from(home)
+        .join(".aion")
+        .join("telemetry.toml");
+    let enabled = std::fs::read_to_string(&p)
+        .ok()
+        .map(|s| s.contains("true"))
+        .unwrap_or(false);
+    unsafe {
+        *out_enabled = enabled as u8;
+    }
     AION_OK
 }
 
 #[no_mangle]
 pub extern "C" fn aion_setup(config_path: *const c_char) -> i32 {
-    let p = match cstr_to_string(config_path, "config_path") { Ok(v) => v, Err(c) => return c };
+    let p = match cstr_to_string(config_path, "config_path") {
+        Ok(v) => v,
+        Err(c) => return c,
+    };
     let body = "[output]\nbase = \"aion_output\"\n";
     match std::fs::write(&p, body) {
         Ok(()) => AION_OK,
         Err(e) => {
-            let _ = set_last_error(line(
-                code::FFI_IO,
-                "aion_setup",
-                &io_cause(&e),
-            ));
+            let _ = set_last_error(line(code::FFI_IO, "aion_setup", &io_cause(&e)));
             AION_ERR_IO
         }
     }
@@ -685,7 +864,12 @@ pub extern "C" fn aion_doctor(out_diagnostic_json: *mut *mut c_char) -> i32 {
         "aion_version": env!("CARGO_PKG_VERSION"),
         "cwd": std::env::current_dir().ok(),
     });
-    unsafe { *out_diagnostic_json = match to_c_owned(doc.to_string()) { Ok(v) => v, Err(c) => return c }; }
+    unsafe {
+        *out_diagnostic_json = match to_c_owned(doc.to_string()) {
+            Ok(v) => v,
+            Err(c) => return c,
+        };
+    }
     AION_OK
 }
 
@@ -701,11 +885,28 @@ pub extern "C" fn aion_free_string(s: *mut c_char) {
 
 #[no_mangle]
 pub extern "C" fn aion_free_run_result(res: *mut AionRunResult) {
-    if res.is_null() { return; }
+    if res.is_null() {
+        return;
+    }
     let r = unsafe { &mut *res };
-    if !r.stdout_data.is_null() { unsafe { let _ = CString::from_raw(r.stdout_data); } r.stdout_data = ptr::null_mut(); }
-    if !r.stderr_data.is_null() { unsafe { let _ = CString::from_raw(r.stderr_data); } r.stderr_data = ptr::null_mut(); }
-    if !r.capsule_id.is_null() { unsafe { let _ = CString::from_raw(r.capsule_id); } r.capsule_id = ptr::null_mut(); }
+    if !r.stdout_data.is_null() {
+        unsafe {
+            let _ = CString::from_raw(r.stdout_data);
+        }
+        r.stdout_data = ptr::null_mut();
+    }
+    if !r.stderr_data.is_null() {
+        unsafe {
+            let _ = CString::from_raw(r.stderr_data);
+        }
+        r.stderr_data = ptr::null_mut();
+    }
+    if !r.capsule_id.is_null() {
+        unsafe {
+            let _ = CString::from_raw(r.capsule_id);
+        }
+        r.capsule_id = ptr::null_mut();
+    }
 }
 
 #[no_mangle]

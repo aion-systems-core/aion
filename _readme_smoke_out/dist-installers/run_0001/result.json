@@ -1,0 +1,27 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "installer_trust_chain": {
+        "artifacts": [
+          {
+            "installer_type": "Apt",
+            "name": "aion-apt",
+            "provenance_ref": "provenance:release"
+          }
+        ],
+        "signatures": [
+          {
+            "algorithm": "ed25519",
+            "signature_id": "sig-apt",
+            "trusted": true
+          }
+        ],
+        "status": "trusted"
+      },
+      "kind": "dist_installers"
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

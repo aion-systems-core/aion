@@ -8,7 +8,11 @@ use aion_engine::replay::assert_replay_symmetry;
 fn test_replay_determinism() {
     let cap = build_ai_capsule_v1("m".into(), "hello".into(), 42);
     let rep = replay_ai_capsule(&cap);
-    assert!(rep.success, "replay v2 success: {:?}", rep.comparison.differences);
+    assert!(
+        rep.success,
+        "replay v2 success: {:?}",
+        rep.comparison.differences
+    );
     assert!(rep.comparison.all_product_flags());
     assert!(rep.comparison.graph_equal);
     assert!(!rep.drift_report.changed);
@@ -41,16 +45,8 @@ fn test_replay_metadata_and_warnings() {
     assert!(rep.replay_timestamp > 0);
     assert!(!rep.replay_aion_version.is_empty());
     assert!(rep.replay_duration_ms < 60_000);
-    assert!(
-        rep.warnings
-            .iter()
-            .any(|w| w == "replay:invariant_failed")
-    );
-    assert!(
-        rep.warnings
-            .iter()
-            .any(|w| w == "replay:invariant_failed")
-    );
+    assert!(rep.warnings.iter().any(|w| w == "replay:invariant_failed"));
+    assert!(rep.warnings.iter().any(|w| w == "replay:invariant_failed"));
 }
 
 #[test]
@@ -60,7 +56,9 @@ fn test_replay_mismatch_diff_grouping_and_order() {
     right.seed = 2;
     right.prompt = "hello changed".into();
     right.tokens.push("extra".into());
-    right.event_stream.push(Event::RunComplete { token_count: 999 });
+    right
+        .event_stream
+        .push(Event::RunComplete { token_count: 999 });
 
     let cmp = compare_ai_capsules(&left, &right);
     assert!(!cmp.all_equal());
@@ -80,8 +78,18 @@ fn test_replay_mismatch_diff_grouping_and_order() {
         .input
         .iter()
         .map(|d| format!("input:{d}"))
-        .chain(cmp.mismatch_diff.output.iter().map(|d| format!("output:{d}")))
-        .chain(cmp.mismatch_diff.events.iter().map(|d| format!("events:{d}")))
+        .chain(
+            cmp.mismatch_diff
+                .output
+                .iter()
+                .map(|d| format!("output:{d}")),
+        )
+        .chain(
+            cmp.mismatch_diff
+                .events
+                .iter()
+                .map(|d| format!("events:{d}")),
+        )
         .chain(
             cmp.mismatch_diff
                 .evidence
@@ -103,7 +111,10 @@ fn test_replay_error_contract_for_profile_and_symmetry() {
     if let Some(e) = rep.replay_profile_error.or(rep.replay_symmetry_error) {
         let v: serde_json::Value = serde_json::from_str(&e).expect("json error contract");
         assert_eq!(v["schema_version"], 1);
-        assert!(v["code"].as_str().unwrap_or_default().starts_with("AION_REPLAY_"));
+        assert!(v["code"]
+            .as_str()
+            .unwrap_or_default()
+            .starts_with("AION_REPLAY_"));
         assert_eq!(v["origin"], "replay");
     }
 }
@@ -139,7 +150,9 @@ fn test_replay_why_slice_mismatch_tokenized() {
 fn test_replay_event_stream_mismatch_tokenized() {
     let original = build_ai_capsule_v1("m".into(), "hello".into(), 10);
     let mut replayed = original.clone();
-    replayed.event_stream.push(Event::RunComplete { token_count: 777 });
+    replayed
+        .event_stream
+        .push(Event::RunComplete { token_count: 777 });
     let err = assert_replay_symmetry(&original, &replayed).expect_err("must fail");
     assert_eq!(err, "replay:event_stream_mismatch");
 }

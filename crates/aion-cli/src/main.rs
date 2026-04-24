@@ -1,9 +1,12 @@
+//! `sealrun` binary: command-line entrypoint for SealRun’s deterministic execution, governance, and enterprise contract domains.
+//!
+//! Dispatch is intentionally thin; heavy lifting lives in the `aion_engine` crate via `output_bundle` writers. JSON lines follow the deterministic envelope rules in `docs/os_contract_spec.md`.
 use aion_cli::{output_bundle, sectors, ux, InProcessKernel, KernelGateway};
 use aion_core::error::{canonical_error_json, code, io_cause, line};
 use aion_core::{
-    evaluate_determinism_contract, evaluate_determinism_matrix,
-    diff_contract_snapshots, evaluate_contract_stability, write_contract_snapshots, ContractSnapshot,
-    run_replay_invariant_gate, DeterminismContractInput, DeterminismTarget,
+    diff_contract_snapshots, evaluate_contract_stability, evaluate_determinism_contract,
+    evaluate_determinism_matrix, run_replay_invariant_gate, write_contract_snapshots,
+    ContractSnapshot, DeterminismContractInput, DeterminismTarget,
 };
 use aion_core::{Capsule, DriftReport, RunResult};
 use aion_engine::audit::AuditReport;
@@ -38,11 +41,11 @@ OPTIONS
 
 EXAMPLES
   sealrun doctor
-  sealrun evidence show path/to/capsule.sealrunai
+  sealrun evidence show path/to/capsule.aionai
   sealrun execute ai --model demo --prompt "hello" --seed 1
-  sealrun execute ai-replay --capsule path/to/capsule.sealrunai
+  sealrun execute ai-replay --capsule path/to/capsule.aionai
   sealrun observe capture -- echo hello
-  sealrun policy validate --capsule path/to/capsule.sealrunai --policy examples/governance/dev.policy.json
+  sealrun policy validate --capsule path/to/capsule.aionai --policy examples/governance/dev.policy.json
   sealrun sdk capsule build --model demo --prompt "hello" --seed 1
   sealrun version --full
 "#;
@@ -79,37 +82,49 @@ struct Cli {
 #[derive(Subcommand, Debug)]
 enum TopLevel {
     /// Observe deterministic run, drift, replay, and integrity artifacts.
-    #[command(after_long_help = "EXAMPLES:\n  sealrun observe audit run_0001\n  sealrun observe capture -- echo ok\n  sealrun observe drift left.json right.json\n  sealrun observe graph run.json --format svg\n  sealrun observe integrity\n  sealrun observe why left.json right.json\n")]
+    #[command(
+        after_long_help = "EXAMPLES:\n  sealrun observe audit run_0001\n  sealrun observe capture -- echo ok\n  sealrun observe drift left.json right.json\n  sealrun observe graph run.json --format svg\n  sealrun observe integrity\n  sealrun observe why left.json right.json\n"
+    )]
     Observe {
         #[command(subcommand)]
         command: ObserveCommand,
     },
     /// Execute deterministic shell and capsule replay workloads.
-    #[command(after_long_help = "EXAMPLES:\n  sealrun execute ai --model demo --prompt \"hello\" --seed 1\n  sealrun execute ai-replay --capsule path/to/capsule.sealrunai\n  sealrun execute capsule --policy dev -- echo hi\n  sealrun execute replay run.json --explain\n  sealrun execute run -- echo hi\n")]
+    #[command(
+        after_long_help = "EXAMPLES:\n  sealrun execute ai --model demo --prompt \"hello\" --seed 1\n  sealrun execute ai-replay --capsule path/to/capsule.aionai\n  sealrun execute capsule --policy dev -- echo hi\n  sealrun execute replay run.json --explain\n  sealrun execute run -- echo hi\n"
+    )]
     Execute {
         #[command(subcommand)]
         command: ExecuteCommand,
     },
     /// Control policy, profile, integrity, and CI command surfaces.
-    #[command(after_long_help = "EXAMPLES:\n  sealrun control ci drift --cmd \"echo 1\"\n  sealrun control ci run --cmd \"echo 1\"\n  sealrun control determinism freeze --profile det.json\n  sealrun control integrity show-key\n  sealrun control policy list\n  sealrun control sdk\n")]
+    #[command(
+        after_long_help = "EXAMPLES:\n  sealrun control ci drift --cmd \"echo 1\"\n  sealrun control ci run --cmd \"echo 1\"\n  sealrun control determinism freeze --profile det.json\n  sealrun control integrity show-key\n  sealrun control policy list\n  sealrun control sdk\n"
+    )]
     Control {
         #[command(subcommand)]
         command: ControlCommand,
     },
     /// Validate capsule policy profiles and constraints.
-    #[command(after_long_help = "EXAMPLES:\n  sealrun policy list\n  sealrun policy show dev\n  sealrun policy validate --capsule path/to/capsule.sealrunai --policy policy.json\n")]
+    #[command(
+        after_long_help = "EXAMPLES:\n  sealrun policy list\n  sealrun policy show dev\n  sealrun policy validate --capsule path/to/capsule.aionai --policy policy.json\n"
+    )]
     Policy {
         #[command(subcommand)]
         command: GovPolicyCommand,
     },
     /// Record and check governance CI baselines for capsule replay.
-    #[command(after_long_help = "EXAMPLES:\n  sealrun ci baseline --capsule path/to/capsule.sealrunai --policy policy.json --determinism det.json --integrity integ.json\n  sealrun ci check --capsule path/to/capsule.sealrunai --baseline baseline.json\n")]
+    #[command(
+        after_long_help = "EXAMPLES:\n  sealrun ci baseline --capsule path/to/capsule.aionai --policy policy.json --determinism det.json --integrity integ.json\n  sealrun ci check --capsule path/to/capsule.aionai --baseline baseline.json\n"
+    )]
     Ci {
         #[command(subcommand)]
         command: GovCiCommand,
     },
     /// SDK parity surface for capsule, policy, profile, and replay flows.
-    #[command(after_long_help = "EXAMPLES:\n  sealrun sdk capsule build --model demo --prompt \"hello\" --seed 1\n  sealrun sdk drift --a left.sealrunai --b right.sealrunai\n  sealrun sdk replay --capsule path/to/capsule.sealrunai\n  sealrun sdk validate --capsule path/to/capsule.sealrunai --policy policy.json\n")]
+    #[command(
+        after_long_help = "EXAMPLES:\n  sealrun sdk capsule build --model demo --prompt \"hello\" --seed 1\n  sealrun sdk drift --a left.aionai --b right.aionai\n  sealrun sdk replay --capsule path/to/capsule.aionai\n  sealrun sdk validate --capsule path/to/capsule.aionai --policy policy.json\n"
+    )]
     Sdk {
         #[arg(long, default_value = "json")]
         output_format: String,
@@ -198,9 +213,7 @@ enum TopLevel {
 #[derive(Subcommand, Debug)]
 enum EvidenceCommand {
     /// Print `capsule.evidence` as pretty JSON to stdout.
-    Show {
-        capsule: PathBuf,
-    },
+    Show { capsule: PathBuf },
 }
 
 #[derive(Subcommand, Debug)]
@@ -477,9 +490,7 @@ enum ObserveCommand {
         depth: Option<usize>,
     },
     /// Bundle integrity context for an audit stub report.
-    Audit {
-        run_id: String,
-    },
+    Audit { run_id: String },
     /// Print kernel integrity JSON and HTML.
     Integrity,
 }
@@ -506,7 +517,7 @@ enum ExecuteCommand {
         #[arg(long)]
         out_dir: Option<String>,
     },
-    /// Deterministic AI capsule run (writes ai.*, why.*, capsule.sealrunai).
+    /// Deterministic AI capsule run (writes ai.*, why.*, capsule.aionai).
     Ai {
         #[arg(long)]
         model: String,
@@ -614,9 +625,7 @@ enum CiCommand {
         baseline: PathBuf,
     },
     /// Replay a RunResult JSON (same artefact layout as observe replay).
-    Replay {
-        artifact_path: String,
-    },
+    Replay { artifact_path: String },
 }
 
 fn print_output_path(p: std::path::PathBuf) {
@@ -724,7 +733,11 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 print_output_path(p);
                 Ok(0)
             }
-            ObserveCommand::Graph { run_id, format, depth } => {
+            ObserveCommand::Graph {
+                run_id,
+                format,
+                depth,
+            } => {
                 let run_json = if std::path::Path::new(&run_id).exists() {
                     cli_read(&run_id, "observe_graph_read")?
                 } else {
@@ -774,8 +787,14 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 progress_note("execute replay (RunResult) started");
                 if explain {
                     println!("{}", ux::dim("replay: load RunResult JSON"));
-                    println!("{}", ux::dim("replay: rebuild stdout from serialized fields"));
-                    println!("{}", ux::dim("replay: write result bundle under output base"));
+                    println!(
+                        "{}",
+                        ux::dim("replay: rebuild stdout from serialized fields")
+                    );
+                    println!(
+                        "{}",
+                        ux::dim("replay: write result bundle under output base")
+                    );
                 }
                 let s = cli_read(&artifact_path, "execute_replay_read")?;
                 let p = output_bundle::write_replay_output(&s)?;
@@ -850,7 +869,10 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 if explain {
                     println!("{}", ux::dim("ai-replay: load capsule"));
                     println!("{}", ux::dim("ai-replay: rerun deterministic pipeline"));
-                    println!("{}", ux::dim("ai-replay: compare tokens trace events graph why drift"));
+                    println!(
+                        "{}",
+                        ux::dim("ai-replay: compare tokens trace events graph why drift")
+                    );
                     println!("{}", ux::dim("ai-replay: emit replay bundle"));
                 }
                 let cap = aion_engine::ai::read_ai_capsule_v1(&capsule).map_err(|e| e)?;
@@ -934,17 +956,28 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                     capsule,
                     private_key,
                 } => {
-                    let p = output_bundle::write_control_integrity_sign_output(&capsule, private_key.as_deref())?;
+                    let p = output_bundle::write_control_integrity_sign_output(
+                        &capsule,
+                        private_key.as_deref(),
+                    )?;
                     print_output_path(p);
                     Ok(0)
                 }
-                IntegrityCommand::Verify { capsule, public_key } => {
-                    let p = output_bundle::write_control_integrity_verify_output(&capsule, &public_key)?;
+                IntegrityCommand::Verify {
+                    capsule,
+                    public_key,
+                } => {
+                    let p = output_bundle::write_control_integrity_verify_output(
+                        &capsule,
+                        &public_key,
+                    )?;
                     print_output_path(p);
                     Ok(0)
                 }
                 IntegrityCommand::ShowKey { private_key } => {
-                    let p = output_bundle::write_control_integrity_show_key_output(private_key.as_deref())?;
+                    let p = output_bundle::write_control_integrity_show_key_output(
+                        private_key.as_deref(),
+                    )?;
                     print_output_path(p);
                     Ok(0)
                 }
@@ -1106,46 +1139,38 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                     .get("operations")
                     .and_then(|x| x.as_array())
                     .ok_or_else(|| {
-                        line(
-                            code::CLI_SPEC_SHAPE,
-                            "sdk_batch",
-                            "operations_not_array",
-                        )
+                        line(code::CLI_SPEC_SHAPE, "sdk_batch", "operations_not_array")
                     })?;
                 let mut results = Vec::new();
                 for op in ops {
                     let kind = op.get("kind").and_then(|x| x.as_str()).unwrap_or("");
                     match kind {
                         "replay" => {
-                            let cap = op
-                                .get("capsule")
-                                .and_then(|x| x.as_str())
-                                .ok_or_else(|| {
+                            let cap =
+                                op.get("capsule").and_then(|x| x.as_str()).ok_or_else(|| {
                                     line(
                                         code::CLI_SPEC_SHAPE,
                                         "sdk_batch_replay",
                                         "missing_capsule",
                                     )
                                 })?;
-                            let c = aion_engine::sdk::load_capsule(&PathBuf::from(cap)).map_err(|e| e)?;
+                            let c = aion_engine::sdk::load_capsule(&PathBuf::from(cap))
+                                .map_err(|e| e)?;
                             let rep = aion_engine::sdk::replay_capsule(&c);
-                            results.push(serde_json::json!({"kind":"replay","success":rep.success}));
+                            results
+                                .push(serde_json::json!({"kind":"replay","success":rep.success}));
                         }
                         "drift" => {
-                            let a = op
-                                .get("a")
-                                .and_then(|x| x.as_str())
-                                .ok_or_else(|| {
-                                    line(code::CLI_SPEC_SHAPE, "sdk_batch_drift", "missing_a")
-                                })?;
-                            let b = op
-                                .get("b")
-                                .and_then(|x| x.as_str())
-                                .ok_or_else(|| {
-                                    line(code::CLI_SPEC_SHAPE, "sdk_batch_drift", "missing_b")
-                                })?;
-                            let ca = aion_engine::sdk::load_capsule(&PathBuf::from(a)).map_err(|e| e)?;
-                            let cb = aion_engine::sdk::load_capsule(&PathBuf::from(b)).map_err(|e| e)?;
+                            let a = op.get("a").and_then(|x| x.as_str()).ok_or_else(|| {
+                                line(code::CLI_SPEC_SHAPE, "sdk_batch_drift", "missing_a")
+                            })?;
+                            let b = op.get("b").and_then(|x| x.as_str()).ok_or_else(|| {
+                                line(code::CLI_SPEC_SHAPE, "sdk_batch_drift", "missing_b")
+                            })?;
+                            let ca =
+                                aion_engine::sdk::load_capsule(&PathBuf::from(a)).map_err(|e| e)?;
+                            let cb =
+                                aion_engine::sdk::load_capsule(&PathBuf::from(b)).map_err(|e| e)?;
                             let d = aion_engine::sdk::drift_between(&ca, &cb);
                             results.push(serde_json::json!({"kind":"drift","changed":d.changed}));
                         }
@@ -1286,7 +1311,8 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 } => {
                     let cap = aion_engine::sdk::load_capsule(&capsule).map_err(|e| e)?;
                     let pol = aion_engine::governance::load_policy(&policy).map_err(|e| e)?;
-                    let det = aion_engine::governance::load_determinism(&determinism).map_err(|e| e)?;
+                    let det =
+                        aion_engine::governance::load_determinism(&determinism).map_err(|e| e)?;
                     let integ =
                         aion_engine::governance::load_integrity(&integrity).map_err(|e| e)?;
                     let bl = aion_engine::sdk::ci_record_baseline(&cap, &pol, &det, &integ);
@@ -1516,7 +1542,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                     "error":serde_json::Value::Null
                 });
                 println!("{}", cli_json_pretty(&v, "determinism_gate")?);
-                Ok(if gate.status=="ok" {0} else {2})
+                Ok(if gate.status == "ok" { 0 } else { 2 })
             }
         },
         TopLevel::Reliability { command } => match command {
@@ -1661,7 +1687,9 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
         TopLevel::Telemetry { command } => {
             let p = match command {
                 TelemetryCommand::Enable => output_bundle::write_product_telemetry_enable_output()?,
-                TelemetryCommand::Disable => output_bundle::write_product_telemetry_disable_output()?,
+                TelemetryCommand::Disable => {
+                    output_bundle::write_product_telemetry_disable_output()?
+                }
                 TelemetryCommand::Status => output_bundle::write_product_telemetry_status_output()?,
             };
             print_output_path(p);

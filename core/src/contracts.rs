@@ -1,9 +1,9 @@
 //! Canonical JSON-serializable contracts for kernel, engine, and CLI.
 
+use crate::error::code;
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
 use std::env;
-use crate::error::code;
 
 /// Capsule ZIP layout version.
 pub const CAPSULE_SCHEMA_VERSION: u32 = 1;
@@ -186,14 +186,8 @@ impl DeterminismProfile {
                 "0"
             },
         );
-        env::set_var(
-            "AION_FREEZE_ENV",
-            if self.freeze_env { "1" } else { "0" },
-        );
-        env::set_var(
-            "AION_FREEZE_CWD",
-            if self.freeze_cwd { "1" } else { "0" },
-        );
+        env::set_var("AION_FREEZE_ENV", if self.freeze_env { "1" } else { "0" });
+        env::set_var("AION_FREEZE_CWD", if self.freeze_cwd { "1" } else { "0" });
     }
 
     /// When `strict_replay` is set on the original profile, replayed runs must carry an identical profile.
@@ -347,43 +341,105 @@ fn finality_error(code: &str, context: &str, origin: &str, cause: &str) -> Consi
     }
 }
 
-pub fn evaluate_global_consistency_contract(s: &GlobalConsistencySignals) -> GlobalConsistencyContract {
+pub fn evaluate_global_consistency_contract(
+    s: &GlobalConsistencySignals,
+) -> GlobalConsistencyContract {
     let replay_finality = if !s.replay_invariant_ok {
-        finality_error(code::REPLAY_MISMATCH, "global_consistency.replay_finality", "replay", "replay:invariant_failed")
+        finality_error(
+            code::REPLAY_MISMATCH,
+            "global_consistency.replay_finality",
+            "replay",
+            "replay:invariant_failed",
+        )
     } else if !s.replay_symmetry_ok {
-        finality_error(code::REPLAY_SYMMETRY, "global_consistency.replay_finality", "replay", "replay:symmetry_failed")
+        finality_error(
+            code::REPLAY_SYMMETRY,
+            "global_consistency.replay_finality",
+            "replay",
+            "replay:symmetry_failed",
+        )
     } else if !s.replay_cross_machine_ok {
-        finality_error(code::REPLAY_MISMATCH, "global_consistency.replay_finality", "replay", "replay:cross_machine_failed")
+        finality_error(
+            code::REPLAY_MISMATCH,
+            "global_consistency.replay_finality",
+            "replay",
+            "replay:cross_machine_failed",
+        )
     } else {
         finality_ok("global_consistency.replay_finality", "replay")
     };
 
     let evidence_finality = if !s.evidence_verified {
-        finality_error(code::EVIDENCE_HASH, "global_consistency.evidence_finality", "evidence", "evidence:verify_failed")
+        finality_error(
+            code::EVIDENCE_HASH,
+            "global_consistency.evidence_finality",
+            "evidence",
+            "evidence:verify_failed",
+        )
     } else if s.evidence_open_anchors {
-        finality_error(code::EVIDENCE_ANCHOR, "global_consistency.evidence_finality", "evidence", "evidence:open_anchors")
+        finality_error(
+            code::EVIDENCE_ANCHOR,
+            "global_consistency.evidence_finality",
+            "evidence",
+            "evidence:open_anchors",
+        )
     } else {
         finality_ok("global_consistency.evidence_finality", "evidence")
     };
 
     let run_finality = if replay_finality.status != "ok" {
-        finality_error(&replay_finality.code, "global_consistency.run_finality", "doctor", "run:replay_not_final")
+        finality_error(
+            &replay_finality.code,
+            "global_consistency.run_finality",
+            "doctor",
+            "run:replay_not_final",
+        )
     } else if !s.drift_ok {
-        finality_error(code::DRIFT_TOLERANCE, "global_consistency.run_finality", "doctor", "run:drift_not_final")
+        finality_error(
+            code::DRIFT_TOLERANCE,
+            "global_consistency.run_finality",
+            "doctor",
+            "run:drift_not_final",
+        )
     } else if !s.policy_ok {
-        finality_error(code::GOVERNANCE_JSON, "global_consistency.run_finality", "doctor", "run:policy_not_final")
+        finality_error(
+            code::GOVERNANCE_JSON,
+            "global_consistency.run_finality",
+            "doctor",
+            "run:policy_not_final",
+        )
     } else if evidence_finality.status != "ok" {
-        finality_error(&evidence_finality.code, "global_consistency.run_finality", "doctor", "run:evidence_not_final")
+        finality_error(
+            &evidence_finality.code,
+            "global_consistency.run_finality",
+            "doctor",
+            "run:evidence_not_final",
+        )
     } else {
         finality_ok("global_consistency.run_finality", "doctor")
     };
 
     let capsule_finality = if !s.capsule_complete {
-        finality_error(code::CAPSULE_VALIDATE, "global_consistency.capsule_finality", "capsule", "capsule:incomplete")
+        finality_error(
+            code::CAPSULE_VALIDATE,
+            "global_consistency.capsule_finality",
+            "capsule",
+            "capsule:incomplete",
+        )
     } else if !s.capsule_referencable {
-        finality_error(code::CAPSULE_VALIDATE, "global_consistency.capsule_finality", "capsule", "capsule:not_referencable")
+        finality_error(
+            code::CAPSULE_VALIDATE,
+            "global_consistency.capsule_finality",
+            "capsule",
+            "capsule:not_referencable",
+        )
     } else if s.capsule_signature_required && !s.capsule_signature_present {
-        finality_error(code::EVIDENCE_HASH, "global_consistency.capsule_finality", "capsule", "capsule:signature_missing")
+        finality_error(
+            code::EVIDENCE_HASH,
+            "global_consistency.capsule_finality",
+            "capsule",
+            "capsule:signature_missing",
+        )
     } else {
         finality_ok("global_consistency.capsule_finality", "capsule")
     };
@@ -422,7 +478,10 @@ mod tests {
         s.replay_symmetry_ok = false;
         let c = evaluate_global_consistency_contract(&s);
         assert_eq!(c.run_finality.status, "error");
-        assert_eq!(c.run_finality.cause.as_deref(), Some("run:replay_not_final"));
+        assert_eq!(
+            c.run_finality.cause.as_deref(),
+            Some("run:replay_not_final")
+        );
     }
 
     #[test]
@@ -431,7 +490,10 @@ mod tests {
         s.evidence_verified = false;
         let c = evaluate_global_consistency_contract(&s);
         assert_eq!(c.run_finality.status, "error");
-        assert_eq!(c.run_finality.cause.as_deref(), Some("run:evidence_not_final"));
+        assert_eq!(
+            c.run_finality.cause.as_deref(),
+            Some("run:evidence_not_final")
+        );
     }
 
     #[test]
@@ -440,7 +502,10 @@ mod tests {
         s.policy_ok = false;
         let c = evaluate_global_consistency_contract(&s);
         assert_eq!(c.run_finality.status, "error");
-        assert_eq!(c.run_finality.cause.as_deref(), Some("run:policy_not_final"));
+        assert_eq!(
+            c.run_finality.cause.as_deref(),
+            Some("run:policy_not_final")
+        );
     }
 
     #[test]

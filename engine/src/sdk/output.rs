@@ -16,7 +16,11 @@ pub fn sdk_version() -> String {
     std::env::var("AION_SDK_VERSION")
         .ok()
         .filter(|s| !s.is_empty())
-        .unwrap_or_else(|| include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/../VERSION")).trim().to_string())
+        .unwrap_or_else(|| {
+            include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/../VERSION"))
+                .trim()
+                .to_string()
+        })
 }
 
 pub fn sdk_output_dir(requested: &Path) -> PathBuf {
@@ -40,7 +44,8 @@ pub fn write_output_bundle(output_dir: &Path, files: &[(&str, Vec<u8>)]) -> Resu
         if let Some(parent) = path.parent() {
             fs::create_dir_all(parent).map_err(|e| format!("create_dir_all: {e}"))?;
         }
-        let mut f = fs::File::create(&path).map_err(|e| format!("create {}: {e}", path.display()))?;
+        let mut f =
+            fs::File::create(&path).map_err(|e| format!("create {}: {e}", path.display()))?;
         f.write_all(bytes)
             .map_err(|e| format!("write {}: {e}", path.display()))?;
     }
@@ -50,7 +55,8 @@ pub fn write_output_bundle(output_dir: &Path, files: &[(&str, Vec<u8>)]) -> Resu
         file_count: files.len(),
     };
     let meta_body = serde_json::to_vec_pretty(&meta).map_err(|e| e.to_string())?;
-    fs::write(output_dir.join("sdk_meta.json"), meta_body).map_err(|e| format!("sdk_meta.json: {e}"))?;
+    fs::write(output_dir.join("sdk_meta.json"), meta_body)
+        .map_err(|e| format!("sdk_meta.json: {e}"))?;
     Ok(())
 }
 

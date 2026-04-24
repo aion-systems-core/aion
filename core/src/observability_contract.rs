@@ -61,7 +61,11 @@ pub fn evaluate_observability_contract(input: ObservabilityInput) -> Observabili
         metrics_schema_version: "v1".to_string(),
         trace_schema_version: "v1".to_string(),
         result: ObservabilityResult {
-            status: if violations.is_empty() { "ok".into() } else { "error".into() },
+            status: if violations.is_empty() {
+                "ok".into()
+            } else {
+                "error".into()
+            },
             violations,
         },
     }
@@ -88,7 +92,12 @@ mod tests {
             metrics_deterministic: false,
             traces_deterministic: false,
         });
-        let codes: Vec<&str> = c.result.violations.iter().map(|v| v.code.as_str()).collect();
+        let codes: Vec<&str> = c
+            .result
+            .violations
+            .iter()
+            .map(|v| v.code.as_str())
+            .collect();
         assert_eq!(
             codes,
             vec![
@@ -99,4 +108,3 @@ mod tests {
         );
     }
 }
-

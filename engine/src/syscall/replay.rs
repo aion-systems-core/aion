@@ -9,6 +9,9 @@ pub fn replay_syscall_result(ev: &SyscallEvent) -> Value {
 }
 
 /// Verify replayed capsule syscall stream matches originals (order + payload).
-pub fn syscall_replay_matches(events_orig: &[SyscallEvent], events_replay: &[SyscallEvent]) -> bool {
+pub fn syscall_replay_matches(
+    events_orig: &[SyscallEvent],
+    events_replay: &[SyscallEvent],
+) -> bool {
     events_orig == events_replay
 }

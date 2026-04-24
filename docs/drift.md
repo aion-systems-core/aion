@@ -1,5 +1,9 @@
 # Drift
 
+## Purpose
+
+Define **drift detection** on the **Map** layer: stable categories, tolerances, CLI/SDK entry points, and how drift output feeds governance and CI gates.
+
 **Drift** quantifies **deterministic differences** between two runs or two capsules: which fields diverged, under which categories, and whether the delta is within configured tolerance for your gate.
 
 ## At a glance
@@ -15,7 +19,7 @@ Drift does not assert **causal** root cause of non-determinism in external depen
 | Mode | Typical use |
 |------|-------------|
 | **Run JSON pair** | `sealrun observe drift left.json right.json` after capture/observe flows. |
-| **Capsule pair** | `sealrun sdk drift --a a.sealrunai --b b.sealrunai` for sealed-record comparison. |
+| **Capsule pair** | `sealrun sdk drift --a a.aionai --b b.aionai` for sealed-record comparison. |
 
 Outputs land under `sealrun_output/drift/<run-id>/` (observe) or SDK output trees for `sdk drift`.
 
@@ -45,7 +49,7 @@ Exact keys are versioned with the tool; pin versions for stable CI parsers.
 
 ```bash
 sealrun observe drift left.json right.json
-sealrun sdk drift --a first.sealrunai --b second.sealrunai
+sealrun sdk drift --a first.aionai --b second.aionai
 sealrun doctor
 ```
 

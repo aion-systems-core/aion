@@ -43,7 +43,11 @@ pub fn evaluate_cli_stability_contract(mut contract: CliStabilityContract) -> Cl
                 && f.deprecation_warning.is_none()
         })
     });
-    contract.status = if missing_warning { "error".into() } else { "ok".into() };
+    contract.status = if missing_warning {
+        "error".into()
+    } else {
+        "ok".into()
+    };
     contract
 }
 
@@ -66,4 +70,3 @@ mod tests {
         assert_eq!(c.status, "error");
     }
 }
-

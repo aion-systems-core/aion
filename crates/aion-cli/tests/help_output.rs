@@ -1,3 +1,5 @@
+//! Determinism and structure checks for `sealrun --help` (section order, terminology, stability).
+
 use std::process::Command;
 
 fn help(args: &[&str]) -> String {

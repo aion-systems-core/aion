@@ -29,4 +29,3 @@ fn dist_outputs_are_structured() {
         .get("installer_trust_chain")
         .is_some());
 }
-

@@ -73,4 +73,3 @@ mod tests {
         assert_eq!(c.status, "missing");
     }
 }
-

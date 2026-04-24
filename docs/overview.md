@@ -1,5 +1,13 @@
 # SealRun overview
 
+## Purpose
+
+Give a single map of SealRun’s **deterministic execution engine** plus **contract layer**, and point readers to the five-layer kernel and enterprise domains.
+
+## Five-layer kernel (read map)
+
+**State** (capsule / replay contract) → **Process** (replay invariant) → **Map** (drift contract) → **Evidence** (chain) → **Policy** (engine). Diagram and narrative: [Architecture](architecture.md) (see **Kernel-layer diagram**).
+
 SealRun is a **deterministic AI execution engine**: it records runs as **capsules**, verifies them with **replay**, compares them with **drift**, explains them with **Why** and **causal graphs**, and enforces rules through machine-readable **contracts** across governance, reliability, operations, distribution, UX, testing, and measurement.
 
 ## At a glance

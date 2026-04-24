@@ -10,8 +10,7 @@ use sha2::{Digest, Sha256};
 
 const VOCAB: &[&str] = &[
     "null", "unit", "trace", "kernel", "graph", "drift", "seed", "epoch", "token", "causal",
-    "audit", "capsule", "replay", "policy", "evidence", "stable", "order", "emit", "bind",
-    "seal",
+    "audit", "capsule", "replay", "policy", "evidence", "stable", "order", "emit", "bind", "seal",
 ];
 
 /// Output of one deterministic AI run (before capsule assembly).

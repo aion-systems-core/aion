@@ -1,9 +1,11 @@
 //! Orchestrated governance validation for AI capsules.
 
 use crate::ai::AICapsuleV1;
-use crate::governance::determinism::{validate_determinism, DeterminismProfile, DeterminismViolation};
-use crate::governance::integrity::{validate_integrity, IntegrityProfile, IntegrityViolation};
 use crate::governance::ci::CiResult;
+use crate::governance::determinism::{
+    validate_determinism, DeterminismProfile, DeterminismViolation,
+};
+use crate::governance::integrity::{validate_integrity, IntegrityProfile, IntegrityViolation};
 use crate::governance::policy::{validate_capsule_against_policy, PolicyProfile, PolicyViolation};
 use aion_core::error::{code, line};
 use serde::{Deserialize, Serialize};

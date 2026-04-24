@@ -1,0 +1,11 @@
+{
+  "status": "ok",
+  "data": {
+    "aion_version": "1.0.0",
+    "cli_args": "",
+    "command": "dist-identity",
+    "git_commit": null,
+    "utc_end": "2026-04-23T23:52:17Z",
+    "utc_start": "2026-04-23T23:52:17Z"
+  }
+}

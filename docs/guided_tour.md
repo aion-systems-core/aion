@@ -1,5 +1,9 @@
 # Guided tour (enterprise trust, pilot, and readiness)
 
+## Purpose
+
+Reading order for **trust**, **pilot rollout**, and **readiness**: architecture → OS contract → evidence → compliance → pilot steps → executive brief → enterprise package.
+
 This guide is the fast navigation map for the SealRun enterprise story across phases 1-12.
 
 ## At a glance

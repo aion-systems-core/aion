@@ -1,5 +1,9 @@
 # CLI reference
 
+## Purpose
+
+Index of the **deterministic CLI**: stable subcommands, JSON envelope shape, and kernel vs. enterprise command groups (`observe`, `execute`, … vs. `reliability`, `ops`, …).
+
 This document defines the deterministic CLI surface of SealRun.
 
 ## At a glance

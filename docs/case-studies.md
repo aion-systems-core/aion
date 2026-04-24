@@ -1,5 +1,9 @@
 # Case studies
 
+## Purpose
+
+Illustrative deployment patterns; verify any claim against **deterministic JSON** outputs from your build.
+
 This document highlights representative enterprise usage patterns for SealRun.
 
 ## At a glance
@@ -25,8 +29,8 @@ Security and compliance teams use immutable output bundles (`.sealrun.zip`) and 
 ## CLI surface
 
 ```bash
-sealrun ci baseline --capsule path/to/capsule\.sealrunai --policy examples/governance/dev.policy.json --determinism examples/governance/dev.determinism.json --integrity examples/governance/dev.integrity.json
-sealrun ci check --capsule path/to/candidate\.sealrunai --baseline path/to/baseline-governance.json
+sealrun ci baseline --capsule path/to/capsule.aionai --policy examples/governance/dev.policy.json --determinism examples/governance/dev.determinism.json --integrity examples/governance/dev.integrity.json
+sealrun ci check --capsule path/to/candidate.aionai --baseline path/to/baseline-governance.json
 sealrun governance status
 sealrun measure audits
 ```

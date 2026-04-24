@@ -1,5 +1,9 @@
 # Enterprise sales package — packaging changelog
 
+## Purpose
+
+Tracks packaging and copy changes for the HTML sales bundle when maintained alongside Markdown sources.
+
 Canonical narrative + line references: [`SealRun_Enterprise_Sales_Package.md`](SealRun_Enterprise_Sales_Package.md).
 
 Current packaging state:

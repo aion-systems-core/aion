@@ -1,10 +1,14 @@
 # Pilot onboarding — Governance
 
+## Purpose
+
+Pilot step for **governance policy validation** on a capsule path ([Governance](../governance.md)).
+
 Validate a capsule against a **policy JSON** (and optional determinism / integrity profiles on SDK paths).
 
 ```bash
 sealrun policy validate \
-  --capsule sealrun_output/ai/pilot_demo/capsule\.sealrunai \
+  --capsule sealrun_output/ai/pilot_demo/capsule.aionai \
   --policy examples/governance/dev.policy.json
 ```
 

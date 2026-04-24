@@ -1,5 +1,9 @@
 # Installers and distribution
 
+## Purpose
+
+From **Cargo / containers** to CLI commands that surface **distribution identity** and installer trust contracts (`sealrun dist …`).
+
 This guide maps local install paths to the deterministic distribution and trust model.
 
 ## At a glance

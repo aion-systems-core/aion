@@ -1,5 +1,9 @@
 # SealRun in 5 Minuten (Executive Summary)
 
+## Purpose (EN)
+
+Five-minute **executive** orientation: deterministic execution, contract controls, and why SealRun is an **Execution-OS** (contracts) rather than a sandbox OS—before deeper reading in [Architecture](../architecture.md).
+
 SealRun ist eine deterministische Ausführungs-Engine mit Contract-Layer-Steuerfläche für KI-Ausführung.
 
 ## At a glance

@@ -28,8 +28,16 @@ fn ul_lines(lines: &[String]) -> String {
 
 pub fn render_governance_report_html(report: &GovernanceReport) -> String {
     let pol_ok = if report.policy.ok { "ok" } else { "violations" };
-    let det_ok = if report.determinism.ok { "ok" } else { "violations" };
-    let int_ok = if report.integrity.ok { "ok" } else { "violations" };
+    let det_ok = if report.determinism.ok {
+        "ok"
+    } else {
+        "violations"
+    };
+    let int_ok = if report.integrity.ok {
+        "ok"
+    } else {
+        "violations"
+    };
     let sum = if report.success {
         "Governance validation succeeded."
     } else {
@@ -98,7 +106,11 @@ pub fn render_governance_graph_svg(report: &GovernanceReport) -> String {
         } else {
             "rgb(255,220,220)"
         };
-        let stroke = if ok { "rgb(40,120,60)" } else { "rgb(180,40,40)" };
+        let stroke = if ok {
+            "rgb(40,120,60)"
+        } else {
+            "rgb(180,40,40)"
+        };
         format!(
             r#"<g><title>{title}</title>
 <rect x="{x}" y="{y}" width="120" height="36" rx="4" fill="{fill}" stroke="{stroke}"/>
@@ -128,7 +140,11 @@ pub fn render_governance_graph_svg(report: &GovernanceReport) -> String {
         ("integrity", 160, 200, report.integrity.ok),
     ];
     for (name, x, y, ok) in pts {
-        let stroke = if ok { "rgb(90,90,90)" } else { "rgb(200,60,60)" };
+        let stroke = if ok {
+            "rgb(90,90,90)"
+        } else {
+            "rgb(200,60,60)"
+        };
         edges.push_str(&format!(
             r#"<path d="M {mx} {my} L {cx} {cy}" stroke="{stroke}" stroke-width="2" fill="none" marker-end="url(#arr)"><title>{name} → outcome</title></path>"#,
             mx = x + 60,

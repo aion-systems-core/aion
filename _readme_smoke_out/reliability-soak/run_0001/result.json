@@ -1,0 +1,30 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "kind": "reliability_soak",
+      "soak_status": {
+        "notes": [
+          "soak:stable"
+        ],
+        "plan": {
+          "metrics": [
+            {
+              "name": "drift_regression",
+              "threshold": "none"
+            }
+          ],
+          "targets": [
+            {
+              "duration_hours": 72,
+              "name": "replay_drift_stability"
+            }
+          ]
+        },
+        "status": "ok"
+      }
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

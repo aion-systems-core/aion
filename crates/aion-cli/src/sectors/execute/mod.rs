@@ -23,4 +23,3 @@ pub fn capsule<G: KernelGateway>(
     }
     g.capsule(&spec.to_string())
 }
-

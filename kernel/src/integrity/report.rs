@@ -24,10 +24,7 @@ pub fn kernel_build_hash() -> String {
     format!("{:x}", Sha256::digest(meta.as_bytes()))
 }
 
-pub fn build_report(
-    outcomes: &[RuleOutcome],
-    evidence: Option<&EvidenceChain>,
-) -> IntegrityReport {
+pub fn build_report(outcomes: &[RuleOutcome], evidence: Option<&EvidenceChain>) -> IntegrityReport {
     let rule_outcomes = outcomes
         .iter()
         .map(|o| RuleOutcomeView {

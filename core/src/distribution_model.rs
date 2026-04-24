@@ -1,8 +1,6 @@
 use serde::{Deserialize, Serialize};
 
-use crate::{
-    DistributionContract, IdentityMatrix, InstallerTrustChain, LtsPolicy,
-};
+use crate::{DistributionContract, IdentityMatrix, InstallerTrustChain, LtsPolicy};
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct DistributionModel {
@@ -97,4 +95,3 @@ mod tests {
         assert_eq!(evaluate_distribution_model(d, i, l, t).status, "ok");
     }
 }
-

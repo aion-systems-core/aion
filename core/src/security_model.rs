@@ -99,7 +99,9 @@ mod tests {
     #[test]
     fn deterministic_serialization() {
         let m = evaluate_security_model();
-        assert_eq!(serde_json::to_string(&m).unwrap(), serde_json::to_string(&m).unwrap());
+        assert_eq!(
+            serde_json::to_string(&m).unwrap(),
+            serde_json::to_string(&m).unwrap()
+        );
     }
 }
-

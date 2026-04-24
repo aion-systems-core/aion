@@ -13,7 +13,10 @@ use crate::capsule::deterministic_capsule_hash;
 /// Invariant: CPU features, OS version, and kernel version must match exactly.
 /// I/O: `(a, b)` machine fingerprints -> compatibility boolean.
 /// Determinism: pure field equality; no environment-dependent branching.
-pub fn machine_fingerprint_tolerant_equal(a: &aion_kernel::MachineFingerprint, b: &aion_kernel::MachineFingerprint) -> bool {
+pub fn machine_fingerprint_tolerant_equal(
+    a: &aion_kernel::MachineFingerprint,
+    b: &aion_kernel::MachineFingerprint,
+) -> bool {
     a.cpu_features == b.cpu_features
         && a.os_version == b.os_version
         && a.kernel_version == b.kernel_version
@@ -25,7 +28,10 @@ pub fn machine_fingerprint_tolerant_equal(a: &aion_kernel::MachineFingerprint, b
 /// Invariant: determinism profile/hash/trace/events always match; runtime fingerprint is strict.
 /// I/O: `(original, replayed)` capsule pair -> `Ok(())` or stable mismatch token.
 /// Determinism: check order and comparison criteria are fixed.
-pub fn validate_cross_machine_replay(original: &AICapsuleV1, replayed: &AICapsuleV1) -> Result<(), String> {
+pub fn validate_cross_machine_replay(
+    original: &AICapsuleV1,
+    replayed: &AICapsuleV1,
+) -> Result<(), String> {
     if original.determinism != replayed.determinism {
         return Err("cross_machine: determinism_profile mismatch".into());
     }
@@ -38,7 +44,10 @@ pub fn validate_cross_machine_replay(original: &AICapsuleV1, replayed: &AICapsul
     if original.event_stream != replayed.event_stream {
         return Err("cross_machine: event_stream mismatch".into());
     }
-    match (&original.execution_environment, &replayed.execution_environment) {
+    match (
+        &original.execution_environment,
+        &replayed.execution_environment,
+    ) {
         (Some(o), Some(r)) => {
             if o.runtime_fingerprint != r.runtime_fingerprint {
                 return Err("cross_machine: runtime_fingerprint mismatch (strict)".into());

@@ -1,5 +1,9 @@
 # Capsules
 
+## Purpose
+
+Define the **deterministic capsule** as the unit of audit: what it contains on disk, how **replay symmetry** and **drift detection** consume it, and how **governance policy packs** validate it.
+
 A **capsule** is the durable, versioned record of a deterministic AI run. It is the integration point for **replay**, **drift**, **evidence**, and **governance**.
 
 ## At a glance
@@ -28,7 +32,7 @@ Exact field names and required keys are defined in [AI capsule schema](ai-capsul
 
 Typical `sealrun execute ai` output directory:
 
-- `capsule.sealrunai` — capsule payload used by replay and SDK.
+- **`capsule.aionai`** — AI capsule JSON used by replay and SDK (current on-disk extension).
 - `ai.json` / `ai.html` / `ai.svg` — run summary projections.
 - `why.html` / `why.svg` — explainability projections.
 - Evidence sidecar files as emitted by the engine (names may vary by command; treat directory as one **evidence bundle**).
@@ -45,8 +49,8 @@ Paths are rooted under `sealrun_output/<command>/<run-id>/` unless overridden by
 
 ```bash
 sealrun execute ai --model M --prompt "your text" --seed 42
-sealrun execute ai-replay --capsule path/to/capsule.sealrunai
-sealrun policy validate --capsule path/to/capsule.sealrunai --policy examples/governance/dev.policy.json
+sealrun execute ai-replay --capsule path/to/capsule.aionai
+sealrun policy validate --capsule path/to/capsule.aionai --policy examples/governance/dev.policy.json
 ```
 
 ## Related

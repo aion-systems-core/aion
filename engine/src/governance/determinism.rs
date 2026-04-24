@@ -46,12 +46,18 @@ impl DeterminismViolation {
 
 /// Reserved hook for applying governance determinism in a runtime / kernel (no-op in-engine).
 pub fn apply_determinism_profile(profile: &DeterminismProfile) {
-    std::env::set_var("AION_FREEZE_TIME", if profile.freeze_time { "1" } else { "0" });
+    std::env::set_var(
+        "AION_FREEZE_TIME",
+        if profile.freeze_time { "1" } else { "0" },
+    );
     std::env::set_var(
         "AION_FREEZE_RANDOM",
         if profile.freeze_random { "1" } else { "0" },
     );
-    std::env::set_var("AION_FREEZE_ENV", if profile.freeze_env { "1" } else { "0" });
+    std::env::set_var(
+        "AION_FREEZE_ENV",
+        if profile.freeze_env { "1" } else { "0" },
+    );
     std::env::set_var("AION_FREEZE_IO", if profile.freeze_io { "1" } else { "0" });
     std::env::set_var(
         "AION_FREEZE_NETWORK",

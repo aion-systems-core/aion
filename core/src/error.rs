@@ -89,9 +89,7 @@ fn schema_version_default() -> u32 {
 
 /// Deterministic short `message` from `code` (suffix after `AION_`, lowercased).
 pub fn message_from_code(code: &str) -> String {
-    code.strip_prefix("AION_")
-        .unwrap_or(code)
-        .to_lowercase()
+    code.strip_prefix("AION_").unwrap_or(code).to_lowercase()
 }
 
 /// Subsystem label for [`AionError::origin`].

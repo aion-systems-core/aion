@@ -34,10 +34,13 @@ fn seed_from_policy(name: &str) -> u64 {
 }
 
 fn parse_command(v: &Value) -> Result<Vec<String>, String> {
-    let arr = v
-        .get("command")
-        .and_then(Value::as_array)
-        .ok_or_else(|| line(code::CLI_SPEC_SHAPE, "parse_command", "missing_command_array"))?;
+    let arr = v.get("command").and_then(Value::as_array).ok_or_else(|| {
+        line(
+            code::CLI_SPEC_SHAPE,
+            "parse_command",
+            "missing_command_array",
+        )
+    })?;
     let mut out = Vec::new();
     for x in arr {
         let s = x.as_str().ok_or_else(|| {
@@ -50,11 +53,7 @@ fn parse_command(v: &Value) -> Result<Vec<String>, String> {
         out.push(s.to_string());
     }
     if out.is_empty() {
-        return Err(line(
-            code::CLI_SPEC_SHAPE,
-            "parse_command",
-            "empty_command",
-        ));
+        return Err(line(code::CLI_SPEC_SHAPE, "parse_command", "empty_command"));
     }
     Ok(out)
 }
@@ -75,21 +74,15 @@ fn determinism_from_spec(v: &Value) -> DeterminismProfile {
 
 impl KernelGateway for InProcessKernel {
     fn run(&self, spec_json: &str) -> Result<String, String> {
-        let v: Value = serde_json::from_str(spec_json).map_err(|_| {
-            line(
-                code::CLI_JSON_PARSE,
-                "kernel_run_spec",
-                "invalid_json",
-            )
-        })?;
+        let v: Value = serde_json::from_str(spec_json)
+            .map_err(|_| line(code::CLI_JSON_PARSE, "kernel_run_spec", "invalid_json"))?;
         let cmd = parse_command(&v)?;
         let mut det = determinism_from_spec(&v);
         if v.get("time_epoch_secs").is_none() {
             det.time_epoch_secs = now_secs();
         }
         let rr = capture::capture(&cmd, &det)?;
-        if v
-            .get("include_telemetry")
+        if v.get("include_telemetry")
             .and_then(Value::as_bool)
             .unwrap_or(false)
         {
@@ -108,23 +101,13 @@ impl KernelGateway for InProcessKernel {
                 )
             });
         }
-        serde_json::to_string(&rr).map_err(|_| {
-            line(
-                code::CLI_JSON_SERIALIZE,
-                "kernel_run",
-                "invalid_json",
-            )
-        })
+        serde_json::to_string(&rr)
+            .map_err(|_| line(code::CLI_JSON_SERIALIZE, "kernel_run", "invalid_json"))
     }
 
     fn capsule(&self, spec_json: &str) -> Result<String, String> {
-        let v: Value = serde_json::from_str(spec_json).map_err(|_| {
-            line(
-                code::CLI_JSON_PARSE,
-                "kernel_capsule_spec",
-                "invalid_json",
-            )
-        })?;
+        let v: Value = serde_json::from_str(spec_json)
+            .map_err(|_| line(code::CLI_JSON_PARSE, "kernel_capsule_spec", "invalid_json"))?;
         let cmd = parse_command(&v)?;
         let policy_name = v.get("policy").and_then(Value::as_str).unwrap_or("dev");
         let pol = policy::resolve(policy_name);
@@ -161,13 +144,7 @@ impl KernelGateway for InProcessKernel {
         let zip_file = path
             .file_name()
             .and_then(|n| n.to_str())
-            .ok_or_else(|| {
-                line(
-                    code::CLI_SPEC_SHAPE,
-                    "capsule_zip",
-                    "missing_zip_file_name",
-                )
-            })?
+            .ok_or_else(|| line(code::CLI_SPEC_SHAPE, "capsule_zip", "missing_zip_file_name"))?
             .to_string();
         let capsule = Capsule {
             capsule_schema_version: aion_core::CAPSULE_SCHEMA_VERSION,
@@ -176,13 +153,8 @@ impl KernelGateway for InProcessKernel {
             policy: pol,
             determinism: det,
         };
-        serde_json::to_string(&capsule).map_err(|_| {
-            line(
-                code::CLI_JSON_SERIALIZE,
-                "kernel_capsule",
-                "invalid_json",
-            )
-        })
+        serde_json::to_string(&capsule)
+            .map_err(|_| line(code::CLI_JSON_SERIALIZE, "kernel_capsule", "invalid_json"))
     }
 
     fn replay(&self, run_json: &str) -> Result<String, String> {
@@ -192,24 +164,14 @@ impl KernelGateway for InProcessKernel {
 
     fn diff(&self, left_json: &str, right_json: &str) -> Result<String, String> {
         let d = diff::diff_runs(left_json, right_json)?;
-        serde_json::to_string(&d).map_err(|_| {
-            line(
-                code::CLI_JSON_SERIALIZE,
-                "kernel_diff",
-                "invalid_json",
-            )
-        })
+        serde_json::to_string(&d)
+            .map_err(|_| line(code::CLI_JSON_SERIALIZE, "kernel_diff", "invalid_json"))
     }
 
     fn why(&self, left_json: &str, right_json: &str) -> Result<String, String> {
         let w = why::why_pair(left_json, right_json)?;
-        serde_json::to_string(&w).map_err(|_| {
-            line(
-                code::CLI_JSON_SERIALIZE,
-                "kernel_why",
-                "invalid_json",
-            )
-        })
+        serde_json::to_string(&w)
+            .map_err(|_| line(code::CLI_JSON_SERIALIZE, "kernel_why", "invalid_json"))
     }
 
     fn graph(&self, run_json: &str) -> Result<String, String> {
@@ -220,13 +182,8 @@ impl KernelGateway for InProcessKernel {
         let pol = PolicyProfile::dev();
         let det = DeterminismProfile::default();
         let rep = full_report(Some(&pol), Some(&det), None);
-        serde_json::to_string(&rep).map_err(|_| {
-            line(
-                code::CLI_JSON_SERIALIZE,
-                "kernel_integrity",
-                "invalid_json",
-            )
-        })
+        serde_json::to_string(&rep)
+            .map_err(|_| line(code::CLI_JSON_SERIALIZE, "kernel_integrity", "invalid_json"))
     }
 }
 

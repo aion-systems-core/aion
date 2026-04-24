@@ -57,4 +57,3 @@ mod tests {
         assert_eq!(run_soak_test_plan(plan, true).status, "error");
     }
 }
-

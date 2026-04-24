@@ -1,4 +1,6 @@
-//! CLI flow checks (human + `--json` summaries).
+//! Integration tests for the `sealrun` binary: `execute ai` JSON envelope and human-readable headings.
+//!
+//! Uses `CARGO_BIN_EXE_sealrun`; does not assert on full artefact trees—only stdout shape.
 
 use std::process::Command;
 use std::time::{SystemTime, UNIX_EPOCH};

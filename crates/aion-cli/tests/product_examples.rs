@@ -20,7 +20,12 @@ fn test_examples_run_ci_gated() {
         .expect("cargo");
     assert!(st.success(), "cargo check --examples");
 
-    for ex in ["sdk_capsule_build", "sdk_replay", "sdk_drift", "sdk_governance"] {
+    for ex in [
+        "sdk_capsule_build",
+        "sdk_replay",
+        "sdk_drift",
+        "sdk_governance",
+    ] {
         let st = Command::new("cargo")
             .current_dir(&root)
             .args(["run", "-q", "-p", "aion-cli", "--example", ex])

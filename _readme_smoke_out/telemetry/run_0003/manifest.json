@@ -1,0 +1,14 @@
+{
+  "command": "telemetry",
+  "files": [
+    "manifest.json",
+    "stdout.txt",
+    "stderr.txt",
+    "events.jsonl",
+    "replay.json",
+    "audit.jsonl",
+    "hashes.json"
+  ],
+  "run_id": "run_0003",
+  "version": "1.0.0"
+}

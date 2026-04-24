@@ -135,9 +135,7 @@ pub fn build_why_report_v2(
             });
         }
     }
-    edges.sort_by(|a, b| {
-        (&a.from, &a.to, &a.reason).cmp(&(&b.from, &b.to, &b.reason))
-    });
+    edges.sort_by(|a, b| (&a.from, &a.to, &a.reason).cmp(&(&b.from, &b.to, &b.reason)));
 
     let summary = format!(
         "{} influence nodes, {} causal edges, {} emitted tokens; deterministic under the given model, prompt, seed, and determinism profile.",

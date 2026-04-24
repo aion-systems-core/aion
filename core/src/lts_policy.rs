@@ -33,7 +33,11 @@ pub fn evaluate_lts_policy(
     support_window: Option<SupportWindow>,
     eol_policy: EolPolicy,
 ) -> LtsPolicy {
-    let status = if support_window.is_none() { "error" } else { "ok" };
+    let status = if support_window.is_none() {
+        "error"
+    } else {
+        "ok"
+    };
     LtsPolicy {
         channel,
         support_window,
@@ -58,4 +62,3 @@ mod tests {
         assert_eq!(p.status, "error");
     }
 }
-

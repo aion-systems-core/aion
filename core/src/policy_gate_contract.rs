@@ -52,4 +52,3 @@ mod tests {
         assert_eq!(g.status, "error");
     }
 }
-

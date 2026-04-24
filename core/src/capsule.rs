@@ -36,8 +36,8 @@ pub fn write_capsule_v1(
     policy: PolicyProfile,
     determinism: DeterminismProfile,
 ) -> Result<PathBuf, String> {
-    let run: RunResult = serde_json::from_str(run_json)
-        .map_err(|e| format!("capsule: invalid run JSON: {e}"))?;
+    let run: RunResult =
+        serde_json::from_str(run_json).map_err(|e| format!("capsule: invalid run JSON: {e}"))?;
 
     let manifest = CapsuleManifest {
         capsule_schema_version: CAPSULE_SCHEMA_VERSION,
@@ -94,11 +94,14 @@ pub fn write_capsule_v1(
             .map_err(|e| format!("zip {name}: {e}"))?;
         zip.write_all(body.as_bytes())
             .map_err(|e| format!("zip write {name}: {e}"))?;
-        hashes.insert((*name).to_string(), serde_json::Value::String(hash_hex(body.as_bytes())));
+        hashes.insert(
+            (*name).to_string(),
+            serde_json::Value::String(hash_hex(body.as_bytes())),
+        );
     }
 
-    let hashes_json =
-        serde_json::to_string_pretty(&serde_json::Value::Object(hashes)).map_err(|e| format!("hashes: {e}"))?;
+    let hashes_json = serde_json::to_string_pretty(&serde_json::Value::Object(hashes))
+        .map_err(|e| format!("hashes: {e}"))?;
     zip.start_file("hashes.json", opts)
         .map_err(|e| format!("zip hashes: {e}"))?;
     zip.write_all(hashes_json.as_bytes())
@@ -111,7 +114,9 @@ pub fn write_capsule_v1(
 pub fn read_capsule_manifest(path: &Path) -> Result<CapsuleManifest, String> {
     let file = File::open(path).map_err(|e| format!("open capsule: {e}"))?;
     let mut archive = ZipArchive::new(file).map_err(|e| format!("zip: {e}"))?;
-    let mut z = archive.by_name("manifest.json").map_err(|_| "missing manifest.json".to_string())?;
+    let mut z = archive
+        .by_name("manifest.json")
+        .map_err(|_| "missing manifest.json".to_string())?;
     let mut s = String::new();
     z.read_to_string(&mut s)
         .map_err(|e| format!("read manifest: {e}"))?;

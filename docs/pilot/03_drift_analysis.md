@@ -1,5 +1,9 @@
 # Pilot onboarding — Drift analysis
 
+## Purpose
+
+Pilot step for **drift detection** between captured runs—ties to the Map-layer contract ([Drift](../drift.md)).
+
 Drift answers: **what changed** between two capsules or between a capsule and a baseline?
 
 Use the CLI **observe** flows (see [Drift](../drift.md) for full syntax). Typical pattern:

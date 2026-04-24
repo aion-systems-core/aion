@@ -7,12 +7,10 @@ use std::sync::Mutex;
 static ENV_LOCK: Mutex<()> = Mutex::new(());
 
 fn read_doctor_result_json(out_root: &std::path::Path) -> Value {
-    let body = std::fs::read_to_string(out_root.join("result.json")).expect("read doctor result.json");
+    let body =
+        std::fs::read_to_string(out_root.join("result.json")).expect("read doctor result.json");
     let envelope: Value = serde_json::from_str(&body).expect("parse doctor json");
-    envelope
-        .get("data")
-        .cloned()
-        .expect("doctor envelope data")
+    envelope.get("data").cloned().expect("doctor envelope data")
 }
 
 fn temp_file(name: &str) -> PathBuf {
@@ -141,11 +139,9 @@ fn doctor_output_has_deterministic_check_order() {
         .get("os_contract_spec_versions")
         .and_then(|x| x.as_array())
         .expect("os_contract_spec_versions");
-    assert!(
-        versions
-            .iter()
-            .any(|x| x.as_str() == Some(os_contract_spec_version().as_str()))
-    );
+    assert!(versions
+        .iter()
+        .any(|x| x.as_str() == Some(os_contract_spec_version().as_str())));
     let upgrade = v.get("upgrade_replay").expect("upgrade_replay block");
     assert!(upgrade.get("current_kernel_version").is_some());
     let targets = upgrade
@@ -214,4 +210,3 @@ fn doctor_output_has_deterministic_check_order() {
     assert!(v.get("evidence_export").is_some());
     assert!(v.get("measurement_model").is_some());
 }
-

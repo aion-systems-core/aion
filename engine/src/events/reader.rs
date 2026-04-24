@@ -38,9 +38,7 @@ impl<'a> EventReader<'a> {
         &self,
         cat: EventCategory,
     ) -> impl Iterator<Item = &'a EventEnvelope> + '_ {
-        self.inner
-            .iter()
-            .filter(move |e| e.event.category() == cat)
+        self.inner.iter().filter(move |e| e.event.category() == cat)
     }
 
     /// Deterministic `map` + materialize (avoids RPITIT capture issues).
@@ -159,9 +157,7 @@ impl<'a> EventReader<'a> {
         WhyReport {
             summary: "Event stream divergence detected (ordering or payload).".into(),
             first_divergent_field: Some("event_stream".into()),
-            suggestion: Some(
-                "Diff canonical summaries or inspect per-category iterators.".into(),
-            ),
+            suggestion: Some("Diff canonical summaries or inspect per-category iterators.".into()),
         }
     }
 }

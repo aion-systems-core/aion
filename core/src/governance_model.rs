@@ -139,4 +139,3 @@ mod tests {
         assert_eq!(model.status, "error");
     }
 }
-

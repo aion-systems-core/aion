@@ -59,7 +59,12 @@ impl EventStore {
 
     /// Merge another store’s events after this one’s last seq (renumbering incoming).
     pub fn merge_sorted(&mut self, mut other: EventStore) -> Result<(), String> {
-        let base = self.events.last().map(|e| e.seq).map(|s| s.saturating_add(1)).unwrap_or(0);
+        let base = self
+            .events
+            .last()
+            .map(|e| e.seq)
+            .map(|s| s.saturating_add(1))
+            .unwrap_or(0);
         other.renumber_from(base)?;
         for e in other.events {
             self.append(e)?;

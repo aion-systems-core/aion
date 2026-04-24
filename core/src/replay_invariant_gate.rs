@@ -39,7 +39,12 @@ pub fn run_replay_invariant_gate(
         },
         ReplayInvariantCheck {
             name: "contract_snapshots".into(),
-            status: if contract_snapshots_deterministic { "ok" } else { "error" }.into(),
+            status: if contract_snapshots_deterministic {
+                "ok"
+            } else {
+                "error"
+            }
+            .into(),
         },
     ];
     let mut violations = Vec::new();
@@ -66,7 +71,11 @@ pub fn run_replay_invariant_gate(
     }
     ReplayInvariantGate {
         checks,
-        status: if violations.is_empty() { "ok".into() } else { "error".into() },
+        status: if violations.is_empty() {
+            "ok".into()
+        } else {
+            "error".into()
+        },
         violations,
     }
 }
@@ -105,4 +114,3 @@ mod tests {
         assert_eq!(g.violations.len(), 3);
     }
 }
-

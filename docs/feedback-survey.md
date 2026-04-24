@@ -1,5 +1,9 @@
 # Feedback survey
 
+## Purpose
+
+Structured feedback channel description; technical contracts remain in [OS Contract Spec](os_contract_spec.md).
+
 This survey collects structured feedback for deterministic SealRun product evolution.
 
 ## At a glance

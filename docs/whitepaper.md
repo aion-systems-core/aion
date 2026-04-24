@@ -1,5 +1,9 @@
 # SealRun Whitepaper (Draft)
 
+## Purpose
+
+Long-form narrative companion to [Architecture](architecture.md) and the [OS Contract Spec](os_contract_spec.md)—not normative on its own.
+
 This draft summarizes SealRun architecture and deterministic contract principles.
 
 ## At a glance

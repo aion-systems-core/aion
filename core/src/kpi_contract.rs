@@ -37,7 +37,9 @@ pub struct KpiContract {
 
 pub fn evaluate_kpi_contract(mut kpis: Vec<KpiDefinition>) -> KpiContract {
     kpis.sort_by(|a, b| a.id.cmp(&b.id));
-    let invalid = kpis.iter().any(|k| k.target.is_none() || k.status.is_none());
+    let invalid = kpis
+        .iter()
+        .any(|k| k.target.is_none() || k.status.is_none());
     KpiContract {
         kpis,
         status: if invalid { "error" } else { "ok" }.into(),
@@ -58,4 +60,3 @@ mod tests {
         assert_eq!(c.status, "error");
     }
 }
-

@@ -36,11 +36,12 @@ pub fn evaluate_installer_trust_chain(
 ) -> InstallerTrustChain {
     artifacts.sort_by(|a, b| a.name.cmp(&b.name));
     signatures.sort_by(|a, b| a.signature_id.cmp(&b.signature_id));
-    let status = if artifacts.is_empty() || signatures.is_empty() || signatures.iter().any(|s| !s.trusted) {
-        "untrusted"
-    } else {
-        "trusted"
-    };
+    let status =
+        if artifacts.is_empty() || signatures.is_empty() || signatures.iter().any(|s| !s.trusted) {
+            "untrusted"
+        } else {
+            "trusted"
+        };
     InstallerTrustChain {
         artifacts,
         signatures,
@@ -64,4 +65,3 @@ mod tests {
         assert_eq!(c.status, "untrusted");
     }
 }
-

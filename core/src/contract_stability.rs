@@ -78,20 +78,40 @@ fn contract_names() -> Vec<&'static str> {
 fn contract_schema(name: &str) -> Value {
     match name {
         "output" => json!({"status":"string","data":"object","error":"object|null"}),
-        "error" => json!({"code":"string","message":"string","context":"string","origin":"string","cause":"string|null"}),
-        "replay" => json!({"replay_symmetry_ok":"bool","replay_profile_error":"string|null","differences":"array"}),
-        "drift" => json!({"changed":"bool","labels":"array","categories":"array","tolerance_violations":"array"}),
+        "error" => {
+            json!({"code":"string","message":"string","context":"string","origin":"string","cause":"string|null"})
+        }
+        "replay" => {
+            json!({"replay_symmetry_ok":"bool","replay_profile_error":"string|null","differences":"array"})
+        }
+        "drift" => {
+            json!({"changed":"bool","labels":"array","categories":"array","tolerance_violations":"array"})
+        }
         "evidence" => json!({"records":"array","root_anchor":"string","replay_anchors":"object"}),
         "policy" => json!({"policy_profile":"object","violations":"array","status":"string"}),
-        "global_consistency" => json!({"run_finality":"object","capsule_finality":"object","evidence_finality":"object","replay_finality":"object"}),
-        "identity" => json!({"kernel_version":"object","compatibility_profile":"object","instance_id":"object|null"}),
-        "upgrade_replay" => json!({"support_window":"string","tested_upgrade_targets":"array","results":"array"}),
+        "global_consistency" => {
+            json!({"run_finality":"object","capsule_finality":"object","evidence_finality":"object","replay_finality":"object"})
+        }
+        "identity" => {
+            json!({"kernel_version":"object","compatibility_profile":"object","instance_id":"object|null"})
+        }
+        "upgrade_replay" => {
+            json!({"support_window":"string","tested_upgrade_targets":"array","results":"array"})
+        }
         "capsule_abi" => json!({"supported_abi_versions":"array","result":"object"}),
-        "trust_chain" => json!({"key_rotation_policy":"string","attestation_required":"bool","result":"object"}),
-        "runtime_isolation" => json!({"io_boundary_mode":"string","side_effect_matrix_version":"string","result":"object"}),
-        "observability" => json!({"log_schema_version":"string","metrics_schema_version":"string","trace_schema_version":"string","result":"object"}),
+        "trust_chain" => {
+            json!({"key_rotation_policy":"string","attestation_required":"bool","result":"object"})
+        }
+        "runtime_isolation" => {
+            json!({"io_boundary_mode":"string","side_effect_matrix_version":"string","result":"object"})
+        }
+        "observability" => {
+            json!({"log_schema_version":"string","metrics_schema_version":"string","trace_schema_version":"string","result":"object"})
+        }
         "tenant_isolation" => json!({"guard_matrix_version":"string","result":"object"}),
-        "legal_determinism" => json!({"license_contract_version":"string","sla_contract_version":"string","result":"object"}),
+        "legal_determinism" => {
+            json!({"license_contract_version":"string","sla_contract_version":"string","result":"object"})
+        }
         _ => json!({}),
     }
 }
@@ -186,14 +206,19 @@ fn make_snapshot(contract_name: &str, contract_version: &str) -> ContractSnapsho
 
 fn schema_fields(schema: &Value) -> BTreeMap<String, String> {
     let mut out = BTreeMap::new();
-    let Some(obj) = schema.as_object() else { return out };
+    let Some(obj) = schema.as_object() else {
+        return out;
+    };
     for (k, v) in obj {
         out.insert(k.clone(), v.as_str().unwrap_or("unknown").to_string());
     }
     out
 }
 
-fn detect_breaking(prev: &ContractSnapshot, curr: &ContractSnapshot) -> Vec<ContractBreakingChange> {
+fn detect_breaking(
+    prev: &ContractSnapshot,
+    curr: &ContractSnapshot,
+) -> Vec<ContractBreakingChange> {
     let mut out = Vec::new();
     let prev_fields = schema_fields(&prev.schema);
     let curr_fields = schema_fields(&curr.schema);
@@ -290,8 +315,11 @@ pub fn evaluate_contract_stability(
         }
     }
     breaking_changes_detected.sort_by(|a, b| {
-        (a.contract_name.clone(), a.code.clone(), a.context.clone())
-            .cmp(&(b.contract_name.clone(), b.code.clone(), b.context.clone()))
+        (a.contract_name.clone(), a.code.clone(), a.context.clone()).cmp(&(
+            b.contract_name.clone(),
+            b.code.clone(),
+            b.context.clone(),
+        ))
     });
 
     ContractStabilityReport {
@@ -430,4 +458,3 @@ mod tests {
         let _ = serde_json::to_string(&s).expect("serialize");
     }
 }
-

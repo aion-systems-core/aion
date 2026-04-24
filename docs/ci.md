@@ -1,5 +1,9 @@
 # CI
 
+## Purpose
+
+Describe **`sealrun ci baseline`** / **`sealrun ci check`** as machine-readable **governance** gates over capsules, with exit semantics suitable for pipelines ([Governance](governance.md)).
+
 SealRun supports **governance CI** workflows: record a **baseline** (capsule + profiles), then **check** new capsules against that baseline with drift, replay, and governance gates.
 
 ## At a glance
@@ -14,7 +18,7 @@ SealRun supports **governance CI** workflows: record a **baseline** (capsule + p
 
 ```bash
 sealrun ci baseline \
-  --capsule path/to/capsule.sealrunai \
+  --capsule path/to/capsule.aionai \
   --policy examples/governance/dev.policy.json \
   --determinism examples/governance/dev.determinism.json \
   --integrity examples/governance/dev.integrity.json
@@ -26,7 +30,7 @@ Writes `governance.json` (+ HTML/SVG) under `sealrun_output/ci-baseline/<timesta
 
 ```bash
 sealrun ci check \
-  --capsule path/to/candidate.sealrunai \
+  --capsule path/to/candidate.aionai \
   --baseline path/to/baseline-governance.json
 ```
 
@@ -48,8 +52,8 @@ sealrun sdk ci check …
 ## CLI surface
 
 ```bash
-sealrun ci baseline --capsule path/to/capsule.sealrunai --policy examples/governance/dev.policy.json --determinism examples/governance/dev.determinism.json --integrity examples/governance/dev.integrity.json
-sealrun ci check --capsule path/to/candidate.sealrunai --baseline path/to/baseline-governance.json
+sealrun ci baseline --capsule path/to/capsule.aionai --policy examples/governance/dev.policy.json --determinism examples/governance/dev.determinism.json --integrity examples/governance/dev.integrity.json
+sealrun ci check --capsule path/to/candidate.aionai --baseline path/to/baseline-governance.json
 sealrun doctor
 ```
 

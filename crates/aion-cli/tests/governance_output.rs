@@ -18,8 +18,12 @@ fn governance_outputs_are_structured() {
     let evidence = output_bundle::write_policy_evidence_output().expect("evidence");
     let governance = output_bundle::write_governance_status_output().expect("governance");
 
-    assert!(nested_data(&read_data(&packs)).get("policy_packs").is_some());
-    assert!(nested_data(&read_data(&gates)).get("policy_gates").is_some());
+    assert!(nested_data(&read_data(&packs))
+        .get("policy_packs")
+        .is_some());
+    assert!(nested_data(&read_data(&gates))
+        .get("policy_gates")
+        .is_some());
     assert!(nested_data(&read_data(&evidence))
         .get("policy_evidence")
         .is_some());
@@ -27,4 +31,3 @@ fn governance_outputs_are_structured() {
         .get("governance_model")
         .is_some());
 }
-

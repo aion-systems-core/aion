@@ -34,4 +34,3 @@ fn reliability_outputs_exist_and_are_structured() {
     let soak_data = read_data(&soak);
     assert!(nested_data(&soak_data).get("soak_status").is_some());
 }
-

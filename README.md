@@ -1,82 +1,149 @@
-# SealRun ? seal your run
+# SealRun
 
-SealRun is a deterministic execution engine that seals every run into a verifiable capsule.
+SealRun is a **deterministic execution engine** for AI and automation workloads: every run is sealed into a **replayable capsule**, compared with **drift** contracts, anchored to an **evidence chain**, and checked against **governance** policies, surfaced as **deterministic JSON envelopes** for machines and auditors.
 
-**GitHub description:** SealRun is a deterministic execution engine that seals every run into a verifiable capsule.
+[![CI](https://github.com/aion-systems-core/sealrun/actions/workflows/ci.yml/badge.svg)](https://github.com/aion-systems-core/sealrun/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Rust](https://img.shields.io/badge/rust-stable-orange.svg)](https://www.rust-lang.org/)
 
-**Suggested GitHub topics:** `compliance`, `audit`, `evidence`, `governance`, `reproducibility`, `determinism`
+## The problem
 
-## Problem -> Solution
+Production and regulated teams need to **prove what ran**, **prove it again**, and **prove what changed**. Conventional logs and ad-hoc screenshots are weak evidence: environments drift, models are non-obvious black boxes, and "it worked on my machine" is not a control.
 
-Automation and AI runs are often hard to prove after the fact. Logs can be incomplete, environments drift silently, and non-deterministic behavior breaks confidence in results.
+## The solution
 
-SealRun captures execution into deterministic capsules, supports replay and diff, detects drift, and emits evidence artifacts that can be reviewed in engineering and compliance workflows.
+SealRun records runs as **structured capsules**, verifies them with **replay symmetry**, measures change with **drift detection**, and binds integrity with a linear **evidence chain**. **Policy validation** and CLI **governance** surfaces make those artefacts usable in **CI gates** and **audit** workflows. The implementation is **Rust-first**: explicit contracts, stable serialization, and reproducible tooling behavior.
+
+## Why SealRun is different
+
+| Typical stack | SealRun |
+|---------------|---------|
+| Logs as proof | **Capsule + evidence** as the primary audit unit |
+| "Re-run and hope" | **Replay symmetry** against the stored record |
+| Informal diff | **Drift contract** with deterministic categories |
+| Policy in prose | **Machine-readable governance** outputs |
+| Implicit isolation | **Execution-OS (contract layer), not a sandbox OS** (see below) |
+
+**Execution-OS vs. security sandbox OS:** In architecture terms, SealRun is an **execution OS**: a deterministic **contract surface** for runs (State, Process, Map, Evidence, Policy layers; see [Architecture](docs/architecture.md)). It is **not** a **sandbox OS**: no root requirement, no kernel modules, no syscall interception for isolation. Filesystem and network isolation remain **operator or enterprise** responsibilities; the same contracts can be backed by stronger isolation where required ([Security Guide](docs/security-guide.md)).
+
+## Architecture overview
+
+SealRun separates the **five-layer deterministic kernel model** (State, Process, Map, Evidence, Policy) from **enterprise contract domains** exposed via the CLI (`governance`, `reliability`, `ops`, `dist`, `ux`, `tests`, `measure`) and aggregated in `sealrun doctor`.
+
+```text
+  Prompt + model + seed + profiles
+              |
+              v
+       +------------------+
+       |     Capsule      |  canonical run record (tokens, why, graph, evidence)
+       +--------+---------+
+                |
+    +-----------+-----------+---------------+
+    |           |           |               |
+  Replay       Drift     Evidence       Policy
+ (symmetry)  (compare)   (chain)     (validation)
+```
+
+| Layer | Role |
+|-------|------|
+| **State** | Canonical capsule state and replay inputs |
+| **Process** | Replay-invariant checks and symmetry |
+| **Map** | Drift categories, ordering, tolerances |
+| **Evidence** | Digest-linked chain and anchors |
+| **Policy** | Governance packs, gates, validation order |
+
+Authoritative definitions: **[OS Contract Specification](docs/os_contract_spec.md)** | [Architecture](docs/architecture.md)
 
 ## Key features
 
-- Deterministic capsules
-- Replay and diff
-- Drift detection
-- Evidence artifacts
+- **Deterministic capsules** - versioned run records for archival and comparison
+- **Replay symmetry** - re-execution checks against the capsule under the replay invariant
+- **Drift detection** - pairwise, field-classified deltas for CI and review
+- **Evidence chain** - linear, digest-linked proof surface tied to capsules
+- **Governance policy packs** - deterministic pass/fail artefacts for gates
+- **Deterministic JSON envelopes** - stable machine contracts across CLI domains
+- **Rust workspace** - `core`, `kernel`, `engine`, and `sealrun` CLI crates
 
 ## Quickstart
 
-Installation (placeholder): install or build the CLI and expose it as `sealrun` in your PATH.
-
 ```bash
-# Deterministic execution
-sealrun execute ai --model demo --prompt "hello world" --seed 42
-
-# Replay capsule
-sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
-
-# Diff / drift analysis
-sealrun observe drift left.json right.json
-
-# Governance policy validation
-sealrun policy validate --capsule path/to/capsule\.sealrunai --policy examples/governance/dev.policy.json
-
-# Deterministic diagnostics
-sealrun doctor
+git clone https://github.com/aion-systems-core/sealrun.git
+cd sealrun
+cargo build --release
+./target/release/sealrun --help
 ```
 
-Artifacts are written under `sealrun_output/...`.
+On Windows, run `target\release\sealrun.exe` (or use Git Bash for the paths above).
+
+Pin output under **`sealrun_output/`** and fixed run IDs so paths stay stable:
+
+```bash
+export AION_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:AION_OUTPUT_BASE = "$PWD\sealrun_output"
+./target/release/sealrun --id quickstart_demo execute ai \
+  --model demo --prompt "hello world" --seed 42
+
+./target/release/sealrun --id quickstart_replay execute ai-replay \
+  --capsule sealrun_output/ai/quickstart_demo/capsule.aionai
+
+./target/release/sealrun --id quickstart_drift_a observe capture -- echo alpha
+./target/release/sealrun --id quickstart_drift_b observe capture -- echo beta
+./target/release/sealrun observe drift \
+  sealrun_output/capture/quickstart_drift_a/result.json \
+  sealrun_output/capture/quickstart_drift_b/result.json
+
+./target/release/sealrun policy validate \
+  --capsule sealrun_output/ai/quickstart_demo/capsule.aionai \
+  --policy examples/governance/dev.policy.json
+
+./target/release/sealrun doctor
+```
+
+**Artefact layout:** `<output_base>/<command>/<run_id>/`. Example: `sealrun_output/ai/quickstart_demo/` holds `ai.json`, **`capsule.aionai`** (AI capsule JSON), **`*.aionevidence`** sidecars, and optional HTML/SVG. Shell capture flows emit **`result.json`** (`RunResult`). Override base with **`AION_OUTPUT_BASE`** or **`--output-dir`**.
 
 ## Use cases
 
-- **Debugging:** replay failed or flaky runs and compare deterministic diffs.
-- **Compliance / audit:** produce machine-readable execution evidence chains.
-- **Reproducible automation:** enforce deterministic run behavior in CI/CD and ops pipelines.
+- **Regulated / audit-ready AI** - retain capsules, replay reports, drift JSON, and policy decisions as primary evidence
+- **Release and change control** - gate merges on replay, drift against baselines, and governance CLI outputs
+- **SRE and platform operations** - fold `doctor` and domain JSON into incident and upgrade reviews ([Operations Guide](docs/operations-guide.md))
+- **Vendor and internal evaluation** - reproduce runs from capsules without proprietary hosting
+- **Open-source supply chain** - inspect contracts and behaviour in Rust instead of opaque services
+
+## Documentation hub
+
+| Document | Description |
+|----------|-------------|
+| [Architecture](docs/architecture.md) | Five-layer kernel vs. enterprise domains, diagrams, contract mapping |
+| [OS Contract Spec](docs/os_contract_spec.md) | Normative contract text the implementation tracks |
+| [CLI Reference](docs/cli-reference.md) | Deterministic CLI surface by domain |
+| [Developer Guide](docs/developer-guide.md) | Replay, drift, evidence, identity workflows |
+| [Operations Guide](docs/operations-guide.md) | SRE-oriented use of contract outputs |
+| [Security Guide](docs/security-guide.md) | Threat model, isolation scope, adoption boundaries |
+| [Enterprise Guide](docs/enterprise/README.md) | Enterprise packaging and commercial context |
+| [Compliance One-Pager](docs/compliance/sealrun_compliance_onepager.md) | Short compliance-facing summary |
+| [Capsules](docs/capsules.md) | Capsule format and on-disk layout |
+| [Replay](docs/replay.md) | Replay guarantees and CLI/SDK usage |
+| [Drift](docs/drift.md) | Drift semantics and gating |
+| [Governance](docs/governance.md) | Policy packs, gates, open-core vs. enterprise |
+| [SDK](docs/sdk.md) | Programmatic integration and `sealrun sdk` |
+| [FAQ](docs/faq.md) | Developers, operators, and security roles |
+
+## Compliance & enterprise readiness
+
+- **Evidence-first:** deterministic JSON envelopes and capsule-bound artefacts support retention and review
+- **Controls, not slogans:** replay, drift, evidence, and governance outputs attach to tickets, CMDBs, and SOC workflows
+- **Entry points:** [Compliance One-Pager](docs/compliance/sealrun_compliance_onepager.md) | [Security Guide](docs/security-guide.md) | [Governance](docs/governance.md) | [Enterprise Guide](docs/enterprise/README.md)
 
 ## Roadmap
 
-- Harden replay and drift reporting for larger pipelines
-- Extend evidence export and anchoring workflows
-- Expand policy and governance templates
-- Improve deterministic CI and benchmark surfaces
-- Publish migration and compatibility guides for broader adoption
-
-## Documentation
-
-- [Architecture](docs/architecture.md)
-- [OS Contract Specification](docs/os_contract_spec.md)
-- [CLI Reference](docs/cli-reference.md)
-- [Developer Guide](docs/developer-guide.md)
-- [Operations Guide](docs/operations-guide.md)
-- [Security Guide](docs/security-guide.md)
-- [Enterprise Guide](docs/enterprise/README.md)
-
-## Compliance & Audit Readiness
-
-- Deterministic evidence surfaces: capsule-bound artefacts and machine-readable CLI JSON envelopes.
-- Replay and drift for reproducible comparisons suitable for audit trails and release gates.
-- Governance and policy validation for admission control in CI and operations.
-- Summary for security and compliance reviews: [Compliance one-pager](docs/compliance/sealrun_compliance_onepager.md).
-- Isolation scope and threat assumptions: [Security Guide](docs/security-guide.md).
-- Policy contracts and enforcement surfaces: [Governance](docs/governance.md).
-
-Additional references: [Capsules](docs/capsules.md), [Replay](docs/replay.md), [Drift](docs/drift.md).
+- Deeper replay and drift reporting for large batch fleets
+- Stronger evidence export and anchoring options
+- Broader governance templates and CI recipes
+- Hardened benchmarks and compatibility windows across releases
 
 ## Contributing
 
-Issues and pull requests are welcome. Open a focused issue with reproduction details, expected behavior, and environment context before larger changes.
+Issues and pull requests are welcome. Open an issue with **reproduction**, **expected vs. actual behaviour**, **Rust toolchain version**, and **OS** before large changes. Follow `cargo fmt`, `cargo clippy -D warnings`, and `cargo test --workspace` locally. See [.github/workflows/ci.yml](.github/workflows/ci.yml) for the canonical CI matrix.
+
+## License
+
+SealRun is open source under the [MIT License](LICENSE).

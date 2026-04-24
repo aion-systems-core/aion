@@ -16,7 +16,10 @@ pub async fn replay_capsule_async(path: &str) -> Result<ReplayReport, String> {
 }
 
 #[cfg(feature = "async")]
-pub async fn compare_capsules_async(path_left: &str, path_right: &str) -> Result<ReplayComparison, String> {
+pub async fn compare_capsules_async(
+    path_left: &str,
+    path_right: &str,
+) -> Result<ReplayComparison, String> {
     let l = path_left.to_string();
     let r = path_right.to_string();
     tokio::task::spawn_blocking(move || {

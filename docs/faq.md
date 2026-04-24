@@ -1,5 +1,9 @@
 # FAQ
 
+## Purpose
+
+Fast answers for **developers**, **operators**, and **security/compliance** roles: sandbox scope, capsule vs. replay vs. drift, evidence, CI, and where to read authoritative contracts.
+
 ## At a glance
 
 SealRun is a deterministic execution engine: runs are sealed into **capsules**, checked with **replay**, compared with **drift**, and anchored with **evidence** and **governance** contracts. Authoritative contract definitions live in [OS contract spec](os_contract_spec.md) and [Architecture](architecture.md).

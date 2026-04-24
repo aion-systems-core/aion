@@ -179,11 +179,7 @@ fn parse_policy_profile(v: &Value) -> Result<PolicyProfile, String> {
         ));
     }
     if name.trim().is_empty() {
-        return Err(line(
-            code::GOVERNANCE_JSON,
-            "policy_value",
-            "name_empty",
-        ));
+        return Err(line(code::GOVERNANCE_JSON, "policy_value", "name_empty"));
     }
     if allowed_models.iter().any(|m| m.trim().is_empty()) {
         return Err(line(
@@ -239,7 +235,13 @@ fn as_string(obj: &serde_json::Map<String, Value>, key: &'static str) -> Result<
     obj.get(key)
         .and_then(Value::as_str)
         .map(ToString::to_string)
-        .ok_or_else(|| line(code::GOVERNANCE_JSON, "policy_type", &format!("field_type:{key}:string")))
+        .ok_or_else(|| {
+            line(
+                code::GOVERNANCE_JSON,
+                "policy_type",
+                &format!("field_type:{key}:string"),
+            )
+        })
 }
 
 fn as_u64(obj: &serde_json::Map<String, Value>, key: &'static str) -> Result<u64, String> {

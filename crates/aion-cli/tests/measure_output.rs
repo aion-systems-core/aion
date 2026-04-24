@@ -29,4 +29,3 @@ fn measure_outputs_are_structured() {
         .get("evidence_export")
         .is_some());
 }
-

@@ -1,5 +1,9 @@
 # Enterprise Guide
 
+## Purpose
+
+Index of **enterprise-facing** SealRun material (readiness, governance narrative, sales package) with links to normative **OS contract** and **architecture** docs.
+
 This section groups enterprise-facing SealRun documentation, including readiness, governance, and technical contract references.
 
 - [SealRun Enterprise Sales Package](./SealRun_Enterprise_Sales_Package.md)

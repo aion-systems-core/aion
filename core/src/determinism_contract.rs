@@ -34,12 +34,30 @@ pub struct DeterminismContractInput {
 
 pub fn evaluate_determinism_contract(input: DeterminismContractInput) -> DeterminismContract {
     let guarantees = vec![
-        DeterminismGuarantee { scope: "replay".into(), guarantee: "replay_deterministic_for_supported_matrix".into() },
-        DeterminismGuarantee { scope: "drift".into(), guarantee: "drift_contract_deterministic".into() },
-        DeterminismGuarantee { scope: "evidence".into(), guarantee: "evidence_chain_deterministic".into() },
-        DeterminismGuarantee { scope: "policy".into(), guarantee: "policy_decisions_deterministic".into() },
-        DeterminismGuarantee { scope: "global_consistency".into(), guarantee: "global_finality_deterministic".into() },
-        DeterminismGuarantee { scope: "upgrade_replay".into(), guarantee: "cross_version_replay_deterministic".into() },
+        DeterminismGuarantee {
+            scope: "replay".into(),
+            guarantee: "replay_deterministic_for_supported_matrix".into(),
+        },
+        DeterminismGuarantee {
+            scope: "drift".into(),
+            guarantee: "drift_contract_deterministic".into(),
+        },
+        DeterminismGuarantee {
+            scope: "evidence".into(),
+            guarantee: "evidence_chain_deterministic".into(),
+        },
+        DeterminismGuarantee {
+            scope: "policy".into(),
+            guarantee: "policy_decisions_deterministic".into(),
+        },
+        DeterminismGuarantee {
+            scope: "global_consistency".into(),
+            guarantee: "global_finality_deterministic".into(),
+        },
+        DeterminismGuarantee {
+            scope: "upgrade_replay".into(),
+            guarantee: "cross_version_replay_deterministic".into(),
+        },
     ];
     let mut violations = Vec::new();
     if !input.replay_ok {
@@ -92,7 +110,11 @@ pub fn evaluate_determinism_contract(input: DeterminismContractInput) -> Determi
     }
     DeterminismContract {
         guarantees,
-        status: if violations.is_empty() { "ok".into() } else { "error".into() },
+        status: if violations.is_empty() {
+            "ok".into()
+        } else {
+            "error".into()
+        },
         violations,
     }
 }
@@ -129,4 +151,3 @@ mod tests {
         assert_eq!(c.violations[1].code, "determinism:drift_failed");
     }
 }
-

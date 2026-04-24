@@ -1,5 +1,9 @@
 # Training materials
 
+## Purpose
+
+Curriculum-style onboarding aligned with [Developer Guide](developer-guide.md) and [Guided tour](guided_tour.md).
+
 This guide defines a deterministic onboarding and enablement path for SealRun teams.
 
 ## At a glance
@@ -28,8 +32,8 @@ This guide defines a deterministic onboarding and enablement path for SealRun te
 
 ```bash
 sealrun execute ai --model demo --prompt "training" --seed 1
-sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
-sealrun sdk drift --a first\.sealrunai --b second\.sealrunai
+sealrun execute ai-replay --capsule path/to/capsule.aionai
+sealrun sdk drift --a first.aionai --b second.aionai
 sealrun governance status
 ```
 

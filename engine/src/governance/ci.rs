@@ -52,11 +52,7 @@ pub fn ci_check_against_baseline(capsule: &AICapsuleV1, baseline: &CiBaseline) -
     let determinism_ok = det_v.ok;
     let integrity_ok = int_v.ok;
 
-    let success = !drift.changed
-        && replay_success
-        && policy_ok
-        && determinism_ok
-        && integrity_ok;
+    let success = !drift.changed && replay_success && policy_ok && determinism_ok && integrity_ok;
 
     CiResult {
         drift,

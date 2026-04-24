@@ -90,7 +90,10 @@ pub fn freeze_random(run_seed: u64, profile: &DeterminismProfile) -> u64 {
 }
 
 /// Snapshot all envelope fields immediately before AI execution.
-pub fn capture_execution_envelope(profile: &DeterminismProfile, run_seed: u64) -> ExecutionEnvelope {
+pub fn capture_execution_envelope(
+    profile: &DeterminismProfile,
+    run_seed: u64,
+) -> ExecutionEnvelope {
     let mut snap = profile.clone();
     snap.freeze_time |= snap.time_frozen;
     snap.freeze_random |= snap.syscall_intercept;

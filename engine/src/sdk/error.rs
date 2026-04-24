@@ -48,11 +48,7 @@ fn sdk_error_to_aion(e: &SdkError) -> AionError {
 impl Display for SdkError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let ae = sdk_error_to_aion(self);
-        write!(
-            f,
-            "{}",
-            error_to_json(&ae).map_err(|_| std::fmt::Error)?
-        )
+        write!(f, "{}", error_to_json(&ae).map_err(|_| std::fmt::Error)?)
     }
 }
 

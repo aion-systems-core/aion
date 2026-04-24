@@ -19,10 +19,11 @@ fn ops_outputs_are_structured() {
     let upgrade = output_bundle::write_ops_upgrade_output().expect("upgrade");
 
     assert!(nested_data(&read_data(&runbooks)).get("runbooks").is_some());
-    assert!(nested_data(&read_data(&incidents)).get("incident_model").is_some());
+    assert!(nested_data(&read_data(&incidents))
+        .get("incident_model")
+        .is_some());
     assert!(nested_data(&read_data(&dr)).get("dr_status").is_some());
     assert!(nested_data(&read_data(&upgrade))
         .get("upgrade_migration_status")
         .is_some());
 }
-

@@ -1,5 +1,9 @@
 # Benchmarks
 
+## Purpose
+
+How CI runs **benchmark.yml** as a smoke performance lane—separate from correctness gates in `ci.yml`.
+
 This repository includes a benchmark workflow (`.github/workflows/benchmark.yml`) for smoke performance checks.
 
 ## At a glance

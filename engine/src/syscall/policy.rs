@@ -83,7 +83,10 @@ pub fn evaluate_syscall(
 
 /// Decide whether a syscall that failed `evaluate_syscall` should hard-fail the run.
 pub fn should_block(policy: DeterministicIOPolicy) -> bool {
-    matches!(policy, DeterministicIOPolicy::Strict | DeterministicIOPolicy::Deny)
+    matches!(
+        policy,
+        DeterministicIOPolicy::Strict | DeterministicIOPolicy::Deny
+    )
 }
 
 /// JSON payload for governance / capsule event stream.

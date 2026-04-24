@@ -12,12 +12,7 @@ pub fn ci_record_baseline(
     determinism: &DeterminismProfile,
     integrity: &IntegrityProfile,
 ) -> CiBaseline {
-    engine_record_baseline(
-        capsule.clone(),
-        policy.clone(),
-        *determinism,
-        *integrity,
-    )
+    engine_record_baseline(capsule.clone(), policy.clone(), *determinism, *integrity)
 }
 
 pub fn ci_check(capsule: &AICapsuleV1, baseline: &CiBaseline) -> CiResult {

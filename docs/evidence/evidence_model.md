@@ -1,5 +1,9 @@
 # Evidence model (product view)
 
+## Purpose
+
+Narrative for auditors: how **evidence chain** steps relate to **capsules**, **replay symmetry**, and verification—complementing the [Architecture](../architecture.md) Evidence layer diagram.
+
 This page describes how **capsules**, **hashes**, **signatures**, **replay**, and **verification** fit together for audits and compliance narratives. It is descriptive; the wire formats and algorithms live in the codebase unchanged.
 
 ## Flow
@@ -33,7 +37,7 @@ This page describes how **capsules**, **hashes**, **signatures**, **replay**, an
 ## ASCII fallback
 
 ```
-  Capsule (\.sealrunai)
+  Capsule (.aionai)
        │
        ├─► SHA256(capsule JSON) ──► integrity envelope "signature"
        │

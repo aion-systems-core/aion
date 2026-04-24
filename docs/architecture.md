@@ -1,5 +1,9 @@
 # Architecture
 
+## Purpose
+
+Canonical picture of the **five-layer deterministic kernel** (State, Process, Map, Evidence, Policy) and how **enterprise contract domains** attach. Use this file before deep-reading the [OS Contract Spec](os_contract_spec.md).
+
 SealRun architecture defines deterministic kernel-layer execution and enterprise-layer contract control.
 
 ## At a glance

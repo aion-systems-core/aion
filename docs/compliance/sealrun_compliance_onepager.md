@@ -1,5 +1,9 @@
 # SealRun compliance one-pager
 
+## Purpose
+
+One-page bridge for **CISO / compliance** readers: ties business language to **deterministic capsules**, **replay symmetry**, **drift detection**, and **evidence chain**—with pointers to the [Security Guide](../security-guide.md) and [OS Contract Spec](../os_contract_spec.md).
+
 **SealRun = deterministic execution** — Same model, prompt, seed, and frozen runtime contract yields the same token stream and artefacts, so security and compliance teams can reason about *repeatable* AI behaviour.
 
 **SealRun = audit trail** — Each run emits structured outputs (JSON, HTML, SVG) and a **capsule** suitable for retention, e-discovery, and change control.

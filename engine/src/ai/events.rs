@@ -10,17 +10,22 @@ pub fn event_sort_key(e: &Event) -> (u64, u8, u32) {
         Event::RunStart { .. } => (0, 0, 0),
         Event::PromptIngested { .. } => (1, 1, 0),
         Event::TokenGenerated { index, .. } => (2u64.saturating_add(*index as u64), 2, *index),
-        Event::RunComplete { token_count } => {
-            (10_000u64.saturating_add(*token_count as u64), 3, *token_count as u32)
-        }
+        Event::RunComplete { token_count } => (
+            10_000u64.saturating_add(*token_count as u64),
+            3,
+            *token_count as u32,
+        ),
         Event::SyscallCaptured { id, .. } => (50_000u64.saturating_add(*id), 4, 0),
         Event::PolicyViolation { .. } => (90_000, 5, 0),
     }
 }
 
 pub fn sort_events_deterministic(events: &[Event]) -> Vec<Event> {
-    let mut tagged: Vec<((u64, u8, u32), Event)> =
-        events.iter().cloned().map(|e| (event_sort_key(&e), e)).collect();
+    let mut tagged: Vec<((u64, u8, u32), Event)> = events
+        .iter()
+        .cloned()
+        .map(|e| (event_sort_key(&e), e))
+        .collect();
     tagged.sort_by(|a, b| a.0.cmp(&b.0));
     tagged.into_iter().map(|(_, e)| e).collect()
 }
@@ -62,7 +67,9 @@ pub fn canonical_events_for_hash(events: &[Event], seed: u64) -> Value {
         let id = deterministic_event_id(seed, i as u32);
         let row = match e {
             Event::RunStart { model } => json!({"id": id, "kind": "run_start", "model": model}),
-            Event::PromptIngested { chars } => json!({"id": id, "kind": "prompt_ingested", "chars": chars}),
+            Event::PromptIngested { chars } => {
+                json!({"id": id, "kind": "prompt_ingested", "chars": chars})
+            }
             Event::TokenGenerated { index, token } => {
                 json!({"id": id, "kind": "token_generated", "index": index, "token": token})
             }
@@ -108,7 +115,9 @@ pub fn canonical_events_for_compare(events: &[Event]) -> String {
             .iter()
             .map(|e| match e {
                 Event::RunStart { model } => json!({"kind": "run_start", "model": model}),
-                Event::PromptIngested { chars } => json!({"kind": "prompt_ingested", "chars": chars}),
+                Event::PromptIngested { chars } => {
+                    json!({"kind": "prompt_ingested", "chars": chars})
+                }
                 Event::TokenGenerated { index, token } => {
                     json!({"kind": "token_generated", "index": index, "token": token})
                 }

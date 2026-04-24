@@ -1,0 +1,60 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "compatibility_tests": {
+        "cases": [
+          {
+            "abi": "v1",
+            "arch": "x64",
+            "contract_version": "1",
+            "id": "c_n",
+            "os": "windows",
+            "version": "N"
+          },
+          {
+            "abi": "v1",
+            "arch": "x64",
+            "contract_version": "1",
+            "id": "c_n1",
+            "os": "windows",
+            "version": "N-1"
+          },
+          {
+            "abi": "v1",
+            "arch": "x64",
+            "contract_version": "1",
+            "id": "c_n2",
+            "os": "windows",
+            "version": "N-2"
+          }
+        ],
+        "dimensions": [
+          "Version",
+          "Os",
+          "Arch",
+          "Abi",
+          "ContractVersion"
+        ],
+        "results": [
+          {
+            "case_id": "c_n",
+            "status": "ok"
+          },
+          {
+            "case_id": "c_n1",
+            "status": "ok"
+          },
+          {
+            "case_id": "c_n2",
+            "status": "ok"
+          }
+        ],
+        "status": "ok"
+      },
+      "kind": "tests_compatibility"
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

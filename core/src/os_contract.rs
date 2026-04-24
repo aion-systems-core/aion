@@ -2,8 +2,10 @@ use serde::{Deserialize, Serialize};
 use sha2::{Digest, Sha256};
 use std::path::Path;
 
-const OS_CONTRACT_SPEC_MARKDOWN: &str =
-    include_str!(concat!(env!("CARGO_MANIFEST_DIR"), "/../docs/os_contract_spec.md"));
+const OS_CONTRACT_SPEC_MARKDOWN: &str = include_str!(concat!(
+    env!("CARGO_MANIFEST_DIR"),
+    "/../docs/os_contract_spec.md"
+));
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub struct OsInvariant {
@@ -260,4 +262,3 @@ mod tests {
         assert_eq!(h1, h2);
     }
 }
-

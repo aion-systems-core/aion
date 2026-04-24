@@ -33,11 +33,7 @@ fn extract_markdown_links(md: &str) -> Vec<String> {
 
 fn resolve_link_simple(md_path: &Path, raw: &str) -> Option<PathBuf> {
     let t = raw.trim();
-    if t.is_empty()
-        || t.starts_with('#')
-        || t.starts_with("mailto:")
-        || t.contains("://")
-    {
+    if t.is_empty() || t.starts_with('#') || t.starts_with("mailto:") || t.contains("://") {
         return None;
     }
     let base = md_path.parent().unwrap_or(Path::new("."));

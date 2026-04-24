@@ -24,7 +24,8 @@ pub struct SbomDocument {
 pub fn generate_sbom(mut doc: SbomDocument) -> SbomDocument {
     doc.build_metadata.sort();
     for c in &mut doc.components {
-        c.hashes.sort_by(|a, b| a.alg.cmp(&b.alg).then(a.value.cmp(&b.value)));
+        c.hashes
+            .sort_by(|a, b| a.alg.cmp(&b.alg).then(a.value.cmp(&b.value)));
     }
     doc.components
         .sort_by(|a, b| a.name.cmp(&b.name).then(a.version.cmp(&b.version)));
@@ -62,7 +63,10 @@ mod tests {
         };
         let a = generate_sbom(doc.clone());
         let b = generate_sbom(doc);
-        assert_eq!(serde_json::to_string(&a).unwrap(), serde_json::to_string(&b).unwrap());
+        assert_eq!(
+            serde_json::to_string(&a).unwrap(),
+            serde_json::to_string(&b).unwrap()
+        );
         assert!(verify_sbom(&a).is_ok());
     }
 
@@ -81,4 +85,3 @@ mod tests {
         assert!(verify_sbom(&doc).is_err());
     }
 }
-

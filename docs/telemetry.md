@@ -1,5 +1,9 @@
 # Telemetry (opt-in)
 
+## Purpose
+
+Clarifies **opt-in** telemetry semantics and CLI surfaces—default remains local-only execution.
+
 SealRun telemetry is disabled by default.
 
 ## At a glance

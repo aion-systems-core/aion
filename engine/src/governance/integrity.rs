@@ -80,9 +80,7 @@ pub fn validate_integrity(
             .iter()
             .all(|r| !r.leaf_digest.is_empty() && !r.payload_digest.is_empty());
         if !ok || capsule.evidence.records.is_empty() {
-            messages.push(
-                "require_hashes: evidence records missing digests or chain empty".into(),
-            );
+            messages.push("require_hashes: evidence records missing digests or chain empty".into());
         }
     }
 
@@ -135,9 +133,13 @@ pub fn aion_evidence_generate_keypair() -> (Vec<u8>, Vec<u8>) {
 }
 
 pub fn aion_evidence_sign(evidence_data: &[u8], private_key: &[u8]) -> Result<Vec<u8>, String> {
-    let key: [u8; 32] = private_key
-        .try_into()
-        .map_err(|_| line(code::EVIDENCE_HASH, "aion_evidence_sign", "evidence:key_invalid"))?;
+    let key: [u8; 32] = private_key.try_into().map_err(|_| {
+        line(
+            code::EVIDENCE_HASH,
+            "aion_evidence_sign",
+            "evidence:key_invalid",
+        )
+    })?;
     let sk = SigningKey::from_bytes(&key);
     Ok(sk.sign(evidence_data).to_bytes().to_vec())
 }
@@ -147,14 +149,27 @@ pub fn aion_evidence_verify_ed25519(
     signature: &[u8],
     public_key: &[u8],
 ) -> Result<bool, String> {
-    let pk_bytes: [u8; 32] = public_key
-        .try_into()
-        .map_err(|_| line(code::EVIDENCE_HASH, "aion_evidence_verify_ed25519", "evidence:pubkey_invalid"))?;
-    let sig_bytes: [u8; 64] = signature
-        .try_into()
-        .map_err(|_| line(code::EVIDENCE_HASH, "aion_evidence_verify_ed25519", "evidence:signature_invalid"))?;
-    let pk = VerifyingKey::from_bytes(&pk_bytes)
-        .map_err(|_| line(code::EVIDENCE_HASH, "aion_evidence_verify_ed25519", "evidence:pubkey_decode_invalid"))?;
+    let pk_bytes: [u8; 32] = public_key.try_into().map_err(|_| {
+        line(
+            code::EVIDENCE_HASH,
+            "aion_evidence_verify_ed25519",
+            "evidence:pubkey_invalid",
+        )
+    })?;
+    let sig_bytes: [u8; 64] = signature.try_into().map_err(|_| {
+        line(
+            code::EVIDENCE_HASH,
+            "aion_evidence_verify_ed25519",
+            "evidence:signature_invalid",
+        )
+    })?;
+    let pk = VerifyingKey::from_bytes(&pk_bytes).map_err(|_| {
+        line(
+            code::EVIDENCE_HASH,
+            "aion_evidence_verify_ed25519",
+            "evidence:pubkey_decode_invalid",
+        )
+    })?;
     let sig = Signature::from_bytes(&sig_bytes);
     Ok(pk.verify(evidence_data, &sig).is_ok())
 }

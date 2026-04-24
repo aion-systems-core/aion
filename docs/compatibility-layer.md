@@ -1,5 +1,9 @@
 # Compatibility Layer
 
+## Purpose
+
+Language and OS **interop boundaries** (C ABI, Rust, Python, …) on top of the same deterministic contracts—without duplicating kernel semantics ([Architecture](architecture.md)).
+
 This document defines language/runtime interoperability boundaries for SealRun.
 
 ## At a glance

@@ -1,5 +1,9 @@
 # Migration guide
 
+## Purpose
+
+Checklist for **version upgrades**: rebuild, replay continuity, `doctor` JSON stability, and SDK/env compatibility—without implying format changes ([Compatibility matrix](compatibility-matrix.md)).
+
 This guide defines deterministic upgrade and compatibility checks for SealRun environments.
 
 ## At a glance

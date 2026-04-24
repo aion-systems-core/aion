@@ -60,7 +60,11 @@ pub fn evaluate_measurement_model(
         audit_reports,
         evidence_export,
         status: MeasurementStatus {
-            status: if gaps.is_empty() { "ok".into() } else { "error".into() },
+            status: if gaps.is_empty() {
+                "ok".into()
+            } else {
+                "error".into()
+            },
         },
         gaps,
     }
@@ -71,7 +75,7 @@ mod tests {
     use crate::{
         evaluate_audit_report_contract, evaluate_evidence_export_contract, evaluate_kpi_contract,
         evaluate_metrics_contract, AuditFinding, AuditFindingSeverity, AuditScope,
-        EvidenceExportRequest, EvidenceExportResult, EvidenceExportScope, EvidenceExportFormat,
+        EvidenceExportFormat, EvidenceExportRequest, EvidenceExportResult, EvidenceExportScope,
         KpiDefinition, KpiDomain, MetricDefinition, MetricNamespace, MetricStatus, MetricType,
     };
 
@@ -110,4 +114,3 @@ mod tests {
         assert_eq!(model.status.status, "ok");
     }
 }
-

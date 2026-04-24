@@ -1,5 +1,9 @@
 # SDK
 
+## Purpose
+
+Describe **integration points** (Rust engine API vs. `sealrun sdk` subprocess), **deterministic output bundles**, and environment knobs—without duplicating the [OS Contract Spec](os_contract_spec.md).
+
 The **SDK** is the programmatic surface for the same contracts exposed by the `sealrun` CLI: build/load capsules, replay, drift, explain, validate, and CI baseline/check — with **deterministic output bundles** for automation.
 
 ## At a glance
@@ -34,9 +38,9 @@ Authoritative behaviour and invariants: [OS contract spec](os_contract_spec.md).
 
 ```bash
 sealrun sdk capsule build --model m --prompt "hi" --seed 1
-sealrun sdk replay --capsule path/to/capsule.sealrunai
-sealrun sdk drift --a a.sealrunai --b b.sealrunai
-sealrun sdk explain --capsule path/to/capsule.sealrunai
+sealrun sdk replay --capsule path/to/capsule.aionai
+sealrun sdk drift --a a.aionai --b b.aionai
+sealrun sdk explain --capsule path/to/capsule.aionai
 sealrun sdk info
 ```
 

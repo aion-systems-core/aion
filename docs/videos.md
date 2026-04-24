@@ -1,5 +1,9 @@
 # Video plan
 
+## Purpose
+
+Tracks planned demo content; authoritative behaviour remains in CLI/docs contracts.
+
 This plan tracks demo content for deterministic SealRun onboarding and buyer enablement.
 
 ## At a glance
@@ -20,7 +24,7 @@ Planned demo videos:
 ```bash
 sealrun doctor
 sealrun execute ai --model demo --prompt "video" --seed 1
-sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
+sealrun execute ai-replay --capsule path/to/capsule.aionai
 sealrun governance status
 ```
 

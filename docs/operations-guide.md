@@ -1,5 +1,9 @@
 # Operations guide
 
+## Purpose
+
+Map **deterministic JSON envelopes** from reliability, operations, and measurement domains to **SRE workflows** (incident, change, DR, upgrades) and evidence retention—without restating kernel contracts ([Architecture](architecture.md)).
+
 This guide maps SealRun **contract outputs** to platform and SRE workflows: change management, incidents, upgrades, and evidence retention.
 
 ## At a glance

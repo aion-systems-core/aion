@@ -2,8 +2,8 @@
 
 use crate::ai::AICapsuleV1;
 use crate::governance::{
-    validate_capsule as engine_validate,
-    DeterminismProfile, GovernanceReport, IntegrityProfile, PolicyProfile,
+    validate_capsule as engine_validate, DeterminismProfile, GovernanceReport, IntegrityProfile,
+    PolicyProfile,
 };
 
 pub fn validate_capsule(

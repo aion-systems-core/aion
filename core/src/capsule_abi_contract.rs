@@ -109,7 +109,12 @@ mod tests {
         i.fields_compatible = false;
         i.serialization_compatible = false;
         let c = evaluate_capsule_abi_contract("0.2.0", i);
-        let codes: Vec<&str> = c.result.violations.iter().map(|v| v.code.as_str()).collect();
+        let codes: Vec<&str> = c
+            .result
+            .violations
+            .iter()
+            .map(|v| v.code.as_str())
+            .collect();
         assert_eq!(
             codes,
             vec![
@@ -120,4 +125,3 @@ mod tests {
         );
     }
 }
-

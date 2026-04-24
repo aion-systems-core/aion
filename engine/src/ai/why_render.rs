@@ -27,7 +27,9 @@ fn rows_prompt(why: &WhyReportV2) -> String {
             format!(
                 "<tr><td><code>{}</code></td><td>{}</td><td>{}</td></tr>",
                 esc(&n.id),
-                n.position.map(|p| p.to_string()).unwrap_or_else(|| "-".into()),
+                n.position
+                    .map(|p| p.to_string())
+                    .unwrap_or_else(|| "-".into()),
                 esc(&n.text)
             )
         })
@@ -42,7 +44,9 @@ fn rows_token(why: &WhyReportV2) -> String {
             format!(
                 "<tr><td><code>{}</code></td><td>{}</td><td>{}</td></tr>",
                 esc(&n.id),
-                n.position.map(|p| p.to_string()).unwrap_or_else(|| "-".into()),
+                n.position
+                    .map(|p| p.to_string())
+                    .unwrap_or_else(|| "-".into()),
                 esc(&n.text)
             )
         })
@@ -129,7 +133,11 @@ h2{{font-size:1.1rem}}
 }
 
 /// HTML for replay why diff.
-pub fn render_why_diff_html(diff: &WhyDiff, original: &WhyReportV2, replay: &WhyReportV2) -> String {
+pub fn render_why_diff_html(
+    diff: &WhyDiff,
+    original: &WhyReportV2,
+    replay: &WhyReportV2,
+) -> String {
     let nd = diff
         .node_diffs
         .iter()
@@ -156,11 +164,7 @@ pub fn render_why_diff_html(diff: &WhyDiff, original: &WhyReportV2, replay: &Why
 <h2>Original summary</h2><p>{}</p>
 <h2>Replay summary</h2><p>{}</p>
 </body></html>"#,
-        diff.changed,
-        nd,
-        ed,
-        os,
-        rs
+        diff.changed, nd, ed, os, rs
     )
 }
 
@@ -168,7 +172,12 @@ pub fn render_why_diff_html(diff: &WhyDiff, original: &WhyReportV2, replay: &Why
 pub fn render_why_diff_svg(diff: &WhyDiff) -> String {
     let mut y = 28i32;
     let mut lines = String::new();
-    for d in diff.node_diffs.iter().chain(diff.edge_diffs.iter()).take(24) {
+    for d in diff
+        .node_diffs
+        .iter()
+        .chain(diff.edge_diffs.iter())
+        .take(24)
+    {
         lines.push_str(&format!(
             r#"<text x="12" y="{y}" font-size="11" font-family="sans-serif">{t}</text>"#,
             t = esc(d),

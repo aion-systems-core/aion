@@ -25,29 +25,14 @@ pub fn load_capsule_checked(path: &Path) -> Result<AICapsuleV1, SdkError> {
 /// Persist a capsule as pretty JSON (creates parent directories).
 pub fn save_capsule(path: &Path, capsule: &AICapsuleV1) -> Result<(), String> {
     if let Some(parent) = path.parent() {
-        fs::create_dir_all(parent).map_err(|e| {
-            line(
-                code::CAPSULE_SAVE_MKDIR,
-                "save_capsule",
-                &io_cause(&e),
-            )
-        })?;
+        fs::create_dir_all(parent)
+            .map_err(|e| line(code::CAPSULE_SAVE_MKDIR, "save_capsule", &io_cause(&e)))?;
     }
     if path.exists() {
-        return Err(line(
-            code::CAPSULE_SAVE_EXISTS,
-            "save_capsule",
-            "exists",
-        ));
+        return Err(line(code::CAPSULE_SAVE_EXISTS, "save_capsule", "exists"));
     }
     let body = ai_capsule_to_json(capsule)?;
-    fs::write(path, body).map_err(|e| {
-        line(
-            code::CAPSULE_SAVE_IO,
-            "save_capsule",
-            &io_cause(&e),
-        )
-    })
+    fs::write(path, body).map_err(|e| line(code::CAPSULE_SAVE_IO, "save_capsule", &io_cause(&e)))
 }
 
 /// Deterministic capsule construction from model / prompt / seed.

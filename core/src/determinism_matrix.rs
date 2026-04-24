@@ -114,22 +114,22 @@ mod tests {
             seed: 42,
             env_profile: "frozen".into(),
         }]);
-        assert_eq!(serde_json::to_string(&m).unwrap(), serde_json::to_string(&m).unwrap());
+        assert_eq!(
+            serde_json::to_string(&m).unwrap(),
+            serde_json::to_string(&m).unwrap()
+        );
     }
 
     #[test]
     fn negative_seed_locale_timezone() {
-        let m = evaluate_determinism_matrix(vec![
-            DeterminismTarget {
-                os: "linux".into(),
-                arch: "x64".into(),
-                locale: "de_DE.UTF-8".into(),
-                timezone: "Europe/Berlin".into(),
-                seed: 43,
-                env_profile: "frozen".into(),
-            },
-        ]);
+        let m = evaluate_determinism_matrix(vec![DeterminismTarget {
+            os: "linux".into(),
+            arch: "x64".into(),
+            locale: "de_DE.UTF-8".into(),
+            timezone: "Europe/Berlin".into(),
+            seed: 43,
+            env_profile: "frozen".into(),
+        }]);
         assert_eq!(m.results[0].status, "error");
     }
 }
-

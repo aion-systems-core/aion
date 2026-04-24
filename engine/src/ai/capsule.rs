@@ -1,7 +1,7 @@
 //! Build, serialize, and present AI Capsule v1.
 
-use super::explain::explain_capsule;
 use super::backend::backend_by_name;
+use super::explain::explain_capsule;
 use super::graph::CausalGraphV2;
 use super::graph_render::render_causal_graph_svg;
 use super::model::{AICapsuleV1, ExecutionEnvironment};
@@ -147,9 +147,7 @@ pub(super) fn assemble_capsule(
     backend_name: &str,
     execution_envelope: Option<ExecutionEnvelope>,
 ) -> AICapsuleV1 {
-    let cwd = execution_envelope
-        .as_ref()
-        .map(|e| e.frozen_cwd.as_str());
+    let cwd = execution_envelope.as_ref().map(|e| e.frozen_cwd.as_str());
     let run = synth_run_result(&model, &prompt, seed, &rr.tokens, &rr.determinism, cwd);
     let evidence = seal_run(&run, &PolicyProfile::dev(), &rr.determinism);
     let model_hash = format!("{:x}", Sha256::digest(model.as_bytes()));

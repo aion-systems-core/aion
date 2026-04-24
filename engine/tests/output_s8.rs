@@ -58,7 +58,8 @@ fn output_bundle_completeness() {
     std::env::set_var("AION_OUTPUT_ID", "run_0001");
 
     let w = OutputWriter::new("bundle-complete-test").expect("writer");
-    w.write_json("sample", &serde_json::json!({"ok": true})).unwrap();
+    w.write_json("sample", &serde_json::json!({"ok": true}))
+        .unwrap();
     let root = w.into_root();
 
     for f in [
@@ -86,7 +87,8 @@ fn deterministic_zip_hash_for_same_inputs() {
 
     std::env::set_var("AION_OUTPUT_ID", "run_0100");
     let w1 = OutputWriter::new("zip-hash-test").expect("writer");
-    w1.write_json("sample", &serde_json::json!({"k": "v"})).unwrap();
+    w1.write_json("sample", &serde_json::json!({"k": "v"}))
+        .unwrap();
     let r1 = w1.into_root();
     let h1 = hash_file(&r1.join(".aion.zip"));
 
@@ -94,7 +96,8 @@ fn deterministic_zip_hash_for_same_inputs() {
 
     std::env::set_var("AION_OUTPUT_ID", "run_0100");
     let w2 = OutputWriter::new("zip-hash-test").expect("writer");
-    w2.write_json("sample", &serde_json::json!({"k": "v"})).unwrap();
+    w2.write_json("sample", &serde_json::json!({"k": "v"}))
+        .unwrap();
     let r2 = w2.into_root();
     let h2 = hash_file(&r2.join(".aion.zip"));
 

@@ -29,7 +29,9 @@ pub struct RuntimeIsolationInput {
     pub network_isolated: bool,
 }
 
-pub fn evaluate_runtime_isolation_contract(input: RuntimeIsolationInput) -> RuntimeIsolationContract {
+pub fn evaluate_runtime_isolation_contract(
+    input: RuntimeIsolationInput,
+) -> RuntimeIsolationContract {
     let mut violations = Vec::new();
     if !input.io_boundary_enforced {
         violations.push(RuntimeIsolationViolation {
@@ -59,7 +61,11 @@ pub fn evaluate_runtime_isolation_contract(input: RuntimeIsolationInput) -> Runt
         io_boundary_mode: "strict".to_string(),
         side_effect_matrix_version: "v1".to_string(),
         result: RuntimeIsolationResult {
-            status: if violations.is_empty() { "ok".into() } else { "error".into() },
+            status: if violations.is_empty() {
+                "ok".into()
+            } else {
+                "error".into()
+            },
             violations,
         },
     }
@@ -89,7 +95,12 @@ mod tests {
             side_effects_bounded: false,
             network_isolated: false,
         });
-        let codes: Vec<&str> = c.result.violations.iter().map(|v| v.code.as_str()).collect();
+        let codes: Vec<&str> = c
+            .result
+            .violations
+            .iter()
+            .map(|v| v.code.as_str())
+            .collect();
         assert_eq!(
             codes,
             vec![
@@ -100,4 +111,3 @@ mod tests {
         );
     }
 }
-

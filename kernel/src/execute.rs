@@ -14,7 +14,11 @@ pub struct ChildOutput {
     pub duration_ms: u64,
 }
 
-pub fn run_command(program: &str, args: &[String], env: &BTreeMap<String, String>) -> Result<ChildOutput, String> {
+pub fn run_command(
+    program: &str,
+    args: &[String],
+    env: &BTreeMap<String, String>,
+) -> Result<ChildOutput, String> {
     let start = Instant::now();
     let mut cmd = Command::new(program);
     cmd.args(args);

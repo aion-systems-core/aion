@@ -1,5 +1,9 @@
 # Compatibility matrix
 
+## Purpose
+
+Single table of **version anchors** (product, CLI, capsule schema, Why schema, policy) for integrators validating deterministic compatibility.
+
 This matrix summarizes core version anchors for deterministic compatibility in SealRun.
 
 ## At a glance

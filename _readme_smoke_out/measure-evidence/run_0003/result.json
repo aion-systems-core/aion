@@ -1,0 +1,22 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "evidence_export": {
+        "results": [
+          {
+            "request": {
+              "format": "Json",
+              "scope": "Security"
+            },
+            "status": "supported"
+          }
+        ],
+        "status": "supported"
+      },
+      "kind": "measure_evidence"
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

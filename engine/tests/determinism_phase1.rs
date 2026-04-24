@@ -2,7 +2,8 @@
 
 use aion_core::{DeterminismProfile, ExecutionEnvelope};
 use aion_engine::ai::{
-    build_ai_capsule_v1, drift_between_runs, merge_det_from_envelope, sort_events_deterministic, Event,
+    build_ai_capsule_v1, drift_between_runs, merge_det_from_envelope, sort_events_deterministic,
+    Event,
 };
 use aion_engine::capsule::deterministic_capsule_hash;
 use aion_engine::replay::assert_replay_symmetry;
@@ -56,10 +57,7 @@ fn event_ordering_test() {
         },
     ];
     let sorted = sort_events_deterministic(&v);
-    assert_eq!(
-        sorted.first(),
-        Some(&Event::RunStart { model: "m".into() })
-    );
+    assert_eq!(sorted.first(), Some(&Event::RunStart { model: "m".into() }));
     assert!(matches!(sorted.last(), Some(Event::RunComplete { .. })));
 }
 

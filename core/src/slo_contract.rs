@@ -40,25 +40,49 @@ pub fn evaluate_slo_contract(
     contract_integrity_bps: u64,
 ) -> SloContract {
     let objectives = vec![
-        SloObjective { target: SloTarget::Availability, threshold_bps: 9950 },
-        SloObjective { target: SloTarget::ReplayFidelity, threshold_bps: 9990 },
-        SloObjective { target: SloTarget::ContractIntegrity, threshold_bps: 10000 },
+        SloObjective {
+            target: SloTarget::Availability,
+            threshold_bps: 9950,
+        },
+        SloObjective {
+            target: SloTarget::ReplayFidelity,
+            threshold_bps: 9990,
+        },
+        SloObjective {
+            target: SloTarget::ContractIntegrity,
+            threshold_bps: 10000,
+        },
     ];
     let mut results = vec![
         SloEvaluationResult {
             target: SloTarget::Availability,
             actual_bps: availability_bps,
-            status: if availability_bps >= 9950 { "ok" } else { "error" }.into(),
+            status: if availability_bps >= 9950 {
+                "ok"
+            } else {
+                "error"
+            }
+            .into(),
         },
         SloEvaluationResult {
             target: SloTarget::ReplayFidelity,
             actual_bps: replay_fidelity_bps,
-            status: if replay_fidelity_bps >= 9990 { "ok" } else { "error" }.into(),
+            status: if replay_fidelity_bps >= 9990 {
+                "ok"
+            } else {
+                "error"
+            }
+            .into(),
         },
         SloEvaluationResult {
             target: SloTarget::ContractIntegrity,
             actual_bps: contract_integrity_bps,
-            status: if contract_integrity_bps >= 10000 { "ok" } else { "error" }.into(),
+            status: if contract_integrity_bps >= 10000 {
+                "ok"
+            } else {
+                "error"
+            }
+            .into(),
         },
     ];
     results.sort_by(|a, b| a.target.cmp(&b.target));
@@ -87,4 +111,3 @@ mod tests {
         assert_eq!(evaluate_slo_contract(9900, 9995, 10000).status, "error");
     }
 }
-

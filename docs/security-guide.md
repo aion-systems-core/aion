@@ -1,5 +1,9 @@
 # Security guide
 
+## Purpose
+
+Clarify **threat model**, **Execution-OS vs. sandbox-OS** boundaries (no root, no kernel modules, no syscall interception for isolation here), and where **evidence chain** and **policy gates** fit for auditors.
+
 This guide explains deterministic security controls and evidence surfaces in SealRun.
 
 ## At a glance

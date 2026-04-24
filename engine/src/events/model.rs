@@ -25,10 +25,7 @@ pub enum EventCategory {
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
 pub enum RunEvent {
     /// Syscall interception or audit hook (no raw pointers).
-    SyscallIntercept {
-        syscall: String,
-        outcome: String,
-    },
+    SyscallIntercept { syscall: String, outcome: String },
     /// Filesystem policy or observed path operation.
     FsOperation {
         op: String,
@@ -36,40 +33,21 @@ pub enum RunEvent {
         note: String,
     },
     /// Network policy or observed connect/bind/send (logical labels only).
-    NetworkActivity {
-        op: String,
-        peer: String,
-    },
+    NetworkActivity { op: String, peer: String },
     /// Environment fingerprint or single-key snapshot.
-    EnvSnapshot {
-        fingerprint: String,
-    },
+    EnvSnapshot { fingerprint: String },
     /// Wall-clock or frozen epoch for the slice.
-    TimeSnapshot {
-        epoch_secs: u64,
-    },
+    TimeSnapshot { epoch_secs: u64 },
     /// Deterministic RNG / seed state.
-    RandomState {
-        label: String,
-        seed: u64,
-    },
+    RandomState { label: String, seed: u64 },
     /// Captured stdout segment (may be full run in v2 capture).
-    StdoutChunk {
-        text: String,
-    },
+    StdoutChunk { text: String },
     /// Captured stderr segment.
-    StderrChunk {
-        text: String,
-    },
+    StderrChunk { text: String },
     /// Process exit.
-    ExitStatus {
-        code: i32,
-    },
+    ExitStatus { code: i32 },
     /// Command + cwd anchor.
-    RunBoundaries {
-        command: String,
-        cwd: String,
-    },
+    RunBoundaries { command: String, cwd: String },
     /// Capsule manifest linkage (after seal).
     CapsuleAttached {
         capsule_schema_version: u32,

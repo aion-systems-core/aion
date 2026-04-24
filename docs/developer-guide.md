@@ -1,5 +1,9 @@
 # Developer guide
 
+## Purpose
+
+Hands-on onboarding: build, run capsules, verify **replay symmetry** and **drift detection**, and wire **governance policy packs** into CI using **deterministic JSON envelopes**.
+
 This guide provides deterministic developer onboarding for SealRun.
 
 ## At a glance
@@ -14,7 +18,7 @@ SealRun guarantees deterministic execution, replay symmetry, drift detection and
 SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+This is a deliberate design choice: SealRun is an Execution-OS, not a Security-Sandbox-OS.  
 Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
 If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
@@ -33,13 +37,13 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 
 ```bash
 sealrun execute ai --model demo --prompt "hello" --seed 1
-sealrun execute ai-replay --capsule path/to/capsule\.sealrunai
+sealrun execute ai-replay --capsule path/to/capsule.aionai
 ```
 
 ### 2) Drift and policy validation
 
 ```bash
-sealrun policy validate --capsule path/to/capsule\.sealrunai --policy examples/governance/dev.policy.json
+sealrun policy validate --capsule path/to/capsule.aionai --policy examples/governance/dev.policy.json
 sealrun policy gates
 ```
 

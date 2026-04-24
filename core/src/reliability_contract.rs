@@ -71,7 +71,11 @@ pub fn evaluate_reliability_contract(
         },
         change_failure_rate_target_bps: 500,
         mttr_target_minutes: 60,
-        status: if slo.status == "ok" && chaos.status != "error" && soak.status == "ok" && budget_status == "ok" {
+        status: if slo.status == "ok"
+            && chaos.status != "error"
+            && soak.status == "ok"
+            && budget_status == "ok"
+        {
             "ok".into()
         } else {
             "error".into()
@@ -153,4 +157,3 @@ mod tests {
         );
     }
 }
-

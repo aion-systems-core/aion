@@ -1,6 +1,22 @@
 # Why & causal graph
 
+## Purpose
+
+Document **explainability artefacts** (`why.html`, `why.svg`, replay **why-diff** projections), how they tie to **replay symmetry** and **drift detection**, and how to regenerate them via **`sealrun observe graph`** and **`sealrun sdk explain`**.
+
 SealRun attaches a structured **Why** report and a **causal graph** to AI capsules so runs are explainable without opening proprietary model weights.
+
+## Explainability artefacts
+
+| Artefact | Produced by | Role |
+|----------|----------------|------|
+| `why.html` | `execute ai` | Tabular Why + embedded causal graph for review in a browser |
+| `why.svg` | `execute ai` | Standalone causal graph vector |
+| `why_diff.html` / `why_diff.svg` | `execute ai-replay` | Deterministic diff of Why payloads between original and replayed capsule views |
+| `sealrun observe graph` | CLI | Renders graph projections from a `RunResult` JSON path (format/depth flags) |
+| `sealrun sdk explain` | CLI/SDK | Emits explain bundle JSON/HTML/SVG from a **`capsule.aionai`** path |
+
+Drift JSON/HTML may reference graph/Why slices as part of deterministic field classification ([Drift](drift.md)).
 
 ## At a glance
 
@@ -21,16 +37,6 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 
 ---
 
-## Outputs
-
-After `execute ai`, you typically receive:
-
-- `why.html` — tables for prompt, token, seed/determinism influence plus embedded graph SVG  
-- `why.svg` — standalone causal graph  
-- `ai.html` / capsule JSON — includes the same structures for tooling  
-
-Replay adds **why diff** artefacts when you run `execute ai-replay`.
-
 ## CLI
 
 ```bash
@@ -47,7 +53,7 @@ sealrun observe graph path/to/run.json --format dot --depth 20
 ## Explain bundle (SDK)
 
 ```bash
-sealrun sdk explain --capsule path/to/capsule.sealrunai
+sealrun sdk explain --capsule path/to/capsule.aionai
 ```
 
 ## Contract surface
@@ -61,7 +67,7 @@ sealrun sdk explain --capsule path/to/capsule.sealrunai
 ```bash
 sealrun execute ai --model m --prompt "a b" --seed 1
 sealrun observe graph path/to/run.json --format dot --depth 20
-sealrun sdk explain --capsule path/to/capsule.sealrunai
+sealrun sdk explain --capsule path/to/capsule.aionai
 ```
 
 ## ASCII sketch

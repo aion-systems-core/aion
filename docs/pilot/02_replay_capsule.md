@@ -1,9 +1,13 @@
 # Pilot onboarding — Replay capsule
 
+## Purpose
+
+Pilot step for **replay symmetry** on an existing `capsule.aionai` ([Replay](../replay.md)).
+
 Replay compares a fresh deterministic run to the persisted capsule.
 
 ```bash
-sealrun execute ai-replay --capsule sealrun_output/ai/pilot_demo/capsule\.sealrunai
+sealrun execute ai-replay --capsule sealrun_output/ai/pilot_demo/capsule.aionai
 ```
 
 (Adjust the path if you used a different `--id` or output base.)

@@ -42,7 +42,10 @@ pub fn evaluate_incident_contract(
 ) -> IncidentContract {
     triggers.sort_by(|a, b| a.id.cmp(&b.id));
     response_plan.steps.sort();
-    let status = if triggers.is_empty() || response_plan.steps.is_empty() || response_plan.owner.is_empty() {
+    let status = if triggers.is_empty()
+        || response_plan.steps.is_empty()
+        || response_plan.owner.is_empty()
+    {
         "error"
     } else if resolution.resolved {
         "ok"
@@ -82,4 +85,3 @@ mod tests {
         assert_eq!(c.status, "error");
     }
 }
-

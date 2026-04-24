@@ -1,5 +1,9 @@
 # Pilot onboarding — Install
 
+## Purpose
+
+First pilot step: obtain a **`sealrun` binary** from this workspace and run smoke commands before capsules and replay ([next step](01_execute_capsule.md)).
+
 **Goal:** Build the CLI and run your first command in minutes.
 
 ## Prerequisites

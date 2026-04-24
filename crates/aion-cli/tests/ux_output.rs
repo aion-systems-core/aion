@@ -23,4 +23,3 @@ fn ux_outputs_are_structured() {
     assert!(nested_data(&read_data(&admin)).get("admin_docs").is_some());
     assert!(nested_data(&read_data(&gp)).get("golden_paths").is_some());
 }
-

@@ -19,10 +19,8 @@ fn payload(
     timestamp: u64,
     provenance_id: &str,
 ) -> Vec<u8> {
-    format!(
-        "{artifact_hash}|{artifact_type}|{kernel_version}|{timestamp}|{provenance_id}"
-    )
-    .into_bytes()
+    format!("{artifact_hash}|{artifact_type}|{kernel_version}|{timestamp}|{provenance_id}")
+        .into_bytes()
 }
 
 pub fn sign_release_artifact(
@@ -102,4 +100,3 @@ mod tests {
         assert!(verify_release_signature(&a).is_err());
     }
 }
-

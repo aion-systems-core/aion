@@ -1,5 +1,9 @@
 # Pilot onboarding — Evidence chain
 
+## Purpose
+
+Pilot step for the **Evidence** layer: digest continuity inside capsules and sidecar files ([Evidence model](../evidence/evidence_model.md)).
+
 The **evidence chain** is a linear sequence of records (`leaf_digest`, `payload_digest`, `parent_digest`) anchored to the run. Verifiers recompute rolling digests to detect tampering.
 
 ## Where it shows up

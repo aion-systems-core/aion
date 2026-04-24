@@ -4,9 +4,7 @@
 //! Invariant: replay comparisons use canonicalized fields and deterministic ordering.
 //! Output structures are audit-ready and stable for machine processing.
 
-use super::canon::{
-    canonical_capsule_bytes, canonical_drift_json, canonical_graph_v2_json,
-};
+use super::canon::{canonical_capsule_bytes, canonical_drift_json, canonical_graph_v2_json};
 use super::capsule::reassemble_capsule_with_backend;
 use super::drift::{drift_against_original, evidence_chains_equal_relaxed};
 use super::model::AICapsuleV1;
@@ -219,8 +217,8 @@ pub fn compare_ai_capsules(left: &AICapsuleV1, right: &AICapsuleV1) -> ReplayCom
         mismatch.events.push("embedded_drift_mismatch".into());
     }
 
-    let capsule_equal = canonical_capsule_bytes(left, true, true)
-        == canonical_capsule_bytes(right, true, true);
+    let capsule_equal =
+        canonical_capsule_bytes(left, true, true) == canonical_capsule_bytes(right, true, true);
     if !capsule_equal {
         mismatch.evidence.push("capsule_canonical_mismatch".into());
     }
@@ -284,7 +282,8 @@ fn push_token_diffs(orig: &[String], rep: &[String], out: &mut Vec<String>) {
 /// Determinism: canonical compare paths, normalized labels, and stable warning ordering.
 pub fn replay_ai_capsule(original: &AICapsuleV1) -> ReplayReport {
     let replay_start = std::time::Instant::now();
-    let runtime_rerun = AiRuntime::new(&original.model, original.seed).run(&original.prompt, &original.determinism);
+    let runtime_rerun =
+        AiRuntime::new(&original.model, original.seed).run(&original.prompt, &original.determinism);
     let reconstructed_from_capsule = AiRunResult::from_capsule(original);
     let mut replay_capsule = reassemble_capsule_with_backend(
         &original.model,
@@ -292,7 +291,8 @@ pub fn replay_ai_capsule(original: &AICapsuleV1) -> ReplayReport {
         original.seed,
         &original.backend_name,
     );
-    let formal_ok = crate::replay::assert_formal_replay_invariant(original, &replay_capsule).is_ok();
+    let formal_ok =
+        crate::replay::assert_formal_replay_invariant(original, &replay_capsule).is_ok();
     let cross_ok = crate::replay::validate_cross_machine_replay(original, &replay_capsule).is_ok();
     replay_capsule.evidence.formal_replay_invariant_ok = Some(formal_ok);
     replay_capsule.evidence.cross_machine_replay_ok = Some(cross_ok);
@@ -303,7 +303,8 @@ pub fn replay_ai_capsule(original: &AICapsuleV1) -> ReplayReport {
         .determinism
         .validate_replay_profile(&replay_capsule.determinism)
         .err();
-    let replay_symmetry_error = crate::replay::assert_replay_symmetry(original, &replay_capsule).err();
+    let replay_symmetry_error =
+        crate::replay::assert_replay_symmetry(original, &replay_capsule).err();
     let replay_symmetry_ok = replay_profile_error.is_none() && replay_symmetry_error.is_none();
 
     let mut mismatch = ReplayMismatchDiff::new();
@@ -350,7 +351,11 @@ pub fn replay_ai_capsule(original: &AICapsuleV1) -> ReplayReport {
     let tokens_equal = original.tokens == replay_capsule.tokens;
     if !tokens_equal {
         mismatch.output.push("tokens_mismatch".into());
-        push_token_diffs(&original.tokens, &replay_capsule.tokens, &mut mismatch.output);
+        push_token_diffs(
+            &original.tokens,
+            &replay_capsule.tokens,
+            &mut mismatch.output,
+        );
     }
 
     let trace_equal = original.token_trace == replay_capsule.token_trace;
@@ -363,8 +368,8 @@ pub fn replay_ai_capsule(original: &AICapsuleV1) -> ReplayReport {
         mismatch.events.push("replay:event_stream_mismatch".into());
     }
 
-    let graph_equal = canonical_graph_v2_json(&original.graph)
-        == canonical_graph_v2_json(&replay_capsule.graph);
+    let graph_equal =
+        canonical_graph_v2_json(&original.graph) == canonical_graph_v2_json(&replay_capsule.graph);
     if !graph_equal {
         mismatch.events.push("graph_mismatch".into());
     }
@@ -457,13 +462,21 @@ pub fn replay_ai_capsule(original: &AICapsuleV1) -> ReplayReport {
         replay_symmetry_ok,
         replay_symmetry_error: replay_symmetry_error.as_ref().map(|e| {
             canonical_error_json(
-                &line(code::REPLAY_SYMMETRY, "replay_ai_capsule", &sanitize_cause(e)),
+                &line(
+                    code::REPLAY_SYMMETRY,
+                    "replay_ai_capsule",
+                    &sanitize_cause(e),
+                ),
                 "replay",
             )
         }),
         replay_profile_error: replay_profile_error.as_ref().map(|e| {
             canonical_error_json(
-                &line(code::REPLAY_PROFILE, "replay_ai_capsule", &sanitize_cause(e)),
+                &line(
+                    code::REPLAY_PROFILE,
+                    "replay_ai_capsule",
+                    &sanitize_cause(e),
+                ),
                 "replay",
             )
         }),

@@ -43,7 +43,9 @@ pub fn drift_between_runs(a: &AICapsuleV1, b: &AICapsuleV1) -> DriftReport {
         fields.push("token_trace".into());
         labels.push("tokens:trace_mismatch".into());
     }
-    if canonical_events_for_compare(&a.event_stream) != canonical_events_for_compare(&b.event_stream) {
+    if canonical_events_for_compare(&a.event_stream)
+        != canonical_events_for_compare(&b.event_stream)
+    {
         fields.push("event_stream".into());
         labels.push("shape:event_stream_mismatch".into());
         let delta = a.event_stream.len().abs_diff(b.event_stream.len()) as u64;
@@ -78,7 +80,11 @@ pub fn drift_between_runs(a: &AICapsuleV1, b: &AICapsuleV1) -> DriftReport {
     violations.sort_by(|x, y| x.label.cmp(&y.label));
     let error = if overflow {
         Some(canonical_error_json(
-            &line(code::DRIFT_OVERFLOW, "drift_between_runs", "labels_overflow"),
+            &line(
+                code::DRIFT_OVERFLOW,
+                "drift_between_runs",
+                "labels_overflow",
+            ),
             "drift",
         ))
     } else if !violations.is_empty() {
@@ -200,7 +206,11 @@ pub fn drift_between_runs_full(a: &AICapsuleV1, b: &AICapsuleV1) -> DriftReport 
     let changed = !labels.is_empty() || !violations.is_empty();
     let error = if overflow {
         Some(canonical_error_json(
-            &line(code::DRIFT_OVERFLOW, "drift_between_runs_full", "labels_overflow"),
+            &line(
+                code::DRIFT_OVERFLOW,
+                "drift_between_runs_full",
+                "labels_overflow",
+            ),
             "drift",
         ))
     } else if !violations.is_empty() {

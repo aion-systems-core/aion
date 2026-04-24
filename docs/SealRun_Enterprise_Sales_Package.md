@@ -1,5 +1,9 @@
 # SealRun Enterprise Sales Package (mirror)
 
+## Purpose
+
+Stable **mirror path** for external links; edit the canonical enterprise package only ([`docs/enterprise/SealRun_Enterprise_Sales_Package.md`](enterprise/SealRun_Enterprise_Sales_Package.md)).
+
 This file mirrors the enterprise package to keep legacy links working.
 
 Canonical document:

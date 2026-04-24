@@ -59,7 +59,11 @@ pub fn evaluate_trust_chain_contract(input: TrustChainInput) -> TrustChainContra
         key_rotation_policy: "deterministic_rotation_v1".to_string(),
         attestation_required: true,
         result: TrustChainResult {
-            status: if violations.is_empty() { "ok".into() } else { "error".into() },
+            status: if violations.is_empty() {
+                "ok".into()
+            } else {
+                "error".into()
+            },
             violations,
         },
     }
@@ -86,7 +90,12 @@ mod tests {
             attestation_valid: false,
             key_rotation_valid: false,
         });
-        let codes: Vec<&str> = c.result.violations.iter().map(|v| v.code.as_str()).collect();
+        let codes: Vec<&str> = c
+            .result
+            .violations
+            .iter()
+            .map(|v| v.code.as_str())
+            .collect();
         assert_eq!(
             codes,
             vec![
@@ -97,4 +106,3 @@ mod tests {
         );
     }
 }
-

@@ -91,13 +91,14 @@ fn test_why_structure() {
                 "prompt → token_0: {pid}"
             );
         }
-        assert!(w.edges.iter().any(|e| e.from == "seed" && e.to == "token_0"));
-        assert!(
-            w
-                .edges
-                .iter()
-                .any(|e| e.from == "determinism" && e.to == "token_0")
-        );
+        assert!(w
+            .edges
+            .iter()
+            .any(|e| e.from == "seed" && e.to == "token_0"));
+        assert!(w
+            .edges
+            .iter()
+            .any(|e| e.from == "determinism" && e.to == "token_0"));
         for i in 0..cap.tokens.len().saturating_sub(1) {
             let from = format!("token_{i}");
             let to = format!("token_{}", i + 1);

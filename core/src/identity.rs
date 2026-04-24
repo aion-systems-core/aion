@@ -71,7 +71,10 @@ fn derive_instance_id() -> Option<OsInstanceId> {
     let scope = std::env::var("AION_INSTANCE_SCOPE").unwrap_or_else(|_| "unset".to_string());
     let env = std::env::var("AION_DEPLOYMENT_ENV").unwrap_or_else(|_| "unset".to_string());
     let mut h = Sha256::new();
-    h.update(format!("host={host}|scope={scope}|env={env}|os={}", std::env::consts::OS));
+    h.update(format!(
+        "host={host}|scope={scope}|env={env}|os={}",
+        std::env::consts::OS
+    ));
     Some(OsInstanceId {
         value: format!("{:x}", h.finalize()),
         source: "derived_explicit_inputs".to_string(),
@@ -127,11 +130,13 @@ mod tests {
     #[test]
     fn compatibility_profile_references_current_spec_version() {
         let p = os_compatibility_profile();
-        assert_eq!(p.os_contract_spec_versions, vec![os_contract_spec_version()]);
+        assert_eq!(
+            p.os_contract_spec_versions,
+            vec![os_contract_spec_version()]
+        );
         assert_eq!(
             p.global_consistency_contract_versions,
             vec![global_consistency_contract_version()]
         );
     }
 }
-

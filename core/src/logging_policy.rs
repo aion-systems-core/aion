@@ -62,9 +62,18 @@ mod tests {
                 "security_events".into(),
             ],
             retention: vec![
-                RetentionRule { category: LogCategory::Audit, retention_days: 365 },
-                RetentionRule { category: LogCategory::Security, retention_days: 365 },
-                RetentionRule { category: LogCategory::Operational, retention_days: 90 },
+                RetentionRule {
+                    category: LogCategory::Audit,
+                    retention_days: 365,
+                },
+                RetentionRule {
+                    category: LogCategory::Security,
+                    retention_days: 365,
+                },
+                RetentionRule {
+                    category: LogCategory::Operational,
+                    retention_days: 90,
+                },
             ],
             pii_guard: "enabled".into(),
         };
@@ -80,7 +89,9 @@ mod tests {
         };
         let r = evaluate_logging_policy(&p);
         assert_eq!(r.status, "error");
-        assert!(r.violations.iter().any(|v| v == "logging_policy:pii_guard_invalid"));
+        assert!(r
+            .violations
+            .iter()
+            .any(|v| v == "logging_policy:pii_guard_invalid"));
     }
 }
-

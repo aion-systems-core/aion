@@ -15,10 +15,8 @@ fn nested_data(v: &Value) -> &Value {
 fn tests_outputs_are_structured() {
     let strategy = output_bundle::write_tests_strategy_output().expect("strategy");
     let regression = output_bundle::write_tests_regression_output().expect("regression");
-    let compatibility =
-        output_bundle::write_tests_compatibility_output().expect("compatibility");
-    let fuzz_property =
-        output_bundle::write_tests_fuzz_property_output().expect("fuzz_property");
+    let compatibility = output_bundle::write_tests_compatibility_output().expect("compatibility");
+    let fuzz_property = output_bundle::write_tests_fuzz_property_output().expect("fuzz_property");
 
     assert!(nested_data(&read_data(&strategy))
         .get("test_strategy")
@@ -33,4 +31,3 @@ fn tests_outputs_are_structured() {
         .get("fuzz_property_tests")
         .is_some());
 }
-

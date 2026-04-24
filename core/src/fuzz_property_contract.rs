@@ -46,11 +46,11 @@ pub struct FuzzPropertyContract {
 pub fn evaluate_fuzz_property_contract(mut contract: FuzzPropertyContract) -> FuzzPropertyContract {
     contract.fuzz.targets.sort_by(|a, b| a.name.cmp(&b.name));
     contract.fuzz.findings.sort_by(|a, b| a.id.cmp(&b.id));
-    contract.property.targets.sort_by(|a, b| a.name.cmp(&b.name));
     contract
         .property
-        .invariants
-        .sort_by(|a, b| a.id.cmp(&b.id));
+        .targets
+        .sort_by(|a, b| a.name.cmp(&b.name));
+    contract.property.invariants.sort_by(|a, b| a.id.cmp(&b.id));
     let has_gap = contract
         .fuzz
         .targets
@@ -61,7 +61,11 @@ pub fn evaluate_fuzz_property_contract(mut contract: FuzzPropertyContract) -> Fu
             .targets
             .iter()
             .any(|t| t.status == "gaps" || t.status == "planned");
-    contract.status = if has_gap { "gaps".into() } else { "implemented".into() };
+    contract.status = if has_gap {
+        "gaps".into()
+    } else {
+        "implemented".into()
+    };
     contract
 }
 
@@ -93,4 +97,3 @@ mod tests {
         assert_eq!(c.status, "gaps");
     }
 }
-

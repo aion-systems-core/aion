@@ -1,0 +1,46 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "kind": "ops_upgrade",
+      "upgrade_migration_status": {
+        "downgrade_paths": [
+          {
+            "from_version": "N+1",
+            "steps": [
+              {
+                "action": "rollback",
+                "id": "01",
+                "scope": "contracts"
+              }
+            ],
+            "to_version": "N"
+          }
+        ],
+        "risks": [
+          {
+            "id": "risk1",
+            "level": "low",
+            "mitigation": "precheck"
+          }
+        ],
+        "status": "ok",
+        "upgrade_paths": [
+          {
+            "from_version": "N",
+            "steps": [
+              {
+                "action": "migrate",
+                "id": "01",
+                "scope": "contracts"
+              }
+            ],
+            "to_version": "N+1"
+          }
+        ]
+      }
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

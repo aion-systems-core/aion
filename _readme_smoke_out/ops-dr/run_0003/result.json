@@ -1,0 +1,34 @@
+{
+  "status": "ok",
+  "data": {
+    "data": {
+      "dr_status": {
+        "backup_policy": {
+          "cadence": "hourly",
+          "immutable": true,
+          "retention_days": 30
+        },
+        "objective": {
+          "rpo_minutes": 15,
+          "rto_minutes": 60
+        },
+        "restore_plan": {
+          "last_tested_epoch": 0,
+          "steps": [
+            "restore"
+          ]
+        },
+        "status": "ok",
+        "tests": [
+          {
+            "scenario": "restore",
+            "status": "passed"
+          }
+        ]
+      },
+      "kind": "ops_dr"
+    },
+    "error": null,
+    "status": "ok"
+  }
+}

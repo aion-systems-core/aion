@@ -87,4 +87,3 @@ mod tests {
         assert_eq!(a.fingerprint.build_sha256, b.fingerprint.build_sha256);
     }
 }
-
