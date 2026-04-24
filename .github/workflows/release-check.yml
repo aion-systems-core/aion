@@ -28,9 +28,9 @@ jobs:
         run: cargo test --workspace --all-targets
 
       # Keep a minimal binary artifact for manual inspection.
-      - name: Upload aion binary
+      - name: Upload sealrun binary
         uses: actions/upload-artifact@v4
         with:
-          name: aion-cli-linux
-          path: target/release/aion
+          name: sealrun-linux
+          path: target/release/sealrun
           if-no-files-found: error
