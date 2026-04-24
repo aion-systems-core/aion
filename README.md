@@ -2,7 +2,7 @@
 
 SealRun is a **deterministic execution engine** for AI and automation workloads: every run is sealed into a **replayable capsule**, compared with **drift** contracts, anchored to an **evidence chain**, and checked against **governance** policies, surfaced as **deterministic JSON envelopes** for machines and auditors.
 
-[![CI](https://github.com/aion-systems-core/sealrun/actions/workflows/ci.yml/badge.svg)](https://github.com/aion-systems-core/sealrun/actions/workflows/ci.yml)
+[![CI](https://github.com/aion-systems-core/sealrun/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/aion-systems-core/sealrun/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-stable-orange.svg)](https://www.rust-lang.org/)
 
