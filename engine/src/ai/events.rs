@@ -26,7 +26,7 @@ pub fn sort_events_deterministic(events: &[Event]) -> Vec<Event> {
         .cloned()
         .map(|e| (event_sort_key(&e), e))
         .collect();
-    tagged.sort_by(|a, b| a.0.cmp(&b.0));
+    tagged.sort_by_key(|a| a.0);
     tagged.into_iter().map(|(_, e)| e).collect()
 }
 
@@ -166,7 +166,7 @@ pub fn token_events_semantic_equal(a: &[AiTokenEvent], b: &[AiTokenEvent]) -> bo
         .iter()
         .map(|t| (t.index, t.token.clone(), t.token_id))
         .collect();
-    va.sort_by(|x, y| x.0.cmp(&y.0));
-    vb.sort_by(|x, y| x.0.cmp(&y.0));
+    va.sort_by_key(|x| x.0);
+    vb.sort_by_key(|x| x.0);
     va == vb
 }
