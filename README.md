@@ -79,7 +79,6 @@ Pin output under **`sealrun_output/`** and fixed run IDs so paths stay stable:
 
 ```bash
 export SEALRUN_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:SEALRUN_OUTPUT_BASE = "$PWD\sealrun_output"
-# Legacy alias still accepted: AION_OUTPUT_BASE
 ./target/release/sealrun --id quickstart_demo execute ai \
   --model demo --prompt "hello world" --seed 42
 
@@ -99,7 +98,7 @@ export SEALRUN_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:SEALRUN_OU
 ./target/release/sealrun doctor
 ```
 
-**Artefact layout:** `<output_base>/<command>/<run_id>/`. Example: `sealrun_output/ai/quickstart_demo/` holds `ai.json`, **`capsule.aionai`** (AI capsule JSON), **`*.aionevidence`** sidecars, and optional HTML/SVG. Shell capture flows emit **`result.json`** (`RunResult`). Override base with **`SEALRUN_OUTPUT_BASE`** (preferred), legacy **`AION_OUTPUT_BASE`**, or **`--output-dir`**.
+**Artefact layout:** `<output_base>/<command>/<run_id>/`. Example: `sealrun_output/ai/quickstart_demo/` holds `ai.json`, **`capsule.aionai`** (AI capsule JSON), **`*.aionevidence`** sidecars, and optional HTML/SVG. Shell capture flows emit **`result.json`** (`RunResult`). Override the base with **`SEALRUN_OUTPUT_BASE`** or **`--output-dir`** (see `engine/src/output/layout.rs` for compatibility with older env names).
 
 ## Use cases
 

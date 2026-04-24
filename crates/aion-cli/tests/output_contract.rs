@@ -87,7 +87,7 @@ fn doctor_output_avoids_free_text_error_shapes() {
         let code = result["code"].as_str().unwrap_or("");
         assert!(
             code == "AION_OK" || code.starts_with("AION_"),
-            "doctor code must use AION contract code"
+            "doctor code must use stable machine contract codes"
         );
         assert!(
             result.get("message").is_none(),

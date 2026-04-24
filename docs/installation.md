@@ -2,7 +2,7 @@
 
 ## Purpose
 
-From **Rust toolchain** to a verified **`sealrun` binary**, artefact base directory (`SEALRUN_OUTPUT_BASE` or legacy `AION_OUTPUT_BASE`, or `--output-dir`), and smoke commands—so later docs ([Quickstart](quickstart.md)) match your environment.
+From **Rust toolchain** to a verified **`sealrun` binary**, artefact base directory (`SEALRUN_OUTPUT_BASE` or `--output-dir`; older env names are still read by the engine — see `engine/src/output/layout.rs`), and smoke commands—so later docs ([Quickstart](quickstart.md)) match your environment.
 
 SealRun is built from source as a Rust workspace. There is no separate installer in this repository slice.
 

@@ -1,4 +1,4 @@
-//! Replay core for AION deterministic capsule validation.
+//! Replay core for SealRun deterministic capsule validation.
 //!
 //! This module replays persisted capsules and emits structured mismatch contracts.
 //! Invariant: replay comparisons use canonicalized fields and deterministic ordering.

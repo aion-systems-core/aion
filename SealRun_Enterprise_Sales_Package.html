@@ -1021,7 +1021,7 @@ button.tab {
     <p><code>bindings/python/pyproject.toml</code> lines <strong>1–22</strong>: build backend <strong>Hatchling</strong>, distribution name <strong>aion-python</strong>, version <strong>0.2.0</strong>. Optional PyO3 extension in <code>bindings/python/src/</code> is <strong>not</strong> part of this wheel (<code>README.md</code> lines <strong>45–47</strong>). <code>bindings/python/sealrun/api.py</code> lines <strong>33–52</strong>: <code>Pilot</code> loads the shared library and calls <code>aion_capsule_save</code> / <code>aion_replay_capsule</code> via ctypes.</p>
 
     <h3>CLI</h3>
-    <p><code>crates/aion-cli/src/main.rs</code> lines <strong>16–29</strong>: <code>AION_AFTER_HELP</code> lists <code>doctor</code>, <code>evidence show</code>, <code>execute ai</code>, <code>execute ai-replay</code>, <code>policy validate</code>, and documents exit codes <strong>0 / 1 / 2</strong>. <code>sealrun version --full</code> (lines <strong>1109–1119</strong>) prints semver, rustc line, and build hash from <code>build.rs</code>. <code>sealrun doctor</code> emits JSON including <code>c_abi_library</code> path, <code>python_pilot_pkg</code> marker, fingerprint subset, and optional <code>replay_symmetry_probe</code> when <code>AION_PILOT_CAPSULE</code> points to a <code>.aionai</code> file.</p>
+    <p><code>crates/aion-cli/src/main.rs</code> lines <strong>16–29</strong>: the long <code>after_long_help</code> text lists <code>doctor</code>, <code>evidence show</code>, <code>execute ai</code>, <code>execute ai-replay</code>, <code>policy validate</code>, and documents exit codes <strong>0 / 1 / 2</strong>. <code>sealrun version --full</code> (lines <strong>1109–1119</strong>) prints semver, rustc line, and build hash from <code>build.rs</code>. <code>sealrun doctor</code> emits JSON including <code>c_abi_library</code> path, <code>python_pilot_pkg</code> marker, fingerprint subset, and optional <code>replay_symmetry_probe</code> when a pilot capsule path is supplied via environment (see <code>output_bundle.rs</code> / doctor docs).</p>
 
     <hr class="section-rule">
 
@@ -1097,7 +1097,7 @@ button.tab {
           <td><strong>Realistic</strong></td>
           <td>Add full replay path + <code>assert_replay_symmetry</code> / <code>assert_formal_replay_invariant</code> in automation</td>
           <td>Optional Ed25519 path as in <code>governance_evidence.rs</code></td>
-          <td>Run <code>sealrun doctor</code> with <code>AION_PILOT_CAPSULE</code> for optional symmetry probe</td>
+          <td>Run <code>sealrun doctor</code> with a pilot capsule path in the environment for optional symmetry probe</td>
         </tr>
         <tr>
           <td><strong>Aggressive</strong></td>
@@ -1198,7 +1198,7 @@ button.tab {
     </div>
 
     <blockquote lang="de" style="margin-bottom:16px;">
-      Die Pilotphase besteht aus 8 technischen Validierungsschritten. Sie können diese Schritte in beliebiger Reihenfolge durchführen — viele Kunden erledigen mehrere Schritte in derselben Woche. Die Schritte dienen nur dazu, sicherzustellen, dass alle Kernfunktionen von SealRun Execution OS korrekt funktionieren.
+      Die Pilotphase besteht aus 8 technischen Validierungsschritten. Sie können diese Schritte in beliebiger Reihenfolge durchführen — viele Kunden erledigen mehrere Schritte in derselben Woche. Ziel ist zu verifizieren, dass die <strong>deterministische Ausführungsumgebung</strong> von <strong>SealRun Execution OS</strong> stabil arbeitet und der <strong>Governance- und Audit-Layer</strong> die dokumentierten Kontrollflächen liefert.
     </blockquote>
 
     <div class="timeline">
@@ -1292,7 +1292,7 @@ button.tab {
     <table>
       <thead><tr><th>Stage</th><th>Action</th><th>Reference</th></tr></thead>
       <tbody>
-        <tr><td><strong>1. First contact</strong></td><td>Read <code>AION_AFTER_HELP</code> and <code>bindings/python/README.md</code> install path</td><td><code>main.rs</code> 16–29</td></tr>
+        <tr><td><strong>1. First contact</strong></td><td>Read the CLI <code>after_long_help</code> block in <code>main.rs</code> and <code>bindings/python/README.md</code> install path</td><td><code>main.rs</code> 16–29</td></tr>
         <tr><td><strong>2. Technical validation</strong></td><td><code>sealrun version --full</code> then <code>sealrun doctor</code></td><td><code>main.rs</code> 1109–1119; <code>output_bundle.rs</code> 727–776</td></tr>
         <tr><td><strong>3. Pilot</strong></td><td>CLI <code>execute ai</code> / <code>execute ai-replay</code> or Python <code>Pilot</code>; inspect drift and evidence JSON</td><td><code>api.py</code> 33–52</td></tr>
         <tr><td><strong>4. Rollout</strong></td><td>Integrate <code>validate_capsule_against_policy</code>; adopt <code>seal_run</code> / <code>verify_linear</code>; optional Ed25519</td><td><code>policy.rs</code>; <code>proof.rs</code>; <code>sealrun.h</code></td></tr>
@@ -1317,7 +1317,7 @@ button.tab {
       <li>Drift field taxonomy (<code>drift.rs</code> 22–55)</li>
       <li>Evidence chain mechanics (<code>proof.rs</code> 11–61)</li>
       <li>Cross-machine validator (<code>cross_machine.rs</code> 6–41)</li>
-      <li>Pilot: build wheel from <code>bindings/python/README.md</code>; doctor probe via <code>AION_PILOT_CAPSULE</code></li>
+      <li>Pilot: build wheel from <code>bindings/python/README.md</code>; doctor symmetry probe when a pilot capsule path is set in the environment</li>
     </ol>
 
     <h2>Two-minute walkthrough</h2>

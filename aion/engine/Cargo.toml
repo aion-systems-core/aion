@@ -3,7 +3,7 @@ name = "aion-engine"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-description = "AION engine orchestration (stub)"
+description = "SealRun engine orchestration (stub; aion-engine mirror crate)"
 
 [dependencies]
 aion-core = { path = "../core" }

@@ -1,4 +1,4 @@
-//! Canonicalization primitives for the AION determinism model.
+//! Canonicalization primitives for the SealRun determinism model.
 //!
 //! This module defines the canonical byte/string form used by hash, drift, and replay paths.
 //! Invariant: semantically equal payloads must map to identical canonical JSON/bytes.

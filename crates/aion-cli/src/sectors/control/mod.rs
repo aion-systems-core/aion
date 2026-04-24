@@ -54,5 +54,6 @@ pub fn ci_replay<G: KernelGateway>(g: &G, artifact_path: &str) -> Result<String,
 }
 
 pub fn sdk() -> String {
-    "AION v2 SDK: Rust crates aion-core, aion-kernel, aion-engine; CLI binary `aion`.\n".to_string()
+    "SealRun v2 SDK: Rust crates aion-core, aion-kernel, aion-engine; CLI binary `sealrun`.\n"
+        .to_string()
 }

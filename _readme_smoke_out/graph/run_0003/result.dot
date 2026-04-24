@@ -1,4 +1,0 @@
-digraph aion_graph {
-  rankdir=LR;
-  "phase3-graph-test" [label="phase3-graph-test"];
-}

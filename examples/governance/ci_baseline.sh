@@ -5,8 +5,8 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$ROOT"
 CAP="${1:?usage: $0 path/to/capsule.aionai}"
-AION="${AION:-cargo run -q -p aion-cli --}"
-exec $AION ci baseline \
+SEALRUN="${SEALRUN:-cargo run -q -p aion-cli --}"
+exec $SEALRUN ci baseline \
   --capsule "$CAP" \
   --policy "$ROOT/examples/governance/dev.policy.json" \
   --determinism "$ROOT/examples/governance/dev.determinism.json" \

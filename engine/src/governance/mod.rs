@@ -1,4 +1,4 @@
-//! AION Governance v1 — policy, determinism, integrity, and CI baseline enforcement for AI capsules.
+//! SealRun Governance v1 — policy, determinism, integrity, and CI baseline enforcement for AI capsules.
 
 mod audit;
 mod ci;

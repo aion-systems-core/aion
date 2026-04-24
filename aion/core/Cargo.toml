@@ -3,6 +3,6 @@ name = "aion-core"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-description = "AION core contracts and shared types (stub)"
+description = "SealRun core contracts and shared types (stub; aion-core mirror crate)"
 
 [dependencies]

@@ -3,7 +3,7 @@ name = "aion-kernel"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
-description = "AION kernel execution primitives (stub)"
+description = "SealRun kernel execution primitives (stub; aion-kernel mirror crate)"
 
 [dependencies]
 aion-core = { path = "../core" }

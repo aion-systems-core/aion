@@ -18,7 +18,7 @@ This guide assumes you built the CLI (`cargo build -p aion-cli`) and invoke it w
 sealrun execute ai --model demo --prompt "hello" --seed 1
 ```
 
-**Output:** a directory under `<output_base>/ai/<run_id>/` (default base may be `aion_output`; set `SEALRUN_OUTPUT_BASE` or legacy `AION_OUTPUT_BASE` for `sealrun_output/`) containing `ai.json`, `ai.html`, `ai.svg`, `why.html`, `why.svg`, **`capsule.aionai`**, and **`*.aionevidence`** sidecars.
+**Output:** a directory under `<output_base>/ai/<run_id>/` (default base directory name may be `aion_output`; set **`SEALRUN_OUTPUT_BASE`** for `sealrun_output/`) containing `ai.json`, `ai.html`, `ai.svg`, `why.html`, `why.svg`, **`capsule.aionai`**, and **`*.aionevidence`** sidecars.
 
 ## 2. Replay the capsule
 

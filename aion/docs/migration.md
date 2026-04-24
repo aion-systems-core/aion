@@ -34,11 +34,11 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 ## Output layout migration
 
 - Current outputs are deterministic under `<base>/<command>/<run_id>/`.
-- `SEALRUN_OUTPUT_BASE` / `SEALRUN_OUTPUT_ID` (preferred) or legacy `AION_OUTPUT_BASE` / `AION_OUTPUT_ID` control path and run naming.
+- **`SEALRUN_OUTPUT_BASE`** / **`SEALRUN_OUTPUT_ID`** control path and run naming (see `engine/src/output/layout.rs` in the main workspace for alternate env names).
 
 ## SDK migration
 
-- `AION_SDK_VERSION` and `AION_SDK_OUTPUT_BASE` are additive.
+- SDK version and output overrides read by `engine/src/sdk/output.rs` remain additive for programmatic callers.
 - Existing `sealrun sdk` commands remain compatible.
 
 ## CLI surface

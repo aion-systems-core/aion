@@ -1,4 +1,4 @@
-//! AION Core — Datenmodelle, Verträge, Fehlerdefinitionen (Plan §2.2).
+//! SealRun Core — Datenmodelle, Verträge, Fehlerdefinitionen (Plan §2.2).
 //!
 //! | Modul | Beschreibung |
 //! | :--- | :--- |

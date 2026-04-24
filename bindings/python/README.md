@@ -22,7 +22,7 @@ python -m build --wheel
 pip install dist/aion_python-*.whl
 ```
 
-Set `SEALRUN_LIB_PATH` to the directory that contains the shared library (or a direct path to the file). Legacy: `AION_LIB_PATH`.
+Set **`SEALRUN_LIB_PATH`** to the directory that contains the shared library (or a direct path to the file). The CLI doctor check still honors the pre-rename library-path variable — see `crates/aion-cli/src/output_bundle.rs`.
 
 ## API
 

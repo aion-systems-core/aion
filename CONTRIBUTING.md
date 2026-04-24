@@ -35,7 +35,7 @@ cargo test -p aion-cli --test product_docs
 bash scripts/test_readme_examples.sh
 
 # CI-only: compile SDK examples + run Rust examples + basic shell example
-export SEALRUN_PRODUCT_TESTS=1   # legacy: AION_PRODUCT_TESTS=1
+export SEALRUN_PRODUCT_TESTS=1
 bash scripts/test_examples_run.sh
 cargo test -p aion-cli --test product_examples
 ```
@@ -64,7 +64,7 @@ cargo test -p aion-cli --test product_examples
 1. Update `VERSION` at repo root (semantic versioning).
 2. Update `CHANGELOG.md` with a dated section for the release.
 3. Run full `cargo test` across workspace members.
-4. Run product checks if you maintain docs/examples (`SEALRUN_PRODUCT_TESTS=1` or legacy `AION_PRODUCT_TESTS=1`).
+4. Run product checks if you maintain docs/examples (`SEALRUN_PRODUCT_TESTS=1`; the CI gate script also accepts the pre-rename product-test flag — see `scripts/test_examples_run.sh` and `crates/aion-cli/tests/product_examples.rs`).
 5. Tag the repository: `git tag v$(cat VERSION)` and push tags.
 6. Publish or attach release artefacts per your distribution policy.
 

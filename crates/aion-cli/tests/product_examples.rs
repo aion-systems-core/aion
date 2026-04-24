@@ -1,4 +1,4 @@
-//! Optional heavy checks for examples (`SEALRUN_PRODUCT_TESTS=1` or legacy `AION_PRODUCT_TESTS=1`).
+//! Optional heavy checks for examples (`SEALRUN_PRODUCT_TESTS=1`; see test body and `scripts/test_examples_run.sh`).
 
 use std::path::PathBuf;
 use std::process::Command;

@@ -1,5 +1,9 @@
 # Contributor Covenant Code of Conduct
 
+This code of conduct applies to the **SealRun** open-source project and its
+public community spaces (repository, issues, discussions, and related
+channels).
+
 ## Our Pledge
 
 We as members, contributors, and leaders pledge to make participation in our

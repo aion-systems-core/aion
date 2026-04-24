@@ -1,4 +1,4 @@
-//! AION Kernel — deterministische Systemaufrufe (Plan §2.3).
+//! SealRun Kernel — deterministische Systemaufrufe (Plan §2.3).
 //!
 //! | Modul | Beschreibung |
 //! | :--- | :--- |

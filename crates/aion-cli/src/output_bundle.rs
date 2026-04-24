@@ -378,7 +378,7 @@ pub fn write_sdk_output() -> Result<std::path::PathBuf, String> {
     let w = OutputWriter::new("sdk")?;
     let rep = SdkReport {
         description:
-            "AION v2 SDK: Rust crates aion-core, aion-kernel, aion-engine; CLI binary `aion`."
+            "SealRun v2 SDK: Rust crates aion-core, aion-kernel, aion-engine; CLI binary `sealrun`."
                 .into(),
         crates: vec![
             "aion-core".into(),
@@ -777,7 +777,7 @@ pub fn write_sdk_bundle_with_format(
     }
     let json = aion_engine::output::layout::canonical_json_from_serialize(payload)
         .map_err(|e| e.to_string())?;
-    let html = aion_engine::sdk::render_sdk_html("AION SDK v1", &json);
+    let html = aion_engine::sdk::render_sdk_html("SealRun SDK v1", &json);
     let svg = aion_engine::sdk::render_sdk_svg(success);
     w.write_html("sdk", &html)?;
     w.write_svg("sdk", &svg)?;
@@ -811,10 +811,10 @@ base = "aion_output"
     let rep = serde_json::json!({
         "ok": true,
         "config": cfg,
-        "message": "AION workspace initialized."
+        "message": "SealRun workspace initialized."
     });
     w.write_json("result", &rep)?;
-    w.write_html("result", &html::render_json_value("AION setup", &rep))?;
+    w.write_html("result", &html::render_json_value("SealRun setup", &rep))?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())
 }
@@ -1320,7 +1320,7 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
     });
     let sbom_ok = verify_sbom(&sbom).is_ok();
     let vuln_status = evaluate_vulnerability_sla(&VulnerabilityReport {
-        id: "AION-VULN-BASELINE".to_string(),
+        id: "SEALRUN-VULN-BASELINE".to_string(),
         severity: VulnerabilitySeverity::Low,
         age_hours: 1,
     });
@@ -2042,7 +2042,7 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
     let rep_value = serde_json::to_value(&rep).map_err(|e| e.to_string())?;
     w.write_html(
         "result",
-        &html::render_json_value("AION doctor", &rep_value),
+        &html::render_json_value("SealRun doctor", &rep_value),
     )?;
     w.write_svg("result", &svg::render_graph_svg(&rep_value))?;
     Ok(w.into_root())
@@ -2806,7 +2806,7 @@ pub fn write_product_upgrade_output() -> Result<std::path::PathBuf, String> {
         ]
     });
     w.write_json("result", &rep)?;
-    w.write_html("result", &html::render_json_value("AION upgrade", &rep))?;
+    w.write_html("result", &html::render_json_value("SealRun upgrade", &rep))?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())
 }
@@ -2831,7 +2831,7 @@ pub fn write_product_stats_output() -> Result<std::path::PathBuf, String> {
         "command_groups_seen": command_dirs
     });
     w.write_json("result", &rep)?;
-    w.write_html("result", &html::render_json_value("AION stats", &rep))?;
+    w.write_html("result", &html::render_json_value("SealRun stats", &rep))?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())
 }
@@ -2856,7 +2856,7 @@ pub fn write_product_telemetry_enable_output() -> Result<std::path::PathBuf, Str
     w.write_json("result", &rep)?;
     w.write_html(
         "result",
-        &html::render_json_value("AION telemetry enable", &rep),
+        &html::render_json_value("SealRun telemetry enable", &rep),
     )?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())
@@ -2873,7 +2873,7 @@ pub fn write_product_telemetry_disable_output() -> Result<std::path::PathBuf, St
     w.write_json("result", &rep)?;
     w.write_html(
         "result",
-        &html::render_json_value("AION telemetry disable", &rep),
+        &html::render_json_value("SealRun telemetry disable", &rep),
     )?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())
@@ -2890,7 +2890,7 @@ pub fn write_product_telemetry_status_output() -> Result<std::path::PathBuf, Str
     w.write_json("result", &rep)?;
     w.write_html(
         "result",
-        &html::render_json_value("AION telemetry status", &rep),
+        &html::render_json_value("SealRun telemetry status", &rep),
     )?;
     w.write_svg("result", &svg::render_graph_svg(&rep))?;
     Ok(w.into_root())

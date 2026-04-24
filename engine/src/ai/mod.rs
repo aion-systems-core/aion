@@ -1,4 +1,4 @@
-//! AION-AI Capsule v1 — deterministic, replay-ready AI execution format.
+//! SealRun AI Capsule v1 — deterministic, replay-ready AI execution format.
 
 mod backend;
 pub(crate) mod canon;

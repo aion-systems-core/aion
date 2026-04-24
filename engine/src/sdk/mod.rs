@@ -1,4 +1,4 @@
-//! AION SDK v1 — minimal stable API over deterministic AI engine primitives (no CLI).
+//! SealRun SDK v1 — minimal stable API over deterministic AI engine primitives (no CLI).
 
 #[cfg(feature = "async")]
 pub mod async_api;

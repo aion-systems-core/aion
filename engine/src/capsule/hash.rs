@@ -1,4 +1,4 @@
-//! Hash pipeline for deterministic capsule identity in AION.
+//! Hash pipeline for deterministic capsule identity in SealRun.
 //!
 //! This module hashes canonical semantic payload only (no timestamp/path/envelope noise).
 //! Invariant: equal deterministic semantics map to the same 32-byte digest.

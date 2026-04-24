@@ -5,12 +5,12 @@ build-backend = "hatchling.build"
 [project]
 name = "aion-python"
 version = "0.2.0"
-description = "AION pilot: ctypes bindings to the AION C-ABI (deterministic AI capsule operations)."
+description = "SealRun pilot: ctypes bindings to the SealRun C ABI (deterministic AI capsule operations)."
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "AION" }]
-keywords = ["aion", "deterministic", "capsule", "replay", "ctypes"]
+authors = [{ name = "SealRun contributors" }]
+keywords = ["sealrun", "deterministic", "capsule", "replay", "ctypes"]
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]
