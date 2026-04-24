@@ -27,4 +27,4 @@ body:
     id: env
     attributes:
       label: Environment
-      description: OS, Rust version, AION version, and relevant output paths.
+      description: OS, Rust version, SealRun (`sealrun --version`) or commit SHA, and relevant output paths.

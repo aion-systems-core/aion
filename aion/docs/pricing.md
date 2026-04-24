@@ -2,14 +2,14 @@
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
@@ -17,12 +17,12 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 
 | Produkt | Enthaltene Funktionen | Lizenz | Preis (jährlich) |
 | :--- | :--- | :--- | ---: |
-| **AION Community** | Kernel, Engine, CLI, Capsules, Replay, Drift, Why/Graph, Evidence‑Chain, Doctor | MIT/Apache 2.0 | **kostenlos** |
-| **AION Secure Runtime** | FS‑Isolation, Netzwerk‑Isolation, seccomp/landlock, Micro‑VM‑Mode, Policy‑Enforcement | AION‑ELv1 | **4.900 €** / Jahr |
-| **AION Governance Pack** | Compliance‑Exports, Evidence‑Exports, Policy‑Pack‑Editor, Governance‑Snapshots, Determinism‑Proof‑Bundles | AION‑ELv1 | **2.900 €** / Jahr |
-| **AION CI/CD Pack** | GitHub/GitLab‑Integration, Drift‑Gates, Replay‑Gates, Release‑Admission, Baseline‑Recorder | AION‑ELv1 | **3.900 €** / Jahr |
-| **AION Enterprise Suite** | Secure Runtime + Governance Pack + CI/CD Pack + Evidence Export + SLA | AION‑ELv1 | **9.900 €** / Jahr |
-| **AION Enterprise SLA** | 24h‑Response, Bugfix‑Priorisierung, Integration‑Support | Zusatz zur Suite | **+ 2.500 €** / Jahr |
+| **SealRun Community** | Kernel, Engine, CLI, Capsules, Replay, Drift, Why/Graph, Evidence‑Chain, Doctor | MIT/Apache 2.0 | **kostenlos** |
+| **SealRun Secure Runtime** | FS‑Isolation, Netzwerk‑Isolation, seccomp/landlock, Micro‑VM‑Mode, Policy‑Enforcement | SealRun ELv1 | **4.900 €** / Jahr |
+| **SealRun Governance Pack** | Compliance‑Exports, Evidence‑Exports, Policy‑Pack‑Editor, Governance‑Snapshots, Determinism‑Proof‑Bundles | SealRun ELv1 | **2.900 €** / Jahr |
+| **SealRun CI/CD Pack** | GitHub/GitLab‑Integration, Drift‑Gates, Replay‑Gates, Release‑Admission, Baseline‑Recorder | SealRun ELv1 | **3.900 €** / Jahr |
+| **SealRun Enterprise Suite** | Secure Runtime + Governance Pack + CI/CD Pack + Evidence Export + SLA | SealRun ELv1 | **9.900 €** / Jahr |
+| **SealRun Enterprise SLA** | 24h‑Response, Bugfix‑Priorisierung, Integration‑Support | Zusatz zur Suite | **+ 2.500 €** / Jahr |
 
 ## Early Access (first 30 days)
 

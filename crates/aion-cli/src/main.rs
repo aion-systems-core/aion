@@ -60,7 +60,7 @@ EXAMPLES
     after_long_help = AION_AFTER_HELP
 )]
 struct Cli {
-    /// Override output base directory (same effect as SEALRUN_OUTPUT_BASE).
+    /// Override output base directory (sets `SEALRUN_OUTPUT_BASE` and legacy `AION_OUTPUT_BASE`).
     #[arg(long, global = true)]
     output_dir: Option<PathBuf>,
     /// Deterministic output run id (e.g. run_0001 or custom name).
@@ -1696,9 +1696,11 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
 fn main() -> ExitCode {
     let cli = Cli::parse();
     if let Some(p) = &cli.output_dir {
+        std::env::set_var("SEALRUN_OUTPUT_BASE", p);
         std::env::set_var("AION_OUTPUT_BASE", p);
     }
     if let Some(id) = &cli.id {
+        std::env::set_var("SEALRUN_OUTPUT_ID", id);
         std::env::set_var("AION_OUTPUT_ID", id);
     }
     let k = InProcessKernel;

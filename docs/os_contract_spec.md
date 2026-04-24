@@ -187,7 +187,7 @@ determinism_guarantee:
 error_codes:
 - `AION_CLI_JSON_PARSE`
 - `AION_CLI_JSON_SERIALIZE`
-- `sealrun_output_JSON_SERIALIZE`
+- `AION_OUTPUT_JSON_SERIALIZE`
 
 finality_rules:
 - output final when envelope status is `ok` and data contract is valid
@@ -199,8 +199,8 @@ invariants:
 - error JSON canonicalization preserves deterministic key order
 
 input_output:
-- input: `AION_* line` or nested error contract
-- output: `AionError` JSON
+- input: `AION_*` line (stable machine namespace) or nested error contract
+- output: `AionError` JSON (same schema; product name: SealRun)
 
 determinism_guarantee:
 - same code/context/cause tuple yields identical canonical JSON

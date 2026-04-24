@@ -1,4 +1,4 @@
-# AION C-ABI showcase
+# SealRun C-ABI showcase
 
 Minimal examples calling the published C ABI from `include/aion/aion.h`.
 
@@ -12,7 +12,7 @@ cargo build -p aion-engine
 
 On Windows the artifact is `target/debug/aion_engine.dll` (or `target/release/` with `--release`). On Linux `target/debug/libaion_engine.so`. On macOS `target/debug/libaion_engine.dylib`.
 
-Set `AION_LIB_PATH` to the directory containing that file when running Python examples, or rely on the default search used by each Makefile.
+Set `SEALRUN_LIB_PATH` (preferred) or legacy `AION_LIB_PATH` to the directory containing that file when running Python examples, or rely on the default search used by each Makefile.
 
 ## Build all (POSIX)
 

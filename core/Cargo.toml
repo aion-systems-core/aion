@@ -2,7 +2,7 @@
 name = "aion-core"
 version = "0.2.0"
 edition = "2021"
-description = "AION OS v2 — contracts and capsule format"
+description = "SealRun — core contracts and capsule format (aion-core crate)"
 license = "MIT"
 
 [lib]

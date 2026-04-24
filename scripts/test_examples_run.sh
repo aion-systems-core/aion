@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
-# CI-only: compile and run SDK examples (set AION_PRODUCT_TESTS=1).
+# CI-only: compile and run SDK examples (set SEALRUN_PRODUCT_TESTS=1 or AION_PRODUCT_TESTS=1).
 set -euo pipefail
-if [ "${AION_PRODUCT_TESTS:-}" != "1" ]; then
-  echo "skip test_examples_run (set AION_PRODUCT_TESTS=1 to run)"
+if [ "${SEALRUN_PRODUCT_TESTS:-}" != "1" ] && [ "${AION_PRODUCT_TESTS:-}" != "1" ]; then
+  echo "skip test_examples_run (set SEALRUN_PRODUCT_TESTS=1 or AION_PRODUCT_TESTS=1 to run)"
   exit 0
 fi
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"

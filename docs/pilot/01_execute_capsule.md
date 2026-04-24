@@ -4,7 +4,7 @@
 
 Pilot step producing the first **deterministic capsule** (`capsule.aionai`) and Why/evidence projections—prerequisite for replay ([next step](02_replay_capsule.md)).
 
-Produce a deterministic **AI capsule** and artefacts under `<output_base>/ai/<id>/` (set `AION_OUTPUT_BASE` if you want `sealrun_output/`).
+Produce a deterministic **AI capsule** and artefacts under `<output_base>/ai/<id>/` (set `SEALRUN_OUTPUT_BASE` or legacy `AION_OUTPUT_BASE` if you want `sealrun_output/`).
 
 ```bash
 sealrun execute ai --model demo --prompt "hello pilot" --seed 42 --id pilot_demo

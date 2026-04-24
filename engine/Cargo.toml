@@ -2,7 +2,7 @@
 name = "aion-engine"
 version = "0.2.0"
 edition = "2021"
-description = "AION OS v2 — capture, replay, diff, why, graph, CI"
+description = "SealRun engine — capture, replay, diff, why, graph, CI (aion-engine crate)"
 license = "MIT"
 build = "build.rs"
 

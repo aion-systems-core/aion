@@ -1,4 +1,4 @@
-//! Optional heavy checks for examples (`AION_PRODUCT_TESTS=1`).
+//! Optional heavy checks for examples (`SEALRUN_PRODUCT_TESTS=1` or legacy `AION_PRODUCT_TESTS=1`).
 
 use std::path::PathBuf;
 use std::process::Command;
@@ -9,7 +9,13 @@ fn repo_root() -> PathBuf {
 
 #[test]
 fn test_examples_run_ci_gated() {
-    if std::env::var("AION_PRODUCT_TESTS").ok().as_deref() != Some("1") {
+    let enabled = std::env::var("SEALRUN_PRODUCT_TESTS")
+        .map(|v| v == "1")
+        .unwrap_or(false)
+        || std::env::var("AION_PRODUCT_TESTS")
+            .map(|v| v == "1")
+            .unwrap_or(false);
+    if !enabled {
         return;
     }
     let root = repo_root();

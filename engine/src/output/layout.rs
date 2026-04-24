@@ -1,13 +1,13 @@
 //! Deterministic output directory layout and archive generation.
 //!
 //! Root resolution order:
-//! 1. `AION_OUTPUT_BASE`
+//! 1. `SEALRUN_OUTPUT_BASE` (preferred) or legacy `AION_OUTPUT_BASE`
 //! 2. `./aion.config.toml` (`[output].base`)
 //! 3. `~/.aion/config.toml` (`[output].base`)
 //! 4. `<cwd>/aion_output`
 //!
 //! Run ID resolution order:
-//! 1. `AION_OUTPUT_ID`
+//! 1. `SEALRUN_OUTPUT_ID` (preferred) or legacy `AION_OUTPUT_ID`
 //! 2. `./aion.config.toml` (`[output].id`)
 //! 3. `~/.aion/config.toml` (`[output].id`)
 //! 4. next deterministic incremental `run_0001`, `run_0002`, ...
@@ -97,10 +97,11 @@ fn resolve_base_from(input: &str) -> PathBuf {
 
 /// Resolve artefact root base.
 pub fn output_base_dir() -> PathBuf {
-    if let Some(p) = std::env::var_os("AION_OUTPUT_BASE") {
-        if !p.is_empty() {
-            return resolve_base_from(&p.to_string_lossy());
-        }
+    if let Some(p) = std::env::var_os("SEALRUN_OUTPUT_BASE")
+        .filter(|p| !p.is_empty())
+        .or_else(|| std::env::var_os("AION_OUTPUT_BASE").filter(|p| !p.is_empty()))
+    {
+        return resolve_base_from(&p.to_string_lossy());
     }
     let cfg = merged_output_config();
     if let Some(base) = cfg.base {
@@ -130,7 +131,7 @@ fn next_run_id(command_dir: &Path) -> String {
 }
 
 fn chosen_run_id(command_dir: &Path) -> String {
-    if let Ok(v) = std::env::var("AION_OUTPUT_ID") {
+    if let Ok(v) = std::env::var("SEALRUN_OUTPUT_ID").or_else(|_| std::env::var("AION_OUTPUT_ID")) {
         let s = v.trim();
         if !s.is_empty() {
             return sanitize_command(s);

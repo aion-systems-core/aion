@@ -1018,7 +1018,8 @@ pub fn write_product_doctor_output() -> Result<std::path::PathBuf, String> {
     }
 
     fn run_python_bindings_check(manifest_dir: &std::path::Path) -> DoctorCheckResult {
-        let lib_path = std::env::var("AION_LIB_PATH");
+        let lib_path =
+            std::env::var("SEALRUN_LIB_PATH").or_else(|_| std::env::var("AION_LIB_PATH"));
         let lib_path = match lib_path {
             Ok(v) if !v.trim().is_empty() => v,
             _ => {

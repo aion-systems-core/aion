@@ -78,7 +78,8 @@ On Windows, run `target\release\sealrun.exe` (or use Git Bash for the paths abov
 Pin output under **`sealrun_output/`** and fixed run IDs so paths stay stable:
 
 ```bash
-export AION_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:AION_OUTPUT_BASE = "$PWD\sealrun_output"
+export SEALRUN_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:SEALRUN_OUTPUT_BASE = "$PWD\sealrun_output"
+# Legacy alias still accepted: AION_OUTPUT_BASE
 ./target/release/sealrun --id quickstart_demo execute ai \
   --model demo --prompt "hello world" --seed 42
 
@@ -98,7 +99,7 @@ export AION_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:AION_OUTPUT_B
 ./target/release/sealrun doctor
 ```
 
-**Artefact layout:** `<output_base>/<command>/<run_id>/`. Example: `sealrun_output/ai/quickstart_demo/` holds `ai.json`, **`capsule.aionai`** (AI capsule JSON), **`*.aionevidence`** sidecars, and optional HTML/SVG. Shell capture flows emit **`result.json`** (`RunResult`). Override base with **`AION_OUTPUT_BASE`** or **`--output-dir`**.
+**Artefact layout:** `<output_base>/<command>/<run_id>/`. Example: `sealrun_output/ai/quickstart_demo/` holds `ai.json`, **`capsule.aionai`** (AI capsule JSON), **`*.aionevidence`** sidecars, and optional HTML/SVG. Shell capture flows emit **`result.json`** (`RunResult`). Override base with **`SEALRUN_OUTPUT_BASE`** (preferred), legacy **`AION_OUTPUT_BASE`**, or **`--output-dir`**.
 
 ## Use cases
 
@@ -142,7 +143,7 @@ export AION_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:AION_OUTPUT_B
 
 ## Contributing
 
-Issues and pull requests are welcome. Open an issue with **reproduction**, **expected vs. actual behaviour**, **Rust toolchain version**, and **OS** before large changes. Follow `cargo fmt`, `cargo clippy -D warnings`, and `cargo test --workspace` locally. See [.github/workflows/ci.yml](.github/workflows/ci.yml) for the canonical CI matrix.
+Issues and pull requests are welcome. Open an issue with **reproduction**, **expected vs. actual behaviour**, **Rust toolchain version**, and **OS** before large changes. Follow `cargo fmt`, `cargo clippy -D warnings`, and `cargo test --workspace` locally. See [.github/workflows/ci.yml](.github/workflows/ci.yml) for the canonical CI matrix. Community expectations: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md). Security reports: [SECURITY.md](SECURITY.md) (do not use public issues for vulnerabilities).
 
 ## License
 

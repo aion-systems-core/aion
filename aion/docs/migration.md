@@ -1,6 +1,6 @@
 # Migration guide
 
-This guide defines deterministic upgrade and compatibility checks for AION-OS environments.
+This guide defines deterministic upgrade and compatibility checks for SealRun Execution OS environments.
 
 ## At a glance
 
@@ -10,14 +10,14 @@ This guide defines deterministic upgrade and compatibility checks for AION-OS en
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
@@ -27,27 +27,27 @@ If isolation is required (e.g., for regulated industries), the same contract sur
 2. Rebuild CLI:
    - `cargo build -p aion-cli --release`
 3. Validate with smoke commands:
-   - `aion --version`
-   - `aion execute ai --model demo --prompt "migration smoke" --seed 1`
-   - `aion execute ai-replay --capsule <latest capsule>`
+   - `sealrun --version`
+   - `sealrun execute ai --model demo --prompt "migration smoke" --seed 1`
+   - `sealrun execute ai-replay --capsule <latest capsule>`
 
 ## Output layout migration
 
 - Current outputs are deterministic under `<base>/<command>/<run_id>/`.
-- `AION_OUTPUT_BASE` and `AION_OUTPUT_ID` can be used to control path and run naming.
+- `SEALRUN_OUTPUT_BASE` / `SEALRUN_OUTPUT_ID` (preferred) or legacy `AION_OUTPUT_BASE` / `AION_OUTPUT_ID` control path and run naming.
 
 ## SDK migration
 
 - `AION_SDK_VERSION` and `AION_SDK_OUTPUT_BASE` are additive.
-- Existing `aion sdk` commands remain compatible.
+- Existing `sealrun sdk` commands remain compatible.
 
 ## CLI surface
 
 ```bash
-aion --version
-aion doctor
-aion execute ai --model demo --prompt "migration smoke" --seed 1
-aion execute ai-replay --capsule <latest capsule>
+sealrun --version
+sealrun doctor
+sealrun execute ai --model demo --prompt "migration smoke" --seed 1
+sealrun execute ai-replay --capsule <latest capsule>
 ```
 
 ## Enterprise-readiness

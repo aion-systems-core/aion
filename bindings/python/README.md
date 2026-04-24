@@ -1,6 +1,6 @@
 # aion-python (pilot)
 
-Industrial Python pilot over the **AION C ABI** (`include/aion/aion.h`). No PyO3 in this wheel: only `ctypes` plus a thin API.
+Industrial Python pilot over the **SealRun C ABI** (`include/aion/aion.h`). No PyO3 in this wheel: only `ctypes` plus a thin API.
 
 ## Build the native library
 
@@ -22,7 +22,7 @@ python -m build --wheel
 pip install dist/aion_python-*.whl
 ```
 
-Set `AION_LIB_PATH` to the directory that contains the shared library (or a direct path to the file).
+Set `SEALRUN_LIB_PATH` to the directory that contains the shared library (or a direct path to the file). Legacy: `AION_LIB_PATH`.
 
 ## API
 

@@ -1,4 +1,4 @@
-# AION Enterprise Sales Package
+# SealRun Enterprise Sales Package
 
 > Deterministic AI Execution OS for enterprise-grade replay, evidence, governance, and auditability.
 >  
@@ -8,7 +8,7 @@
 
 ## Executive summary
 
-AION-OS provides deterministic AI run execution with machine-readable contracts across the full enterprise lifecycle:
+SealRun Execution OS provides deterministic AI run execution with machine-readable contracts across the full enterprise lifecycle:
 
 - deterministic execution and replay
 - drift and evidence contracts
@@ -29,26 +29,26 @@ The core product truth is emitted via deterministic JSON outputs and aggregated 
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
 ## Product positioning
 
-### What AION is
+### What SealRun is
 
 - A deterministic execution OS for AI workloads.
 - A contract-driven evidence and governance layer over replayable AI runs.
 - A machine-readable audit surface for engineering, compliance, and security teams.
 
-### What AION is not
+### What SealRun is not
 
 - Not a foundation model provider.
 - Not a replacement for customer SIEM/GRC tooling.
@@ -179,11 +179,11 @@ Deliverable: deterministic artifact bundle + doctor report + policy/governance/m
 
 ### One sentence
 
-AION turns AI execution into deterministic, replayable, auditable contracts for enterprise engineering and compliance.
+SealRun turns AI execution into deterministic, replayable, auditable contracts for enterprise engineering and compliance.
 
 ### 30-second pitch
 
-AION is a deterministic AI execution OS: runs are sealed as capsules, replay and drift are verifiable, policy and governance are machine-readable, and operations/distribution/test/measurement readiness is exposed through one deterministic contract surface (`aion doctor` + CLI contracts).
+SealRun is a deterministic AI execution OS: runs are sealed as capsules, replay and drift are verifiable, policy and governance are machine-readable, and operations/distribution/test/measurement readiness is exposed through one deterministic contract surface (`aion doctor` + CLI contracts).
 
 ### 2-minute walkthrough
 
@@ -199,7 +199,7 @@ Pricing and legal terms are intentionally not hard-coded in repository docs. Use
 
 ## Enterprise-readiness
 
-- AION is enterprise-ready when contracts remain deterministic, versioned, and auditable across releases.
+- SealRun is enterprise-ready when contracts remain deterministic, versioned, and auditable across releases.
 - Production rollout should require passing doctor, governance, reliability, operations, distribution, testing, and measurement checks.
 
 ---

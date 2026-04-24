@@ -1,6 +1,6 @@
 # OS Contract Spec
 
-This specification is the canonical contract definition for AION-OS kernel-layer and enterprise-layer behavior.
+This specification is the canonical contract definition for SealRun Execution OS kernel-layer and enterprise-layer behavior.
 
 spec_id: `aion-os-contract`
 spec_version_source: `sha256(docs/os_contract_spec.md)`
@@ -15,14 +15,14 @@ serialization: `deterministic_json`
 
 ---
 
-AION guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-AION intentionally does not enforce filesystem or network isolation.  
+SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
+SealRun intentionally does not enforce filesystem or network isolation.  
 The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
 
-This is a deliberate design choice: AION is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because AION does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
+Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "AION Secure Runtime" module — without breaking compatibility.
+If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
 
 ---
 
@@ -188,15 +188,15 @@ error_codes:
 finality_rules:
 - output final when envelope status is `ok` and data contract is valid
 
-## Error-Contract (AION Codes)
+## Error-Contract (SealRun Codes)
 
 invariants:
 - error structure is fixed: `code/message/context/origin/cause?`
 - error JSON canonicalization preserves deterministic key order
 
 input_output:
-- input: `AION_* line` or nested error contract
-- output: `AionError` JSON
+- input: `AION_*` line (stable machine namespace) or nested error contract
+- output: `AionError` JSON (same schema; product name: SealRun)
 
 determinism_guarantee:
 - same code/context/cause tuple yields identical canonical JSON

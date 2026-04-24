@@ -2,7 +2,7 @@
 name = "aion-kernel"
 version = "0.2.0"
 edition = "2021"
-description = "AION OS v2 — in-process deterministic kernel"
+description = "SealRun in-process deterministic kernel (aion-kernel crate)"
 license = "MIT"
 
 [lib]
