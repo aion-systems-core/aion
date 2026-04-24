@@ -31,7 +31,7 @@ impl<'a> EventReader<'a> {
     where
         F: FnMut(&'a EventEnvelope) -> bool + 'b,
     {
-        self.inner.iter().filter(move |ev| f(*ev))
+        self.inner.iter().filter(move |ev| f(ev))
     }
 
     pub fn filter_category(

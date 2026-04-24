@@ -5,6 +5,10 @@ use crate::graph::CausalGraph;
 use aion_core::DriftReport;
 use serde_json::Value;
 
+type SvgGraphNode = (String, String, usize);
+type SvgGraphEdge = (String, String, String);
+type SvgGraphLayout = (Vec<SvgGraphNode>, Vec<SvgGraphEdge>);
+
 fn xml_esc(s: &str) -> String {
     let mut o = String::with_capacity(s.len());
     for c in s.chars() {
@@ -19,12 +23,10 @@ fn xml_esc(s: &str) -> String {
     o
 }
 
-fn graph_from_value(
-    v: &Value,
-) -> Option<(Vec<(String, String, usize)>, Vec<(String, String, String)>)> {
+fn graph_from_value(v: &Value) -> Option<SvgGraphLayout> {
     let nodes = v.get("nodes")?.as_array()?;
     let edges = v.get("edges")?.as_array()?;
-    let mut ns: Vec<(String, String, usize)> = Vec::new();
+    let mut ns: Vec<SvgGraphNode> = Vec::new();
     for n in nodes {
         let id = n.get("id")?.as_str()?.to_string();
         let et = n.get("event_type")?.as_str()?.to_string();
@@ -32,7 +34,7 @@ fn graph_from_value(
         ns.push((id, et, idx));
     }
     ns.sort_by(|a, b| a.0.cmp(&b.0).then(a.2.cmp(&b.2)));
-    let mut es: Vec<(String, String, String)> = Vec::new();
+    let mut es: Vec<SvgGraphEdge> = Vec::new();
     for e in edges {
         let from = e.get("from")?.as_str()?.to_string();
         let to = e.get("to")?.as_str()?.to_string();
@@ -45,10 +47,7 @@ fn graph_from_value(
 
 /// Render causal graph as a simple left-to-right layout (deterministic ordering).
 pub fn render_graph_svg(graph_json: &Value) -> String {
-    let (nodes, edges) = match graph_from_value(graph_json) {
-        Some(x) => x,
-        None => (Vec::new(), Vec::new()),
-    };
+    let (nodes, edges) = graph_from_value(graph_json).unwrap_or_default();
     let w = 720u32;
     let h = 120u32.max(80 + (nodes.len() as u32).saturating_mul(36));
     let mut parts = vec![format!(

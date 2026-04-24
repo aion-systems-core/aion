@@ -875,7 +875,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                     );
                     println!("{}", ux::dim("ai-replay: emit replay bundle"));
                 }
-                let cap = aion_engine::ai::read_ai_capsule_v1(&capsule).map_err(|e| e)?;
+                let cap = aion_engine::ai::read_ai_capsule_v1(&capsule)?;
                 let rep = aion_engine::ai::replay_ai_capsule(&cap);
                 let h = hex::encode(aion_engine::capsule::deterministic_capsule_hash(&cap));
                 let p = output_bundle::write_ai_replay_output(&capsule)?;
@@ -1154,8 +1154,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                                         "missing_capsule",
                                     )
                                 })?;
-                            let c = aion_engine::sdk::load_capsule(&PathBuf::from(cap))
-                                .map_err(|e| e)?;
+                            let c = aion_engine::sdk::load_capsule(&PathBuf::from(cap))?;
                             let rep = aion_engine::sdk::replay_capsule(&c);
                             results
                                 .push(serde_json::json!({"kind":"replay","success":rep.success}));
@@ -1167,10 +1166,8 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                             let b = op.get("b").and_then(|x| x.as_str()).ok_or_else(|| {
                                 line(code::CLI_SPEC_SHAPE, "sdk_batch_drift", "missing_b")
                             })?;
-                            let ca =
-                                aion_engine::sdk::load_capsule(&PathBuf::from(a)).map_err(|e| e)?;
-                            let cb =
-                                aion_engine::sdk::load_capsule(&PathBuf::from(b)).map_err(|e| e)?;
+                            let ca = aion_engine::sdk::load_capsule(&PathBuf::from(a))?;
+                            let cb = aion_engine::sdk::load_capsule(&PathBuf::from(b))?;
                             let d = aion_engine::sdk::drift_between(&ca, &cb);
                             results.push(serde_json::json!({"kind":"drift","changed":d.changed}));
                         }
@@ -1180,7 +1177,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                     }
                 }
                 let body = serde_json::json!({"results":results});
-                let ok = results.iter().all(|r| !r.get("error").is_some());
+                let ok = results.iter().all(|r| r.get("error").is_none());
                 let p = output_bundle::write_sdk_bundle_with_format(
                     "sdk-batch",
                     &body,
@@ -1195,7 +1192,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
             }
             SdkCommand::Capsule { cmd } => match cmd {
                 SdkCapsuleCmd::Load { path } => {
-                    let cap = aion_engine::sdk::load_capsule(&path).map_err(|e| e)?;
+                    let cap = aion_engine::sdk::load_capsule(&path)?;
                     let p = output_bundle::write_sdk_bundle_with_format(
                         "sdk-capsule-load",
                         &cap,
@@ -1226,7 +1223,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 }
             },
             SdkCommand::Replay { capsule } => {
-                let cap = aion_engine::sdk::load_capsule(&capsule).map_err(|e| e)?;
+                let cap = aion_engine::sdk::load_capsule(&capsule)?;
                 let rep = aion_engine::sdk::replay_capsule(&cap);
                 let p = output_bundle::write_sdk_bundle_with_format(
                     "sdk-replay",
@@ -1243,8 +1240,8 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 Ok(0)
             }
             SdkCommand::Drift { a, b } => {
-                let ca = aion_engine::sdk::load_capsule(&a).map_err(|e| e)?;
-                let cb = aion_engine::sdk::load_capsule(&b).map_err(|e| e)?;
+                let ca = aion_engine::sdk::load_capsule(&a)?;
+                let cb = aion_engine::sdk::load_capsule(&b)?;
                 let d = aion_engine::sdk::drift_between(&ca, &cb);
                 let p = output_bundle::write_sdk_bundle_with_format(
                     "sdk-drift",
@@ -1261,7 +1258,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 Ok(if d.changed { 2 } else { 0 })
             }
             SdkCommand::Explain { capsule } => {
-                let cap = aion_engine::sdk::load_capsule(&capsule).map_err(|e| e)?;
+                let cap = aion_engine::sdk::load_capsule(&capsule)?;
                 let ex = aion_engine::sdk::explain_capsule(&cap);
                 let p = output_bundle::write_sdk_bundle_with_format(
                     "sdk-explain",
@@ -1280,14 +1277,14 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 determinism,
                 integrity,
             } => {
-                let cap = aion_engine::sdk::load_capsule(&capsule).map_err(|e| e)?;
-                let pol = aion_engine::governance::load_policy(&policy).map_err(|e| e)?;
+                let cap = aion_engine::sdk::load_capsule(&capsule)?;
+                let pol = aion_engine::governance::load_policy(&policy)?;
                 let det = match &determinism {
-                    Some(p) => aion_engine::governance::load_determinism(p).map_err(|e| e)?,
+                    Some(p) => aion_engine::governance::load_determinism(p)?,
                     None => aion_engine::governance::DeterminismProfile::default(),
                 };
                 let integ = match &integrity {
-                    Some(p) => aion_engine::governance::load_integrity(p).map_err(|e| e)?,
+                    Some(p) => aion_engine::governance::load_integrity(p)?,
                     None => aion_engine::governance::IntegrityProfile::default(),
                 };
                 let rep = aion_engine::sdk::validate_capsule(&cap, &pol, &det, &integ);
@@ -1309,12 +1306,10 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                     determinism,
                     integrity,
                 } => {
-                    let cap = aion_engine::sdk::load_capsule(&capsule).map_err(|e| e)?;
-                    let pol = aion_engine::governance::load_policy(&policy).map_err(|e| e)?;
-                    let det =
-                        aion_engine::governance::load_determinism(&determinism).map_err(|e| e)?;
-                    let integ =
-                        aion_engine::governance::load_integrity(&integrity).map_err(|e| e)?;
+                    let cap = aion_engine::sdk::load_capsule(&capsule)?;
+                    let pol = aion_engine::governance::load_policy(&policy)?;
+                    let det = aion_engine::governance::load_determinism(&determinism)?;
+                    let integ = aion_engine::governance::load_integrity(&integrity)?;
                     let bl = aion_engine::sdk::ci_record_baseline(&cap, &pol, &det, &integ);
                     let p = output_bundle::write_sdk_bundle_with_format(
                         "sdk-ci-baseline",
@@ -1328,7 +1323,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                     Ok(0)
                 }
                 SdkCiCmd::Check { capsule, baseline } => {
-                    let cap = aion_engine::sdk::load_capsule(&capsule).map_err(|e| e)?;
+                    let cap = aion_engine::sdk::load_capsule(&capsule)?;
                     let s = cli_read(&baseline, "sdk_ci_check_baseline_read")?;
                     let bl: aion_engine::governance::CiBaseline =
                         cli_json(&s, "sdk_ci_check_baseline_parse")?;
@@ -1361,7 +1356,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
         }
         TopLevel::Evidence { command } => match command {
             EvidenceCommand::Show { capsule } => {
-                let cap = aion_engine::ai::read_ai_capsule_v1(&capsule).map_err(|e| e)?;
+                let cap = aion_engine::ai::read_ai_capsule_v1(&capsule)?;
                 let v = serde_json::to_value(cap.evidence.contract_view()).map_err(|_| {
                     line(
                         code::CLI_JSON_SERIALIZE,

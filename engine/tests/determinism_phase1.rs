@@ -15,11 +15,15 @@ fn determinism_freeze_test() {
     assert_eq!(d.random_seed, 0xC0FFEE);
     assert_eq!(d.time_epoch_secs, env.frozen_time_ms / 1000);
 
-    let mut strict = DeterminismProfile::default();
-    strict.strict_replay = true;
+    let strict = DeterminismProfile {
+        strict_replay: true,
+        ..Default::default()
+    };
     assert!(strict.validate_replay_profile(&strict).is_ok());
-    let mut other = strict;
-    other.freeze_cwd = false;
+    let other = DeterminismProfile {
+        freeze_cwd: false,
+        ..strict
+    };
     assert!(strict.validate_replay_profile(&other).is_err());
 }
 

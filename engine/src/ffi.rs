@@ -1,3 +1,7 @@
+//! C ABI exports (`#[no_mangle]`). Pointer arguments must satisfy the usual FFI contracts (validity, length,
+//! writability for `out_*` parameters) as documented per symbol in language bindings.
+#![allow(clippy::missing_safety_doc)]
+
 use crate::ai;
 use crate::governance::{self, DeterminismProfile, IntegrityProfile};
 use aion_core::error::{canonical_error_json, code, io_cause, line};
@@ -171,7 +175,7 @@ fn map_err_code(e: &str) -> i32 {
 }
 
 #[no_mangle]
-pub extern "C" fn aion_run(
+pub unsafe extern "C" fn aion_run(
     cmd: *const c_char,
     args: *const *const c_char,
     args_len: size_t,
@@ -224,7 +228,7 @@ pub extern "C" fn aion_run(
 }
 
 #[no_mangle]
-pub extern "C" fn aion_capsule_save(capsule: *const AionCapsule, path: *const c_char) -> i32 {
+pub unsafe extern "C" fn aion_capsule_save(capsule: *const AionCapsule, path: *const c_char) -> i32 {
     if capsule.is_null() {
         return set_last_error(line(code::FFI_NULL_ARG, "aion_capsule_save", "capsule"));
     }
@@ -252,7 +256,7 @@ pub extern "C" fn aion_capsule_save(capsule: *const AionCapsule, path: *const c_
 }
 
 #[no_mangle]
-pub extern "C" fn aion_capsule_load(path: *const c_char, out_capsule: *mut AionCapsule) -> i32 {
+pub unsafe extern "C" fn aion_capsule_load(path: *const c_char, out_capsule: *mut AionCapsule) -> i32 {
     if out_capsule.is_null() {
         return set_last_error(line(code::FFI_NULL_ARG, "aion_capsule_load", "out_capsule"));
     }
@@ -313,7 +317,7 @@ pub extern "C" fn aion_capsule_load(path: *const c_char, out_capsule: *mut AionC
 }
 
 #[no_mangle]
-pub extern "C" fn aion_replay_capsule(path: *const c_char, out_result: *mut AionRunResult) -> i32 {
+pub unsafe extern "C" fn aion_replay_capsule(path: *const c_char, out_result: *mut AionRunResult) -> i32 {
     if out_result.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -352,7 +356,7 @@ pub extern "C" fn aion_replay_capsule(path: *const c_char, out_result: *mut Aion
 }
 
 #[no_mangle]
-pub extern "C" fn aion_compare_capsules(
+pub unsafe extern "C" fn aion_compare_capsules(
     left_path: *const c_char,
     right_path: *const c_char,
     out_comparison: *mut AionReplayComparison,
@@ -412,7 +416,7 @@ pub extern "C" fn aion_compare_capsules(
 }
 
 #[no_mangle]
-pub extern "C" fn aion_drift_between_capsules(
+pub unsafe extern "C" fn aion_drift_between_capsules(
     a_path: *const c_char,
     b_path: *const c_char,
     out_report: *mut AionDriftReport,
@@ -457,7 +461,7 @@ pub extern "C" fn aion_drift_between_capsules(
 }
 
 #[no_mangle]
-pub extern "C" fn aion_why_explain_capsule(
+pub unsafe extern "C" fn aion_why_explain_capsule(
     capsule_path: *const c_char,
     out_why_json: *mut *mut c_char,
 ) -> i32 {
@@ -490,7 +494,7 @@ pub extern "C" fn aion_why_explain_capsule(
 }
 
 #[no_mangle]
-pub extern "C" fn aion_graph_causal(
+pub unsafe extern "C" fn aion_graph_causal(
     capsule_path: *const c_char,
     out_graph_json: *mut *mut c_char,
 ) -> i32 {
@@ -526,7 +530,7 @@ fn bytes_to_hex_lower(bytes: &[u8; 32]) -> String {
 }
 
 #[no_mangle]
-pub extern "C" fn aion_capsule_deterministic_hash_hex(
+pub unsafe extern "C" fn aion_capsule_deterministic_hash_hex(
     path: *const c_char,
     out_hex: *mut *mut c_char,
 ) -> i32 {
@@ -560,7 +564,7 @@ pub extern "C" fn aion_capsule_deterministic_hash_hex(
 }
 
 #[no_mangle]
-pub extern "C" fn aion_replay_symmetry_ok(path: *const c_char, out_ok: *mut u8) -> i32 {
+pub unsafe extern "C" fn aion_replay_symmetry_ok(path: *const c_char, out_ok: *mut u8) -> i32 {
     if out_ok.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -587,7 +591,7 @@ pub extern "C" fn aion_replay_symmetry_ok(path: *const c_char, out_ok: *mut u8) 
 }
 
 #[no_mangle]
-pub extern "C" fn aion_validate_capsule(
+pub unsafe extern "C" fn aion_validate_capsule(
     capsule_path: *const c_char,
     policy_path: *const c_char,
     out_report: *mut AionGovernanceReport,
@@ -639,7 +643,7 @@ pub extern "C" fn aion_validate_capsule(
 }
 
 #[no_mangle]
-pub extern "C" fn aion_evidence_verify(evidence_path: *const c_char, out_valid: *mut u8) -> i32 {
+pub unsafe extern "C" fn aion_evidence_verify(evidence_path: *const c_char, out_valid: *mut u8) -> i32 {
     if out_valid.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -677,7 +681,7 @@ pub extern "C" fn aion_evidence_verify(evidence_path: *const c_char, out_valid: 
 }
 
 #[no_mangle]
-pub extern "C" fn aion_evidence_generate_keypair(
+pub unsafe extern "C" fn aion_evidence_generate_keypair(
     out_private_key: *mut u8,
     out_private_len: *mut size_t,
     out_public_key: *mut u8,
@@ -705,7 +709,7 @@ pub extern "C" fn aion_evidence_generate_keypair(
 }
 
 #[no_mangle]
-pub extern "C" fn aion_evidence_sign(
+pub unsafe extern "C" fn aion_evidence_sign(
     evidence_data: *const u8,
     evidence_len: size_t,
     private_key: *const u8,
@@ -734,7 +738,7 @@ pub extern "C" fn aion_evidence_sign(
 }
 
 #[no_mangle]
-pub extern "C" fn aion_evidence_verify_with_key(
+pub unsafe extern "C" fn aion_evidence_verify_with_key(
     evidence_data: *const u8,
     evidence_len: size_t,
     signature: *const u8,
@@ -805,7 +809,7 @@ pub extern "C" fn aion_telemetry_set_enabled(enabled: u8) -> i32 {
 }
 
 #[no_mangle]
-pub extern "C" fn aion_telemetry_get_enabled(out_enabled: *mut u8) -> i32 {
+pub unsafe extern "C" fn aion_telemetry_get_enabled(out_enabled: *mut u8) -> i32 {
     if out_enabled.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -835,7 +839,7 @@ pub extern "C" fn aion_telemetry_get_enabled(out_enabled: *mut u8) -> i32 {
 }
 
 #[no_mangle]
-pub extern "C" fn aion_setup(config_path: *const c_char) -> i32 {
+pub unsafe extern "C" fn aion_setup(config_path: *const c_char) -> i32 {
     let p = match cstr_to_string(config_path, "config_path") {
         Ok(v) => v,
         Err(c) => return c,
@@ -851,7 +855,7 @@ pub extern "C" fn aion_setup(config_path: *const c_char) -> i32 {
 }
 
 #[no_mangle]
-pub extern "C" fn aion_doctor(out_diagnostic_json: *mut *mut c_char) -> i32 {
+pub unsafe extern "C" fn aion_doctor(out_diagnostic_json: *mut *mut c_char) -> i32 {
     if out_diagnostic_json.is_null() {
         return set_last_error(line(
             code::FFI_NULL_ARG,
@@ -874,7 +878,7 @@ pub extern "C" fn aion_doctor(out_diagnostic_json: *mut *mut c_char) -> i32 {
 }
 
 #[no_mangle]
-pub extern "C" fn aion_free_string(s: *mut c_char) {
+pub unsafe extern "C" fn aion_free_string(s: *mut c_char) {
     if s.is_null() {
         return;
     }
@@ -884,7 +888,7 @@ pub extern "C" fn aion_free_string(s: *mut c_char) {
 }
 
 #[no_mangle]
-pub extern "C" fn aion_free_run_result(res: *mut AionRunResult) {
+pub unsafe extern "C" fn aion_free_run_result(res: *mut AionRunResult) {
     if res.is_null() {
         return;
     }

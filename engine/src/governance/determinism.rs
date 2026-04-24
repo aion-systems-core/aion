@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 use std::fs;
 use std::path::Path;
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize, PartialEq, Eq)]
 pub struct DeterminismProfile {
     pub freeze_time: bool,
     pub freeze_random: bool,
@@ -14,19 +14,6 @@ pub struct DeterminismProfile {
     pub freeze_io: bool,
     pub freeze_network: bool,
     pub freeze_parallelism: bool,
-}
-
-impl Default for DeterminismProfile {
-    fn default() -> Self {
-        Self {
-            freeze_time: false,
-            freeze_random: false,
-            freeze_env: false,
-            freeze_io: false,
-            freeze_network: false,
-            freeze_parallelism: false,
-        }
-    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]

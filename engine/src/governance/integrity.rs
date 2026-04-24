@@ -8,7 +8,7 @@ use sha2::{Digest, Sha256};
 use std::fs;
 use std::path::Path;
 
-#[derive(Debug, Clone, Copy, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Copy, Default, Serialize, Deserialize, PartialEq, Eq)]
 pub struct IntegrityProfile {
     pub require_manifest: bool,
     pub require_hashes: bool,
@@ -16,19 +16,6 @@ pub struct IntegrityProfile {
     pub require_graph: bool,
     pub require_why: bool,
     pub require_replay: bool,
-}
-
-impl Default for IntegrityProfile {
-    fn default() -> Self {
-        Self {
-            require_manifest: false,
-            require_hashes: false,
-            require_evidence_chain: false,
-            require_graph: false,
-            require_why: false,
-            require_replay: false,
-        }
-    }
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]

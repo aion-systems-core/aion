@@ -84,8 +84,7 @@ impl LlmBackend for DummyBackend {
     }
 }
 
-pub fn backend_by_name(name: &str, runtime_model: &str) -> Box<dyn LlmBackend> {
-    match name {
-        "dummy" | _ => Box::new(DummyBackend::new(runtime_model)),
-    }
+pub fn backend_by_name(_name: &str, runtime_model: &str) -> Box<dyn LlmBackend> {
+    // v1: only dummy backend; `_name` reserved for future model routing.
+    Box::new(DummyBackend::new(runtime_model))
 }
