@@ -14,7 +14,7 @@ pub struct EvidenceRecord {
     pub parent_digest: Option<String>,
 }
 
-#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq)]
+#[derive(Debug, Clone, Serialize, Deserialize, PartialEq, Eq, Default)]
 pub struct EvidenceChain {
     pub run_id: String,
     pub records: Vec<EvidenceRecord>,
@@ -39,17 +39,6 @@ pub struct EvidenceContract {
     pub rolling_hashes: Vec<String>,
     pub replay_anchors: EvidenceReplayAnchors,
     pub records: Vec<EvidenceRecord>,
-}
-
-impl Default for EvidenceChain {
-    fn default() -> Self {
-        Self {
-            run_id: String::new(),
-            records: Vec::new(),
-            formal_replay_invariant_ok: None,
-            cross_machine_replay_ok: None,
-        }
-    }
 }
 
 impl EvidenceChain {

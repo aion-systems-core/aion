@@ -118,10 +118,6 @@ pub fn origin_for_code(code: &str) -> &'static str {
         "drift"
     } else if code.starts_with("AION_REPLAY_") {
         "replay"
-    } else if code.starts_with("AION_NESTED_") || code == code::NESTED_CAUSE {
-        "core"
-    } else if code.starts_with("AION_OPAQUE") {
-        "core"
     } else {
         "core"
     }
