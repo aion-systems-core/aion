@@ -7,6 +7,7 @@ Index of **enterprise-facing** SealRun material (readiness, governance narrative
 This section groups enterprise-facing SealRun documentation, including readiness, governance, and technical contract references.
 
 - [SealRun Enterprise Sales Package](./SealRun_Enterprise_Sales_Package.md)
+- [Pricing & commercial support](../pricing.md)
 - [OS Contract Specification](../os_contract_spec.md)
 - [Architecture](../architecture.md)
 - [Security Guide](../security-guide.md)

@@ -1,0 +1,43 @@
+{
+  "status": "string",
+  "data_kind": "object",
+  "capsule": {
+    "model": "string",
+    "prompt": "string",
+    "seed": "number",
+    "tokens": "array",
+    "token_trace": "array",
+    "graph": "object",
+    "why": "object",
+    "determinism": {
+      "kind": "object",
+      "time_frozen": "bool",
+      "time_epoch_secs": "number",
+      "random_seed": "number"
+    },
+    "drift": {
+      "kind": "object",
+      "changed": "bool",
+      "categories": "array"
+    },
+    "evidence": {
+      "kind": "object",
+      "run_id": "string",
+      "records": "array",
+      "record_count_min": 4,
+      "first_record": {
+        "kind": "string",
+        "seq": "number",
+        "payload_digest": "string",
+        "leaf_digest": "string"
+      }
+    },
+    "execution_environment": {
+      "kind": "object",
+      "machine_fingerprint_kind": "object",
+      "runtime_fingerprint_kind": "object",
+      "os_version": "string",
+      "aion_version": "string"
+    }
+  }
+}

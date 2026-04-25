@@ -6,6 +6,30 @@ SealRun is a **deterministic execution engine** for AI and automation workloads:
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Rust](https://img.shields.io/badge/rust-stable-orange.svg)](https://www.rust-lang.org/)
 
+## Commercial Support & Enterprise Pricing
+
+SealRun is fully open source (MIT).  
+For teams with compliance, audit or governance requirements, commercial support is available.
+
+📄 **Pricing & packages:**  
+See: [docs/pricing.md](docs/pricing.md)
+
+📬 **Contact** for sales, questions or enterprise pilots:  
+[contact.sealrun@gmail.com](mailto:contact.sealrun@gmail.com)
+
+🧩 **Community support:**  
+GitHub Issues & Discussions — best effort, typically within ~24h.
+
+## 60-second Hello Capsule
+
+```bash
+sealrun execute ai --model gpt-4o-mini --prompt "hello" --seed 1
+sealrun execute ai-replay --capsule sealrun_output/ai/<run_id>/capsule.aionai
+sealrun observe drift sealrun_output/capture/<left>/result.json sealrun_output/capture/<right>/result.json
+```
+
+This proves capsule generation, replay symmetry, and drift detection in under a minute.
+
 ## The problem
 
 Production and regulated teams need to **prove what ran**, **prove it again**, and **prove what changed**. Conventional logs and ad-hoc screenshots are weak evidence: environments drift, models are non-obvious black boxes, and "it worked on my machine" is not a control.
@@ -102,7 +126,7 @@ export SEALRUN_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:SEALRUN_OU
 
 ## E2E smoke proof
 
-Run one deterministic smoke script with three scenarios (execute/replay/policy, capture/drift, evidence/governance/doctor):
+Run one deterministic smoke script with four scenarios (execute/replay/policy, fixture drift, live execute/capture/drift, evidence/governance/doctor):
 
 ```bash
 bash scripts/smoke_e2e.sh
@@ -136,6 +160,7 @@ bash scripts/smoke_e2e.sh
 | [Operations Guide](docs/operations-guide.md) | SRE-oriented use of contract outputs |
 | [Security Guide](docs/security-guide.md) | Threat model, isolation scope, adoption boundaries |
 | [Enterprise Guide](docs/enterprise/README.md) | Enterprise packaging and commercial context |
+| [Pricing](docs/pricing.md) | Commercial tiers, optional SLA, pilot program |
 | [Compliance One-Pager](docs/compliance/sealrun_compliance_onepager.md) | Short compliance-facing summary |
 | [Capsules](docs/capsules.md) | Capsule format and on-disk layout |
 | [Replay](docs/replay.md) | Replay guarantees and CLI/SDK usage |
@@ -148,7 +173,7 @@ bash scripts/smoke_e2e.sh
 
 - **Evidence-first:** deterministic JSON envelopes and capsule-bound artefacts support retention and review
 - **Controls, not slogans:** replay, drift, evidence, and governance outputs attach to tickets, CMDBs, and SOC workflows
-- **Entry points:** [Compliance One-Pager](docs/compliance/sealrun_compliance_onepager.md) | [Security Guide](docs/security-guide.md) | [Governance](docs/governance.md) | [Enterprise Guide](docs/enterprise/README.md)
+- **Entry points:** [Pricing](docs/pricing.md) | [Compliance One-Pager](docs/compliance/sealrun_compliance_onepager.md) | [Security Guide](docs/security-guide.md) | [Governance](docs/governance.md) | [Enterprise Guide](docs/enterprise/README.md)
 
 ## Roadmap
 

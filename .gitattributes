@@ -18,3 +18,8 @@ docs/enterprise/* linguist-documentation
 # --- Ignore vendored or legacy folders ---
 legacy/* linguist-vendored
 legacy_gold/* linguist-vendored
+
+# --- Stable line endings for CI scripts/workflows ---
+*.sh text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf

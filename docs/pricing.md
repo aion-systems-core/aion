@@ -1,6 +1,6 @@
 # SealRun Pricing
 
-SealRun ist Open Source ([MIT License](../../LICENSE)).  
+SealRun ist Open Source ([MIT License](../LICENSE)).  
 Kommerzielle Pakete sind optional und richten sich an Teams mit Compliance-, Audit- oder Governance-Anforderungen.
 
 ## Community Support (kostenlos)
@@ -77,4 +77,4 @@ Ziel: schneller produktiver Einstieg ohne sofortige Jahresbindung; Übergang in 
 **Kaufanfragen, technische Gespräche, Enterprise-Pilots:**  
 [contact.sealrun@gmail.com](mailto:contact.sealrun@gmail.com)
 
-**Sicherheitsmeldungen** (nicht für Sales): siehe [SECURITY.md](../../SECURITY.md).
+**Sicherheitsmeldungen** (nicht für Sales): siehe [SECURITY.md](../SECURITY.md).

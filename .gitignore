@@ -21,3 +21,5 @@ __pycache__/
 **/test_scratch/
 **/*.tmp
 _readme_smoke_out/
+smoke_report.json
+golden_reports/

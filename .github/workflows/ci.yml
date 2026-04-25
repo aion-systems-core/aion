@@ -10,6 +10,10 @@ on:
       - main
       - feature/**
 
+defaults:
+  run:
+    shell: bash
+
 jobs:
   ci:
     name: fmt-clippy-build-test
@@ -28,6 +32,8 @@ jobs:
       # Cache Cargo registry/target metadata to speed up CI.
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: ci-${{ runner.os }}-v1
 
       # Formatting gate.
       - name: rustfmt
@@ -45,9 +51,10 @@ jobs:
       - name: test
         run: cargo test --workspace --all-targets
 
-  smoke-e2e:
-    name: smoke-e2e
+  security-gate:
+    name: security-gate
     runs-on: ubuntu-latest
+    needs: ci
 
     steps:
       - name: Checkout
@@ -58,6 +65,31 @@ jobs:
 
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: ci-${{ runner.os }}-v1
+
+      - name: Install cargo-audit
+        run: cargo install cargo-audit --locked
+
+      - name: cargo audit (deny warnings)
+        run: cargo audit --deny warnings
+
+  smoke-e2e:
+    name: smoke-e2e
+    runs-on: ubuntu-latest
+    needs: security-gate
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: ci-${{ runner.os }}-v1
 
       - name: Run E2E smoke tests
         run: bash scripts/smoke_e2e.sh
@@ -73,6 +105,7 @@ jobs:
   golden-tests:
     name: golden-tests
     runs-on: ubuntu-latest
+    needs: security-gate
 
     steps:
       - name: Checkout
@@ -83,6 +116,8 @@ jobs:
 
       - name: Cache Rust dependencies
         uses: Swatinem/rust-cache@v2
+        with:
+          shared-key: ci-${{ runner.os }}-v1
 
       - name: Run golden checker
         run: cargo test -p aion-cli --test golden_test

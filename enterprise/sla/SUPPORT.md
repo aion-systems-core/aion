@@ -1,30 +1,27 @@
-# SLA (Plan §6.1 / §9.2)
+# SLA & commercial support
+
+Normative Produkt- und Vertragsdetails bleiben in den Repo-Docs (`docs/os_contract_spec.md`, `docs/architecture.md`).  
+**Preise, Pakete und optionales SLA** sind zentral dokumentiert unter:
+
+- [SealRun Pricing](../../docs/pricing.md)
 
 ---
 
-SealRun guarantees deterministic execution, replay symmetry, drift detection and audit‑grade evidence chains.  
-SealRun intentionally does not enforce filesystem or network isolation.  
-The kernel isolation modules are contract surfaces only; they define the interface but do not restrict access.
+## Optional SLA (Add-on)
 
-This is a deliberate design choice: SealRun is an Execution‑OS, not a Security‑Sandbox‑OS.  
-Because SealRun does not modify kernel privileges or intercept syscalls, it is safe to adopt in existing environments without admin rights, without risk to workloads, and without operational friction.
+Wird typischerweise zum **Enterprise**-Paket gebucht: **+ €2.500 / Jahr**
 
-If isolation is required (e.g., for regulated industries), the same contract surfaces can be backed by seccomp/landlock/micro‑VM isolation in a future "SealRun Secure Runtime" module — without breaking compatibility.
+| Aspekt | Definition |
+| :--- | :--- |
+| **Response** | 4 h (Business Hours CET) |
+| **Resolution** | 8 h (Business Hours CET) |
+| **Geltungsbereich** | Kritische Bugs, Drift-Fehler, Replay-Mismatch, Governance-/Evidence-Exporte (im vertraglich festgelegten Umfang) |
+
+Für zahlende Kunden wird ein **Software-Lizenz- und Support-Vertrag** geschlossen (Lizenzumfang, Nutzungsgrenzen, Haftung, SLA-Details).
 
 ---
 
-## SealRun Enterprise SLA (Produktlinie)
+## Kontakt
 
-| Produkt | Enthaltene Funktionen | Lizenz | Preis (jährlich) |
-| :--- | :--- | :--- | ---: |
-| **SealRun Enterprise SLA** | 24h‑Response, Bugfix‑Priorisierung, Integration‑Support | Zusatz zur Suite | **+ 2.500 €** / Jahr |
-
-## Enterprise‑Vertrag (Plan §9.2)
-
-Für zahlende Kunden wird ein **Software‑Lizenz‑ und Support‑Vertrag** geschlossen. Dieser regelt:
-
-- **Lizenzumfang:** Welche Komponenten genutzt werden dürfen.
-- **Nutzungsbeschränkungen:** Kein SaaS, keine Weiterlizenzierung.
-- **Gewährleistung:** Zusicherung, dass die Software im Wesentlichen der Dokumentation entspricht.
-- **Haftungsbeschränkung:** Haftung ist auf den Lizenzpreis begrenzt (marktüblich).
-- **Support‑SLA:** Reaktionszeiten, Bugfix‑Priorisierung.
+- **Sales / Pilot / Enterprise:** [contact.sealrun@gmail.com](mailto:contact.sealrun@gmail.com)  
+- **Security:** siehe [SECURITY.md](../../SECURITY.md) (keine öffentlichen Issues für Schwachstellen)

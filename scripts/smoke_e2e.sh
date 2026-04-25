@@ -8,8 +8,13 @@ REPORT_PATH="${ROOT}/smoke_report.json"
 LOG_DIR="${ROOT}/target/smoke_logs"
 OUT_BASE="${ROOT}/target/smoke_output"
 BIN="${ROOT}/target/release/sealrun"
+if [ -x "${BIN}.exe" ]; then
+  BIN="${BIN}.exe"
+fi
 
 mkdir -p "$LOG_DIR" "$OUT_BASE"
+rm -rf "$OUT_BASE"
+mkdir -p "$OUT_BASE"
 rm -f "$REPORT_PATH"
 
 export SEALRUN_OUTPUT_BASE="$OUT_BASE"
@@ -17,6 +22,11 @@ export AION_OUTPUT_BASE="$OUT_BASE"
 
 if [ ! -x "$BIN" ]; then
   cargo build -p aion-cli --release >/dev/null 2>"$LOG_DIR/build.stderr.log"
+  if [ -x "${ROOT}/target/release/sealrun.exe" ]; then
+    BIN="${ROOT}/target/release/sealrun.exe"
+  else
+    BIN="${ROOT}/target/release/sealrun"
+  fi
 fi
 
 overall="PASS"
@@ -51,7 +61,7 @@ scenario_1() {
   local id="smoke_s1_ai"
   local capsule="${OUT_BASE}/ai/${id}/capsule.aionai"
 
-  run_cmd "$name" "execute_ai" "$BIN" --id "$id" execute ai --model demo --prompt "smoke one" --seed 7 || {
+  run_cmd "$name" "execute_ai" "$BIN" --id "$id" execute ai --model demo --prompt smoke_one --seed 7 || {
     append_scenario "$name" "FAIL" "execute ai failed"
     overall="FAIL"
     return
@@ -70,28 +80,68 @@ scenario_1() {
 }
 
 scenario_2() {
-  local name="s2_capture_drift"
-  local left_id="smoke_s2_left"
-  local right_id="smoke_s2_right"
-  local left="${OUT_BASE}/capture/${left_id}/result.json"
-  local right="${OUT_BASE}/capture/${right_id}/result.json"
+  local name="s2_fixture_drift"
+  local left="${OUT_BASE}/fixture_left_runresult.json"
+  local right="${OUT_BASE}/fixture_right_runresult.json"
 
-  run_cmd "$name" "capture_left" "$BIN" --id "$left_id" observe capture -- echo alpha || {
-    append_scenario "$name" "FAIL" "left capture failed"
-    overall="FAIL"
-    return
-  }
-  run_cmd "$name" "capture_right" "$BIN" --id "$right_id" observe capture -- echo beta || {
-    append_scenario "$name" "FAIL" "right capture failed"
-    overall="FAIL"
-    return
-  }
+  cat >"$left" <<'EOF'
+{"schema_version":1,"run_id":"left","command":"echo test","cwd":"/tmp","timestamp":1,"stdout":"alpha\n","stderr":"","exit_code":0,"duration_ms":1,"env_fingerprint":"env"}
+EOF
+  cat >"$right" <<'EOF'
+{"schema_version":1,"run_id":"right","command":"echo test","cwd":"/tmp","timestamp":1,"stdout":"beta gamma\n","stderr":"","exit_code":0,"duration_ms":1,"env_fingerprint":"env"}
+EOF
+
   run_cmd "$name" "drift" "$BIN" --id "smoke_s2_drift" observe drift "$left" "$right" || {
     append_scenario "$name" "FAIL" "observe drift failed"
     overall="FAIL"
     return
   }
-  append_scenario "$name" "PASS" "capture left/right -> observe drift"
+  append_scenario "$name" "PASS" "runresult fixtures -> observe drift"
+}
+
+scenario_2_live_drift() {
+  local name="s2_live_drift"
+  local execute_id="smoke_s2_exec"
+  local left_id="smoke_s2_live_left"
+  local right_id="smoke_s2_live_right"
+  local left_capture="${OUT_BASE}/capture/${left_id}/result.json"
+  local right_capture="${OUT_BASE}/capture/${right_id}/result.json"
+  local left_run="${OUT_BASE}/capture/${left_id}/runresult.json"
+  local right_run="${OUT_BASE}/capture/${right_id}/runresult.json"
+
+  run_cmd "$name" "execute_ai" "$BIN" --id "$execute_id" execute ai --model demo --prompt live_drift --seed 9 || {
+    append_scenario "$name" "FAIL" "execute ai failed"
+    overall="FAIL"
+    return
+  }
+  run_cmd "$name" "capture_left" "$BIN" --id "$left_id" observe capture -- echo alpha || {
+    append_scenario "$name" "FAIL" "capture left failed"
+    overall="FAIL"
+    return
+  }
+  run_cmd "$name" "capture_right" "$BIN" --id "$right_id" observe capture -- echo beta || {
+    append_scenario "$name" "FAIL" "capture right failed"
+    overall="FAIL"
+    return
+  }
+
+  awk '
+    /"data":[[:space:]]*\{/ {in_data=1; next}
+    in_data && /^  \}/ {in_data=0; next}
+    in_data {print}
+  ' "$left_capture" | awk 'BEGIN{print "{"} {print} END{print "}"}' >"$left_run"
+  awk '
+    /"data":[[:space:]]*\{/ {in_data=1; next}
+    in_data && /^  \}/ {in_data=0; next}
+    in_data {print}
+  ' "$right_capture" | awk 'BEGIN{print "{"} {print} END{print "}"}' >"$right_run"
+
+  run_cmd "$name" "drift" "$BIN" --id "smoke_s2_live_drift" observe drift "$left_run" "$right_run" || {
+    append_scenario "$name" "FAIL" "observe drift failed"
+    overall="FAIL"
+    return
+  }
+  append_scenario "$name" "PASS" "execute -> capture -> drift"
 }
 
 scenario_3() {
@@ -117,6 +167,7 @@ scenario_3() {
 
 scenario_1
 scenario_2
+scenario_2_live_drift
 scenario_3
 
 timestamp="$(date -u +"%Y-%m-%dT%H:%M:%SZ")"
