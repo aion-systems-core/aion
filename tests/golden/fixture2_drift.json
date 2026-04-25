@@ -1,0 +1,22 @@
+{
+  "categories": ["other"],
+  "changed": true,
+  "details": ["other:stdout_mismatch"],
+  "error": "{\"schema_version\":1,\"code\":\"AION_DRIFT_TOLERANCE\",\"message\":\"drift_tolerance\",\"context\":\"diff_run_snapshots\",\"origin\":\"drift\",\"cause\":{\"schema_version\":1,\"code\":\"AION_NESTED_CAUSE\",\"message\":\"nested_cause\",\"context\":\"tolerance_violation\",\"origin\":\"drift\"}}",
+  "fields": ["stdout"],
+  "labels": ["other:stdout_mismatch"],
+  "overflow": false,
+  "tolerance_profile": {
+    "max_event_delta": 0,
+    "max_labels": 64,
+    "max_timing_delta_ms": 0,
+    "max_token_delta": 0
+  },
+  "tolerance_violations": [
+    {
+      "actual": 1,
+      "label": "tokens:stdout_delta_over_limit",
+      "limit": 0
+    }
+  ]
+}

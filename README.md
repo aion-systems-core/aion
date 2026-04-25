@@ -100,6 +100,23 @@ export SEALRUN_OUTPUT_BASE="$PWD/sealrun_output"   # PowerShell: $env:SEALRUN_OU
 
 **Artefact layout:** `<output_base>/<command>/<run_id>/`. Example: `sealrun_output/ai/quickstart_demo/` holds `ai.json`, **`capsule.aionai`** (AI capsule JSON), **`*.aionevidence`** sidecars, and optional HTML/SVG. Shell capture flows emit **`result.json`** (`RunResult`). Override the base with **`SEALRUN_OUTPUT_BASE`** or **`--output-dir`** (see `engine/src/output/layout.rs` for compatibility with older env names).
 
+## E2E smoke proof
+
+Run one deterministic smoke script with three scenarios (execute/replay/policy, capture/drift, evidence/governance/doctor):
+
+```bash
+bash scripts/smoke_e2e.sh
+```
+
+The script prints only `PASS` or `FAIL` and writes a single `smoke_report.json` for CI artifacts.
+
+## Golden determinism proof
+
+```bash
+cargo test -p aion-cli --test golden_test
+bash scripts/smoke_e2e.sh
+```
+
 ## Use cases
 
 - **Regulated / audit-ready AI** - retain capsules, replay reports, drift JSON, and policy decisions as primary evidence

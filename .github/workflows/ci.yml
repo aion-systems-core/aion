@@ -44,3 +44,53 @@ jobs:
       # Run all workspace tests.
       - name: test
         run: cargo test --workspace --all-targets
+
+  smoke-e2e:
+    name: smoke-e2e
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run E2E smoke tests
+        run: bash scripts/smoke_e2e.sh
+
+      - name: Upload smoke report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: smoke-report
+          path: smoke_report.json
+          if-no-files-found: error
+
+  golden-tests:
+    name: golden-tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Rust stable
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Run golden checker
+        run: cargo test -p aion-cli --test golden_test
+
+      - name: Upload golden reports (optional)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: golden-reports
+          path: golden_reports/
+          if-no-files-found: ignore

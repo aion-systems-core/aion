@@ -1,0 +1,7 @@
+{
+  "model": "demo",
+  "prompt": "fixture one",
+  "seed": 5,
+  "tokens": ["policy", "epoch"],
+  "drift_changed": false
+}
