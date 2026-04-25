@@ -15,7 +15,7 @@ pub use envelope::{
     freeze_time_ms, MachineFingerprint,
 };
 pub use execute::{cwd_string, join_command, path_exists, run_command};
-pub use fs::{snapshot_cwd_stub, FsPolicy};
+pub use fs::{enterprise_storage_root, snapshot_cwd_stub, FsPolicy};
 pub use integrity::{evaluate_and_enforce, full_report, self_integrity_hash, IntegrityReport};
 pub use network::apply_net_policy_stub;
 pub use random::DeterministicRng;

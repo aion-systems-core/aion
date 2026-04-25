@@ -49,6 +49,19 @@ sealrun measure audits
 - Tie each retention object to a **capsule path** or hash referenced in your CMDB or ticket system.
 - For governance baselines, store the **baseline JSON** produced by `ci baseline` (see [CI](ci.md)).
 
+## Tenant lifecycle operations
+
+Use tenant-scoped retention and legal controls as the canonical operations workflow:
+
+```bash
+sealrun enterprise tenants create acme
+sealrun enterprise lifecycle retention set --tenant acme --days 30
+sealrun enterprise lifecycle legal-hold enable --tenant acme
+sealrun enterprise lifecycle purge --tenant acme
+```
+
+Purge is blocked when legal hold is enabled. Operations teams should use legal hold before investigations or audits.
+
 ## Finality and readiness
 
 Operational **readiness** is the conjunction of: stable contract snapshots, successful replay on reference workloads, acceptable drift against baselines, and no critical gaps in `doctor` and measurement outputs. Exact finality fields are defined in [OS contract spec](os_contract_spec.md).

@@ -75,6 +75,9 @@ struct Cli {
     /// Emit one JSON object per supported command (machine-readable stdout).
     #[arg(long, global = true, default_value_t = false)]
     json: bool,
+    /// Enterprise tenant context for tenant-scoped operations.
+    #[arg(long, global = true)]
+    tenant: Option<String>,
     #[command(subcommand)]
     command: TopLevel,
 }
@@ -188,6 +191,11 @@ enum TopLevel {
         #[command(subcommand)]
         command: GovernanceCliCommand,
     },
+    /// Enterprise-readiness surfaces: auth, audit events, trust center, attestations, integrations.
+    Enterprise {
+        #[command(subcommand)]
+        command: EnterpriseCliCommand,
+    },
     /// UX stability and enterprise onboarding contracts.
     Ux {
         #[command(subcommand)]
@@ -292,6 +300,233 @@ enum DistCliCommand {
 enum GovernanceCliCommand {
     /// Show governance model status.
     Status,
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseCliCommand {
+    /// Manage enterprise tenants and tenant-scoped capsules.
+    Tenants {
+        #[command(subcommand)]
+        command: EnterpriseTenantsCommand,
+    },
+    /// Manage lifecycle controls for tenant data.
+    Lifecycle {
+        #[command(subcommand)]
+        command: EnterpriseLifecycleCommand,
+    },
+    /// Evaluate and administer RBAC assignments.
+    Rbac {
+        #[command(subcommand)]
+        command: EnterpriseRbacCommand,
+    },
+    /// Enterprise auth / OIDC surfaces.
+    Auth {
+        #[command(subcommand)]
+        command: EnterpriseAuthCommand,
+    },
+    /// SIEM sink operations.
+    Sinks {
+        #[command(subcommand)]
+        command: EnterpriseSinksCommand,
+    },
+    /// OTel export operations.
+    OTel {
+        #[command(subcommand)]
+        command: EnterpriseOtelCommand,
+    },
+    /// Release attestation operations.
+    ReleaseAttestation {
+        #[command(subcommand)]
+        command: EnterpriseReleaseAttestationCommand,
+    },
+    /// Policy API operations.
+    PolicyApi {
+        #[command(subcommand)]
+        command: EnterprisePolicyApiCommand,
+    },
+    /// Show production pilot reference status.
+    References,
+    /// Show enterprise auth posture (SSO, RBAC, tenancy controls).
+    AuthStatus,
+    /// Emit deterministic governance audit event stream.
+    AuditEvents,
+    /// Show trust center controls and compliance roadmap.
+    TrustCenter,
+    /// Show signed release + SBOM attestation status.
+    ReleaseAttestationStatus,
+    /// Show OpenTelemetry-native integration profile.
+    OTelStatus,
+    /// Show SIEM/monitoring sink profile (Splunk/Datadog/Elastic).
+    SinksStatus,
+    /// Show governance status API contract surface.
+    PolicyApiStatus,
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseTenantsCommand {
+    List,
+    Create { id: String },
+    Delete { id: String },
+    Capsules {
+        #[command(subcommand)]
+        command: EnterpriseTenantCapsulesCommand,
+    },
+    Evidence {
+        #[command(subcommand)]
+        command: EnterpriseTenantEvidenceCommand,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseTenantCapsulesCommand {
+    List {
+        #[arg(long)]
+        tenant: String,
+    },
+    Replay {
+        #[arg(long)]
+        tenant: String,
+        #[arg(long)]
+        capsule: String,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseTenantEvidenceCommand {
+    Query {
+        #[arg(long)]
+        tenant: String,
+        #[arg(long)]
+        field: Option<String>,
+        #[arg(long)]
+        value: Option<String>,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseLifecycleCommand {
+    Retention {
+        #[command(subcommand)]
+        command: EnterpriseRetentionCommand,
+    },
+    Purge {
+        #[arg(long)]
+        tenant: String,
+    },
+    LegalHold {
+        #[command(subcommand)]
+        command: EnterpriseLegalHoldCommand,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseRetentionCommand {
+    Get {
+        #[arg(long)]
+        tenant: String,
+    },
+    Set {
+        #[arg(long)]
+        tenant: String,
+        #[arg(long)]
+        days: u32,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseLegalHoldCommand {
+    Enable {
+        #[arg(long)]
+        tenant: String,
+    },
+    Disable {
+        #[arg(long)]
+        tenant: String,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseRbacCommand {
+    Assign {
+        #[arg(long)]
+        subject: String,
+        #[arg(long)]
+        role: String,
+    },
+    Check {
+        #[arg(long)]
+        subject: String,
+        #[arg(long)]
+        permission: String,
+    },
+    Export,
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseAuthCommand {
+    Login {
+        #[arg(long)]
+        client_id: String,
+        #[arg(long)]
+        device_authorization_endpoint: String,
+        #[arg(long)]
+        token_endpoint: String,
+        #[arg(long, default_value = "openid profile email")]
+        scope: String,
+    },
+    Logout,
+    Status,
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseSinksCommand {
+    SendTest {
+        #[arg(long)]
+        sink: String,
+        #[arg(long)]
+        endpoint: String,
+        #[arg(long)]
+        token: String,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseOtelCommand {
+    Export {
+        #[arg(long)]
+        endpoint: String,
+    },
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterpriseReleaseAttestationCommand {
+    Sign {
+        #[arg(long)]
+        artifact: PathBuf,
+    },
+    Verify {
+        #[arg(long)]
+        artifact: PathBuf,
+        #[arg(long)]
+        signature: PathBuf,
+        #[arg(long)]
+        public_key: PathBuf,
+    },
+    Sbom,
+}
+
+#[derive(Subcommand, Debug)]
+enum EnterprisePolicyApiCommand {
+    Evaluate {
+        #[arg(long)]
+        policy: PathBuf,
+        #[arg(long)]
+        input: PathBuf,
+    },
+    Validate {
+        #[arg(long)]
+        policy: PathBuf,
+    },
 }
 
 #[derive(Subcommand, Debug)]
@@ -532,6 +767,8 @@ enum ExecuteCommand {
     AiReplay {
         #[arg(long)]
         capsule: PathBuf,
+        #[arg(long)]
+        tenant: Option<String>,
         #[arg(long, default_value_t = false)]
         explain: bool,
     },
@@ -864,7 +1101,11 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 print_output_path(p);
                 Ok(0)
             }
-            ExecuteCommand::AiReplay { capsule, explain } => {
+            ExecuteCommand::AiReplay {
+                capsule,
+                tenant,
+                explain,
+            } => {
                 progress_note("execute ai-replay started");
                 if explain {
                     println!("{}", ux::dim("ai-replay: load capsule"));
@@ -878,7 +1119,7 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 let cap = aion_engine::ai::read_ai_capsule_v1(&capsule)?;
                 let rep = aion_engine::ai::replay_ai_capsule(&cap);
                 let h = hex::encode(aion_engine::capsule::deterministic_capsule_hash(&cap));
-                let p = output_bundle::write_ai_replay_output(&capsule)?;
+                let p = output_bundle::write_ai_replay_output(&capsule, tenant.as_deref())?;
                 progress_note("execute ai-replay completed");
                 if json_out {
                     println!(
@@ -1613,6 +1854,237 @@ fn dispatch(cli: Cli, k: &impl KernelGateway) -> Result<u8, String> {
                 Ok(0)
             }
         },
+        TopLevel::Enterprise { command } => match command {
+            EnterpriseCliCommand::Tenants { command } => match command {
+                EnterpriseTenantsCommand::List => {
+                    let p = output_bundle::write_enterprise_tenants_list_output()?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseTenantsCommand::Create { id } => {
+                    let p = output_bundle::write_enterprise_tenants_create_output(&id)?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseTenantsCommand::Delete { id } => {
+                    let p = output_bundle::write_enterprise_tenants_delete_output(&id)?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseTenantsCommand::Capsules { command } => match command {
+                    EnterpriseTenantCapsulesCommand::List { tenant } => {
+                        let p = output_bundle::write_enterprise_tenant_capsules_list_output(&tenant)?;
+                        print_output_path(p);
+                        Ok(0)
+                    }
+                    EnterpriseTenantCapsulesCommand::Replay { tenant, capsule } => {
+                        let p = output_bundle::write_enterprise_tenant_capsule_replay_output(
+                            &tenant, &capsule,
+                        )?;
+                        print_output_path(p);
+                        Ok(0)
+                    }
+                },
+                EnterpriseTenantsCommand::Evidence { command } => match command {
+                    EnterpriseTenantEvidenceCommand::Query {
+                        tenant,
+                        field,
+                        value,
+                    } => {
+                        let p = output_bundle::write_enterprise_tenant_evidence_query_output(
+                            &tenant,
+                            field.as_deref(),
+                            value.as_deref(),
+                        )?;
+                        print_output_path(p);
+                        Ok(0)
+                    }
+                },
+            },
+            EnterpriseCliCommand::Lifecycle { command } => match command {
+                EnterpriseLifecycleCommand::Retention { command } => match command {
+                    EnterpriseRetentionCommand::Get { tenant } => {
+                        let p =
+                            output_bundle::write_enterprise_lifecycle_retention_get_output(&tenant)?;
+                        print_output_path(p);
+                        Ok(0)
+                    }
+                    EnterpriseRetentionCommand::Set { tenant, days } => {
+                        let p = output_bundle::write_enterprise_lifecycle_retention_set_output(
+                            &tenant, days,
+                        )?;
+                        print_output_path(p);
+                        Ok(0)
+                    }
+                },
+                EnterpriseLifecycleCommand::Purge { tenant } => {
+                    let p = output_bundle::write_enterprise_lifecycle_purge_output(&tenant)?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseLifecycleCommand::LegalHold { command } => match command {
+                    EnterpriseLegalHoldCommand::Enable { tenant } => {
+                        let p =
+                            output_bundle::write_enterprise_lifecycle_legal_hold_output(&tenant, true)?;
+                        print_output_path(p);
+                        Ok(0)
+                    }
+                    EnterpriseLegalHoldCommand::Disable { tenant } => {
+                        let p =
+                            output_bundle::write_enterprise_lifecycle_legal_hold_output(&tenant, false)?;
+                        print_output_path(p);
+                        Ok(0)
+                    }
+                },
+            },
+            EnterpriseCliCommand::Rbac { command } => match command {
+                EnterpriseRbacCommand::Assign { subject, role } => {
+                    let p = output_bundle::write_enterprise_rbac_assign_output(&subject, &role)?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseRbacCommand::Check {
+                    subject,
+                    permission,
+                } => {
+                    let p = output_bundle::write_enterprise_rbac_check_output(&subject, &permission)?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseRbacCommand::Export => {
+                    let p = output_bundle::write_enterprise_rbac_export_output()?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+            },
+            EnterpriseCliCommand::Auth { command } => match command {
+                EnterpriseAuthCommand::Login {
+                    client_id,
+                    device_authorization_endpoint,
+                    token_endpoint,
+                    scope,
+                } => {
+                    let p = output_bundle::write_enterprise_auth_login_output(
+                        &client_id,
+                        &device_authorization_endpoint,
+                        &token_endpoint,
+                        &scope,
+                    )?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseAuthCommand::Logout => {
+                    let p = output_bundle::write_enterprise_auth_logout_output()?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseAuthCommand::Status => {
+                    let p = output_bundle::write_enterprise_auth_status_output()?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+            },
+            EnterpriseCliCommand::Sinks { command } => match command {
+                EnterpriseSinksCommand::SendTest {
+                    sink,
+                    endpoint,
+                    token,
+                } => {
+                    let p = output_bundle::write_enterprise_sinks_send_test_output(
+                        &sink, &endpoint, &token,
+                    )?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+            },
+            EnterpriseCliCommand::OTel { command } => match command {
+                EnterpriseOtelCommand::Export { endpoint } => {
+                    let p = output_bundle::write_enterprise_otel_export_output(&endpoint)?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+            },
+            EnterpriseCliCommand::ReleaseAttestation { command } => match command {
+                EnterpriseReleaseAttestationCommand::Sign { artifact } => {
+                    let p =
+                        output_bundle::write_enterprise_release_attestation_sign_output(&artifact)?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseReleaseAttestationCommand::Verify {
+                    artifact,
+                    signature,
+                    public_key,
+                } => {
+                    let p = output_bundle::write_enterprise_release_attestation_verify_output(
+                        &artifact,
+                        &signature,
+                        &public_key,
+                    )?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterpriseReleaseAttestationCommand::Sbom => {
+                    let p = output_bundle::write_enterprise_release_attestation_sbom_output()?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+            },
+            EnterpriseCliCommand::PolicyApi { command } => match command {
+                EnterprisePolicyApiCommand::Evaluate { policy, input } => {
+                    let p = output_bundle::write_enterprise_policy_api_evaluate_output(
+                        &policy, &input,
+                    )?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+                EnterprisePolicyApiCommand::Validate { policy } => {
+                    let p = output_bundle::write_enterprise_policy_api_validate_output(&policy)?;
+                    print_output_path(p);
+                    Ok(0)
+                }
+            },
+            EnterpriseCliCommand::AuthStatus => {
+                let p = output_bundle::write_enterprise_auth_output()?;
+                print_output_path(p);
+                Ok(0)
+            }
+            EnterpriseCliCommand::AuditEvents => {
+                let p = output_bundle::write_enterprise_audit_events_output()?;
+                print_output_path(p);
+                Ok(0)
+            }
+            EnterpriseCliCommand::TrustCenter => {
+                let p = output_bundle::write_enterprise_trust_center_output()?;
+                print_output_path(p);
+                Ok(0)
+            }
+            EnterpriseCliCommand::ReleaseAttestationStatus => {
+                let p = output_bundle::write_enterprise_release_attestation_output()?;
+                print_output_path(p);
+                Ok(0)
+            }
+            EnterpriseCliCommand::OTelStatus => {
+                let p = output_bundle::write_enterprise_otel_output()?;
+                print_output_path(p);
+                Ok(0)
+            }
+            EnterpriseCliCommand::SinksStatus => {
+                let p = output_bundle::write_enterprise_sinks_output()?;
+                print_output_path(p);
+                Ok(0)
+            }
+            EnterpriseCliCommand::PolicyApiStatus => {
+                let p = output_bundle::write_enterprise_policy_api_output()?;
+                print_output_path(p);
+                Ok(0)
+            }
+            EnterpriseCliCommand::References => {
+                let p = output_bundle::write_enterprise_references_output()?;
+                print_output_path(p);
+                Ok(0)
+            }
+        },
         TopLevel::Ux { command } => match command {
             UxCliCommand::Api => {
                 let p = output_bundle::write_ux_api_output()?;
@@ -1702,6 +2174,9 @@ fn main() -> ExitCode {
     if let Some(id) = &cli.id {
         std::env::set_var("SEALRUN_OUTPUT_ID", id);
         std::env::set_var("AION_OUTPUT_ID", id);
+    }
+    if let Some(tenant) = &cli.tenant {
+        std::env::set_var("SEALRUN_TENANT", tenant);
     }
     let k = InProcessKernel;
     let r = dispatch(cli, &k);

@@ -48,3 +48,27 @@ SealRun extends kernel determinism with enterprise-grade contracts across govern
 - `ux`
 - `tests`
 - `measure`
+- `enterprise`
+
+## Enterprise CLI (new)
+
+```bash
+sealrun enterprise tenants list
+sealrun enterprise lifecycle retention get --tenant <id>
+sealrun enterprise rbac export
+sealrun enterprise auth status
+sealrun enterprise sinks send-test --sink splunk --endpoint <url> --token <token>
+sealrun enterprise otel export --endpoint <url>
+sealrun enterprise release-attestation sbom
+sealrun enterprise policy-api validate --policy policy.json
+```
+
+Detailed docs:
+
+- [Multi-tenancy](../multi-tenancy.md)
+- [Lifecycle controls](../lifecycle-controls.md)
+- [RBAC](../rbac.md)
+- [OIDC auth](../oidc-auth.md)
+- [SIEM and OTel](../siem-otel.md)
+- [Release attestation](../release-attestation.md)
+- [Policy engine](../policy-engine.md)

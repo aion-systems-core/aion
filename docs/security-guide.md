@@ -60,3 +60,10 @@ sealrun measure evidence
 
 - Security teams should consume JSON envelopes as primary control evidence.
 - Governance and measurement outputs should be archived for external audits.
+
+## Enterprise access and identity controls
+
+- OIDC device-code login is available through `sealrun enterprise auth login`.
+- RBAC is evaluated from a YAML policy file with roles: `admin`, `auditor`, `operator`, `viewer`.
+- Tenant isolation is enforced in enterprise storage indexes (capsules and evidence are tenant-scoped).
+- SIEM/OTel exports are available for centralized SOC pipelines.

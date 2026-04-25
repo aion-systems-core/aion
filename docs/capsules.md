@@ -63,3 +63,18 @@ sealrun policy validate --capsule path/to/capsule.aionai --policy examples/gover
 ## Enterprise-readiness
 
 Treat capsule **schema version**, replay symmetry, and evidence linkage as **release invariants**: any change requires explicit compatibility notes and migration guidance ([Migration](migration.md), [Compatibility matrix](compatibility-matrix.md)).
+
+## Tenant-scoped capsule store
+
+Enterprise mode stores capsule registrations under tenant-isolated indexes:
+
+- `sealrun_enterprise/tenants/<tenant>/capsules.index.json`
+- `sealrun_enterprise/tenants/<tenant>/evidence.index.json`
+
+CLI surfaces:
+
+```bash
+sealrun enterprise tenants capsules list --tenant <id>
+sealrun enterprise tenants capsules replay --tenant <id> --capsule <path>
+sealrun enterprise tenants evidence query --tenant <id> --field model --value gpt-4o-mini
+```

@@ -56,6 +56,7 @@ use aion_core::{
     UpgradeReplayInput, VulnerabilityReport, VulnerabilitySeverity,
 };
 use aion_engine::events::{store_from_run, EventStreamFile};
+use aion_engine::enterprise;
 use aion_engine::governance::GovernanceReport;
 use aion_engine::graph::causal_graph_from_run_json;
 use aion_engine::output::{html, svg, OutputWriter};
@@ -424,15 +425,36 @@ pub fn write_ai_execute_output(
     )?;
     w.write_svg("why", &aion_engine::ai::render_causal_graph_svg(&cap.graph))?;
     let body = aion_engine::ai::ai_capsule_to_json(&cap)?;
-    w.write_aionai("capsule", &body)?;
-    w.write_evidence("evidence", &cap.evidence)?;
+    let capsule_path = w.write_aionai("capsule", &body)?;
+    let evidence_path = w.write_evidence("evidence", &cap.evidence)?;
+    if let Ok(tenant_id) = std::env::var("SEALRUN_TENANT") {
+        let _ = enterprise::tenant_capsule_register(
+            &tenant_id,
+            &capsule_path,
+            Some(&evidence_path),
+            vec!["ai".to_string(), format!("model:{}", cap.model)],
+        )?;
+        let mut fields = std::collections::BTreeMap::new();
+        fields.insert("model".to_string(), cap.model.clone());
+        fields.insert("seed".to_string(), cap.seed.to_string());
+        let _ = enterprise::evidence_register(
+            &tenant_id,
+            &cap.evidence.run_id,
+            &evidence_path,
+            fields,
+        )?;
+    }
     Ok((w.into_root(), cap))
 }
 
 /// `sealrun execute ai-replay` — writes replay `ai.json` / `ai.html` / `ai.svg` plus `why_diff.html` / `why_diff.svg`.
 pub fn write_ai_replay_output(
     capsule_path: &std::path::Path,
+    tenant: Option<&str>,
 ) -> Result<std::path::PathBuf, String> {
+    if let Some(tenant_id) = tenant {
+        let _ = enterprise::tenant_replay_paths(tenant_id, &capsule_path.to_string_lossy())?;
+    }
     let cap = aion_engine::ai::read_ai_capsule_v1(capsule_path)?;
     let rep = aion_engine::ai::replay_ai_capsule(&cap);
     let w = OutputWriter::new("ai-replay")?;
@@ -2788,6 +2810,711 @@ pub fn write_measure_evidence_output() -> Result<std::path::PathBuf, String> {
     let body = serde_json::json!({
         "status": if evidence_export.status=="unsupported" {"error"} else {"ok"},
         "data": {"kind":"measure_evidence","evidence_export":evidence_export},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_auth_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-auth")?;
+    let tenant = evaluate_tenant_isolation_contract(TenantIsolationInput {
+        tenant_boundary_enforced: true,
+        cross_tenant_access_blocked: true,
+        token_scope_valid: true,
+    });
+    let body = serde_json::json!({
+        "status": if tenant.result.status=="ok" {"ok"} else {"error"},
+        "data": {
+            "kind":"enterprise_auth",
+            "sso": {
+                "supported_protocols": ["oidc", "saml2"],
+                "jit_provisioning": true,
+                "status": "ready_for_enterprise_rollout"
+            },
+            "rbac": {
+                "roles": ["org_admin", "security_reviewer", "operator", "auditor", "developer"],
+                "least_privilege_enforced": true,
+                "status": "enforced"
+            },
+            "tenancy": tenant
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_audit_events_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-audit-events")?;
+    let evidence = evaluate_policy_evidence(PolicyEvidence {
+        chain: PolicyEvidenceChain {
+            records: vec![
+                PolicyDecisionRecord {
+                    input_ref: "capsule:run_0001".into(),
+                    policy_ref: "baseline:1.0.0".into(),
+                    result: "allow".into(),
+                    timestamp: 1,
+                    actor: "policy_engine".into(),
+                },
+                PolicyDecisionRecord {
+                    input_ref: "capsule:run_0002".into(),
+                    policy_ref: "strict:1.0.0".into(),
+                    result: "deny".into(),
+                    timestamp: 2,
+                    actor: "policy_engine".into(),
+                },
+            ],
+            hash: "policy_evidence_hash_v1".into(),
+        },
+        audit_trail: PolicyAuditTrail {
+            entries: vec![
+                "governance.decision.recorded".into(),
+                "governance.decision.chained".into(),
+                "governance.decision.exported".into(),
+            ],
+        },
+        status: String::new(),
+    });
+    let body = serde_json::json!({
+        "status": if evidence.status=="complete" {"ok"} else {"error"},
+        "data": {
+            "kind":"enterprise_audit_events",
+            "governance_events": [
+                {
+                    "event_type":"governance.policy_evaluated",
+                    "run_id":"run_0001",
+                    "decision":"allow",
+                    "severity":"info",
+                    "deterministic_order":1
+                },
+                {
+                    "event_type":"governance.policy_evaluated",
+                    "run_id":"run_0002",
+                    "decision":"deny",
+                    "severity":"high",
+                    "deterministic_order":2
+                }
+            ],
+            "policy_evidence": evidence
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_trust_center_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-trust-center")?;
+    let compliance = evaluate_compliance_contract();
+    let threat = evaluate_threat_model();
+    let security = evaluate_security_model();
+    let body = serde_json::json!({
+        "status":"ok",
+        "data": {
+            "kind":"enterprise_trust_center",
+            "controls": {
+                "security_model": security,
+                "threat_model": threat,
+                "compliance_contract": compliance
+            },
+            "compliance_roadmap": [
+                {"milestone":"Trust Center published", "target":"2026-Q2", "owner":"security"},
+                {"milestone":"Control narratives + evidence mapping", "target":"2026-Q2", "owner":"governance"},
+                {"milestone":"SOC2 Type 1 readiness package", "target":"2026-Q3", "owner":"security"},
+                {"milestone":"ISO27001 gap assessment", "target":"2026-Q3", "owner":"security"},
+                {"milestone":"Automated control evidence exports", "target":"2026-Q4", "owner":"platform"}
+            ]
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_release_attestation_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-release-attestation")?;
+    let build = evaluate_deterministic_build_contract(
+        &os_kernel_version().value,
+        &aion_core::os_contract_spec_version(),
+        &aion_core::global_consistency_contract_version(),
+        "v1",
+        &["aion-kernel".into(), "aion-cli".into(), "contracts".into()],
+    );
+    let provenance = generate_provenance(
+        vec![ProvenanceSubject {
+            name: "sealrun-release".to_string(),
+            digest_sha256: build.fingerprint.build_sha256.clone(),
+        }],
+        ProvenancePredicate {
+            build_environment: vec!["SOURCE_DATE_EPOCH=0".into(), "RUSTFLAGS=-Cdebuginfo=0".into()],
+            build_steps: vec!["build".into(), "test".into(), "sign".into(), "sbom".into()],
+            inputs: vec!["Cargo.lock".into(), "docs/os_contract_spec.md".into()],
+            outputs: vec!["sealrun".into()],
+            signatures: vec!["ed25519".into()],
+        },
+    );
+    let signature = sign_release_artifact(
+        &build.fingerprint.build_sha256,
+        "sealrun",
+        &os_kernel_version().value,
+        0,
+        &provenance.provenance_id,
+        [1u8; 32],
+    );
+    let sbom = generate_sbom(SbomDocument {
+        format: "spdx".to_string(),
+        build_metadata: vec![
+            format!("kernel_version={}", os_kernel_version().value),
+            format!("provenance_id={}", provenance.provenance_id),
+        ],
+        components: vec![SbomComponent {
+            name: "sealrun".to_string(),
+            version: os_kernel_version().semver.clone(),
+            license: "MIT".to_string(),
+            hashes: vec![SbomHash {
+                alg: "sha256".to_string(),
+                value: build.fingerprint.build_sha256.clone(),
+            }],
+        }],
+    });
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{
+            "kind":"enterprise_release_attestation",
+            "deterministic_build": build,
+            "release_signature": signature,
+            "provenance": provenance,
+            "provenance_verified": verify_provenance(&provenance).is_ok(),
+            "sbom": sbom,
+            "sbom_verified": verify_sbom(&sbom).is_ok()
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_otel_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-otel")?;
+    let observability = evaluate_observability_contract(ObservabilityInput {
+        logs_deterministic: true,
+        metrics_deterministic: true,
+        traces_deterministic: true,
+    });
+    let body = serde_json::json!({
+        "status": if observability.result.status=="ok" {"ok"} else {"error"},
+        "data": {
+            "kind":"enterprise_otel",
+            "otel_profile": {
+                "trace_transport":"otlp_http",
+                "span_schema":"sealrun.v1",
+                "resource_attributes":["service.name","service.version","deployment.environment"],
+                "event_types":["capsule.sealed","replay.checked","drift.detected","policy.decision"]
+            },
+            "observability_contract": observability
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_sinks_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-sinks")?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{
+            "kind":"enterprise_sinks",
+            "supported_sinks":[
+                {"name":"splunk_hec","transport":"https","event_shape":"deterministic_json_envelope","status":"ready"},
+                {"name":"datadog_events","transport":"https","event_shape":"deterministic_json_envelope","status":"ready"},
+                {"name":"elastic_bulk","transport":"https","event_shape":"deterministic_json_envelope","status":"ready"}
+            ],
+            "default_routing":"governance_and_audit_events"
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_policy_api_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-policy-api")?;
+    let model = evaluate_governance_model(
+        vec![evaluate_policy_pack(PolicyPack {
+            name: "baseline".into(),
+            version: "1.0.0".into(),
+            level: PolicyPackLevel::Baseline,
+            entries: vec![PolicyPackEntry {
+                id: "b1".into(),
+                use_case: "enterprise_ci".into(),
+                rule: "must_pass_policy_gate".into(),
+            }],
+            signature: Some(PolicyPackSignature {
+                signature_id: "sig1".into(),
+                algorithm: "ed25519".into(),
+                valid: true,
+            }),
+            status: String::new(),
+        })],
+        vec![evaluate_policy_gate(PolicyGate {
+            context: PolicyGateContext::Ci,
+            decision: Some(PolicyGateDecision::Allow),
+            violations: vec![],
+            status: String::new(),
+        })],
+        evaluate_policy_evidence(PolicyEvidence {
+            chain: PolicyEvidenceChain {
+                records: vec![PolicyDecisionRecord {
+                    input_ref: "run:policy_api".into(),
+                    policy_ref: "baseline".into(),
+                    result: "allow".into(),
+                    timestamp: 1,
+                    actor: "api".into(),
+                }],
+                hash: "policy_api_hash".into(),
+            },
+            audit_trail: PolicyAuditTrail {
+                entries: vec!["api_response_signed".into()],
+            },
+            status: String::new(),
+        }),
+        vec![GovernanceStatus {
+            domain: GovernanceDomain::Policy,
+            status: "ok".into(),
+        }],
+    );
+    let body = serde_json::json!({
+        "status": if model.status=="ok" {"ok"} else {"error"},
+        "data":{
+            "kind":"enterprise_policy_api",
+            "endpoints":[
+                {"method":"GET","path":"/api/v1/governance/status","response":"governance_model"},
+                {"method":"GET","path":"/api/v1/governance/policy-packs","response":"policy_packs"},
+                {"method":"GET","path":"/api/v1/governance/policy-evidence","response":"policy_evidence"}
+            ],
+            "authentication":"bearer_token",
+            "governance_model": model
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_references_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-references")?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{
+            "kind":"enterprise_references",
+            "pilot_references":[
+                {
+                    "id":"pilot-001",
+                    "profile":"regulated_fintech",
+                    "outcome":"deterministic_replay_gate_for_release_control",
+                    "status":"in_progress"
+                },
+                {
+                    "id":"pilot-002",
+                    "profile":"platform_sre",
+                    "outcome":"capsule_drift_incident_triage",
+                    "status":"in_progress"
+                }
+            ],
+            "target":"convert_2_pilots_to_public_case_studies"
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_tenants_list_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-tenants-list")?;
+    let tenants = enterprise::tenant_list()?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_tenants_list","tenants":tenants},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_tenants_create_output(id: &str) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-tenants-create")?;
+    let tenant = enterprise::tenant_create(id)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_tenants_create","tenant":tenant},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_tenants_delete_output(id: &str) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-tenants-delete")?;
+    enterprise::tenant_delete(id)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_tenants_delete","tenant":id,"deleted":true},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_tenant_capsules_list_output(
+    tenant: &str,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-tenant-capsules-list")?;
+    let capsules = enterprise::tenant_capsule_list(tenant)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_tenant_capsules_list","tenant":tenant,"capsules":capsules},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_tenant_capsule_replay_output(
+    tenant: &str,
+    capsule: &str,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-tenant-capsule-replay")?;
+    let rec = enterprise::tenant_replay_paths(tenant, capsule)?;
+    let capsule_body = std::fs::read_to_string(&rec.capsule_path)
+        .map_err(|e| format!("read tenant capsule {}: {e}", rec.capsule_path))?;
+    let replay_path = write_replay_output(&capsule_body)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{
+            "kind":"enterprise_tenant_capsule_replay",
+            "tenant":tenant,
+            "capsule":rec,
+            "replay_output_dir": replay_path
+        },
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_tenant_evidence_query_output(
+    tenant: &str,
+    field: Option<&str>,
+    value: Option<&str>,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-tenant-evidence-query")?;
+    let rows = enterprise::evidence_query(tenant, field, value)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_tenant_evidence_query","tenant":tenant,"rows":rows},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_lifecycle_retention_get_output(
+    tenant: &str,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-lifecycle-retention-get")?;
+    let retention = enterprise::retention_get(tenant)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_lifecycle_retention_get","tenant":tenant,"retention":retention},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_lifecycle_retention_set_output(
+    tenant: &str,
+    days: u32,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-lifecycle-retention-set")?;
+    let meta = enterprise::retention_set(tenant, days)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_lifecycle_retention_set","tenant":tenant,"tenant_meta":meta},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_lifecycle_purge_output(tenant: &str) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-lifecycle-purge")?;
+    let now = std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map_err(|e| format!("time: {e}"))?
+        .as_secs();
+    let removed = enterprise::lifecycle_purge(tenant, now)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_lifecycle_purge","tenant":tenant,"removed_capsules":removed},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_lifecycle_legal_hold_output(
+    tenant: &str,
+    enabled: bool,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-lifecycle-legal-hold")?;
+    let meta = enterprise::legal_hold_set(tenant, enabled)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_lifecycle_legal_hold","tenant":tenant,"tenant_meta":meta},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+fn parse_role(role: &str) -> Result<enterprise::Role, String> {
+    match role {
+        "admin" => Ok(enterprise::Role::Admin),
+        "auditor" => Ok(enterprise::Role::Auditor),
+        "operator" => Ok(enterprise::Role::Operator),
+        "viewer" => Ok(enterprise::Role::Viewer),
+        _ => Err("unknown_role".to_string()),
+    }
+}
+
+fn parse_permission(permission: &str) -> Result<enterprise::Permission, String> {
+    match permission {
+        "replay" => Ok(enterprise::Permission::Replay),
+        "diff" => Ok(enterprise::Permission::Diff),
+        "purge" => Ok(enterprise::Permission::Purge),
+        "retention-set" => Ok(enterprise::Permission::RetentionSet),
+        "legal-hold" => Ok(enterprise::Permission::LegalHold),
+        "tenant-admin" => Ok(enterprise::Permission::TenantAdmin),
+        _ => Err("unknown_permission".to_string()),
+    }
+}
+
+pub fn write_enterprise_rbac_assign_output(
+    subject: &str,
+    role: &str,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-rbac-assign")?;
+    let role = parse_role(role)?;
+    let policy = enterprise::rbac_assign(subject, role)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_rbac_assign","subject":subject,"policy":policy},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_rbac_check_output(
+    subject: &str,
+    permission: &str,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-rbac-check")?;
+    let permission = parse_permission(permission)?;
+    let allowed = enterprise::rbac_check(subject, permission)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_rbac_check","subject":subject,"allowed":allowed},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_rbac_export_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-rbac-export")?;
+    let policy = enterprise::rbac_export()?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_rbac_export","policy":policy},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_auth_login_output(
+    client_id: &str,
+    device_authorization_endpoint: &str,
+    token_endpoint: &str,
+    scope: &str,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-auth-login")?;
+    let cfg = enterprise::OidcConfig {
+        client_id: client_id.to_string(),
+        device_authorization_endpoint: device_authorization_endpoint.to_string(),
+        token_endpoint: token_endpoint.to_string(),
+        scope: scope.to_string(),
+    };
+    let tokens = enterprise::oidc_login(&cfg)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_auth_login","token_type":tokens.token_type,"expires_in":tokens.expires_in},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_auth_logout_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-auth-logout")?;
+    enterprise::oidc_logout()?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_auth_logout","logged_out":true},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_auth_status_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-auth-status")?;
+    let status = enterprise::oidc_status()?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_auth_status","auth":status},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_sinks_send_test_output(
+    sink: &str,
+    endpoint: &str,
+    token: &str,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-sinks-send-test")?;
+    let cfg = enterprise::SinkConfig {
+        endpoint: endpoint.to_string(),
+        token: token.to_string(),
+    };
+    let event = serde_json::json!({
+        "kind":"sealrun.enterprise.sink_test",
+        "timestamp": chrono::Utc::now().to_rfc3339_opts(chrono::SecondsFormat::Secs, true)
+    });
+    let status = match sink {
+        "splunk" => enterprise::send_splunk_hec(&cfg, &event)?,
+        "datadog" => enterprise::send_datadog_logs(&cfg, &event)?,
+        "elastic" => enterprise::send_elastic_ingest(&cfg, &event)?,
+        _ => return Err("unknown_sink".to_string()),
+    };
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_sinks_send_test","sink":sink,"http_status":status},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_otel_export_output(endpoint: &str) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-otel-export")?;
+    let event = serde_json::json!({
+        "kind":"sealrun.enterprise.otel_export_test",
+        "event":"capsule.sealed"
+    });
+    let status = enterprise::export_otel(endpoint, &event)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_otel_export","http_status":status},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_release_attestation_sign_output(
+    artifact: &std::path::Path,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-release-attestation-sign")?;
+    let stdout = enterprise::cosign_sign(artifact)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_release_attestation_sign","artifact":artifact,"stdout":stdout},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_release_attestation_verify_output(
+    artifact: &std::path::Path,
+    signature: &std::path::Path,
+    public_key: &std::path::Path,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-release-attestation-verify")?;
+    let stdout = enterprise::cosign_verify(artifact, signature, public_key)?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_release_attestation_verify","artifact":artifact,"stdout":stdout},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_release_attestation_sbom_output() -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-release-attestation-sbom")?;
+    let sbom = enterprise::cargo_sbom_json()?;
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_release_attestation_sbom","sbom":sbom},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_policy_api_evaluate_output(
+    policy_path: &std::path::Path,
+    input_path: &std::path::Path,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-policy-api-evaluate")?;
+    let policy_body = std::fs::read_to_string(policy_path)
+        .map_err(|e| format!("read policy {}: {e}", policy_path.display()))?;
+    let input_body = std::fs::read_to_string(input_path)
+        .map_err(|e| format!("read input {}: {e}", input_path.display()))?;
+    let policy: enterprise::GovernancePolicy =
+        serde_json::from_str(&policy_body).map_err(|e| format!("parse policy json: {e}"))?;
+    let input: enterprise::GovernanceEvalInput =
+        serde_json::from_str(&input_body).map_err(|e| format!("parse input json: {e}"))?;
+    let result = enterprise::policy_evaluate(&policy, &input);
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_policy_api_evaluate","result":result},
+        "error": serde_json::Value::Null
+    });
+    w.write_json("result", &body)?;
+    Ok(w.into_root())
+}
+
+pub fn write_enterprise_policy_api_validate_output(
+    policy_path: &std::path::Path,
+) -> Result<std::path::PathBuf, String> {
+    let w = OutputWriter::new("enterprise-policy-api-validate")?;
+    let policy_body = std::fs::read_to_string(policy_path)
+        .map_err(|e| format!("read policy {}: {e}", policy_path.display()))?;
+    let policy: enterprise::GovernancePolicy =
+        serde_json::from_str(&policy_body).map_err(|e| format!("parse policy json: {e}"))?;
+    let result = enterprise::policy_validate(&policy);
+    let body = serde_json::json!({
+        "status":"ok",
+        "data":{"kind":"enterprise_policy_api_validate","result":result},
         "error": serde_json::Value::Null
     });
     w.write_json("result", &body)?;

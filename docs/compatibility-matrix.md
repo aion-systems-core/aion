@@ -19,6 +19,10 @@ This matrix summarizes core version anchors for deterministic compatibility in S
 | AI capsule schema | `version = "1"` |
 | Why schema | `why_schema_version = "2"` |
 | Governance policy version | `policy_version = "1"` |
+| RBAC policy file | `rbac.policy.yaml` (enterprise) |
+| Tenant metadata schema | `tenant.json` (enterprise) |
+| Capsule index schema | `capsules.index.json` (enterprise) |
+| Evidence index schema | `evidence.index.json` (enterprise) |
 
 ## Upgrade guidance
 
