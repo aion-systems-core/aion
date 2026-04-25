@@ -23,6 +23,7 @@ This matrix summarizes core version anchors for deterministic compatibility in S
 | Tenant metadata schema | `tenant.json` (enterprise) |
 | Capsule index schema | `capsules.index.json` (enterprise) |
 | Evidence index schema | `evidence.index.json` (enterprise) |
+| Ecosystem integration guides | `docs/integrations/*.md` |
 
 ## Upgrade guidance
 
@@ -40,3 +41,12 @@ sealrun dist identity
 ## Enterprise-readiness
 
 Compatibility is enterprise-ready when supported version combinations remain deterministic, documented, and test-covered.
+
+## Integration readiness
+
+Documented integration scaffolds are maintained for:
+
+- HuggingFace
+- LangChain
+- Modal
+- BentoML

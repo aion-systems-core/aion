@@ -67,3 +67,15 @@ sealrun measure evidence
 - RBAC is evaluated from a YAML policy file with roles: `admin`, `auditor`, `operator`, `viewer`.
 - Tenant isolation is enforced in enterprise storage indexes (capsules and evidence are tenant-scoped).
 - SIEM/OTel exports are available for centralized SOC pipelines.
+
+## Supply-chain and release integrity
+
+- Release attestation supports Cosign sign/verify workflows.
+- SBOM generation is documented via `cargo sbom` integration.
+- Attestation evidence should be archived with release records.
+
+## OIDC and session controls
+
+- Device-code login is the canonical CLI auth flow.
+- Auth status and logout must be included in operational checklists.
+- Tokens are local-session artifacts and should be protected by endpoint controls.

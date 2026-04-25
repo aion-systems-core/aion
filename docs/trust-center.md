@@ -40,6 +40,19 @@ This document is the public trust-center baseline for SealRun enterprise program
 - SIEM + OTel: test pipelines for Splunk/Datadog/Elastic and OTLP export
 - Release attestations: Cosign/Sigstore integration plus `cargo sbom`
 
+## Policies and runbooks
+
+- Policies: `docs/policies/`
+- Runbooks: `docs/runbooks/`
+- SLA and escalation: `docs/sla.md`, `docs/support-escalation-path.md`
+- Status communication template: `docs/status-page-template.md`
+
+## Compliance references
+
+- Controls matrix: `docs/compliance/controls-matrix.md`
+- ISO Annex A mapping: `docs/compliance/iso27001-annex-a-mapping.md`
+- Security whitepaper: `docs/security-whitepaper.md`
+
 ## Shared responsibility
 
 SealRun is an execution contract layer, not a host isolation layer.

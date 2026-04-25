@@ -62,6 +62,13 @@ sealrun enterprise lifecycle purge --tenant acme
 
 Purge is blocked when legal hold is enabled. Operations teams should use legal hold before investigations or audits.
 
+## SRE workflows and escalation
+
+- Incident playbooks are in `docs/runbooks/`.
+- Severity handling and timing targets are in `docs/sla.md`.
+- Handoff and ownership progression are in `docs/support-escalation-path.md`.
+- Public communication format is in `docs/status-page-template.md`.
+
 ## Finality and readiness
 
 Operational **readiness** is the conjunction of: stable contract snapshots, successful replay on reference workloads, acceptable drift against baselines, and no critical gaps in `doctor` and measurement outputs. Exact finality fields are defined in [OS contract spec](os_contract_spec.md).
