@@ -48,6 +48,12 @@ This index lists **canonical** Markdown hubs. Prefer linking here and to the [Tr
 | Pilot Readiness Pack index | [enterprise/pilot/procurement-mini-pack.md](enterprise/pilot/procurement-mini-pack.md) |
 | Success criteria | [enterprise/pilot/success-criteria.md](enterprise/pilot/success-criteria.md) |
 | Hands-on pilot steps | [enterprise/pilot/00_install.md](enterprise/pilot/00_install.md) (sequence `00`–`06`) |
+| Onboarding email (template) | [enterprise/pilot/ONBOARDING_EMAIL.md](enterprise/pilot/ONBOARDING_EMAIL.md) |
+| Pilot one pager | [enterprise/pilot/PILOT_ONE_PAGER.md](enterprise/pilot/PILOT_ONE_PAGER.md) |
+| Evaluation report template | [enterprise/pilot/EVAL_REPORT_TEMPLATE.md](enterprise/pilot/EVAL_REPORT_TEMPLATE.md) |
+| Release zip / CST checklist | [enterprise/pilot/zip-new-cst.md](enterprise/pilot/zip-new-cst.md) |
+| DSj12 ship checklist | [enterprise/pilot/DSj12-checklist.md](enterprise/pilot/DSj12-checklist.md) |
+| Deploy entry (`README_DEPLOY`) | [../README_DEPLOY.md](../README_DEPLOY.md) |
 
 ## Compliance, policies, runbooks
 
