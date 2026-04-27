@@ -1,0 +1,1 @@
+{"args": ["--cmd", "echo hello"], "command": "exec", "evidence": {"policy_id": "fixture-policy", "trace_id": "fixture-trace"}, "name": "sealrun_ai_fixture", "output": "hello", "version": "1"}
