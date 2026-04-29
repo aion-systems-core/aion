@@ -3,6 +3,8 @@
 SealRun is open source under the [MIT License](../LICENSE).  
 Commercial packages are optional and intended for teams with compliance, audit, or governance requirements.
 
+Price indicators for future V2 based on current estimations. Pilot partners receive individual conditions and influence the development.
+
 ## Community support (free)
 
 - **Channel:** GitHub Issues and Discussions  
@@ -60,6 +62,7 @@ For larger teams, compliance groups, and regulated industries.
 
 ## Pilot program (limited)
 
+8 Weeks Pilot program (free) after that: 
 **EUR 2,900 for 6 months**, limited to the **first 3 teams**.
 
 Includes:
